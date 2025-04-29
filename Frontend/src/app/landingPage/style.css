@@ -114,7 +114,6 @@ body {
 
 /* Modal */
 .modal {
-    display: none;
     position: fixed;
     z-index: 1000;
     padding-top: 100px;
