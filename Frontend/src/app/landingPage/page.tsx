@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import "./style.css";
 export default function HomePage() {
   const [modalOpen, setModalOpen] = useState(false);
@@ -26,10 +27,13 @@ export default function HomePage() {
       <main className="hero-section">
         <div className="container hero-grid">
           <div className="hero-content">
-            <img
-              src="https://images.unsplash.com/photo-1506744038136-46273834b3fb"
+            <Image
+              //"https://images.unsplash.com/photo-1506744038136-46273834b3fb"
+              src="/images/Landing-Page.jpeg"
               alt="Flowers"
               className="hero-image-circle"
+              width={150}
+              height={160}
             />
             <h1 className="hero-title">Welcome to Resilience</h1>
             <p className="hero-description">
