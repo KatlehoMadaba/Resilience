@@ -8,7 +8,7 @@ import styles from "./login-page.module.css";
 import { useAuthState } from "@/providers/auth-provider";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
-import  LoginForm from "../../../components/login-form/page";
+import  LoginForm from "../../../components/login-form/LoginForm";
 import React from "react";
 const { Title } = Typography;
 
