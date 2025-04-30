@@ -17,6 +17,7 @@ namespace Resilience.Services.MedicalAAppServices
     {
         public MedicalFacilityAppService(IRepository<MedicalFacility, Guid> repository) : base(repository)
         {
+
         }
         public override async Task<PagedResultDto<MedicalFacilityDto>> GetAllAsync(PagedAndSortedResultRequestDto input)
         {
