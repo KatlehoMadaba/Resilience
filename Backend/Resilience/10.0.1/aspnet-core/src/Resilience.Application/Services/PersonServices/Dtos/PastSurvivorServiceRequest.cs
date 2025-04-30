@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Resilience.Services.PersonServices
+namespace Resilience.Services.PersonServices.Dtos
 {
-    public interface IImmediateSurvivor
+    public class PastSurvivorServiceRequest
     {
-
     }
 }
