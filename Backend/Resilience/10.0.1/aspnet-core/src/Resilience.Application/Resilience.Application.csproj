@@ -16,7 +16,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Services\ChecklistServices\Dtos\" />
-    <Folder Include="Services\PersonServices\Dtos\" />
     <Folder Include="Services\ProgressTrackerServices\Dtos\" />
     <Folder Include="Services\ReportsServices\Dtos\" />
     <Folder Include="Services\StoryServices\Dtos\" />
