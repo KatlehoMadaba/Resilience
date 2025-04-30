@@ -1,4 +1,13 @@
 /* login-page.module.css */
+
+:root {
+    --color-primary: #38512f;
+    --color-bg-base: #fef5e7;
+}
+
+.page {
+    background: var(--color-bg-base);
+}
 .page {
     min-height: 100vh;
     display: flex;

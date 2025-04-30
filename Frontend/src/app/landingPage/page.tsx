@@ -3,8 +3,10 @@
 import { useState } from "react";
 import Image from "next/image";
 import "./style.css";
+import { useRouter } from "next/navigation";
 export default function HomePage() {
   const [modalOpen, setModalOpen] = useState(false);
+    const router = useRouter();
 
   return (
     <div className="page-container">
@@ -41,7 +43,7 @@ export default function HomePage() {
               immediate support or starting your journey, we are here for you.
             </p>
             <div className="button-group">
-              <button className="login-button">Login</button>
+              <button className="login-button" onClick={()=>router.push("/login")}>Login</button>
               <button className="signup-button">
                 Continue without Signing Up
               </button>
