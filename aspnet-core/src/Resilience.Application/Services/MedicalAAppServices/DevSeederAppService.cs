@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Abp.Application.Services;
-
+using Resilience.EntityFrameworkCore.Seed;
 namespace Resilience.Services.MedicalAAppServices
 {
     public class DevSeederAppService : ApplicationService

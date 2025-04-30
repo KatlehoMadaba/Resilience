@@ -24,22 +24,24 @@ namespace Resilience.Services.MedicalAAppServices
             try
             {
                 var queryable = await Repository.GetAllAsync();
-                var query = queryable.Where(x => x.Name != null && x.Name.Contains("Hospital"));
 
+                // Fetch data into memory first, then ensure uniqueness
+                var distinctQuery = queryable
+                    .ToList() // Execute database query first
+                    .DistinctBy(x => x.PlaceId) // Ensure uniqueness by PlaceId
+                    .OrderBy(x => x.Name) // Sort by Name
+                    .Skip(input.SkipCount) // Apply pagination
+                    .Take(input.MaxResultCount); // Limit results
 
-                var totalCount = await query.CountAsync();
-                var items = await query
-                    .OrderBy(x => x.Name)
-                    .Skip(input.SkipCount)
-                    .Take(input.MaxResultCount)
-                    .ToListAsync();
+                var totalCount = distinctQuery.Count(); // Get the total count
 
+                // Map distinct items to DTOs
                 return new PagedResultDto<MedicalFacilityDto>(
                     totalCount,
-                    ObjectMapper.Map<List<MedicalFacilityDto>>(items)
+                    ObjectMapper.Map<List<MedicalFacilityDto>>(distinctQuery)
                 );
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 throw new UserFriendlyException("GetAll failed", ex.Message);
             }

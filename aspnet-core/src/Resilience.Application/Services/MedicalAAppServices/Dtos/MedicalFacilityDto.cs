@@ -14,21 +14,8 @@ namespace Resilience.Services.MedicalAAppServices.Dtos
         public double Latitude { get; set; }
         public double Longitude { get; set; }
         public string PlaceId { get; set; }
-    }
-    public class GooglePlaceDetailsResponse
-    {
-        public GooglePlaceResult result { get; set; }
-    }
-
-    public class GooglePlaceResult
-    {
-        public string formatted_phone_number { get; set; }
-        public OpeningHours opening_hours { get; set; }
-    }
-
-    public class OpeningHours
-    {
-        public List<string> weekday_text { get; set; }
+        public string PhoneNumber { get; set; }
+        public string OperatingHours { get; set; }
     }
 
 }

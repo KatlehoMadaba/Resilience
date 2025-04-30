@@ -4,7 +4,7 @@ using Abp.Domain.Repositories;
 using Newtonsoft.Json;
 using Resilience.Domain.Medical_AssistanceRecords;
 using Resilience.ExternalServices.GooglePlaces;
-using Resilience.Services.MedicalAAppServices.Dtos;
+
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;

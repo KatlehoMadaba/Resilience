@@ -21,7 +21,6 @@
     <PackageReference Include="Volo.Abp.Data" Version="9.1.1" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Resilience.Application\Resilience.Application.csproj" />
     <ProjectReference Include="..\Resilience.Core\Resilience.Core.csproj" />
   </ItemGroup>
 </Project>
