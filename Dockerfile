@@ -4,7 +4,7 @@ WORKDIR /app
  
 COPY aspnet-core/Resilience.sln ./
 COPY aspnet-core/src/ ./src/
- 
+
 RUN dotnet restore ./src/Resilience.Web.Host/Resilience.Web.Host.csproj
 RUN dotnet publish ./src/Resilience.Web.Host/Resilience.Web.Host.csproj -c Release -o /app/publish
  
