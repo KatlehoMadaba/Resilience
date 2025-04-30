@@ -5,11 +5,9 @@ using System.Threading.Tasks;
 using Abp.Application.Services;
 using Abp.Application.Services.Dto;
 using Abp.Domain.Repositories;
-using Microsoft.EntityFrameworkCore;
-using Abp.Linq;
+using Abp.UI;
 using Resilience.Domain.Medical_AssistanceRecords;
 using Resilience.Services.MedicalAAppServices.Dtos;
-using Abp.UI;
 
 namespace Resilience.Services.MedicalAAppServices
 {
@@ -25,15 +23,14 @@ namespace Resilience.Services.MedicalAAppServices
             {
                 var queryable = await Repository.GetAllAsync();
 
-                // Fetch data into memory first, then ensure uniqueness
                 var distinctQuery = queryable
-                    .ToList() // Execute database query first
-                    .DistinctBy(x => x.PlaceId) // Ensure uniqueness by PlaceId
-                    .OrderBy(x => x.Name) // Sort by Name
-                    .Skip(input.SkipCount) // Apply pagination
-                    .Take(input.MaxResultCount); // Limit results
+                    .ToList() 
+                    .DistinctBy(x => x.PlaceId) 
+                    .OrderBy(x => x.Name)
+                    .Skip(input.SkipCount)
+                    .Take(input.MaxResultCount);
 
-                var totalCount = distinctQuery.Count(); // Get the total count
+                var totalCount = distinctQuery.Count(); 
 
                 // Map distinct items to DTOs
                 return new PagedResultDto<MedicalFacilityDto>(
