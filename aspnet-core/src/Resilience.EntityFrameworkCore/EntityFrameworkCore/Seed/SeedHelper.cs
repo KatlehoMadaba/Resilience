@@ -14,19 +14,41 @@ public static class SeedHelper
 {
     public static void SeedHostDb(IIocResolver iocResolver)
     {
-        WithDbContext<ResilienceDbContext>(iocResolver, SeedHostDb);
-    }
+        WithDbContext<ResilienceDbContext>(iocResolver, context =>
+        {
+            context.SuppressAutoSetTenantId = true;
+            var medicalFacilitySeeder = iocResolver.Resolve<MedicalFacilitySeeder>();
+            new InitialHostDbBuilder(context, medicalFacilitySeeder)
+            .CreateAsync().GetAwaiter().GetResult();
+            new DefaultTenantBuilder(context).Create();
+            new TenantRoleAndUserBuilder(context, 1).Create();
 
-    public static void SeedHostDb(ResilienceDbContext context)
+
+            medicalFacilitySeeder.SeedAsync().GetAwaiter().GetResult();
+        });
+    }
+    public static void SeedHostDb(ResilienceDbContext context, MedicalFacilitySeeder medicalFacilitySeeder)
+
     {
         context.SuppressAutoSetTenantId = true;
 
-        // Host seed
-        new InitialHostDbBuilder(context).Create();
+        new InitialHostDbBuilder(context, medicalFacilitySeeder)
+            .CreateAsync().GetAwaiter().GetResult();
 
-        // Default tenant seed (in host database).
+
         new DefaultTenantBuilder(context).Create();
         new TenantRoleAndUserBuilder(context, 1).Create();
+    }
+    public static void SeedHostDb(ResilienceDbContext context)
+    {
+        // Get the IIocResolver
+        var iocResolver = IocManager.Instance;
+
+        // Resolve the MedicalFacilitySeeder
+        var medicalFacilitySeeder = iocResolver.Resolve<MedicalFacilitySeeder>();
+
+        // Call your existing method
+        SeedHostDb(context, medicalFacilitySeeder);
     }
 
     private static void WithDbContext<TDbContext>(IIocResolver iocResolver, Action<TDbContext> contextAction)

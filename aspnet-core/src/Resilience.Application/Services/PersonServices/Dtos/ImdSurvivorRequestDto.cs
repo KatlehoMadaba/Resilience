@@ -9,6 +9,7 @@ namespace Resilience.Services.PersonServices.Dtos
     public class ImdSurvivorRequestDto
     {
         public string? AnonymousId { get; set; }
+        public bool IsAnonymous { get; set; }
         public DateTime? IncidentDate { get; set; }
         public bool HasReceivedMedicalAttention { get; set; }
         public bool HasReportedToAuthorities { get; set; }

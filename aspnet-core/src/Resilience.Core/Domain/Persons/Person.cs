@@ -24,7 +24,7 @@ namespace Resilience.Domain.Persons
         public string? SexText { get; set; }
         public string? PhoneNumber { get; set; }
         public bool IsAnonymous { get; set; }
-        public DateTime? CreatedDate { get; set; }
+        public DateTime? CreatedDate { get; set; }//move this
         public DateTime? LastLoginDate { get; set; }
         public virtual ICollection<SupportSession>? SupportSessions { get; set; }
         public virtual ICollection<Report>? Reports { get; set; }
