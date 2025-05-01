@@ -1,42 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Abp.Application.Services;
+﻿using Abp.Application.Services;
 using Abp.Application.Services.Dto;
 using Abp.Domain.Repositories;
+using Abp.ObjectMapping;
 using Abp.UI;
 using Resilience.Domain.Medical_AssistanceRecords;
 using Resilience.Services.MedicalAAppServices.Dtos;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Resilience.Services.MedicalAAppServices
 {
     public class MedicalFacilityAppService : AsyncCrudAppService<MedicalFacility, MedicalFacilityDto, Guid>
     {
-        public MedicalFacilityAppService(IRepository<MedicalFacility, Guid> repository) : base(repository)
+        private readonly MedicalFacilityManager _medicalFacilityManager;
+        private readonly IObjectMapper _objectMapper;
+        private readonly IRepository<MedicalFacility, Guid> _repository;
+        public MedicalFacilityAppService( IRepository<MedicalFacility, Guid> repository, MedicalFacilityManager medicalFacilityManager, IObjectMapper ObjectMapper) :base(repository)
         {
-
+            _medicalFacilityManager= medicalFacilityManager;
+            _objectMapper = ObjectMapper;
         }
         public override async Task<PagedResultDto<MedicalFacilityDto>> GetAllAsync(PagedAndSortedResultRequestDto input)
         {
             try
             {
-                var queryable = await Repository.GetAllAsync();
-
-                var distinctQuery = queryable
-                    .ToList() 
-                    .DistinctBy(x => x.PlaceId) 
-                    .OrderBy(x => x.Name)
-                    .Skip(input.SkipCount)
-                    .Take(input.MaxResultCount);
-
-                var totalCount = distinctQuery.Count(); 
-
-                // Map distinct items to DTOs
-                return new PagedResultDto<MedicalFacilityDto>(
-                    totalCount,
-                    ObjectMapper.Map<List<MedicalFacilityDto>>(distinctQuery)
-                );
+                var facilities = await _medicalFacilityManager.GetPagedDistinctMedicalFacilitiesAsync(input.SkipCount, input.MaxResultCount);
+                var totalCount = await _medicalFacilityManager.GetDistinctCountAsync();
+                var dtos = _objectMapper.Map<List<MedicalFacilityDto>>(facilities);
+                return new PagedResultDto<MedicalFacilityDto>(totalCount, dtos);
             }
             catch (Exception ex)
             {

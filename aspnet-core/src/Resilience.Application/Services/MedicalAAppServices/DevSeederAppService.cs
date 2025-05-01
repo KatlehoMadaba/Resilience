@@ -5,16 +5,19 @@ namespace Resilience.Services.MedicalAAppServices
 {
     public class DevSeederAppService : ApplicationService
     {
-        private readonly MedicalFacilitySeeder _seeder;
+        private readonly MedicalFacilitySeeder _medicalseeder;
+        private readonly PoliceStationSeeder _policeseeder;
 
-        public DevSeederAppService(MedicalFacilitySeeder seeder)
+        public DevSeederAppService(MedicalFacilitySeeder medicalseeder, PoliceStationSeeder policeseeder)
         {
-            _seeder = seeder;
+            _medicalseeder = medicalseeder;
+            _policeseeder = policeseeder;
         }
 
         public async Task TriggerSeed()
         {
-            await _seeder.SeedAsync();
+            await _medicalseeder.SeedAsync();
+            await _policeseeder.SeedAsync();
         }
     }
 }
