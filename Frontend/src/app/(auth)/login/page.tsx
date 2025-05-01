@@ -28,7 +28,6 @@
 
       if (isSuccess) {
         const role = getRole(token);
-        // Login success → redirect to dashboard based on role
         if (role === "provider") {
           router.push("/provider-dashboard");
         } else if (role === "patient") {
@@ -49,25 +48,17 @@
                 <div className={styles.logoIcon}>
                   <Heart className={styles.icon} fill="white" />
                 </div>
-                <span className={styles.logoText}>HealthConnect</span>
+                <span className={styles.logoText}>Welcome to Resilience</span>
               </div>
               <div className={styles.imageWrapper}>
                 <Image
-                  src="/images/healthpeople.png"
-                  alt="Healthcare Professional"
+                  src="/images/neverAlone.png"
+                  alt="holding hands"
                   width={380}
                   height={320}
                   priority
                   className={styles.image}
                 />
-              </div>
-              <div className={styles.brandContent}>
-                <h1 className={styles.brandTitle}>Welcome</h1>
-                <p className={styles.brandDescription}>
-                  Your secure gateway to smarter healthcare. Easily connect with
-                  providers, manage appointments, and stay in control of your
-                  health — all in one place.
-                </p>
               </div>
             </div>
             <div className={styles.formSide}>

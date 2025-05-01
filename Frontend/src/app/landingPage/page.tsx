@@ -1,21 +1,20 @@
-// app/page.tsx
 "use client";
 import React from 'react';
-import { Button, Card, Typography, Space, Row, Col, List } from 'antd';
+import { Button, Card, Typography, Space, Row, Col} from 'antd';
 import { SafetyOutlined, ClockCircleOutlined, HeartOutlined, TeamOutlined } from '@ant-design/icons';
 import Image from 'next/image';
 import Link from 'next/link';
+import { SupportResource} from './interfaces';
 import styles from './page.module.css';
-import {SupportResource,EmergencyContact} from './interfaces'
 
-const { Title, Paragraph, Text } = Typography;
+const { Title, Paragraph} = Typography;
 
 export default function LandingPage(): React.ReactElement {
-  // Define the array with proper typing
+
   const supportResources: Array<SupportResource> = [
     {
       title: 'Secure Login',
-      description: 'Log in anonymously to access Resiliences secure and confidential platform, free from judgment.',
+      description: 'Log in anonymously to access Resilience’s secure and confidential platform, free from judgment.',
       icon: <SafetyOutlined className={styles.featureIcon} />,
     },
     {
@@ -34,57 +33,39 @@ export default function LandingPage(): React.ReactElement {
       icon: <TeamOutlined className={styles.featureIcon} />,
     },
   ];
-
-  // Define the emergency contacts with proper typing
-  const emergencyContacts: Array<EmergencyContact> = [
-    { title: '24/7 Toll Free Helpline', value: '00000-5277' },
-    { title: 'Voice Prompt', value: '1*34773554' },
-    { title: 'Ambulance', value: '101777' },
-    { title: 'Police', value: '10111' },
-  ];
-
   return (
     <div className={styles.container}>
-      {/* Hero Section */}
-      <section className={styles.heroSection}>
-        <div className={styles.heroContent}>
-          <Row gutter={[48, 48]} align="middle">
-            <Col xs={24} md={14} className={styles.heroTextCol}>
-              <Title className={styles.heroTitle}>Welcome to Resilience</Title>
-              <Paragraph className={styles.heroDescription}>
-                A safe space for healing and empowerment. Whether you are seeking
-                immediate support or starting your journey, we are here for you.
-              </Paragraph>
-              <Space size="large" className={styles.heroButtons}>
-                <Link href="/login">
-                  <Button type="primary" size="large" className={styles.primaryBtn}>
-                    Login
-                  </Button>
-                </Link>
-                <Link href="/explore">
-                  <Button size="large">
-                    Continue without Signing up
-                  </Button>
-                </Link>
-              </Space>
-            </Col>
-            <Col xs={24} md={10} className={styles.heroImageCol}>
-              <div className={styles.imageWrapper}>
-                <Image
-                  src="/images/hero-image.jpg"
-                  alt="Peaceful nature scene representing resilience"
-                  width={500}
-                  height={500}
-                  className={styles.heroImage}
-                  priority
-                />
-              </div>
-            </Col>
-          </Row>
-        </div>
-      </section>
-
-      {/* Support Features Section */}
+    <section className={styles.heroSection}>
+  <div className={styles.heroContent}>
+    <div className={styles.imageWrapper}>
+      <Image
+        src="/images/logo.png"
+        alt="Peaceful nature scene representing resilience"
+        width={200}
+        height={200}
+        className={styles.heroImage}
+        priority
+      />
+    </div>
+    <div className={styles.heroText}>
+      <Title className={styles.heroTitle}>Welcome to Resilience</Title>
+      <Paragraph className={styles.heroDescription}>
+        A safe space for healing and empowerment. Whether you are seeking
+        immediate support or starting your journey, we are here for you.
+      </Paragraph>
+      <Space size="large" className={styles.heroButtons}>
+        <Link href="/login">
+          <Button type="primary" size="large" className={styles.primaryBtn}>
+            Login
+          </Button>
+        </Link>
+        <Link href="/explore">
+          <Button size="large">Continue without Signing up</Button>
+        </Link>
+      </Space>
+    </div>
+  </div>
+</section>
       <section className={styles.featuresSection}>
         <Title level={2} className={styles.sectionTitle}>How We Support You</Title>
         <Row gutter={[32, 32]} className={styles.featuresGrid}>
@@ -103,8 +84,6 @@ export default function LandingPage(): React.ReactElement {
           ))}
         </Row>
       </section>
-
-      {/* Support Panel */}
       <section className={styles.supportSection}>
         <Row gutter={[32, 32]} align="middle">
           <Col xs={24} md={14}>
@@ -125,22 +104,7 @@ export default function LandingPage(): React.ReactElement {
               </Link>
             </div>
           </Col>
-          <Col xs={24} md={10}>
-            <Card className={styles.supportCard} bordered={false}>
-              <Title level={3} className={styles.supportCardTitle}>
-                Support Contacts
-              </Title>
-              <List
-                dataSource={emergencyContacts}
-                renderItem={(item) => (
-                  <List.Item className={styles.contactItem}>
-                    <Text className={styles.contactLabel}>{item.title}:</Text>
-                    <Text strong className={styles.contactValue}>{item.value}</Text>
-                  </List.Item>
-                )}
-              />
-            </Card>
-          </Col>
+       
         </Row>
       </section>
     </div>
