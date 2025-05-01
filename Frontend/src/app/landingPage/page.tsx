@@ -52,42 +52,36 @@ export default function LandingPage(): React.ReactElement {
     <div className={styles.container}>
       {/* Hero Section */}
       <section className={styles.heroSection}>
-        <div className={styles.heroContent}>
-          <Row gutter={[48, 48]} align="middle">
-            <Col xs={24} md={14} className={styles.heroTextCol}>
-              <Title className={styles.heroTitle}>Welcome to Resilience</Title>
-              <Paragraph className={styles.heroDescription}>
-                A safe space for healing and empowerment. Whether you are seeking
-                immediate support or starting your journey, we are here for you.
-              </Paragraph>
-              <Space size="large" className={styles.heroButtons}>
-                <Link href="/login">
-                  <Button type="primary" size="large" className={styles.primaryBtn}>
-                    Login
-                  </Button>
-                </Link>
-                <Link href="/explore">
-                  <Button size="large">
-                    Continue without Signing up
-                  </Button>
-                </Link>
-              </Space>
-            </Col>
-            <Col xs={24} md={10} className={styles.heroImageCol}>
-              <div className={styles.imageWrapper}>
-                <Image
-                  src="/images/logo.png"
-                  alt="Peaceful nature scene representing resilience"
-                  width={500}
-                  height={500}
-                  className={styles.heroImage}
-                  priority
-                />
-              </div>
-            </Col>
-          </Row>
-        </div>
-      </section>
+  <div className={styles.heroContent}>
+    <div className={styles.imageWrapper}>
+      <Image
+        src="/images/logo.png"
+        alt="Peaceful nature scene representing resilience"
+        width={200}
+        height={200}
+        className={styles.heroImage}
+        priority
+      />
+    </div>
+    <div className={styles.heroText}>
+      <Title className={styles.heroTitle}>Welcome to Resilience</Title>
+      <Paragraph className={styles.heroDescription}>
+        A safe space for healing and empowerment. Whether you are seeking
+        immediate support or starting your journey, we are here for you.
+      </Paragraph>
+      <Space size="large" className={styles.heroButtons}>
+        <Link href="/login">
+          <Button type="primary" size="large" className={styles.primaryBtn}>
+            Login
+          </Button>
+        </Link>
+        <Link href="/explore">
+          <Button size="large">Continue without Signing up</Button>
+        </Link>
+      </Space>
+    </div>
+  </div>
+</section>
 
       {/* Support Features Section */}
       <section className={styles.featuresSection}>
