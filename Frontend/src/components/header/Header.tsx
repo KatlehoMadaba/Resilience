@@ -1,4 +1,5 @@
-// components/Header.js
+
+"use client"
 import React from 'react';
 import { Layout, Button, Typography, Space } from 'antd';
 import { MenuOutlined, CloseOutlined } from '@ant-design/icons';
