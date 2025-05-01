@@ -1,9 +1,9 @@
 /* login-page.module.css */
 
-:root {
+/* :root {
     --color-primary: #38512f;
     --color-bg-base: #fef5e7;
-}
+} */
 
 .page {
     background: var(--color-bg-base);
