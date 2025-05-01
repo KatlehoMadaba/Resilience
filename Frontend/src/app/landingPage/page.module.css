@@ -1,4 +1,6 @@
-/* Center full viewport */
+.page{
+  background-color: #FEF5E7; 
+}
 .heroSection {
     display: flex;
     align-items: center;

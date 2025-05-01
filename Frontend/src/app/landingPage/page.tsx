@@ -1,16 +1,15 @@
 "use client";
-import React, { useState } from 'react';
-import { Button, Card, Typography, Space, Row, Col, List } from 'antd';
+import React from 'react';
+import { Button, Card, Typography, Space, Row, Col} from 'antd';
 import { SafetyOutlined, ClockCircleOutlined, HeartOutlined, TeamOutlined } from '@ant-design/icons';
 import Image from 'next/image';
 import Link from 'next/link';
-import { SupportResource, EmergencyContact } from './interfaces';
+import { SupportResource} from './interfaces';
 import styles from './page.module.css';
 
-const { Title, Paragraph, Text } = Typography;
+const { Title, Paragraph} = Typography;
 
 export default function LandingPage(): React.ReactElement {
- const [isModalOpen, setIsModalOpen] = useState(false);
 
   const supportResources: Array<SupportResource> = [
     {
