@@ -34,8 +34,6 @@ const ResilienceHeader = ({ isAuthenticated = false }) => {
             <Title level={3} className={styles.title}>Resilience</Title>
           </div>
         </Link>
-
-        {/* Desktop Navigation */}
         <div className={styles.desktopNav}>
           <Space size={24}>
             <Link href="/resources" className={styles.navLink}>Resources</Link>
@@ -55,7 +53,6 @@ const ResilienceHeader = ({ isAuthenticated = false }) => {
             )}
           </Space>
         </div>
-        {/* SOS Button - Always visible */}
           <Button danger type="primary" className={styles.sosButton} onClick={openSupportModal}>SOS</Button>
                 <SupportModal open={isModalOpen} onClose={closeSupportModal} />
         <Button 
