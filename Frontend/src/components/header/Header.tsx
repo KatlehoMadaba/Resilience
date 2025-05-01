@@ -23,7 +23,7 @@ const ResilienceHeader = ({ isAuthenticated = false }) => {
         <Link href="/" className={styles.logoContainer}>
           <div className={styles.logoWrapper}>
             <Image 
-              src="/images/resilience-logo.svg" 
+              src="/images/logo.png" 
               alt="Resilience Logo" 
               width={32} 
               height={32} 
@@ -53,12 +53,8 @@ const ResilienceHeader = ({ isAuthenticated = false }) => {
             )}
           </Space>
         </div>
-
         {/* SOS Button - Always visible */}
-        <Link href="/emergency">
           <Button danger type="primary" className={styles.sosButton}>SOS</Button>
-        </Link>
-
         {/* Mobile Menu Button */}
         <Button 
           className={styles.mobileMenuBtn} 

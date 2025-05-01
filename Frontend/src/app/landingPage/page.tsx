@@ -1,21 +1,27 @@
-// app/page.tsx
+// app/landingPage/page.tsx
 "use client";
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Card, Typography, Space, Row, Col, List } from 'antd';
 import { SafetyOutlined, ClockCircleOutlined, HeartOutlined, TeamOutlined } from '@ant-design/icons';
 import Image from 'next/image';
 import Link from 'next/link';
+import { SupportResource, EmergencyContact } from './interfaces';
+import SupportModal from '../../components/supportModal/SupportModal'; // import the SupportModal component
 import styles from './page.module.css';
-import {SupportResource,EmergencyContact} from './interfaces'
 
 const { Title, Paragraph, Text } = Typography;
 
 export default function LandingPage(): React.ReactElement {
-  // Define the array with proper typing
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openSupportModal = () => setIsModalOpen(true);
+  const closeSupportModal = () => setIsModalOpen(false);
+
+  // Support resources and emergency contacts as before
   const supportResources: Array<SupportResource> = [
     {
       title: 'Secure Login',
-      description: 'Log in anonymously to access Resiliences secure and confidential platform, free from judgment.',
+      description: 'Log in anonymously to access Resilience’s secure and confidential platform, free from judgment.',
       icon: <SafetyOutlined className={styles.featureIcon} />,
     },
     {
@@ -35,7 +41,6 @@ export default function LandingPage(): React.ReactElement {
     },
   ];
 
-  // Define the emergency contacts with proper typing
   const emergencyContacts: Array<EmergencyContact> = [
     { title: '24/7 Toll Free Helpline', value: '00000-5277' },
     { title: 'Voice Prompt', value: '1*34773554' },
@@ -71,7 +76,7 @@ export default function LandingPage(): React.ReactElement {
             <Col xs={24} md={10} className={styles.heroImageCol}>
               <div className={styles.imageWrapper}>
                 <Image
-                  src="/images/hero-image.jpg"
+                  src="/images/logo.png"
                   alt="Peaceful nature scene representing resilience"
                   width={500}
                   height={500}
@@ -125,24 +130,21 @@ export default function LandingPage(): React.ReactElement {
               </Link>
             </div>
           </Col>
-          <Col xs={24} md={10}>
-            <Card className={styles.supportCard} bordered={false}>
-              <Title level={3} className={styles.supportCardTitle}>
-                Support Contacts
-              </Title>
-              <List
-                dataSource={emergencyContacts}
-                renderItem={(item) => (
-                  <List.Item className={styles.contactItem}>
-                    <Text className={styles.contactLabel}>{item.title}:</Text>
-                    <Text strong className={styles.contactValue}>{item.value}</Text>
-                  </List.Item>
-                )}
-              />
-            </Card>
-          </Col>
+       
         </Row>
       </section>
+
+      {/* SOS Button - Trigger the modal */}
+      <Button 
+        danger 
+        type="primary" 
+        className={styles.sosButton} 
+        onClick={openSupportModal}
+      >
+        SOS
+      </Button>
+      {/* The modal */}
+      <SupportModal open={isModalOpen} onClose={closeSupportModal} />
     </div>
   );
 }
