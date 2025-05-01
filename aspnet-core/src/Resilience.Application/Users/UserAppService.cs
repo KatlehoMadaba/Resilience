@@ -5,7 +5,6 @@ using Abp.Domain.Entities;
 using Abp.Domain.Repositories;
 using Abp.Extensions;
 using Abp.IdentityFramework;
-using Abp.Linq.Extensions;
 using Abp.Localization;
 using Abp.Runtime.Session;
 using Abp.UI;
@@ -160,7 +159,7 @@ public class UserAppService : AsyncCrudAppService<User, UserDto, long, PagedUser
     protected override IQueryable<User> CreateFilteredQuery(PagedUserResultRequestDto input)
     {
         return Repository.GetAllIncluding(x => x.Roles)
-            .WhereIf(!input.Keyword.IsNullOrWhiteSpace(), x => x.UserName.Contains(input.Keyword) || x.Name.Contains(input.Keyword) || x.EmailAddress.Contains(input.Keyword))
+            .WhereIf(!string.IsNullOrWhiteSpace(input.Keyword), x => x.UserName.Contains(input.Keyword) || x.Name.Contains(input.Keyword) || x.EmailAddress.Contains(input.Keyword))
             .WhereIf(input.IsActive.HasValue, x => x.IsActive == input.IsActive);
     }
 

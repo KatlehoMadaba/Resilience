@@ -11,7 +11,8 @@ using Resilience.MultiTenancy;
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
-
+using AbpObjectExt = Abp.Extensions.ObjectExtensions;
+using AbpStringExt = Abp.Extensions.StringExtensions;
 namespace Resilience.Migrator;
 
 public class MultiTenantMigrateExecuter : ITransientDependency
@@ -37,7 +38,7 @@ public class MultiTenantMigrateExecuter : ITransientDependency
     public bool Run(bool skipConnVerification)
     {
         var hostConnStr = CensorConnectionString(_connectionStringResolver.GetNameOrConnectionString(new ConnectionStringResolveArgs(MultiTenancySides.Host)));
-        if (hostConnStr.IsNullOrWhiteSpace())
+        if (AbpStringExt.IsNullOrWhiteSpace(hostConnStr))
         {
             _log.Write("Configuration file should contain a connection string named 'Default'");
             return false;
@@ -48,7 +49,7 @@ public class MultiTenantMigrateExecuter : ITransientDependency
         {
             _log.Write("Continue to migration for this host database and all tenants..? (Y/N): ");
             var command = Console.ReadLine();
-            if (!command.IsIn("Y", "y"))
+            if (!AbpObjectExt.IsIn(command, "Y", "y"))
             {
                 _log.Write("Migration canceled.");
                 return false;

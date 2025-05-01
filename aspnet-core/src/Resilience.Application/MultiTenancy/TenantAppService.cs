@@ -94,9 +94,22 @@ public class TenantAppService : AsyncCrudAppService<Tenant, TenantDto, int, Page
 
     protected override IQueryable<Tenant> CreateFilteredQuery(PagedTenantResultRequestDto input)
     {
-        return Repository.GetAll()
-            .WhereIf(!input.Keyword.IsNullOrWhiteSpace(), x => x.TenancyName.Contains(input.Keyword) || x.Name.Contains(input.Keyword))
-            .WhereIf(input.IsActive.HasValue, x => x.IsActive == input.IsActive);
+        //return Repository.GetAll()
+        //    .WhereIf(!input.Keyword.IsNullOrWhiteSpace(), x => x.TenancyName.Contains(input.Keyword) || x.Name.Contains(input.Keyword))
+        //    .WhereIf(input.IsActive.HasValue, x => x.IsActive == input.IsActive);
+        var query = Repository.GetAll();
+
+        if (!input.Keyword.IsNullOrWhiteSpace())
+        {
+            query = query.Where(x => x.TenancyName.Contains(input.Keyword) || x.Name.Contains(input.Keyword));
+        }
+
+        if (input.IsActive.HasValue)
+        {
+            query = query.Where(x => x.IsActive == input.IsActive);
+        }
+
+        return query;
     }
 
     protected override IQueryable<Tenant> ApplySorting(IQueryable<Tenant> query, PagedTenantResultRequestDto input)
