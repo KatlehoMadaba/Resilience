@@ -4,6 +4,7 @@ import "./globals.css";
 import { AuthProvider } from "@/providers/auth-provider";
 import { UserProvider } from "@/providers/users-providers";
 import ConfigProvider from "antd/es/config-provider";
+import ResilienceHeader from '@/components/header/Header';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -39,6 +40,7 @@ export default function RootLayout({
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
           <UserProvider>
+          <ResilienceHeader />
             <AuthProvider>{children}</AuthProvider>
           </UserProvider>
         </body>
