@@ -1,18 +1,20 @@
 
 "use client"
-import React from 'react';
+import React,{ useState } from 'react';
 import { Layout, Button, Typography, Space } from 'antd';
 import { MenuOutlined, CloseOutlined } from '@ant-design/icons';
 import Image from 'next/image';
 import Link from 'next/link';
 import styles from './Header.module.css';
-
+import SupportModal from '../../components/supportModal/SupportModal';
 const { Header } = Layout;
 const { Title } = Typography;
 
 const ResilienceHeader = ({ isAuthenticated = false }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
-
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const openSupportModal = () => setIsModalOpen(true);
+    const closeSupportModal = () => setIsModalOpen(false);
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
   };
@@ -54,16 +56,14 @@ const ResilienceHeader = ({ isAuthenticated = false }) => {
           </Space>
         </div>
         {/* SOS Button - Always visible */}
-          <Button danger type="primary" className={styles.sosButton}>SOS</Button>
-        {/* Mobile Menu Button */}
+          <Button danger type="primary" className={styles.sosButton} onClick={openSupportModal}>SOS</Button>
+                <SupportModal open={isModalOpen} onClose={closeSupportModal} />
         <Button 
           className={styles.mobileMenuBtn} 
           type="text" 
           icon={mobileMenuOpen ? <CloseOutlined /> : <MenuOutlined />} 
           onClick={toggleMobileMenu}
         />
-
-        {/* Mobile Navigation Overlay */}
         <div className={`${styles.mobileNav} ${mobileMenuOpen ? styles.open : ''}`}>
           <div className={styles.mobileNavLinks}>
             <Link href="/resources" className={styles.mobileNavLink} onClick={toggleMobileMenu}>Resources</Link>

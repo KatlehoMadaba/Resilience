@@ -1,4 +1,3 @@
-// app/landingPage/page.tsx
 "use client";
 import React, { useState } from 'react';
 import { Button, Card, Typography, Space, Row, Col, List } from 'antd';
@@ -6,18 +5,13 @@ import { SafetyOutlined, ClockCircleOutlined, HeartOutlined, TeamOutlined } from
 import Image from 'next/image';
 import Link from 'next/link';
 import { SupportResource, EmergencyContact } from './interfaces';
-import SupportModal from '../../components/supportModal/SupportModal'; // import the SupportModal component
 import styles from './page.module.css';
 
 const { Title, Paragraph, Text } = Typography;
 
 export default function LandingPage(): React.ReactElement {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+ const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const openSupportModal = () => setIsModalOpen(true);
-  const closeSupportModal = () => setIsModalOpen(false);
-
-  // Support resources and emergency contacts as before
   const supportResources: Array<SupportResource> = [
     {
       title: 'Secure Login',
@@ -40,18 +34,9 @@ export default function LandingPage(): React.ReactElement {
       icon: <TeamOutlined className={styles.featureIcon} />,
     },
   ];
-
-  const emergencyContacts: Array<EmergencyContact> = [
-    { title: '24/7 Toll Free Helpline', value: '00000-5277' },
-    { title: 'Voice Prompt', value: '1*34773554' },
-    { title: 'Ambulance', value: '101777' },
-    { title: 'Police', value: '10111' },
-  ];
-
   return (
     <div className={styles.container}>
-      {/* Hero Section */}
-      <section className={styles.heroSection}>
+    <section className={styles.heroSection}>
   <div className={styles.heroContent}>
     <div className={styles.imageWrapper}>
       <Image
@@ -82,8 +67,6 @@ export default function LandingPage(): React.ReactElement {
     </div>
   </div>
 </section>
-
-      {/* Support Features Section */}
       <section className={styles.featuresSection}>
         <Title level={2} className={styles.sectionTitle}>How We Support You</Title>
         <Row gutter={[32, 32]} className={styles.featuresGrid}>
@@ -102,8 +85,6 @@ export default function LandingPage(): React.ReactElement {
           ))}
         </Row>
       </section>
-
-      {/* Support Panel */}
       <section className={styles.supportSection}>
         <Row gutter={[32, 32]} align="middle">
           <Col xs={24} md={14}>
@@ -127,18 +108,6 @@ export default function LandingPage(): React.ReactElement {
        
         </Row>
       </section>
-
-      {/* SOS Button - Trigger the modal */}
-      <Button 
-        danger 
-        type="primary" 
-        className={styles.sosButton} 
-        onClick={openSupportModal}
-      >
-        SOS
-      </Button>
-      {/* The modal */}
-      <SupportModal open={isModalOpen} onClose={closeSupportModal} />
     </div>
   );
 }
