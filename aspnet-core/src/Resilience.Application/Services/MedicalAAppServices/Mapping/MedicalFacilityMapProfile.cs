@@ -14,7 +14,6 @@ namespace Resilience.Services.MedicalAAppServices.Mapping
         public MedicalFacilityMapProfile()
         {
             CreateMap<MedicalFacility, MedicalFacilityDto>();
-            // Optionally, map reverse if needed:
             CreateMap<MedicalFacilityDto, MedicalFacility>();
         }
     }

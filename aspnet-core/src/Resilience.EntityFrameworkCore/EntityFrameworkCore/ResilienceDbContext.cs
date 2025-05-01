@@ -17,6 +17,7 @@ using Resilience.Domain.MedicalAssistanceRecords;
 using Resilience.Domain.Medical_AssistanceRecords;
 using System.Linq;
 using System;
+using Resilience.Domain.PoliceStations;
 
 namespace Resilience.EntityFrameworkCore;
 
@@ -45,6 +46,8 @@ public class ResilienceDbContext : AbpZeroDbContext<Tenant, Role, User, Resilien
     //Medical Assistance
     public DbSet<MedicalAssistanceRecord> edicalAssistanceRecords { get; set; }
     public DbSet<MedicalFacility> MedicalFacilitys { get; set; }
+    //Police Station 
+    public DbSet<PoliceStation> PoliceStations { get; set; }
     //Petitions
     public DbSet<Petition> Petitions { get; set; }
     public DbSet<PetitionSignature> PetitionSignatures { get; set; }
