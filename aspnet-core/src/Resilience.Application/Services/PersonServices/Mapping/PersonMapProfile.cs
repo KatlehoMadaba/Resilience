@@ -1,16 +1,44 @@
 ﻿using AutoMapper;
+using Resilience.Domain.CrowdfundingCampaigns;
 using Resilience.Domain.Persons;
+using Resilience.Domain.Petitions;
+using Resilience.Domain.ProgressTrackers;
+using Resilience.Domain.Reports;
+using Resilience.Domain.Stories;
+using Resilience.Domain.SupportResources;
+using Resilience.Domain.SupportSessions;
+using Resilience.Domain.Testimonies;
+using Resilience.Services.CrowdfundingCampaignsServices.Dto;
+using Resilience.Services.Helpers;
 using Resilience.Services.PersonServices.Dtos;
+using Resilience.Services.PetitionServices.Dtos;
+using Resilience.Services.ProgressTrackerServices.Dtos;
+using Resilience.Services.ReportsServices.Dtos;
+using Resilience.Services.StoryServices.Dtos;
+using Resilience.Services.SupportResourceServices.Dtos;
+using Resilience.Services.SupportSessionServices.Dtos;
+using Resilience.Services.TestimonyServices.Dtos;
 
 namespace Resilience.Services.PersonServices.Mapping
 {
     public class PersonMapProfile : Profile
     {
-     public PersonMapProfile()
+        public PersonMapProfile()
         {
-            CreateMap<ImmediateSurvivor,ImdSurvivorRequestDto>();
             CreateMap<ImdSurvivorRequestDto, ImmediateSurvivor>();
+            CreateMap<ImmediateSurvivor, ImdSurvivorResponseDto>()
+            .ForMember(p => p.Sex, m => m.MapFrom(e => e.Sex != null ? e.Sex.GetEnumDescription() : null));
+            CreateMap<SupportSession, SupportSessionDto>();
+            CreateMap<Report, ReportDto>();
+            CreateMap<Story, StoryDto>();
+            CreateMap<Petition, PetitionDto>();
+            CreateMap<CrowdfundingCampaign, CrowdfundingCampaignDto>();
+            CreateMap<ProgressTracker, ProgressTrackerDto>();
+            CreateMap<SupportResource, SupportResourceDto>();
+            CreateMap<Testimony, TestimonyDto>();
         }
+
+
 
     }
 }

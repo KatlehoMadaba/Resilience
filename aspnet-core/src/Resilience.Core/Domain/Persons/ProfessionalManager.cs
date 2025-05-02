@@ -7,22 +7,23 @@ using Resilience.Authorization.Users;
 
 namespace Resilience.Domain.Persons
 {
-    public class ImmediateSurvivorManager : DomainService
+
+    public class ProfessionalManager : DomainService
     {
         private readonly PersonManager _personManager;
-        private readonly IRepository<ImmediateSurvivor, Guid> _imdsurvivorRepository;
-        public ImmediateSurvivorManager
+        private readonly IRepository<Professional, Guid> _ProfessionalRepository;
+        public ProfessionalManager
             (
             UserManager userManager,
              PersonManager personManager,
-            IRepository<ImmediateSurvivor, Guid> imdsurvivorRepository
+            IRepository<Professional, Guid> ProfessionalRepository
             )
         {
             _personManager = personManager;
-            _imdsurvivorRepository = imdsurvivorRepository;
+            _ProfessionalRepository = ProfessionalRepository;
 
         }
-        public async Task<ImmediateSurvivor> CreateImdSurvivorAsync(
+        public async Task<Professional> CreateProfessionalAsync(
             string name,
             string surname,
             string emailAddress,
@@ -33,10 +34,11 @@ namespace Resilience.Domain.Persons
             bool? useDisplayNameOnly,
             ReflistSex? sex,
             string phoneNumber,
-            bool isAnonymous,
-            DateTime? incidentDate,
-            bool hasReceivedMedicalAttention,
-            bool hasReportedToAuthorities
+            string profession,
+            string organization,
+            string credentials,
+            bool isVerified,
+            bool isActive
             )
         {
             try
@@ -53,30 +55,31 @@ namespace Resilience.Domain.Persons
                     useDisplayNameOnly,
                     sex,
                     phoneNumber,
-                    isAnonymous,
-                    "immediatesurvivor"
+                    false,
+                    "Professional"
                     );
-                var immediateSurvivor = new ImmediateSurvivor()
+                var Professional = new Professional()
                 {
-                    UseDisplayNameOnly=useDisplayNameOnly,
-                    IncidentDate = incidentDate,
-                    HasReceivedMedicalAttention = hasReceivedMedicalAttention,
-                    HasReportedToAuthorities = hasReportedToAuthorities,
+                    Profession= profession,
+                    Organization= organization,
+                    Credentials= credentials,
+                    IsVerified= isVerified,
+                    isActive= isActive
                 };
-                await _imdsurvivorRepository.InsertAsync(immediateSurvivor);
-                return immediateSurvivor;
+                await _ProfessionalRepository.InsertAsync(Professional);
+                return Professional;
 
             }
             catch (Exception ex)
             {
 
-                Logger.Error($"Error creating immediateSurvivor: {ex.Message}", ex);
+                Logger.Error($"Error creating Professional: {ex.Message}", ex);
                 if (ex.InnerException != null)
                     Logger.Error($"Inner exception: {ex.InnerException.Message}");
-                throw new UserFriendlyException("An error occurred while creating the immediateSurvivor", ex);
+                throw new UserFriendlyException("An error occurred while creating the Professional", ex);
             }
         }
     }
+
+
 }
-
-
