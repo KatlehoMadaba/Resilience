@@ -1947,9 +1947,6 @@ namespace Resilience.Migrations
                     b.Property<string>("AnonymousId")
                         .HasColumnType("text");
 
-                    b.Property<DateTime?>("CreatedDate")
-                        .HasColumnType("timestamp with time zone");
-
                     b.Property<DateTime>("CreationTime")
                         .HasColumnType("timestamp with time zone");
 
@@ -1976,9 +1973,6 @@ namespace Resilience.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
 
-                    b.Property<DateTime?>("LastLoginDate")
-                        .HasColumnType("timestamp with time zone");
-
                     b.Property<DateTime?>("LastModificationTime")
                         .HasColumnType("timestamp with time zone");
 
@@ -1997,15 +1991,12 @@ namespace Resilience.Migrations
                     b.Property<bool?>("UseDisplayNameOnly")
                         .HasColumnType("boolean");
 
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uuid");
-
-                    b.Property<long?>("UserId1")
+                    b.Property<long>("UserId")
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId1");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Persons");
 
@@ -3405,7 +3396,7 @@ namespace Resilience.Migrations
                         .HasForeignKey("MedicalFacilityId");
 
                     b.HasOne("Resilience.Domain.Persons.ImmediateSurvivor", "Survivor")
-                        .WithOne("MedicalAssistance")
+                        .WithOne("MedicalAssistanceRecord")
                         .HasForeignKey("Resilience.Domain.MedicalAssistanceRecords.MedicalAssistanceRecord", "SurvivorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -3419,7 +3410,9 @@ namespace Resilience.Migrations
                 {
                     b.HasOne("Resilience.Authorization.Users.User", "User")
                         .WithMany()
-                        .HasForeignKey("UserId1");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("User");
                 });
@@ -3797,7 +3790,7 @@ namespace Resilience.Migrations
 
             modelBuilder.Entity("Resilience.Domain.Persons.ImmediateSurvivor", b =>
                 {
-                    b.Navigation("MedicalAssistance");
+                    b.Navigation("MedicalAssistanceRecord");
                 });
 #pragma warning restore 612, 618
         }

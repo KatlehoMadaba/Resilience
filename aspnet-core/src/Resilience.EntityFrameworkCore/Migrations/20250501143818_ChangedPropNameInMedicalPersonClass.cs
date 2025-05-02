@@ -5,7 +5,7 @@
 namespace Resilience.Migrations
 {
     /// <inheritdoc />
-    public partial class PoliceMigration : Migration
+    public partial class ChangedPropNameInMedicalPersonClass : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

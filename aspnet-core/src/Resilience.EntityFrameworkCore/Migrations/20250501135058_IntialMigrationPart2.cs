@@ -8,7 +8,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Resilience.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialMigration : Migration
+    public partial class IntialMigrationPart2 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -508,6 +508,33 @@ namespace Resilience.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "PoliceStations",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: true),
+                    Address = table.Column<string>(type: "text", nullable: true),
+                    City = table.Column<string>(type: "text", nullable: true),
+                    PhoneNumber = table.Column<string>(type: "text", nullable: true),
+                    State = table.Column<string>(type: "text", nullable: true),
+                    PlaceId = table.Column<string>(type: "text", nullable: true),
+                    Latitude = table.Column<double>(type: "double precision", nullable: false),
+                    Longitude = table.Column<double>(type: "double precision", nullable: false),
+                    GoogleMapsUrl = table.Column<string>(type: "text", nullable: true),
+                    CreationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    CreatorUserId = table.Column<long>(type: "bigint", nullable: true),
+                    LastModificationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    LastModifierUserId = table.Column<long>(type: "bigint", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
+                    DeleterUserId = table.Column<long>(type: "bigint", nullable: true),
+                    DeletionTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PoliceStations", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AbpDynamicEntityProperties",
                 columns: table => new
                 {
@@ -807,17 +834,14 @@ namespace Resilience.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    UserId = table.Column<long>(type: "bigint", nullable: false),
                     AnonymousId = table.Column<string>(type: "text", nullable: true),
                     DisplayName = table.Column<string>(type: "text", nullable: true),
                     UseDisplayNameOnly = table.Column<bool>(type: "boolean", nullable: true),
-                    UserId1 = table.Column<long>(type: "bigint", nullable: true),
-                    UserId = table.Column<Guid>(type: "uuid", nullable: false),
                     Sex = table.Column<long>(type: "bigint", nullable: true),
                     SexText = table.Column<string>(type: "text", nullable: true),
                     PhoneNumber = table.Column<string>(type: "text", nullable: true),
                     IsAnonymous = table.Column<bool>(type: "boolean", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    LastLoginDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     Discriminator = table.Column<string>(type: "character varying(21)", maxLength: 21, nullable: false),
                     SupportMotivation = table.Column<string>(type: "text", nullable: true),
                     IsSubscribedToUpdates = table.Column<bool>(type: "boolean", nullable: true),
@@ -847,10 +871,11 @@ namespace Resilience.Migrations
                 {
                     table.PrimaryKey("PK_Persons", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Persons_AbpUsers_UserId1",
-                        column: x => x.UserId1,
+                        name: "FK_Persons_AbpUsers_UserId",
+                        column: x => x.UserId,
                         principalTable: "AbpUsers",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -2059,9 +2084,9 @@ namespace Resilience.Migrations
                 column: "ProgressTrackerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Persons_UserId1",
+                name: "IX_Persons_UserId",
                 table: "Persons",
-                column: "UserId1");
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Petitions_CreatorPersonId",
@@ -2263,6 +2288,9 @@ namespace Resilience.Migrations
 
             migrationBuilder.DropTable(
                 name: "PetitionSignatures");
+
+            migrationBuilder.DropTable(
+                name: "PoliceStations");
 
             migrationBuilder.DropTable(
                 name: "PrsessionalMessagess");
