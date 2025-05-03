@@ -1,27 +1,39 @@
-//Auth object interface
+import { ReflistRecoveryPhase } from "@/enums/ReflistRecoveryPhase";
+import { ReflistSex } from "@/enums/ReflistSex";
+
 export interface IAuth {
   id?: string;
-  title: string;
-  name: string;
-  surname: string;
-  emailAddress: string;
-  isActive: true;
-  phoneNumber: string;
-  userName: string;
-  password: string;
+  userName?: string;
+  name?: string;
+  surname?: string;
+  emailAddress?: string;
   role: string;
-  dateOfBirth?: Date;
-  address?: string;
-  city?: string;
-  province?: string;
-  postalCode?: string;
-  country?: string;
-  preferredContactMethod?: number;
-  biography?: string;
-  yearsOfExperience?: string;
-  maxAppointmentsPerDay?: string;
-  qualification?: string;
-  specialtyName?: string;
+  //Person
+  anonymousId?: string;
+  displayName?: string;
+  useDisplayNameOnly?: boolean;
+  Sex?: ReflistSex;
+  phoneNumber?: string;
+  password: string;
+  IsAnonymous?: boolean;
+  isActive?: boolean;
+  IncidentDate?: Date;
+  //ImmediateSurvivor
+  HasReceivedMedicalAttention?: boolean;
+  HasReportedToAuthorities?: boolean;
+  //Past Survivor
+  HasDisclosedBefore?: boolean;
+  TimeElapsedInDays?: number; // Time since incident
+  RecoveryPhase?: ReflistRecoveryPhase;
+  //GeneralSupporter
+  SupportMotivation?: string;
+  IsSubscribedToUpdates?: string;
+  AreasOfInterest?: string[];
+  //Professional
+  Profession?: string;
+  Organization?: string;
+  Credentials?: string;
+  IsVerified?: boolean;
 }
 
 export interface ISignInRequest {
