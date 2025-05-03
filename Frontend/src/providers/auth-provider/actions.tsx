@@ -10,6 +10,10 @@ export enum AuthActionEnums {
   signInSuccess = "SIGN_IN_SUCCESS",
   signInError = "SIGN_IN_ERROR",
 
+  emergencySignInPending = "EMERGENCY_IN_PENDING",
+  emergencySignInSuccess = "EMERGENCY_IN_SUCCESS",
+  emergencySignInError = "EMERGENCY_IN_ERROR",
+
   signUpPending = "SIGN_UP_PENDING",
   signUpSuccess = "SIGN_UP_SUCCESS",
   signUpError = "SIGN_UP_ERROR",
@@ -55,6 +59,23 @@ export const signInSuccess = createAction<IAuthStateContext, string>(
   })
 );
 export const signInError = createAction<IAuthStateContext>(
+  AuthActionEnums.signInError,
+  () => ({ isPending: false, isSuccess: false, isError: true })
+);
+export const emergencySignInPending = createAction<IAuthStateContext>(
+  AuthActionEnums.signInPending,
+  () => ({ isPending: true, isSuccess: false, isError: false })
+);
+
+export const emergencySignInSuccess = createAction<IAuthStateContext, string>(
+  AuthActionEnums.signInSuccess,
+  () => ({
+    isPending: false,
+    isSuccess: true,
+    isError: false,
+  })
+);
+export const emergencySignInError = createAction<IAuthStateContext>(
   AuthActionEnums.signInError,
   () => ({ isPending: false, isSuccess: false, isError: true })
 );

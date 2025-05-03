@@ -41,6 +41,10 @@ export interface ISignInRequest {
   password: "string";
   rememberClient: true;
 }
+export interface IEmergencySignIn {
+  anonymousId: string;
+  date: Date;
+}
 export interface ISignInResponse {
   result: {
     accessToken: string;

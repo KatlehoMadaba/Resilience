@@ -18,6 +18,20 @@ export const AuthReducer = handleActions<IAuthStateContext, IAuthStateContext>(
       ...state,
       ...action.payload,
     }),
+    [AuthActionEnums.emergencySignInPending]: (state, action) => ({
+      ...state,
+      ...action.payload,
+    }),
+    [AuthActionEnums.emergencySignInSuccess]: (state, action) => {
+      return {
+        ...state,
+        ...action.payload,
+      };
+    },
+    [AuthActionEnums.emergencySignInError]: (state, action) => ({
+      ...state,
+      ...action.payload,
+    }),
     [AuthActionEnums.signUpError]: (state, action) => ({
       ...state,
       ...action.payload,
