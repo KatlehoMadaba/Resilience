@@ -4,7 +4,7 @@ using System;
 
 namespace Resilience.Services.PersonServices.Dtos
 {
-    public class ImdSurvivorRequestDto:EntityDto<Guid>
+    public class ImdSurvivorRequestDto
     {
         //Person
         public string? UserName{get;set;} 

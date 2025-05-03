@@ -11,7 +11,7 @@ using Resilience.Services.PersonServices.Dtos;
 namespace Resilience.Services.PersonServices
 {
     public class ImdSurvivorAppService : 
-        AsyncCrudAppService<ImmediateSurvivor, ImdSurvivorRequestDto, Guid, PagedAndSortedResultRequestDto, ImdSurvivorRequestDto>
+        AsyncCrudAppService<ImmediateSurvivor, ImdSurvivorResponseDto, Guid, PagedAndSortedResultRequestDto, ImdSurvivorRequestDto, ImdSurvivorResponseDto>
 
     {
         private readonly ImmediateSurvivorManager _immediateSurvivorManager;
@@ -21,7 +21,7 @@ namespace Resilience.Services.PersonServices
             _immediateSurvivorManager = immediateSurvivorManager;
             _mapper = mapper;
         }
-        public override async Task<ImdSurvivorRequestDto> CreateAsync(ImdSurvivorRequestDto input)
+        public override async Task<ImdSurvivorResponseDto> CreateAsync(ImdSurvivorRequestDto input)
         {
             var immediateSurvivor = await _immediateSurvivorManager.CreateImdSurvivorAsync(
                 input.Name,
@@ -40,7 +40,7 @@ namespace Resilience.Services.PersonServices
                 input.HasReportedToAuthorities
                 );
     
-                return _mapper.Map<ImdSurvivorRequestDto>(immediateSurvivor);
+                return _mapper.Map<ImdSurvivorResponseDto>(immediateSurvivor);
         }
     }
 }

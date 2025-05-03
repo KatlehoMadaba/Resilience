@@ -1,14 +1,24 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Abp.Domain.Repositories;
 using Abp.Domain.Services;
 using Abp.UI;
 using Resilience.Authorization.Users;
+using Resilience.Domain.CrowdfundingCampaigns;
+using Resilience.Domain.Petitions;
+using Resilience.Domain.ProgressTrackers;
+using Resilience.Domain.Reports;
+using Resilience.Domain.Stories;
+using Resilience.Domain.SupportResources;
+using Resilience.Domain.SupportSessions;
+using Resilience.Domain.Testimonies;
 
 namespace Resilience.Domain.Persons
 {
     public class ImmediateSurvivorManager : DomainService
     {
+        private readonly UserManager _userManager;
         private readonly PersonManager _personManager;
         private readonly IRepository<ImmediateSurvivor, Guid> _imdsurvivorRepository;
         public ImmediateSurvivorManager
@@ -18,65 +28,139 @@ namespace Resilience.Domain.Persons
             IRepository<ImmediateSurvivor, Guid> imdsurvivorRepository
             )
         {
+            _userManager = userManager;
             _personManager = personManager;
             _imdsurvivorRepository = imdsurvivorRepository;
 
         }
         public async Task<ImmediateSurvivor> CreateImdSurvivorAsync(
-            string name,
-            string surname,
-            string emailAddress,
-            string username,
-            string password,
-            string anonymousId,
-            string displayName,
-            bool? useDisplayNameOnly,
-            ReflistSex? sex,
-            string phoneNumber,
-            bool isAnonymous,
-            DateTime? incidentDate,
-            bool hasReceivedMedicalAttention,
-            bool hasReportedToAuthorities
-            )
+    string name,
+    string surname,
+    string emailAddress,
+    string username,
+    string password,
+    string anonymousId,
+    string displayName,
+    bool? useDisplayNameOnly,
+    ReflistSex? sex,
+    string phoneNumber,
+    bool isAnonymous,
+    DateTime? incidentDate,
+    bool hasReceivedMedicalAttention,
+    bool hasReportedToAuthorities
+)
         {
             try
             {
-
-                await _personManager.CreatePersonAsync(
-                    name,
-                    surname,
-                    emailAddress,
-                    username,
-                    password,
-                    anonymousId,
-                    displayName,
-                    useDisplayNameOnly,
-                    sex,
-                    phoneNumber,
-                    isAnonymous,
-                    "immediatesurvivor"
-                    );
-                var immediateSurvivor = new ImmediateSurvivor()
+                // 1. Create user
+                var user = new User
                 {
-                    UseDisplayNameOnly=useDisplayNameOnly,
+                    Name = name,
+                    Surname = surname,
+                    EmailAddress = emailAddress,
+                    UserName = username
+                };
+
+                var userCreationResult = await _userManager.CreateAsync(user, password);
+                if (!userCreationResult.Succeeded)
+                {
+                    throw new UserFriendlyException("Failed to create user: " + string.Join(", ", userCreationResult.Errors));
+                }
+
+                await _userManager.AddToRoleAsync(user, "immediatesurvivor");
+
+                // 2. Create ImmediateSurvivor (inherits from Person)
+                var immediateSurvivor = new ImmediateSurvivor
+                {
+                    UserId = user.Id,
+                    AnonymousId = anonymousId,
+                    DisplayName = displayName,
+                    UseDisplayNameOnly = useDisplayNameOnly,
+                    Sex = sex,
+                    PhoneNumber = phoneNumber,
+                    IsAnonymous = isAnonymous,
                     IncidentDate = incidentDate,
                     HasReceivedMedicalAttention = hasReceivedMedicalAttention,
                     HasReportedToAuthorities = hasReportedToAuthorities,
+                    SupportSessions = new List<SupportSession>(),
+                    Reports = new List<Report>(),
+                    Stories = new List<Story>(),
+                    Petitions = new List<Petition>(),
+                    CrowdfundingCampaigns = new List<CrowdfundingCampaign>(),
+                    ProgressTracker = new ProgressTracker(),
+                    SavedResources = new List<SupportResource>(),
+                    Testimonies = new List<Testimony>()
                 };
-                await _imdsurvivorRepository.InsertAsync(immediateSurvivor);
-                return immediateSurvivor;
 
+                await _imdsurvivorRepository.InsertAsync(immediateSurvivor);
+
+                // Optional: fetch again if you need navigation properties
+                return immediateSurvivor;
             }
             catch (Exception ex)
             {
-
-                Logger.Error($"Error creating immediateSurvivor: {ex.Message}", ex);
+                Logger.Error($"Error creating ImmediateSurvivor: {ex.Message}", ex);
                 if (ex.InnerException != null)
                     Logger.Error($"Inner exception: {ex.InnerException.Message}");
-                throw new UserFriendlyException("An error occurred while creating the immediateSurvivor", ex);
+                throw new UserFriendlyException("An error occurred while creating the ImmediateSurvivor", ex);
             }
         }
     }
-}
+        //    public async Task<ImmediateSurvivor> CreateImdSurvivorAsync(
+        //        string name,
+        //        string surname,
+        //        string emailAddress,
+        //        string username,
+        //        string password,
+        //        string anonymousId,
+        //        string displayName,
+        //        bool? useDisplayNameOnly,
+        //        ReflistSex? sex,
+        //        string phoneNumber,
+        //        bool isAnonymous,
+        //        DateTime? incidentDate,
+        //        bool hasReceivedMedicalAttention,
+        //        bool hasReportedToAuthorities
+        //        )
+        //    {
+        //        try
+        //        {
+
+        //            await _personManager.CreatePersonAsync(
+        //                name,
+        //                surname,
+        //                emailAddress,
+        //                username,
+        //                password,
+        //                anonymousId,
+        //                displayName,
+        //                useDisplayNameOnly,
+        //                sex,
+        //                phoneNumber,
+        //                isAnonymous,
+        //                "immediatesurvivor"
+        //                );
+        //            var immediateSurvivor = new ImmediateSurvivor()
+        //            {
+        //                UseDisplayNameOnly=useDisplayNameOnly,
+        //                IncidentDate = incidentDate,
+        //                HasReceivedMedicalAttention = hasReceivedMedicalAttention,
+        //                HasReportedToAuthorities = hasReportedToAuthorities,
+        //            };
+        //            await _imdsurvivorRepository.InsertAsync(immediateSurvivor);
+        //            return immediateSurvivor;
+
+        //        }
+        //        catch (Exception ex)
+        //        {
+
+        //            Logger.Error($"Error creating immediateSurvivor: {ex.Message}", ex);
+        //            if (ex.InnerException != null)
+        //                Logger.Error($"Inner exception: {ex.InnerException.Message}");
+        //            throw new UserFriendlyException("An error occurred while creating the immediateSurvivor", ex);
+        //        }
+        //    }
+        //}
+    }
 
 
