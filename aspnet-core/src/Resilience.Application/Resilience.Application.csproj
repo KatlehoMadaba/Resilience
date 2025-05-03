@@ -17,9 +17,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Services\ChecklistServices\Dtos\" />
-    <Folder Include="Services\ProgressTrackerServices\Dtos\" />
-    <Folder Include="Services\ReportsServices\Dtos\" />
-    <Folder Include="Services\StoryServices\Dtos\" />
-    <Folder Include="Services\TestimonyServices\Dtos\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.1" />
   </ItemGroup>
 </Project>

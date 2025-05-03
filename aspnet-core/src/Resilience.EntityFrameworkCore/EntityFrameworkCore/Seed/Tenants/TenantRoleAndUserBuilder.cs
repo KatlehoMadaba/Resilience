@@ -77,11 +77,19 @@ public class TenantRoleAndUserBuilder
             adminUser.IsEmailConfirmed = true;
             adminUser.IsActive = true;
 
+            var otherUser = User.CreateTenantAdminUser(_tenantId, "admin@madaba.com");
+            otherUser.UserName = "kat";
+            otherUser.Password = new PasswordHasher<User>(new OptionsWrapper<PasswordHasherOptions>(new PasswordHasherOptions())).HashPassword(otherUser, "123qwe");
+            otherUser.IsEmailConfirmed = true;
+            otherUser.IsActive = true;
+
             _context.Users.Add(adminUser);
+            _context.Users.Add(otherUser);
             _context.SaveChanges();
 
             // Assign Admin role to admin user
             _context.UserRoles.Add(new UserRole(_tenantId, adminUser.Id, adminRole.Id));
+            _context.UserRoles.Add(new UserRole(_tenantId, otherUser.Id, adminRole.Id));
             _context.SaveChanges();
         }
     }

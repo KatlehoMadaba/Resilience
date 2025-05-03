@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Abp.Domain.Repositories;
 using Abp.Domain.Services;
@@ -9,22 +8,22 @@ using Resilience.Authorization.Users;
 namespace Resilience.Domain.Persons
 {
 
-    public class GeneralSupporterManager : DomainService
+    public class ProfessionalManager : DomainService
     {
         private readonly PersonManager _personManager;
-        private readonly IRepository<GeneralSupporter, Guid> _GeneralSupporterRepository;
-        public GeneralSupporterManager
+        private readonly IRepository<Professional, Guid> _ProfessionalRepository;
+        public ProfessionalManager
             (
             UserManager userManager,
              PersonManager personManager,
-            IRepository<GeneralSupporter, Guid> GeneralSupporterRepository
+            IRepository<Professional, Guid> ProfessionalRepository
             )
         {
             _personManager = personManager;
-            _GeneralSupporterRepository = GeneralSupporterRepository;
+            _ProfessionalRepository = ProfessionalRepository;
 
         }
-        public async Task<GeneralSupporter> CreateGeneralSupporterAsync(
+        public async Task<Professional> CreateProfessionalAsync(
             string name,
             string surname,
             string emailAddress,
@@ -35,10 +34,11 @@ namespace Resilience.Domain.Persons
             bool? useDisplayNameOnly,
             ReflistSex? sex,
             string phoneNumber,
-            bool isAnonymous,
-            string supportMotivation,
-            bool isSubscribedToUpdates,
-            List<string> areasOfInterest
+            string profession,
+            string organization,
+            string credentials,
+            bool isVerified,
+            bool isActive
             )
         {
             try
@@ -55,31 +55,31 @@ namespace Resilience.Domain.Persons
                     useDisplayNameOnly,
                     sex,
                     phoneNumber,
-                    isAnonymous,
-                    "generalsupporter"
+                    false,
+                    "Professional"
                     );
-                var GeneralSupporter = new GeneralSupporter()
+                var Professional = new Professional()
                 {
-                    
-                  SupportMotivation= supportMotivation,
-                  IsSubscribedToUpdates = isSubscribedToUpdates,
-                  AreasOfInterest = areasOfInterest
-
-
+                    Profession= profession,
+                    Organization= organization,
+                    Credentials= credentials,
+                    IsVerified= isVerified,
+                    isActive= isActive
                 };
-                await _GeneralSupporterRepository.InsertAsync(GeneralSupporter);
-                return GeneralSupporter;
+                await _ProfessionalRepository.InsertAsync(Professional);
+                return Professional;
 
             }
             catch (Exception ex)
             {
 
-                Logger.Error($"Error creating GeneralSupporter: {ex.Message}", ex);
+                Logger.Error($"Error creating Professional: {ex.Message}", ex);
                 if (ex.InnerException != null)
                     Logger.Error($"Inner exception: {ex.InnerException.Message}");
-                throw new UserFriendlyException("An error occurred while creating the GeneralSupporter", ex);
+                throw new UserFriendlyException("An error occurred while creating the Professional", ex);
             }
         }
     }
-    
+
+
 }
