@@ -34,21 +34,21 @@ namespace Resilience.Domain.Persons
 
         }
         public async Task<ImmediateSurvivor> CreateImdSurvivorAsync(
-    string name,
-    string surname,
-    string emailAddress,
-    string username,
-    string password,
-    string anonymousId,
-    string displayName,
-    bool? useDisplayNameOnly,
-    ReflistSex? sex,
-    string phoneNumber,
-    bool isAnonymous,
-    DateTime? incidentDate,
-    bool hasReceivedMedicalAttention,
-    bool hasReportedToAuthorities
-)
+            string name,
+            string surname,
+            string emailAddress,
+            string username,
+            string password,
+            string anonymousId,
+            string displayName,
+            bool? useDisplayNameOnly,
+            ReflistSex? sex,
+            string phoneNumber,
+            bool isAnonymous,
+            DateTime? incidentDate,
+            bool hasReceivedMedicalAttention,
+            bool hasReportedToAuthorities
+        )
         {
             try
             {
