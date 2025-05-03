@@ -28,10 +28,14 @@ const LoginPage = () => {
 
     if (isSuccess) {
       const role = getRole(token);
-      if (role === "immediatesurvivor") {
+      if (role === "generalsupporter") {
+        router.push("/supporterDashboard");
+      } else if (role === "professional") {
+        router.push("/professionalDashoard");
+      } else if (role === "pastsurvivor") {
         router.push("/survivorDashboard");
-      } else if (role === "patient") {
-        router.push("/patient-dashboard");
+      } else if (role === "immediatesurvivor") {
+        router.push("/survivorDashboard");
       } else {
         router.push("/");
       }
