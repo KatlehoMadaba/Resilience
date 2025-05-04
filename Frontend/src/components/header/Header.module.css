@@ -62,11 +62,14 @@
   .loginBtn {
     border-color: #38512f;
     color: #38512f;
+    background-color: #fff;
   }
   
   .loginBtn:hover {
     border-color: #bbc0b5;
     color: #8F997F;
+    background-color: #f0f5ec; /* Light green background on hover */
+    box-shadow: 0 2px 4px rgba(56, 81, 47, 0.1); /* Add a subtle shadow */
   }
   
   .signupBtn {
@@ -137,6 +140,7 @@
   .mobileSignupBtn {
     height: 44px;
     font-size: 1rem;
+    
   }
   
   /* Media Queries */

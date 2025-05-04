@@ -1,10 +1,11 @@
-@import "tailwindcss";
+
 
 :root {
   --color-bg-base: #FEF5E7;
-  --foreground: #FEF5E7;
+  --background: #FEF5E7;  
+  --foreground: #333;    
   --brand-gradient-start: #38512f;
-  --brand-gradient-end: #38512f
+  --brand-gradient-end: #38512f;
 }
 
 @theme inline {
@@ -25,4 +26,11 @@ body {
   background: var(--background, #FEF5E7); /* fallback if undefined */;
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+.ant-card {
+  color: #333;
+}
+
+.ant-typography {
+  color: #333;
 }

@@ -23,9 +23,10 @@ export const metadata: Metadata = {
 const ReslienceColors = {
   token: {
     colorPrimary: "#38512f",
-    colorInfo: "#8F997F",
-    colorBgBase: 'var(--color-bg-base)',
-    wireframe: true,
+    colorPrimaryHover: "#8F997F",  
+    colorBgContainer: "#ffffff",
+    colorBgTextHover: "#38512F",    
+    wireframe: false,
   },
 };
 export default function RootLayout({
