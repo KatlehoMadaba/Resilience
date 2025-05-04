@@ -56,7 +56,34 @@
     border-color: #38512f;
     color: #fff;
   }
+  .heroButtons a:nth-child(2) button {
+    color: #333 !important; 
+    background-color: #fff; 
+  }
+  .featureCard {
+    background-color: #fff;
+    color: #333; 
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+  }
+  .featureCard:hover {
+    transform: translateY(-5px);
+  }
   
+  .featureTitle {
+    color: #38512f; 
+  }
+  
+  .featureDescription {
+    color: #333;
+  }
+  
+  .featureIconWrapper {
+    color: #38512f;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
   /* Responsive adjustments */
   @media (max-width: 768px) {
     .heroImage {
