@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Abp.Domain.Repositories;
 using Abp.Domain.Services;
 using Abp.UI;
+using Microsoft.EntityFrameworkCore;
 using Resilience.Authorization.Users;
 using Resilience.Domain.CrowdfundingCampaigns;
 using Resilience.Domain.Petitions;
@@ -105,62 +106,15 @@ namespace Resilience.Domain.Persons
                 throw new UserFriendlyException("An error occurred while creating the ImmediateSurvivor", ex);
             }
         }
+    
+           public async Task<ImmediateSurvivor> GetImmediateSurvivorByIdWithUserAsync(Guid id)
+        {
+
+            var query = await _imdsurvivorRepository.GetAllIncludingAsync(p => p.User, p => p.CrowdfundingCampaigns);
+
+            return await query.FirstOrDefaultAsync(p => p.Id == id);
+        }
     }
-        //    public async Task<ImmediateSurvivor> CreateImdSurvivorAsync(
-        //        string name,
-        //        string surname,
-        //        string emailAddress,
-        //        string username,
-        //        string password,
-        //        string anonymousId,
-        //        string displayName,
-        //        bool? useDisplayNameOnly,
-        //        ReflistSex? sex,
-        //        string phoneNumber,
-        //        bool isAnonymous,
-        //        DateTime? incidentDate,
-        //        bool hasReceivedMedicalAttention,
-        //        bool hasReportedToAuthorities
-        //        )
-        //    {
-        //        try
-        //        {
-
-        //            await _personManager.CreatePersonAsync(
-        //                name,
-        //                surname,
-        //                emailAddress,
-        //                username,
-        //                password,
-        //                anonymousId,
-        //                displayName,
-        //                useDisplayNameOnly,
-        //                sex,
-        //                phoneNumber,
-        //                isAnonymous,
-        //                "immediatesurvivor"
-        //                );
-        //            var immediateSurvivor = new ImmediateSurvivor()
-        //            {
-        //                UseDisplayNameOnly=useDisplayNameOnly,
-        //                IncidentDate = incidentDate,
-        //                HasReceivedMedicalAttention = hasReceivedMedicalAttention,
-        //                HasReportedToAuthorities = hasReportedToAuthorities,
-        //            };
-        //            await _imdsurvivorRepository.InsertAsync(immediateSurvivor);
-        //            return immediateSurvivor;
-
-        //        }
-        //        catch (Exception ex)
-        //        {
-
-        //            Logger.Error($"Error creating immediateSurvivor: {ex.Message}", ex);
-        //            if (ex.InnerException != null)
-        //                Logger.Error($"Inner exception: {ex.InnerException.Message}");
-        //            throw new UserFriendlyException("An error occurred while creating the immediateSurvivor", ex);
-        //        }
-        //    }
-        //}
-    }
+}
 
 

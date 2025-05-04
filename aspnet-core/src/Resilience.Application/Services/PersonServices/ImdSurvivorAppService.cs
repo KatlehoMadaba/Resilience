@@ -6,11 +6,12 @@ using Abp.Domain.Repositories;
 using AutoMapper;
 using Resilience.Domain.Persons;
 using Resilience.Services.PersonServices.Dtos;
+using Volo.Abp;
 
 
 namespace Resilience.Services.PersonServices
 {
-    public class ImdSurvivorAppService : 
+    public class ImdSurvivorAppService :
         AsyncCrudAppService<ImmediateSurvivor, ImdSurvivorResponseDto, Guid, PagedAndSortedResultRequestDto, ImdSurvivorRequestDto, ImdSurvivorResponseDto>
 
     {
@@ -39,8 +40,21 @@ namespace Resilience.Services.PersonServices
                 input.HasReceivedMedicalAttention,
                 input.HasReportedToAuthorities
                 );
-    
-                return _mapper.Map<ImdSurvivorResponseDto>(immediateSurvivor);
+
+            return _mapper.Map<ImdSurvivorResponseDto>(immediateSurvivor);
         }
+
+        public override async Task<ImdSurvivorResponseDto> GetAsync(EntityDto<Guid> input)
+        {
+            var immediateSurvivor = await _immediateSurvivorManager.GetImmediateSurvivorByIdWithUserAsync(input.Id);
+            if (immediateSurvivor == null)
+            {
+                throw new UserFriendlyException("ImdSurvivor not found");
+            }
+            return _mapper.Map<ImdSurvivorResponseDto>(immediateSurvivor);
+        }
+
+
+
     }
 }
