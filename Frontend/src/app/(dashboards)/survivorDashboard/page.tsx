@@ -117,7 +117,7 @@ export default function SurvivorDashboard() {
 
 
           <div className={styles.quoteBox}>
-            <Text italic>"When you love what you have, you have everything you need."</Text>
+            <Text italic>When you love what you have, you have everything you need</Text>
             <br />
             <Text strong>- Unknown</Text>
           </div>

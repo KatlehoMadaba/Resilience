@@ -63,7 +63,7 @@ const ResilienceHeader = ({ isAuthenticated = false }) => {
                       Login
                     </Button>
                   </Link>
-                  <Link href="/signup">
+                    <Link href="/imd">
                     <Button type="primary" className={styles.signupBtn}>
                       Sign Up
                     </Button>

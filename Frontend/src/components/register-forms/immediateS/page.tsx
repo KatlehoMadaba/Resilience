@@ -15,33 +15,36 @@ import {
   MailOutlined,
   PhoneOutlined,
 } from "@ant-design/icons";
-import styles from "../../../app/(auth)/register-immdetiateSurvivor/register-page.module.css";
-
+import styles from "./register-page.module.css";
+import { IAuth } from "../../../providers/auth-provider/models"
+import { useAuthActions } from "@/providers/auth-provider";
+import {ReflistSex} from "../../../enums/ReflistSex"
 const { Option } = Select;
+import { useRouter } from "next/navigation";
 
-export interface ImdSurvivorRequestDto {
-  userName?: string;
-  name?: string;
-  surname?: string;
-  password?: string;
-  emailAddress?: string;
-  displayName?: string;
-  useDisplayNameOnly?: boolean;
-  sex?: "Male" | "Female" | "Other";
-  phoneNumber?: string;
-  anonymousId?: string;
-  isAnonymous: boolean;
-  incidentDate?: string;
-  hasReceivedMedicalAttention: boolean;
-  hasReportedToAuthorities: boolean;
-}
+// export interface ImdSurvivorRequestDto {
+//   userName?: string;
+//   name?: string;
+//   surname?: string;
+//   password?: string;
+//   emailAddress?: string;
+//   displayName?: string;
+//   useDisplayNameOnly?: boolean;
+//   sex?: "Male" | "Female" | "Other";
+//   phoneNumber?: string;
+//   anonymousId?: string;
+//   isAnonymous: boolean;
+//   incidentDate?: string;
+//   hasReceivedMedicalAttention: boolean;
+//   hasReportedToAuthorities: boolean;
+// }
 
 export default function ImmdeiateRegisterForm() {
   const [loading, setLoading] = useState(false);
   const [isAnonymous, setIsAnonymous] = useState(false);
   const [generatedAnonId, setGeneratedAnonId] = useState("");
   const [messageApi, contextHolder] = message.useMessage();
-
+  const { signUp } = useAuthActions();
   const generateAnonymousId = () => {
     const random = Math.floor(1000 + Math.random() * 9000);
     return `Anonymous${random}`;
@@ -70,22 +73,29 @@ export default function ImmdeiateRegisterForm() {
     });
   };
 
-  const onFinish = async (values: any) => {
+  const onFinish = async (values: IAuth) => {
     setLoading(true);
+    console.log("this is the value:",values)
 
     try {
-      const payload: ImdSurvivorRequestDto = {
+      const payload: IAuth = {
         ...values,
-        anonymousId: isAnonymous ? generatedAnonId : undefined,
-        incidentDate: values.incidentDate?.format("YYYY-MM-DD"),
-        isAnonymous,
+        anonymousId: isAnonymous ? generatedAnonId : "",
+        incidentDate: values.incidentDate,
+        // role: "immediatesurvivor",
+        // isAnonymous,
       };
 
+      await signUp(payload);
       console.log("Payload for submission:", payload);
-      // Call your API here
+      setLoading(false);
       showSuccessToast();
+
     } catch (error) {
       showErrorToast();
+      console.log(error)
+      
+
     } finally {
       setLoading(false);
     }
@@ -101,7 +111,7 @@ export default function ImmdeiateRegisterForm() {
         size="large"
       >
         <Form.Item
-          name="isAnonymous"
+          name="IsAnonymous"
           label="Register as Anonymous?"
           valuePropName="checked"
         >
@@ -110,7 +120,11 @@ export default function ImmdeiateRegisterForm() {
 
         {!isAnonymous && (
           <>
-            <Form.Item name="userName" label="Username" rules={[{ required: true }]}>
+            <Form.Item
+              name="userName"
+              label="Username"
+              rules={[{ required: true }]}
+            >
               <Input prefix={<UserOutlined />} placeholder="Username" />
             </Form.Item>
 
@@ -118,7 +132,11 @@ export default function ImmdeiateRegisterForm() {
               <Input placeholder="First name" />
             </Form.Item>
 
-            <Form.Item name="surname" label="Surname" rules={[{ required: true }]}>
+            <Form.Item
+              name="surname"
+              label="Surname"
+              rules={[{ required: true }]}
+            >
               <Input placeholder="Last name" />
             </Form.Item>
 
@@ -148,9 +166,11 @@ export default function ImmdeiateRegisterForm() {
 
             <Form.Item name="sex" label="Sex" rules={[{ required: true }]}>
               <Select placeholder="Select your gender">
-                <Option value="Male">Male</Option>
-                <Option value="Female">Female</Option>
-                <Option value="Other">Other</Option>
+                <Option value={ReflistSex.Male}>Male</Option>
+                <Option value={ReflistSex.Female}>Female</Option>
+                <Option value={ReflistSex.PreferNotToSay}>
+                  Prefer Not Say{" "}
+                </Option>
               </Select>
             </Form.Item>
           </>
@@ -162,11 +182,15 @@ export default function ImmdeiateRegisterForm() {
           </Form.Item>
         )}
 
-        <Form.Item name="password" label="Password" rules={[{ required: true }]}>
+        <Form.Item
+          name="password"
+          label="Password"
+          rules={[{ required: true }]}
+        >
           <Input.Password prefix={<LockOutlined />} placeholder="Password" />
         </Form.Item>
 
-        <Form.Item name="incidentDate" label="Incident Date">
+        <Form.Item name="IncidentDate" label="Incident Date">
           <DatePicker style={{ width: "100%" }} />
         </Form.Item>
 
