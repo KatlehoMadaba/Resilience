@@ -7,7 +7,7 @@ namespace Resilience.Services.PersonServices.Dtos
     public class ImdSurvivorRequestDto
     {
         //Person
-        public long UserId { get; set; }
+
         public string? UserName{get;set;} 
         public string? Name { get; set; }
         public string? Surname { get; set; }
