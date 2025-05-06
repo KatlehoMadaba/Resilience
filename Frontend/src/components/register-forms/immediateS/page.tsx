@@ -10,18 +10,20 @@ import {
 import styles from "./register-page.module.css";
 import { IAuth } from "../../../providers/auth-provider/models";
 import { useAuthActions } from "@/providers/auth-provider";
+import { useAuthState } from "@/providers/auth-provider";
+
 import { ReflistSex } from "../../../enums/ReflistSex";
 const { Option } = Select;
-//import { useRouter } from "next/navigation";
-
-
+import { useRouter } from "next/navigation";
 
 export default function ImmdeiateRegisterForm() {
+  const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [isAnonymous, setIsAnonymous] = useState(false);
   const [generatedAnonId, setGeneratedAnonId] = useState("");
   const [messageApi, contextHolder] = message.useMessage();
   const { signUp } = useAuthActions();
+  const { isSuccess, isError, isPending } = useAuthState();
   const generateAnonymousId = () => {
     const random = Math.floor(1000 + Math.random() * 9000);
     return `Anonymous${random}`;
@@ -51,24 +53,35 @@ export default function ImmdeiateRegisterForm() {
   };
 
   const onFinish = async (values: IAuth) => {
-    setLoading(true);
+    if (isPending) {
+      setLoading(true);
+    }
+
     console.log("this is the value:", values);
     try {
-      const payload: IAuth = {
+      const formValues: IAuth = {
         ...values,
         anonymousId: isAnonymous ? generatedAnonId : "",
         incidentDate: values.incidentDate,
         role: "immediatesurvivor",
         isAnonymous: false,
       };
-
-      await signUp(payload);
-      console.log("Payload for submission:", payload);
-      setLoading(false);
-      showSuccessToast();
+      debugger
+      await signUp(formValues);
+      console.log("Payload for submission:", formValues);
+      if (isPending) {
+        setLoading(true);
+      }
+      if (isSuccess) {
+        setLoading(false);
+        showSuccessToast();
+        router.push("/login");
+      }
     } catch (error) {
-      showErrorToast();
-      console.log(error);
+      if (isError) {
+        showErrorToast();
+        console.log(error);
+      }
     } finally {
       setLoading(false);
     }

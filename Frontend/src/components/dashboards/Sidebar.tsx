@@ -1,46 +1,74 @@
 "use client";
 
-import { Menu, Layout } from "antd";
+import { Menu, Button } from "antd";
 import {
   HomeOutlined,
   FileTextOutlined,
   MessageOutlined,
-  UserOutlined,
   EnvironmentOutlined,
   GlobalOutlined,
   LogoutOutlined,
 } from "@ant-design/icons";
-import styles from "./sidebar.module.css";
-
-const { Sider } = Layout;
+import styles from "../dashboards/sidebar.module.css";
 
 export default function Sidebar() {
   return (
-    <Sider
-      className={styles.sider}
-      breakpoint="lg"
-      collapsedWidth="0"
-    >
-      <Menu theme="light" mode="inline" defaultSelectedKeys={["1"]}>
-        <Menu.Item key="1" icon={<HomeOutlined />}>
-          Dashboard
-        </Menu.Item>
-        <Menu.Item key="2" icon={<FileTextOutlined />}>
-          Generate a report
-        </Menu.Item>
-        <Menu.Item key="3" icon={<MessageOutlined />}>
-          Personal Therapist
-        </Menu.Item>
-        <Menu.Item key="4" icon={<UserOutlined />}>
-          Nearest Hospital
-        </Menu.Item>
-        <Menu.Item key="5" icon={<GlobalOutlined />}>
-          Create A Post
-        </Menu.Item>
-        <Menu.Item key="6" icon={<LogoutOutlined />}>
+    <>
+      {/* Desktop Sidebar */}
+      <div className={styles.sidebar}>
+        <div className={styles.logo}>LOGO</div>
+        <Menu mode="vertical" defaultSelectedKeys={["dashboard"]}>
+          <Menu.Item key="dashboard" icon={<HomeOutlined />}>
+            Dashboard
+          </Menu.Item>
+          <Menu.Item key="report" icon={<FileTextOutlined />}>
+            Generate Report
+          </Menu.Item>
+          <Menu.Item key="therapist" icon={<MessageOutlined />}>
+            Personal Therapist
+          </Menu.Item>
+          <Menu.Item key="hospital" icon={<EnvironmentOutlined />}>
+            Nearest Hospital
+          </Menu.Item>
+          <Menu.Item key="post" icon={<GlobalOutlined />}>
+            Create A Post
+          </Menu.Item>
+        </Menu>
+        <Button icon={<LogoutOutlined />} type="text" className={styles.logout}>
           Logout
-        </Menu.Item>
-      </Menu>
-    </Sider>
+        </Button>
+      </div>
+
+      {/* Mobile Bottom Navigation */}
+      <div className={styles.mobileNav}>
+        <Menu mode="horizontal" className={styles.mobileMenu}>
+          <Menu.Item
+            key="dashboard"
+            icon={<HomeOutlined />}
+            className={styles.mobileNavItem}
+          />
+          <Menu.Item
+            key="report"
+            icon={<FileTextOutlined />}
+            className={styles.mobileNavItem}
+          />
+          <Menu.Item
+            key="therapist"
+            icon={<MessageOutlined />}
+            className={styles.mobileNavItem}
+          />
+          <Menu.Item
+            key="hospital"
+            icon={<EnvironmentOutlined />}
+            className={styles.mobileNavItem}
+          />
+          <Menu.Item
+            key="post"
+            icon={<GlobalOutlined />}
+            className={styles.mobileNavItem}
+          />
+        </Menu>
+      </div>
+    </>
   );
 }

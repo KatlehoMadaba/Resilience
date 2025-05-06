@@ -1,6 +1,91 @@
-.sider {
-    background-color: #f5f3ea; /* a soft neutral tone */
-    border-right: 1px solid #ccc;
-    padding-top: 1rem;
+/* Desktop Sidebar */
+.sidebar {
+  width: 200px;
+  min-height: 100vh;
+  background-color: #fff;
+  border-right: 1px solid #f0f0f0;
+  padding: 16px;
+  display: block;
+  /* Ensure sidebar is displayed in desktop view */
+  position: fixed;
+  /* Position sidebar to the left */
+  top: 0;
+  left: 0;
+  bottom: 0;
+}
+
+.logo {
+  height: 32px;
+  margin-bottom: 24px;
+  background: #f0f2f5;
+}
+
+.logout {
+  margin-top: 24px;
+  color: red;
+  cursor: pointer;
+}
+
+/* Main content container */
+.mainContent {
+  margin-left: 200px;
+  /* Adjust content margin to accommodate sidebar */
+  padding: 16px;
+  width: calc(100% - 200px);
+  /* Ensure content fills the rest of the space */
+  background-color: #f9f5f0;
+  min-height: 100vh;
+  /* Ensure content stretches to full height */
+  display: flex;
+  flex-direction: column;
+}
+
+/* Mobile Bottom Nav */
+.mobileNav {
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #fff;
+  border-top: 1px solid #e0e0e0;
+  z-index: 1000;
+  justify-content: space-around;
+  padding: 8px 0;
+}
+
+.mobileMenu {
+  display: flex !important;
+  justify-content: space-around;
+  background-color: white;
+  border: none;
+}
+
+.mobileNavItem {
+  flex: 1;
+  text-align: center;
+  padding: 8px 0;
+}
+
+/* Mobile view */
+@media (max-width: 768px) {
+
+  /* Remove sidebar on mobile */
+  .sidebar {
+    display: none;
   }
-  
+
+  /* Show bottom navigation instead */
+  .mobileNav {
+    display: flex;
+  }
+
+  /* Adjust main content margin for mobile */
+  .mainContent {
+    margin-left: 0;
+    padding: 8px;
+    width: 100%;
+    min-height: calc(100vh - 50px);
+    /* Adjust for bottom navigation height */
+  }
+}
