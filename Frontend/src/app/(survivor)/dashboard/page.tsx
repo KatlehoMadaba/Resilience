@@ -1,5 +1,5 @@
 "use client"
-import React, { useActionState, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Layout, Card, Typography, Row, Col, Modal, Rate, Spin } from 'antd';
 import { FaSmile, FaMeh, FaFrown } from 'react-icons/fa';
 import Sidebar from '../../../components/dashboards/Sidebar';
@@ -16,7 +16,7 @@ const Dashboard = () => {
   const [selectedEmoji, setSelectedEmoji] = useState("");
   const {getCurrentUser} =useUserActions();
   const {getCurrentSurvivor}=useSurvivorActions();
-  const {isPending,isError,isSuccess}=useUserState();
+  const {isPending,isError}=useUserState();
   const {currentSurvivor}=useSurvivorState();
   const [loading,setLoading]=useState(true);
   const router=useRouter();
