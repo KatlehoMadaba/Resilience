@@ -155,22 +155,26 @@ namespace Resilience.Domain.Persons
 
         public async Task<ImmediateSurvivor> GetImmediateSurvivorByUserIdAsync(long userId)
         {
-            var ImmediateSurvivors = await _imdsurvivorRepository.GetAllIncludingAsync(
+            using (var uow = _unitOfWorkManager.Begin()) using (_unitOfWorkManager.Current.SetTenantId(1))
+            {
+                var session = _abpSession.Use(1, 1);
+
+                var ImmediateSurvivors = await _imdsurvivorRepository.GetAllIncludingAsync(
                 p => p.User,
                 p => p.CrowdfundingCampaigns,
-                p =>p.SupportSessions,
-                p =>p.MedicalAssistanceRecord
+                p => p.SupportSessions,
+                p => p.MedicalAssistanceRecord
             );
 
-            var ImmediateSurvivor = await ImmediateSurvivors.FirstOrDefaultAsync(p => p.UserId == userId);
-            if (ImmediateSurvivor == null)
-            {
-                throw new UserFriendlyException("ImmediateSurvivor not found");
+                var ImmediateSurvivor = await ImmediateSurvivors.FirstOrDefaultAsync(p => p.UserId == userId);
+                if (ImmediateSurvivor == null)
+                {
+                    throw new UserFriendlyException("ImmediateSurvivor not found");
+                }
+                await uow.CompleteAsync();
+                return ImmediateSurvivor;
             }
-
-            return ImmediateSurvivor;
         }
-      
         
     }
 
