@@ -21,7 +21,7 @@ import axios from "axios";
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [state, dispatch] = useReducer(AuthReducer, INITIAL_STATE);
 
-  const signUp = async (): Promise<void> => {
+  const signUp = async (Auth:IAuth): Promise<void> => {
     const sendData = {
       userName: "Lebo123",
       name: "Lebo",
@@ -42,15 +42,15 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     dispatch(signUpPending());
 
     const endpoint =
-      // Auth.role === "PASTSURVIVOR"
-      //   ? `https://localhost:44311/api/services/app/PastSurvivor/Create`
-      //   : Auth.role === "GENERALSUPPORTER"
-      //   ? `https://localhost:44311/api/services/app/GeneralSupporter/Create`
-      //   : Auth.role === "PROFESSIONAL"
-      //   ? `https://localhost:44311/api/services/app/Professional/Create`
-      `https://localhost:44311/api/services/app/ImdSurvivor/Create`;
+      Auth.role === "PASTSURVIVOR"
+        ? `https://localhost:44311/api/services/app/PastSurvivor/Create`
+        : Auth.role === "GENERALSUPPORTER"
+        ? `https://localhost:44311/api/services/app/GeneralSupporter/Create`
+        : Auth.role === "PROFESSIONAL"
+        ? `https://localhost:44311/api/services/app/Professional/Create`
+        :`https://localhost:44311/api/services/app/ImdSurvivor/Create`;
     https: await axios
-      .post<IAuth>(endpoint, sendData)
+      .post<IAuth>(endpoint, Auth)
       .then((response) => {
         dispatch(signUpSuccess(response.data));
         console.log("this the response for sign:", response.data);

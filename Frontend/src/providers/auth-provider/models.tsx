@@ -7,6 +7,7 @@ export interface IAuth {
   name?: string;
   surname?: string;
   emailAddress?: string;
+  role: string;
   //Person
   anonymousId?: string;
   displayName?: string;

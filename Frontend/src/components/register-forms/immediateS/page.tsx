@@ -1,14 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import {
-  Form,
-  Input,
-  Button,
-  DatePicker,
-  Switch,
-  Select,
-  message,
-} from "antd";
+import { Form, Input, Button, DatePicker, Switch, Select, message } from "antd";
 import {
   UserOutlined,
   LockOutlined,
@@ -16,28 +8,13 @@ import {
   PhoneOutlined,
 } from "@ant-design/icons";
 import styles from "./register-page.module.css";
-import { IAuth } from "../../../providers/auth-provider/models"
+import { IAuth } from "../../../providers/auth-provider/models";
 import { useAuthActions } from "@/providers/auth-provider";
-import {ReflistSex} from "../../../enums/ReflistSex"
+import { ReflistSex } from "../../../enums/ReflistSex";
 const { Option } = Select;
-import { useRouter } from "next/navigation";
+//import { useRouter } from "next/navigation";
 
-// export interface ImdSurvivorRequestDto {
-//   userName?: string;
-//   name?: string;
-//   surname?: string;
-//   password?: string;
-//   emailAddress?: string;
-//   displayName?: string;
-//   useDisplayNameOnly?: boolean;
-//   sex?: "Male" | "Female" | "Other";
-//   phoneNumber?: string;
-//   anonymousId?: string;
-//   isAnonymous: boolean;
-//   incidentDate?: string;
-//   hasReceivedMedicalAttention: boolean;
-//   hasReportedToAuthorities: boolean;
-// }
+
 
 export default function ImmdeiateRegisterForm() {
   const [loading, setLoading] = useState(false);
@@ -75,27 +52,23 @@ export default function ImmdeiateRegisterForm() {
 
   const onFinish = async (values: IAuth) => {
     setLoading(true);
-    console.log("this is the value:",values)
-
+    console.log("this is the value:", values);
     try {
       const payload: IAuth = {
         ...values,
         anonymousId: isAnonymous ? generatedAnonId : "",
         incidentDate: values.incidentDate,
-        // role: "immediatesurvivor",
-        // isAnonymous,
+        role: "immediatesurvivor",
+        isAnonymous: false,
       };
 
       await signUp(payload);
       console.log("Payload for submission:", payload);
       setLoading(false);
       showSuccessToast();
-
     } catch (error) {
       showErrorToast();
-      console.log(error)
-      
-
+      console.log(error);
     } finally {
       setLoading(false);
     }
@@ -111,7 +84,7 @@ export default function ImmdeiateRegisterForm() {
         size="large"
       >
         <Form.Item
-          name="IsAnonymous"
+          name="isAnonymous"
           label="Register as Anonymous?"
           valuePropName="checked"
         >
@@ -127,11 +100,9 @@ export default function ImmdeiateRegisterForm() {
             >
               <Input prefix={<UserOutlined />} placeholder="Username" />
             </Form.Item>
-
             <Form.Item name="name" label="Name" rules={[{ required: true }]}>
               <Input placeholder="First name" />
             </Form.Item>
-
             <Form.Item
               name="surname"
               label="Surname"
@@ -139,7 +110,6 @@ export default function ImmdeiateRegisterForm() {
             >
               <Input placeholder="Last name" />
             </Form.Item>
-
             <Form.Item
               name="emailAddress"
               label="Email"
@@ -147,15 +117,12 @@ export default function ImmdeiateRegisterForm() {
             >
               <Input prefix={<MailOutlined />} placeholder="Email" />
             </Form.Item>
-
             <Form.Item name="phoneNumber" label="Phone Number">
               <Input prefix={<PhoneOutlined />} placeholder="Phone Number" />
             </Form.Item>
-
             <Form.Item name="displayName" label="Display Name">
               <Input placeholder="Display Name" />
             </Form.Item>
-
             <Form.Item
               name="useDisplayNameOnly"
               label="Use Display Name Only"
@@ -163,13 +130,12 @@ export default function ImmdeiateRegisterForm() {
             >
               <Switch />
             </Form.Item>
-
             <Form.Item name="sex" label="Sex" rules={[{ required: true }]}>
               <Select placeholder="Select your gender">
                 <Option value={ReflistSex.Male}>Male</Option>
                 <Option value={ReflistSex.Female}>Female</Option>
                 <Option value={ReflistSex.PreferNotToSay}>
-                  Prefer Not Say{" "}
+                  Prefer Not Say
                 </Option>
               </Select>
             </Form.Item>

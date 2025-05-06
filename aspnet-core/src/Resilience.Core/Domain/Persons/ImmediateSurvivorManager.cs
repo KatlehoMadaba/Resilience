@@ -81,7 +81,7 @@ namespace Resilience.Domain.Persons
                         throw new UserFriendlyException("Failed to create user: " + string.Join(", ", userCreationResult.Errors));
                     }
 
-                    await _userManager.AddToRoleAsync(user, "professional");
+                    await _userManager.AddToRoleAsync(user, "immediatesurvivor");
 
                     // 2. Create ImmediateSurvivor (inherits from Person)
                     var immediateSurvivor = new ImmediateSurvivor
