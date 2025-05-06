@@ -63,7 +63,6 @@ export default function ImmdeiateRegisterForm() {
         role: "immediatesurvivor",
         isAnonymous: false,
       };
-      debugger
       await signUp(formValues);
       if (isPending) {
         setLoading(true);

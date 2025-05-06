@@ -36,8 +36,8 @@ export const SurvivorProvider = ({
   const instance = getAxiosInstace();
 
   // Get current Survivor
-  debugger
   const getCurrentSurvivor = async (
+
     userId: number
   ): Promise<ISurvivor | null> => {
     dispatch(getCurrentSurvivorPending());
