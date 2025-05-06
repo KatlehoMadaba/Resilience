@@ -19,7 +19,7 @@ namespace Resilience.Services.PersonServices
 
     {
         private readonly ImmediateSurvivorManager _immediateSurvivorManager;
-        private readonly IRepository<ImmediateSurvivor,Guid> _Imdrepository;
+        private readonly IRepository<ImmediateSurvivor, Guid> _Imdrepository;
         private readonly IMapper _mapper;
         public ImdSurvivorAppService(IRepository<ImmediateSurvivor, Guid> repository, ImmediateSurvivorManager immediateSurvivorManager, IMapper mapper, IRepository<ImmediateSurvivor, Guid> imdrepository) : base(repository)
         {
@@ -49,7 +49,7 @@ namespace Resilience.Services.PersonServices
             return _mapper.Map<ImdSurvivorResponseDto>(immediateSurvivor);
         }
 
-        protected override async Task<ImmediateSurvivor> GetEntityByIdAsync( Guid id)
+        protected override async Task<ImmediateSurvivor> GetEntityByIdAsync(Guid id)
         {
             var immediateSurvivor = await _immediateSurvivorManager.GetImmediateSurvivorByIdWithUserAsync(id);
             if (immediateSurvivor == null)
@@ -58,5 +58,14 @@ namespace Resilience.Services.PersonServices
             }
             return immediateSurvivor;
         }
+         
+        public async Task<ImdSurvivorResponseDto> GetCurrentSurvivorAsync(long userId)
+        {
+            var imdSurvivor = await _immediateSurvivorManager.GetImmediateSurvivorByUserIdAsync(userId);
+            return _mapper.Map<ImmediateSurvivor, ImdSurvivorResponseDto>(imdSurvivor);
+        }
+
+
     }
+
 }

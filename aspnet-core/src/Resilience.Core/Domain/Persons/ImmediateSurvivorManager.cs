@@ -7,6 +7,7 @@ using Abp.Domain.Uow;
 using Abp.Runtime.Session;
 using Abp.UI;
 using Microsoft.EntityFrameworkCore;
+using NuGet.Protocol.Core.Types;
 using Resilience.Authorization.Users;
 using Resilience.Domain.CrowdfundingCampaigns;
 using Resilience.Domain.Petitions;
@@ -135,7 +136,7 @@ namespace Resilience.Domain.Persons
 
                     var query = await _imdsurvivorRepository.GetAllIncludingAsync(p => p.User, p => p.CrowdfundingCampaigns);
 
-                    var immediateSurvivor =  await query.FirstOrDefaultAsync(p => p.Id == id);
+                    var immediateSurvivor = await query.FirstOrDefaultAsync(p => p.Id == id);
                     await uow.CompleteAsync();
 
                     return immediateSurvivor;
@@ -149,9 +150,31 @@ namespace Resilience.Domain.Persons
                     Logger.Error($"Inner exception: {ex.InnerException.Message}");
                 throw new UserFriendlyException("An error occurred while creating the ImmediateSurvivor", ex);
             }
-        
+
         }
+
+        public async Task<ImmediateSurvivor> GetImmediateSurvivorByUserIdAsync(long userId)
+        {
+            var ImmediateSurvivors = await _imdsurvivorRepository.GetAllIncludingAsync(
+                p => p.User,
+                p => p.CrowdfundingCampaigns,
+                p =>p.SupportSessions,
+                p =>p.MedicalAssistanceRecord
+            );
+
+            var ImmediateSurvivor = await ImmediateSurvivors.FirstOrDefaultAsync(p => p.UserId == userId);
+            if (ImmediateSurvivor == null)
+            {
+                throw new UserFriendlyException("ImmediateSurvivor not found");
+            }
+
+            return ImmediateSurvivor;
+        }
+      
+        
     }
+
+
 }
 
 

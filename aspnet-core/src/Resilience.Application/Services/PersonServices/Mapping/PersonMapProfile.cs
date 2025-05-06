@@ -27,6 +27,7 @@ namespace Resilience.Services.PersonServices.Mapping
         {
             CreateMap<ImdSurvivorRequestDto, ImmediateSurvivor>();
             CreateMap<ImmediateSurvivor, ImdSurvivorResponseDto>()
+            .ForMember(dest => dest.UserId,opt=> opt.MapFrom(src => src.UserId))
             .ForMember(dest => dest.Sex, opt => opt.MapFrom(src => src.Sex != null ? src.Sex.GetEnumDescription() : null))
             .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.User != null ? src.User.UserName : null))
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.User != null ? src.User.Name : null))

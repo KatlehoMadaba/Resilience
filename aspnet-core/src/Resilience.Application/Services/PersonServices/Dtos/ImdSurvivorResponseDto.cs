@@ -17,6 +17,7 @@ namespace Resilience.Services.PersonServices.Dtos
     public class ImdSurvivorResponseDto: EntityDto<Guid>
     {
         //Person & User 
+        public long UserId { get; set; }
         public string? UserName { get; set; }
         public string? Name { get; set; }
         public string? Surname { get; set; }
