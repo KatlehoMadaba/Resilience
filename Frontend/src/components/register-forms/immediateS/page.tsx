@@ -51,13 +51,10 @@ export default function ImmdeiateRegisterForm() {
       duration: 5,
     });
   };
-
   const onFinish = async (values: IAuth) => {
     if (isPending) {
       setLoading(true);
     }
-
-    console.log("this is the value:", values);
     try {
       const formValues: IAuth = {
         ...values,
@@ -68,7 +65,6 @@ export default function ImmdeiateRegisterForm() {
       };
       debugger
       await signUp(formValues);
-      console.log("Payload for submission:", formValues);
       if (isPending) {
         setLoading(true);
       }
@@ -80,7 +76,6 @@ export default function ImmdeiateRegisterForm() {
     } catch (error) {
       if (isError) {
         showErrorToast();
-        console.log(error);
       }
     } finally {
       setLoading(false);

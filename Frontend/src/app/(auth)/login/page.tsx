@@ -29,13 +29,13 @@ const LoginPage = () => {
     if (isSuccess) {
       const role = getRole(token);
       if (role === "generalsupporter") {
-        router.push("/supporterDashboard");
+        router.push("/supporter");
       } else if (role === "professional") {
-        router.push("/professionalDashoard");
+        router.push("/professional");
       } else if (role === "pastsurvivor") {
-        router.push("/survivorDashboard");
+        router.push("/survivor");
       } else if (role === "immediatesurvivor") {
-        router.push("/survivorDashboard");
+        router.push("/dashboard");
       } else {
         router.push("/");
       }

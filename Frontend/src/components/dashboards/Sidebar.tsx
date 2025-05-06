@@ -1,74 +1,76 @@
-"use client";
+"use client"
+import { useState } from 'react';
+import { Button, Menu } from 'antd';
+import { 
+  HomeOutlined, 
+  FileTextOutlined, 
+  MessageOutlined, 
+  EnvironmentOutlined, 
+  GlobalOutlined, 
+  LogoutOutlined 
+} from '@ant-design/icons';
+import { useRouter } from "next/navigation";
 
-import { Menu, Button } from "antd";
-import {
-  HomeOutlined,
-  FileTextOutlined,
-  MessageOutlined,
-  EnvironmentOutlined,
-  GlobalOutlined,
-  LogoutOutlined,
-} from "@ant-design/icons";
-import styles from "../dashboards/sidebar.module.css";
+import styles from './sidebar.module.css';
 
-export default function Sidebar() {
+const Sidebar = ({ 
+  width = 200,
+  defaultSelectedKey = "dashboard",
+  onMenuItemClick,
+  onLogout
+}) => {
+  const [selectedKey, setSelectedKey] = useState(defaultSelectedKey);
+  const router = useRouter();
+  const handleMenuClick = (e) => {
+    setSelectedKey(e.key);
+    if (onMenuItemClick) {
+      onMenuItemClick(e.key);
+    }
+  };
+
+  const handleLogout = () => {
+    if (onLogout) {
+      onLogout();
+      router.push("/")
+      sessionStorage.clear
+    }
+  };
+
   return (
-    <>
-      {/* Desktop Sidebar */}
-      <div className={styles.sidebar}>
-        <div className={styles.logo}>LOGO</div>
-        <Menu mode="vertical" defaultSelectedKeys={["dashboard"]}>
-          <Menu.Item key="dashboard" icon={<HomeOutlined />}>
-            Dashboard
-          </Menu.Item>
-          <Menu.Item key="report" icon={<FileTextOutlined />}>
-            Generate Report
-          </Menu.Item>
-          <Menu.Item key="therapist" icon={<MessageOutlined />}>
-            Personal Therapist
-          </Menu.Item>
-          <Menu.Item key="hospital" icon={<EnvironmentOutlined />}>
-            Nearest Hospital
-          </Menu.Item>
-          <Menu.Item key="post" icon={<GlobalOutlined />}>
-            Create A Post
-          </Menu.Item>
-        </Menu>
-        <Button icon={<LogoutOutlined />} type="text" className={styles.logout}>
-          Logout
-        </Button>
-      </div>
-
-      {/* Mobile Bottom Navigation */}
-      <div className={styles.mobileNav}>
-        <Menu mode="horizontal" className={styles.mobileMenu}>
-          <Menu.Item
-            key="dashboard"
-            icon={<HomeOutlined />}
-            className={styles.mobileNavItem}
-          />
-          <Menu.Item
-            key="report"
-            icon={<FileTextOutlined />}
-            className={styles.mobileNavItem}
-          />
-          <Menu.Item
-            key="therapist"
-            icon={<MessageOutlined />}
-            className={styles.mobileNavItem}
-          />
-          <Menu.Item
-            key="hospital"
-            icon={<EnvironmentOutlined />}
-            className={styles.mobileNavItem}
-          />
-          <Menu.Item
-            key="post"
-            icon={<GlobalOutlined />}
-            className={styles.mobileNavItem}
-          />
-        </Menu>
-      </div>
-    </>
+    <div className={styles.sidebar} style={{ width: width }}>
+      <div className={styles.logo} />
+      <Menu
+        mode="inline"
+        selectedKeys={[selectedKey]}
+        onClick={handleMenuClick}
+        className={styles.menu}
+      >
+        <Menu.Item key="dashboard" icon={<HomeOutlined />}>
+          Dashboard
+        </Menu.Item>
+        <Menu.Item key="report" icon={<FileTextOutlined />} onClick={()=>router.push("/report")}>
+          Generate a report
+        </Menu.Item>
+        <Menu.Item key="therapist" icon={<MessageOutlined />} onClick={()=>router.push("/hospitals")}>
+          Personal Therapist
+        </Menu.Item>
+        <Menu.Item key="hospital" icon={<EnvironmentOutlined />} onClick={()=>router.push("/hospitals")}>
+          Nearest Hospital
+        </Menu.Item>
+        <Menu.Item key="post" icon={<GlobalOutlined />} onClick={()=>router.push("/createPost")}>
+          Create A Post
+        </Menu.Item>
+      </Menu>
+      <Button
+        icon={<LogoutOutlined />}
+        type="text"
+        onClick={handleLogout}
+        className={styles.logout}
+      >
+        Logout
+      </Button>
+    </div>
   );
-}
+};
+
+export default Sidebar;

@@ -22,23 +22,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [state, dispatch] = useReducer(AuthReducer, INITIAL_STATE);
 
   const signUp = async (Auth:IAuth): Promise<void> => {
-    const sendData = {
-      userName: "Lebo123",
-      name: "Lebo",
-      surname: "Nkosi",
-      password: "StrongPass@2025",
-      emailAddress: "Lebo123@example.com",
-      displayName: "Lebo123",
-      useDisplayNameOnly: false,
-      sex: 1,
-      phoneNumber: "0829876543",
-      anonymousId: "xyz789abc",
-      isAnonymous: false,
-      incidentDate: "2025-05-05T14:48:25.788Z",
-      hasReceivedMedicalAttention: true,
-      hasReportedToAuthorities: false,
-    };
-
     dispatch(signUpPending());
 
     const endpoint =
@@ -53,7 +36,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       .post<IAuth>(endpoint, Auth)
       .then((response) => {
         dispatch(signUpSuccess(response.data));
-        console.log("this the response for sign:", response.data);
       })
       .catch((error) => {
         console.error(error);
@@ -90,7 +72,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const emergencySignIn = async (emergencySignIn: IEmergencySignIn) => {
     dispatch(signInPending());
     const endpoint =
-      "https://healthappointmentsystem-2.onrender.com/api/TokenAuth/Authenticate";
+      "";
     return axios
       .post(endpoint, emergencySignIn)
       .then((response) => {
