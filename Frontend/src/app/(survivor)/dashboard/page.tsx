@@ -1,6 +1,6 @@
 "use client"
 import React, { useActionState, useEffect, useState } from 'react';
-import { Layout, Card, Typography, Row, Col, Modal, Rate } from 'antd';
+import { Layout, Card, Typography, Row, Col, Modal, Rate, Spin } from 'antd';
 import { FaSmile, FaMeh, FaFrown } from 'react-icons/fa';
 import Sidebar from '../../../components/dashboards/Sidebar';
 import { useRouter } from "next/navigation";
@@ -20,6 +20,7 @@ const Dashboard = () => {
   const {currentSurvivor}=useSurvivorState();
   const [loading,setLoading]=useState(true);
   const router=useRouter();
+
   const showRatingModal = (mood) => {
     setSelectedEmoji(mood);
     setIsModalVisible(true);
@@ -55,20 +56,23 @@ const Dashboard = () => {
     router.push("/aiChat")
 
   };
-      
 
-  const fetchSurvivorOnReload=async ()=>{
-    
+useEffect(()=>{
+    fetchSurvivorOnReload()
+  },[])
+
+  useEffect(() => {
+    setLoading(isPending);
+    if (isError) setLoading(false);
+  }, [isPending, isError]);
+
+  const fetchSurvivorOnReload= async ()=>{
     const token =sessionStorage.getItem("jwt");
     if(!token) return;
-
     try{
-      debugger
+      setLoading(true)
       const user=await getCurrentUser(token);
-      if(isSuccess){
-       await getCurrentSurvivor(user.id);
-      }
-
+      await getCurrentSurvivor(user.id);
     }
     catch(err)
     {
@@ -77,18 +81,9 @@ const Dashboard = () => {
     finally{
       setLoading(false)
     }
- 
-    useEffect(() => {
-      setLoading(isPending);
-      if (isError) setLoading(false);
-    }, [isPending, isError]);
-
   }
-  useEffect(()=>{
-    fetchSurvivorOnReload()
-  },[])
-
   return (
+<Spin spinning={loading}>
     <Layout style={{ minHeight: "100vh" }}>
       <Sider width={200} className={styles.siderContainer}>
         <Sidebar 
@@ -102,13 +97,13 @@ const Dashboard = () => {
           <Card className={styles.welcomeCard}>
             <Title level={4}>
   👋 Welcome, 
-              {currentSurvivor?.isAnonymous 
-                ? currentSurvivor?.anonymousId 
-                : currentSurvivor?.useDisplayNameOnly 
-                  ? currentSurvivor?.displayName 
-                  : currentSurvivor?.name
-                  }!
-            </Title>
+  {currentSurvivor?.isAnonymous 
+    ? currentSurvivor?.anonymousId 
+    : currentSurvivor?.useDisplayNameOnly 
+      ? currentSurvivor?.displayName 
+      : currentSurvivor?.name
+      }!
+</Title>
             <p>
               Today is a new day. You are strong and resilient. <br />
               Remember to take care of yourself and reach out for support when
@@ -178,6 +173,7 @@ const Dashboard = () => {
         </Content>
       </Layout>
     </Layout>
+    </Spin>
   );
 };
 
