@@ -4,19 +4,18 @@ import { INITIAL_STATE, IMedicalCentreStateContext } from "./context";
 import { MedicalCentreActionEnums } from "./actions";
 
 export const MedicalCentreReducer = handleActions<
-  IMedicalCentreStateContext,
   IMedicalCentreStateContext
 >(
   {
-    [MedicalCentreActionEnums.getMedicalCentrePending]: (state, action) => ({
+    [MedicalCentreActionEnums.getMedicalCentresPending]: (state, action) => ({
       ...state,
       ...action.payload,
     }),
-    [MedicalCentreActionEnums.getMedicalCentreSuccess]: (state, action) => ({
+    [MedicalCentreActionEnums.getMedicalCentresSuccess]: (state, action) => ({
       ...state,
       ...action.payload,
     }),
-    [MedicalCentreActionEnums.getMedicalCentreError]: (state, action) => ({
+    [MedicalCentreActionEnums.getMedicalCentresError]: (state, action) => ({
       ...state,
       ...action.payload,
     }),

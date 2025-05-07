@@ -3,33 +3,33 @@ import { IMedicalCentre } from "./models";
 import { IMedicalCentreStateContext } from "./context";
 import { createAction } from "redux-actions";
 
-// Define action enums for pending, success, and error states
+// Enum defining the type of actions for getting medical centres
 export enum MedicalCentreActionEnums {
-  getMedicalCentrePending = "GET_MEDICAL_CENTRE_PENDING",
-  getMedicalCentreSuccess = "GET_MEDICAL_CENTRE_SUCCESS",
-  getMedicalCentreError = "GET_MEDICAL_CENTRE_ERROR",
+  getMedicalCentresPending = "GET_MEDICAL_CENTRES_PENDING",
+  getMedicalCentresSuccess = "GET_MEDICAL_CENTRES_SUCCESS",
+  getMedicalCentresError = "GET_MEDICAL_CENTRES_ERROR",
 }
 
-// GET Medical Centre Actions
-export const getMedicalCentrePending = createAction<IMedicalCentreStateContext>(
-  MedicalCentreActionEnums.getMedicalCentrePending,
+// Get All Medical Centres Actions
+export const getMedicalCentresPending = createAction<IMedicalCentreStateContext>(
+  MedicalCentreActionEnums.getMedicalCentresPending,
   () => ({ isPending: true, isSuccess: false, isError: false })
 );
 
-export const getMedicalCentreSuccess = createAction<
+export const getMedicalCentresSuccess = createAction<
   IMedicalCentreStateContext,
-  IMedicalCentre
+  IMedicalCentre[]
 >(
-  MedicalCentreActionEnums.getMedicalCentreSuccess,
-  (MedicalCentre: IMedicalCentre) => ({
+  MedicalCentreActionEnums.getMedicalCentresSuccess,
+  (medicalCentres: IMedicalCentre[]) => ({
     isPending: false,
     isSuccess: true,
     isError: false,
-    MedicalCentre: MedicalCentre,
+    medicalCentres,
   })
 );
 
-export const getMedicalCentreError = createAction<IMedicalCentreStateContext>(
-  MedicalCentreActionEnums.getMedicalCentreError,
+export const getMedicalCentresError = createAction<IMedicalCentreStateContext>(
+  MedicalCentreActionEnums.getMedicalCentresError,
   () => ({ isPending: false, isSuccess: false, isError: true })
 );

@@ -7,6 +7,7 @@ import ConfigProvider from "antd/es/config-provider";
 import ResilienceHeader from '@/components/header/Header';
 import { SurvivorProvider } from "@/providers/survivors-provider";
 import { LocationProvider } from "../providers/location-provider";
+import { MedicalCentreProvider } from "@/providers/medicalCenter-provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -43,12 +44,14 @@ export default function RootLayout({
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
           <LocationProvider>
+          <AuthProvider>
             <UserProvider>
-              <AuthProvider>
                 <ResilienceHeader />
-                <SurvivorProvider>{children}</SurvivorProvider>
-              </AuthProvider>
+                  <MedicalCentreProvider>
+                  <SurvivorProvider>{children}</SurvivorProvider>
+              </MedicalCentreProvider>
             </UserProvider>
+            </AuthProvider>
           </LocationProvider>
         </body>
       </html>

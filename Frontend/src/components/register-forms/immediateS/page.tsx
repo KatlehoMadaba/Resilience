@@ -11,32 +11,55 @@ import styles from "./register-page.module.css";
 import { IAuth } from "../../../providers/auth-provider/models";
 import { useAuthActions } from "@/providers/auth-provider";
 import { useAuthState } from "@/providers/auth-provider";
-
+import dayjs from "dayjs";
 import { ReflistSex } from "../../../enums/ReflistSex";
 const { Option } = Select;
 import { useRouter } from "next/navigation";
+import { ISurvivorRegister } from "@/providers/survivors-provider/models";
 
 export default function ImmdeiateRegisterForm() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [isAnonymous, setIsAnonymous] = useState(false);
-  const [generatedAnonId, setGeneratedAnonId] = useState("");
+  // const [generatedAnonId, setGeneratedAnonId] = useState("");
   const [messageApi, contextHolder] = message.useMessage();
-  const { signUp } = useAuthActions();
+  const { signUp ,signUpImmdetiateSurvivor} = useAuthActions();
   const { isSuccess, isError, isPending } = useAuthState();
-  const generateAnonymousId = () => {
-    const random = Math.floor(1000 + Math.random() * 9000);
-    return `Anonymous${random}`;
-  };
+  // const generateAnonymousId = () => {
+  //   const random = Math.floor(1000 + Math.random() * 9000);
+  //   return `Anonymous${random}`;
+  // };
 
+  // useEffect(() => {
+  //   if (isAnonymous) {
+  //     const anonId = generateAnonymousId();
+  //     setGeneratedAnonId(anonId);
+  //   } else {
+  //     setGeneratedAnonId("");
+  //   }
+  // }, [isAnonymous]);
+  // useEffect(() => {
+  //   if (isAnonymous) {
+  //     const anonId = generateAnonymousId();
+  //     setGeneratedAnonId(anonId);
+  //   } else {
+  //     setGeneratedAnonId("");
+  //   }
+  // }, [isAnonymous]);
+
+  // Handle state changes from auth operations
   useEffect(() => {
-    if (isAnonymous) {
-      const anonId = generateAnonymousId();
-      setGeneratedAnonId(anonId);
-    } else {
-      setGeneratedAnonId("");
+    if (isSuccess) {
+      setLoading(false);
+      showSuccessToast();
+      router.push("/login");
     }
-  }, [isAnonymous]);
+    
+    if (isError) {
+      setLoading(false);
+      showErrorToast();
+    }
+  }, [isSuccess, isError, router]);
 
   const showSuccessToast = () => {
     messageApi.success({
@@ -51,39 +74,40 @@ export default function ImmdeiateRegisterForm() {
       duration: 5,
     });
   };
-  const onFinish = async (values: IAuth) => {
-    if (isPending) {
-      setLoading(true);
-    }
-    try {
-      const formValues: IAuth = {
-        ...values,
-        anonymousId: isAnonymous ? generatedAnonId : "",
-        incidentDate: values.incidentDate,
-        role: "immediatesurvivor",
-        isAnonymous: false,
-      };
-      await signUp(formValues);
-      if (isPending) {
-        setLoading(true);
-      }
-      if (isSuccess) {
-        setLoading(false);
-        showSuccessToast();
-        router.push("/login");
-      }
-    } catch{
-      if (isError) {
-        showErrorToast();
-      }
-    } finally {
-      setLoading(false);
-    }
-  };
+  // const onFinish = async (values: IAuth) => {
+  //     setLoading(true);
+    
+  //   try {
+  //     const formValues: IAuth = {
+  //       ...values,
+  //       anonymousId: isAnonymous ? generatedAnonId : "",
+  //       incidentDate: values.incidentDate,
+  //       role: "immediatesurvivor",
+  //       isAnonymous: false,
+  //     };
+  //     await signUp(formValues);
 
+  //   } catch{
+      
+  //     setLoading(false);
+  //     showErrorToast();
+  // };
+
+  const onFinish = async (values: ISurvivorRegister) => {
+
+    const formValues: ISurvivorRegister = {
+      ...values,
+      anonymousId: isAnonymous ? "Anyon123" : "",
+      incidentDate: values.incidentDate,
+      // role: "immediatesurvivor",
+      isAnonymous: false,
+    };
+    await signUpImmdetiateSurvivor(formValues);
+
+  }
   return (
     <>
-      {contextHolder}
+      {/* {contextHolder} */}
       <Form
         layout="vertical"
         onFinish={onFinish}
@@ -151,7 +175,7 @@ export default function ImmdeiateRegisterForm() {
 
         {isAnonymous && (
           <Form.Item label="Anonymous ID">
-            <Input value={generatedAnonId} disabled />
+            <Input value="anyony123" disabled />
           </Form.Item>
         )}
 
@@ -163,7 +187,7 @@ export default function ImmdeiateRegisterForm() {
           <Input.Password prefix={<LockOutlined />} placeholder="Password" />
         </Form.Item>
 
-        <Form.Item name="IncidentDate" label="Incident Date">
+        <Form.Item name="incidentDate" label="Incident Date">
           <DatePicker style={{ width: "100%" }} />
         </Form.Item>
 

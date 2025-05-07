@@ -5,6 +5,7 @@ import {
   ISignInResponse,
   ISignInRequest,
   IEmergencySignIn,
+  ISurvivorRegisteration,
 } from "./models";
 import { INITIAL_STATE, AuthActionContext, AuthStateContext } from "./context";
 import { AuthReducer } from "./reducers";
@@ -15,6 +16,10 @@ import {
   signInSuccess,
   signUpPending,
   signUpSuccess,
+  signUpError,
+  signUpSurvivorSuccess,
+  signUpSurvivorPending,
+  signUpSurvivorError
 } from "./actions";
 import axios from "axios";
 
@@ -23,21 +28,36 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   const signUp = async (Auth:IAuth): Promise<void> => {
     dispatch(signUpPending());
-
     const endpoint =
       Auth.role === "PASTSURVIVOR"
         ? `https://localhost:44311/api/services/app/PastSurvivor/Create`
         : Auth.role === "GENERALSUPPORTER"
         ? `https://localhost:44311/api/services/app/GeneralSupporter/Create`
-        : Auth.role === "PROFESSIONAL"
-        ? `https://localhost:44311/api/services/app/Professional/Create`
-        :`https://localhost:44311/api/services/app/ImdSurvivor/Create`;
+        :
+        `https://localhost:44311/api/services/app/Professional/Create`
+
        await axios
       .post<IAuth>(endpoint, Auth)
       .then((response) => {
         dispatch(signUpSuccess(response.data));
       })
       .catch((error) => {
+        dispatch(signUpError())
+        console.error(error);
+      });
+  };
+
+  const  signUpImmdetiateSurvivor = async (ISurvivor:ISurvivorRegisteration): Promise<void> => {
+    dispatch(signUpSurvivorPending());
+    const endpoint =
+        `https://localhost:44311/api/services/app/ImdSurvivor/Create`;
+       await axios
+      .post<IAuth>(endpoint, ISurvivor)
+      .then((response) => {
+        dispatch(signUpSurvivorSuccess(response.data));
+      })
+      .catch((error) => {
+        dispatch(signUpSurvivorError())
         console.error(error);
       });
   };
@@ -96,7 +116,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   };
   return (
     <AuthStateContext.Provider value={state}>
-      <AuthActionContext.Provider value={{ signIn, signUp, emergencySignIn }}>
+      <AuthActionContext.Provider value={{ signIn, signUp,signUpImmdetiateSurvivor, emergencySignIn }}>
         {children}
       </AuthActionContext.Provider>
     </AuthStateContext.Provider>

@@ -11,19 +11,32 @@ import { useRouter } from "next/navigation";
 import {
   useLocationActions,
   useLocationState,
-} from "../../providers/location-provider"; 
+} from "../../providers/location-provider";
+import {
+  useMedicalCentreState,
+  useMedicalCentreActions,
+} from "@/providers/medicalCenter-provider";
+
 const { Title } = Typography;
-import { useMedicalCentreState } from "@/providers/medicalCenter-provider";
 
 const NearbyHospitals = () => {
   const router = useRouter();
-  const { medicalCentres } = useMedicalCentreState();
-  const { getLocation } = useLocationActions(); 
+  const { getLocation } = useLocationActions();
   const { location, isPending, isSuccess, isError } = useLocationState();
+  const { getMedicalCentres } = useMedicalCentreActions();
+  const { medicalCentres } = useMedicalCentreState();
 
+  // Get user location on mount
   useEffect(() => {
-    getLocation(); 
+    getLocation();
   }, []);
+
+  // Fetch medical centres once location is available
+  useEffect(() => {
+    if (isSuccess && location) {
+      getMedicalCentres(location);
+    }
+  }, [isSuccess, location]);
 
   const handleNextClick = () => {
     router.push("/policeStations");
@@ -35,7 +48,7 @@ const NearbyHospitals = () => {
         Nearby Hospitals with Rape Kits
       </Title>
 
-      {/* Loading indicator */}
+      {/* Loading location */}
       {isPending && (
         <div style={{ textAlign: "center", marginBottom: 16 }}>
           <Spin tip="Getting your location..." />
@@ -45,33 +58,36 @@ const NearbyHospitals = () => {
       {/* Location error */}
       {isError && (
         <div style={{ color: "red", marginBottom: 16 }}>
-          Unable to access your location. Please enable location permissions in
-          your browser settings.
+          Unable to access your location. Please enable location permissions in your browser settings.
         </div>
       )}
 
       <Row gutter={[32, 32]}>
         <Col xs={24} md={14}>
-          {medicalCentres.map((medicalCentre, index) => (
-            <Card key={index} bordered style={{ marginBottom: "1rem" }}>
-              <Title level={5}>{medicalCentre.name}</Title>
-              <p>
-                <InfoCircleOutlined style={{ marginRight: 8 }} />
-                {medicalCentre.name}
-              </p>
-              <p>
-                <PhoneOutlined style={{ marginRight: 8 }} />
-                Contact: {medicalCentre.phoneNumber}
-              </p>
-              <p>
-                <EnvironmentOutlined style={{ marginRight: 8 }} />
-                Location: {medicalCentre.address}
-              </p>
-            </Card>
-          ))}
+          {medicalCentres.length > 0 ? (
+            medicalCentres.map((medicalCentre, index) => (
+              <Card key={index} bordered style={{ marginBottom: "1rem" }}>
+                <Title level={5}>{medicalCentre.name}</Title>
+                <p>
+                  <InfoCircleOutlined style={{ marginRight: 8 }} />
+                  {medicalCentre.name}
+                </p>
+                <p>
+                  <PhoneOutlined style={{ marginRight: 8 }} />
+                  Contact: {medicalCentre.phoneNumber}
+                </p>
+                <p>
+                  <EnvironmentOutlined style={{ marginRight: 8 }} />
+                  Location: {medicalCentre.address}
+                </p>
+              </Card>
+            ))
+          ) : (
+            <p>No nearby hospitals found within 15 km.</p>
+          )}
         </Col>
 
-        {/* Right Column - Map / Location Display */}
+        {/* Right column - location display */}
         <Col xs={24} md={10}>
           <div
             style={{
@@ -90,8 +106,7 @@ const NearbyHospitals = () => {
               <p style={{ marginTop: 12 }}>
                 Your location: <br />
                 <strong>
-                  {location.latitude.toFixed(3)},{" "}
-                  {location.longitude.toFixed(3)}
+                  {location.Latitude}, {location.Longitude}
                 </strong>
               </p>
             ) : (
@@ -100,6 +115,7 @@ const NearbyHospitals = () => {
           </div>
         </Col>
       </Row>
+
       <div style={{ textAlign: "center", marginTop: "2rem" }}>
         <Button
           type="primary"

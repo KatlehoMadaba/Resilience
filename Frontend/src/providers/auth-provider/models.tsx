@@ -50,3 +50,19 @@ export interface ISignInResponse {
     accessToken: string;
   };
 }
+export interface ISurvivorRegisteration {
+  userName?: string;
+  name?: string;
+  surname?: string;
+  password?: string;
+  emailAddress?: string;
+  displayName?: string;
+  useDisplayNameOnly?: boolean;
+  sex?: ReflistSex;
+  phoneNumber?: string;
+  anonymousId?: string;
+  isAnonymous?: boolean;
+  incidentDate?: Date;
+  hasReceivedMedicalAttention?: boolean;
+  hasReportedToAuthorities?: boolean;
+}

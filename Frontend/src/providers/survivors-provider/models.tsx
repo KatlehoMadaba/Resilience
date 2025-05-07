@@ -43,7 +43,7 @@ export interface ISurvivorRegister {
   phoneNumber: string;
   anonymousId: string;
   isAnonymous: boolean;
-  incidentDate: string;
+  incidentDate: Date;
   hasReceivedMedicalAttention: boolean;
   hasReportedToAuthorities: boolean;
 }
