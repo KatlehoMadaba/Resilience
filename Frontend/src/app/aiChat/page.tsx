@@ -1,11 +1,11 @@
 import React from 'react'
 
-const RegisterPage = () => {
+function AIChat() {
   return (
     <div>
-      
+      <h1>Ai chat</h1>
     </div>
   )
 }
 
-export default RegisterPage
+export default AIChat

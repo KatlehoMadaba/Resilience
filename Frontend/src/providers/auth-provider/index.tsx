@@ -1,6 +1,11 @@
 "use client";
 //import { getAxiosInstace } from "../../utils/axiosInstance";
-import { IAuth, ISignInResponse, ISignInRequest, IEmergencySignIn } from "./models";
+import {
+  IAuth,
+  ISignInResponse,
+  ISignInRequest,
+  IEmergencySignIn,
+} from "./models";
 import { INITIAL_STATE, AuthActionContext, AuthStateContext } from "./context";
 import { AuthReducer } from "./reducer";
 import { useContext, useReducer } from "react";
@@ -16,7 +21,7 @@ import axios from "axios";
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [state, dispatch] = useReducer(AuthReducer, INITIAL_STATE);
 
-  const signUp = async (Auth: IAuth): Promise<void> => {
+  const signUp = async (Auth:IAuth): Promise<void> => {
     dispatch(signUpPending());
 
     const endpoint =
@@ -26,8 +31,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         ? `https://localhost:44311/api/services/app/GeneralSupporter/Create`
         : Auth.role === "PROFESSIONAL"
         ? `https://localhost:44311/api/services/app/Professional/Create`
-        : `https://localhost:44311/api/services/app/ImdSurvivor/Create`;
-    await axios
+        :`https://localhost:44311/api/services/app/ImdSurvivor/Create`;
+    https: await axios
       .post<IAuth>(endpoint, Auth)
       .then((response) => {
         dispatch(signUpSuccess(response.data));
@@ -64,33 +69,31 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       });
   };
 
-    const emergencySignIn = async (
-      emergencySignIn: IEmergencySignIn
-    )=> {
-      dispatch(signInPending());
-      const endpoint =
-        "https://healthappointmentsystem-2.onrender.com/api/TokenAuth/Authenticate";
-      return axios
-        .post(endpoint, emergencySignIn)
-        .then((response) => {
-          const token = response.data.result.accessToken;
-          if (token) {
-            sessionStorage.setItem("jwt", token);
-            dispatch(signInSuccess(token));
-            return response.data;
-          } else {
-            throw new Error("There is no response");
-          }
-        })
-        .catch((error) => {
-          console.error(
-            "Error during signIn:",
-            error.response?.data?.message || error
-          );
-          dispatch(signInError());
-          throw error;
-        });
-    };
+  const emergencySignIn = async (emergencySignIn: IEmergencySignIn) => {
+    dispatch(signInPending());
+    const endpoint =
+      "";
+    return axios
+      .post(endpoint, emergencySignIn)
+      .then((response) => {
+        const token = response.data.result.accessToken;
+        if (token) {
+          sessionStorage.setItem("jwt", token);
+          dispatch(signInSuccess(token));
+          return response.data;
+        } else {
+          throw new Error("There is no response");
+        }
+      })
+      .catch((error) => {
+        console.error(
+          "Error during signIn:",
+          error.response?.data?.message || error
+        );
+        dispatch(signInError());
+        throw error;
+      });
+  };
   return (
     <AuthStateContext.Provider value={state}>
       <AuthActionContext.Provider value={{ signIn, signUp, emergencySignIn }}>

@@ -12,28 +12,28 @@ export interface IAuth {
   anonymousId?: string;
   displayName?: string;
   useDisplayNameOnly?: boolean;
-  Sex?: ReflistSex;
+  sex?: ReflistSex;
   phoneNumber?: string;
   password: string;
-  IsAnonymous?: boolean;
+  isAnonymous?: boolean;
   isActive?: boolean;
-  IncidentDate?: Date;
+  incidentDate?: Date;
   //ImmediateSurvivor
-  HasReceivedMedicalAttention?: boolean;
-  HasReportedToAuthorities?: boolean;
+  hasReceivedMedicalAttention?: boolean;
+  hasReportedToAuthorities?: boolean;
   //Past Survivor
-  HasDisclosedBefore?: boolean;
-  TimeElapsedInDays?: number; // Time since incident
-  RecoveryPhase?: ReflistRecoveryPhase;
+  hasDisclosedBefore?: boolean;
+  timeElapsedInDays?: number; // Time since incident
+  recoveryPhase?: ReflistRecoveryPhase;
   //GeneralSupporter
-  SupportMotivation?: string;
-  IsSubscribedToUpdates?: string;
-  AreasOfInterest?: string[];
+  supportMotivation?: string;
+  isSubscribedToUpdates?: string;
+  areasOfInterest?: string[];
   //Professional
-  Profession?: string;
-  Organization?: string;
-  Credentials?: string;
-  IsVerified?: boolean;
+  profession?: string;
+  organization?: string;
+  credentials?: string;
+  isVerified?: boolean;
 }
 
 export interface ISignInRequest {

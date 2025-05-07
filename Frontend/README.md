@@ -69,7 +69,12 @@ cd Frontend
 run frontend
 npm run dev
 Open the browser and navigate to the link provided in the terminal (usually http://localhost:3000).
+
+
 ```
+### 🖥️ Install Dependencies
+npm install react-icons
+npm install antd npm install redux-actions npm install @ant-design/icons npm install axios npm install @reduxjs/toolkit react-redux npm install --save-dev @types/react-redux npm install react-toastify npm install --save-dev @types/moment npm install dayjs npm install jwt-decode npm install @react-google-maps/api npm install face-api.js npm install @google/generative-ai npm install lodash.debounc
 ## Usage
 
 ```

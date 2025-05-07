@@ -18,7 +18,8 @@ using System.Threading.Tasks;
 
 namespace Resilience.Roles;
 
-[AbpAuthorize(PermissionNames.Pages_Roles)]
+//[AbpAuthorize(PermissionNames.Pages_Roles)]
+[AbpAllowAnonymous]
 public class RoleAppService : AsyncCrudAppService<Role, RoleDto, int, PagedRoleResultRequestDto, CreateRoleDto, RoleDto>, IRoleAppService
 {
     private readonly RoleManager _roleManager;
