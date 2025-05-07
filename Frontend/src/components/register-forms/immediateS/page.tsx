@@ -72,7 +72,7 @@ export default function ImmdeiateRegisterForm() {
         showSuccessToast();
         router.push("/login");
       }
-    } catch (error) {
+    } catch{
       if (isError) {
         showErrorToast();
       }

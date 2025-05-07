@@ -5,7 +5,6 @@ import { AuthProvider } from "@/providers/auth-provider";
 import { UserProvider } from "@/providers/users-providers";
 import ConfigProvider from "antd/es/config-provider";
 import ResilienceHeader from '@/components/header/Header';
-import * as Sidebar  from "@/components/dashboards/Sidebar";
 import { SurvivorProvider } from "@/providers/survivors-provider";
 
 const geistSans = Geist({

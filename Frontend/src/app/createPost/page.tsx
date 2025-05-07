@@ -1,14 +1,12 @@
-import React, { FC } from 'react'
+"use client"
+import React from 'react'
 
-interface IProps {}
-
-/**
-* @author
-* @function @CreateAPost
-**/
-
-export const CreateAPost:FC<IProps> = (props) => {
+function CreatPost() {
   return (
-    <div>CreateAPost</div>
-   )
- }
+    <div>
+      <h1>create post</h1>
+    </div>
+  )
+}
+
+export default CreatPost

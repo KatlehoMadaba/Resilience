@@ -32,7 +32,7 @@ const Sidebar = ({
     if (onLogout) {
       onLogout();
       router.push("/")
-      sessionStorage.clear
+      sessionStorage.removeItem("jwt")
     }
   };
 

@@ -39,7 +39,7 @@ const Dashboard = () => {
   };
 
   const handleLogout = () => {
-   sessionStorage.clear
+   sessionStorage.removeItem("jwt")
     router.push("/")
   };
 

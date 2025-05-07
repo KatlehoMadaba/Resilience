@@ -7,7 +7,7 @@ import {
   PhoneOutlined,
 } from "@ant-design/icons";
 import { useRouter } from "next/navigation";
-const { Title, Text } = Typography;
+const { Title} = Typography;
 
 const hospitals = [
   {

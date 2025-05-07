@@ -69,7 +69,7 @@ export default function ChecklistPage() {
       <div className={styles.header}>
         <h1 className={styles.title}>You Are Not Alone</h1>
         <p className={styles.subtitle}>
-          We're here to support you — every step of the way. This checklist will gently guide you through what to do next after a traumatic experience.
+          We are here to support you — every step of the way. This checklist will gently guide you through what to do next after a traumatic experience.
         </p>
       </div>
 

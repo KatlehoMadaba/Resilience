@@ -1,14 +1,11 @@
-import React, { FC } from 'react'
+import React from 'react'
 
-interface IProps {}
-
-/**
-* @author
-* @function @HumanTherapy
-**/
-
-export const HumanTherapy:FC<IProps> = (props) => {
+function HumaneTherapist() {
   return (
-    <div>HumanTherapy</div>
-   )
- }
+    <div>
+      <h1>Human Therapist</h1>
+    </div>
+  )
+}
+
+export default HumaneTherapist
