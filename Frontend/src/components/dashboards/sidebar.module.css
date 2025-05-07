@@ -1,0 +1,50 @@
+/* sidebar.module.css */
+
+.sidebar {
+  background-color: #e6efe1; /* Calming light green */
+  padding-top: 1rem;
+  color: #2f4030;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.logo {
+  height: 64px;
+}
+
+.menu {
+  background: transparent;
+  color: #2f4030;
+  font-weight: bold;
+  flex: 1;
+}
+
+.menu :global(.ant-menu-item-selected) {
+  background-color: rgba(47, 64, 48, 0.1) !important;
+}
+
+.menu :global(.ant-menu-item:hover) {
+  color: #3b5338 !important;
+}
+
+.logout {
+  color: #2f4030;
+  margin: 2rem 1rem;
+  font-weight: bold;
+}
+
+.logout:hover {
+  color: #3b5338 !important;
+  background-color: rgba(47, 64, 48, 0.1) !important;
+}
+
+@media (max-width: 576px) {
+  .sidebar {
+    padding-top: 0.5rem;
+  }
+  
+  .logout {
+    margin: 1rem 0.5rem;
+  }
+}

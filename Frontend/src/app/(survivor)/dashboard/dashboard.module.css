@@ -1,0 +1,110 @@
+/* dashboard.module.css */
+
+.siderContainer {
+  background-color: #e6efe1; /* Calming light green */
+}
+
+.content {
+  background-color: #f9f5f0;
+  padding: 2rem;
+}
+
+.welcomeCard {
+  background-color: #aabfa2;
+  color: white;
+  border: none;
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+}
+
+.feelingsSection {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.emojis {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.moodSection {
+  margin-top: 24px;
+  text-align: center;
+}
+
+.emojiContainer {
+  font-size: 32px;
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 12px;
+}
+
+.emoji {
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.emoji:hover {
+  transform: scale(1.2);
+}
+
+.quoteBox {
+  margin: 24px auto;
+  padding: 16px;
+  background-color: #f0f2f5;
+  border-radius: 8px;
+  max-width: 600px;
+  text-align: center;
+}
+
+.card {
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.testimonyCard,
+.journalCard,
+.chatCard {
+  height: 150px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 8px;
+}
+
+.testimonyCard {
+  background-color: #e6f7ff;
+}
+
+.journalCard {
+  background-color: #fff7e6;
+}
+
+.chatCard {
+  background-color: #fff1f0;
+}
+
+@media (max-width: 576px) {
+  .content {
+    padding: 1rem;
+  }
+  
+  .card {
+    margin-bottom: 16px;
+  }
+
+  .card :global(.ant-card-meta-title) {
+    font-size: 16px;
+    text-align: center;
+  }
+
+  .testimonyCard,
+  .journalCard,
+  .chatCard {
+    height: 120px;
+  }
+}
