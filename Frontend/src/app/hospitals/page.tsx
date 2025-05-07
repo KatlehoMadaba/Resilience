@@ -1,14 +1,15 @@
 "use client";
-import React from "react";
-import { Row, Col, Card, Typography, Button } from "antd";
+import React, {useEffect } from "react";
+import { Row, Col, Card, Typography, Button} from "antd";
 import {
   EnvironmentOutlined,
   InfoCircleOutlined,
   PhoneOutlined,
 } from "@ant-design/icons";
 import { useRouter } from "next/navigation";
-const { Title} = Typography;
-
+import { useLocation } from "../../providers/location-provider/context";
+const { Title } = Typography;
+// const [loading,setLoading]=useState(true)
 const hospitals = [
   {
     id:"1",
@@ -22,11 +23,25 @@ const hospitals = [
 ];
 
 const NearbyHospitals = () => {
-    const router = useRouter();
-    const handleNextClick = () => {
-        router.push("/policeStations");
-      };
+  const router = useRouter()
+  //const { location } = useLocation();
+
+  //  useEffect(() => {
+  //    if (location) {
+  //      console.log("User is at:", location.latitude, location.longitude);
+  //      // TODO: Use location to filter hospitals based on distance
+  //    }
+  //  }, [location]);
+  //   const router = useRouter();
+  //   const handleNextClick = () => {
+  //     router.push("/policeStations");
+  //     // setLoading(false)
+  //     };
+  const handleNextClick = () => {
+    router.push("/policeStations");
+  }
   return (
+    // <Spin >
     <div style={{ padding: "2rem", background: "#f5ecdd", minHeight: "100vh" }}>
       <Title level={3} style={{ marginBottom: "2rem" }}>
         Nearby Hospitals with Rape Kits
@@ -70,12 +85,16 @@ const NearbyHospitals = () => {
         </Col>
       </Row>
       <div style={{ textAlign: "center", marginTop: "2rem" }}>
-        <Button type="primary" style={{ background: "#4b5e3f", borderColor: "#4b5e3f"  }}
-          onClick={handleNextClick}>
+        <Button
+          type="primary"
+          style={{ background: "#4b5e3f", borderColor: "#4b5e3f" }}
+          onClick={handleNextClick}
+        >
           Next
         </Button>
       </div>
     </div>
+    // </Spin>
   );
 };
 

@@ -34,7 +34,7 @@ const policeStations = [
 const NearbyPoliceStations = () => {
      const router = useRouter();
      const handleNextClick = () => {
-        router.push("register-immdetiateSurvivor");
+        router.push("/imd");
       };
     
   return (

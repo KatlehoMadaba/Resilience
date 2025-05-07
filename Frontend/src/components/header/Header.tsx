@@ -7,7 +7,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation"; 
 import styles from "./Header.module.css";
 import SupportModal from "../../components/supportModal/SupportModal";
-
+import { useRouter } from "next/navigation";
 const { Header } = Layout;
 const { Title } = Typography;
 
@@ -20,7 +20,7 @@ const ResilienceHeader = ({ isAuthenticated = false }) => {
   const openSupportModal = () => setIsModalOpen(true);
   const closeSupportModal = () => setIsModalOpen(false);
   const toggleMobileMenu = () => setMobileMenuOpen(!mobileMenuOpen);
-
+  const router = useRouter();
   return (
     <Header className={styles.header}>
       <div className={styles.container}>
@@ -63,7 +63,7 @@ const ResilienceHeader = ({ isAuthenticated = false }) => {
                       Login
                     </Button>
                   </Link>
-                    <Link href="/imd">
+                  <Link href="/imd">
                     <Button type="primary" className={styles.signupBtn}>
                       Sign Up
                     </Button>
@@ -120,6 +120,13 @@ const ResilienceHeader = ({ isAuthenticated = false }) => {
             >
               About Us
             </Link>
+            <Button
+              href="/about"
+              className={styles.mobileNavLink}
+              onClick={() => router.back()}
+            >
+              Back
+            </Button>
             {isAuthenticated ? (
               <Link
                 href="/dashboard"

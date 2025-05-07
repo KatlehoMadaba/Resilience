@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Resilience.Domain.Medical_AssistanceRecords
 {
-    public class MedicalFacilityManager:DomainService
+    public class MedicalFacilityManager : DomainService
     {
         private readonly IRepository<MedicalFacility, Guid> _repository;
 
@@ -19,7 +19,7 @@ namespace Resilience.Domain.Medical_AssistanceRecords
             _repository = repository;
         }
 
-        public async Task<List<MedicalFacility>>GetPagedDistinctMedicalFacilitiesAsync(int skipCount, int maxResultCount)
+        public async Task<List<MedicalFacility>> GetPagedDistinctMedicalFacilitiesAsync(int skipCount, int maxResultCount)
         {
             var queryable = await _repository.GetAllAsync();
 
@@ -43,6 +43,8 @@ namespace Resilience.Domain.Medical_AssistanceRecords
 
             return count;
         }
+
+        
     }
 }
 
