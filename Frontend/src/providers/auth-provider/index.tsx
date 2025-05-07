@@ -7,7 +7,7 @@ import {
   IEmergencySignIn,
 } from "./models";
 import { INITIAL_STATE, AuthActionContext, AuthStateContext } from "./context";
-import { AuthReducer } from "./reducer";
+import { AuthReducer } from "./reducers";
 import { useContext, useReducer } from "react";
 import {
   signInError,
@@ -32,7 +32,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         : Auth.role === "PROFESSIONAL"
         ? `https://localhost:44311/api/services/app/Professional/Create`
         :`https://localhost:44311/api/services/app/ImdSurvivor/Create`;
-    https: await axios
+       await axios
       .post<IAuth>(endpoint, Auth)
       .then((response) => {
         dispatch(signUpSuccess(response.data));

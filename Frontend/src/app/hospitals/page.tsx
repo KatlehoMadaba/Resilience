@@ -1,74 +1,77 @@
 "use client";
-import React, {useEffect } from "react";
-import { Row, Col, Card, Typography, Button} from "antd";
+
+import React, { useEffect } from "react";
+import { Row, Col, Card, Typography, Button, Spin } from "antd";
 import {
   EnvironmentOutlined,
   InfoCircleOutlined,
   PhoneOutlined,
 } from "@ant-design/icons";
 import { useRouter } from "next/navigation";
-import { useLocation } from "../../providers/location-provider/context";
+import {
+  useLocationActions,
+  useLocationState,
+} from "../../providers/location-provider"; 
 const { Title } = Typography;
-// const [loading,setLoading]=useState(true)
-const hospitals = [
-  {
-    id:"1",
-    name: "City Hospital",
-    services: "Rape kits available, Counselling services",
-    contact: "011 000 0000",
-    location: "Guild Road",
-  },
-  { name: "City Hospital", services: "Same as above", contact: "011 000 0000", location: "Guild Road" },
-  { name: "City Hospital", services: "Same as above", contact: "011 000 0000", location: "Guild Road" },
-];
+import { useMedicalCentreState } from "@/providers/medicalCenter-provider";
 
 const NearbyHospitals = () => {
-  const router = useRouter()
-  //const { location } = useLocation();
+  const router = useRouter();
+  const { medicalCentres } = useMedicalCentreState();
+  const { getLocation } = useLocationActions(); 
+  const { location, isPending, isSuccess, isError } = useLocationState();
 
-  //  useEffect(() => {
-  //    if (location) {
-  //      console.log("User is at:", location.latitude, location.longitude);
-  //      // TODO: Use location to filter hospitals based on distance
-  //    }
-  //  }, [location]);
-  //   const router = useRouter();
-  //   const handleNextClick = () => {
-  //     router.push("/policeStations");
-  //     // setLoading(false)
-  //     };
+  useEffect(() => {
+    getLocation(); 
+  }, []);
+
   const handleNextClick = () => {
     router.push("/policeStations");
-  }
+  };
+
   return (
-    // <Spin >
     <div style={{ padding: "2rem", background: "#f5ecdd", minHeight: "100vh" }}>
       <Title level={3} style={{ marginBottom: "2rem" }}>
         Nearby Hospitals with Rape Kits
       </Title>
 
+      {/* Loading indicator */}
+      {isPending && (
+        <div style={{ textAlign: "center", marginBottom: 16 }}>
+          <Spin tip="Getting your location..." />
+        </div>
+      )}
+
+      {/* Location error */}
+      {isError && (
+        <div style={{ color: "red", marginBottom: 16 }}>
+          Unable to access your location. Please enable location permissions in
+          your browser settings.
+        </div>
+      )}
+
       <Row gutter={[32, 32]}>
         <Col xs={24} md={14}>
-          {hospitals.map((hospital, index) => (
+          {medicalCentres.map((medicalCentre, index) => (
             <Card key={index} bordered style={{ marginBottom: "1rem" }}>
-              <Title level={5}>{hospital.name}</Title>
+              <Title level={5}>{medicalCentre.name}</Title>
               <p>
                 <InfoCircleOutlined style={{ marginRight: 8 }} />
-                {hospital.services}
+                {medicalCentre.name}
               </p>
               <p>
                 <PhoneOutlined style={{ marginRight: 8 }} />
-                Contact: {hospital.contact}
+                Contact: {medicalCentre.phoneNumber}
               </p>
               <p>
                 <EnvironmentOutlined style={{ marginRight: 8 }} />
-                Location: {hospital.location}
+                Location: {medicalCentre.address}
               </p>
             </Card>
           ))}
         </Col>
 
-        {/* Right Column - Map Icon */}
+        {/* Right Column - Map / Location Display */}
         <Col xs={24} md={10}>
           <div
             style={{
@@ -78,9 +81,22 @@ const NearbyHospitals = () => {
               justifyContent: "center",
               alignItems: "center",
               borderRadius: 8,
+              flexDirection: "column",
+              color: "#fff",
             }}
           >
             <EnvironmentOutlined style={{ fontSize: 64 }} />
+            {isSuccess && location ? (
+              <p style={{ marginTop: 12 }}>
+                Your location: <br />
+                <strong>
+                  {location.latitude.toFixed(3)},{" "}
+                  {location.longitude.toFixed(3)}
+                </strong>
+              </p>
+            ) : (
+              <p style={{ marginTop: 12 }}>Location not yet available</p>
+            )}
           </div>
         </Col>
       </Row>
@@ -94,7 +110,6 @@ const NearbyHospitals = () => {
         </Button>
       </div>
     </div>
-    // </Spin>
   );
 };
 

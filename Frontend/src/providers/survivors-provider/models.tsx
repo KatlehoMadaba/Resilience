@@ -30,6 +30,23 @@ export interface ISavedResource {
 export interface ISupportSession {
   id?: string;
 }
+
+export interface ISurvivorRegister {
+  userName: string;
+  name: string;
+  surname: string;
+  password: string;
+  emailAddress: string;
+  displayName: string;
+  useDisplayNameOnly: boolean;
+  sex: number;
+  phoneNumber: string;
+  anonymousId: string;
+  isAnonymous: boolean;
+  incidentDate: string;
+  hasReceivedMedicalAttention: boolean;
+  hasReportedToAuthorities: boolean;
+}
 export interface ISurvivor {
   userId: number;
   userName?: string;

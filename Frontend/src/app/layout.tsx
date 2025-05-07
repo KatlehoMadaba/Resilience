@@ -6,7 +6,7 @@ import { UserProvider } from "@/providers/users-providers";
 import ConfigProvider from "antd/es/config-provider";
 import ResilienceHeader from '@/components/header/Header';
 import { SurvivorProvider } from "@/providers/survivors-provider";
-import { LocationProvider } from "./location/page";
+import { LocationProvider } from "../providers/location-provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

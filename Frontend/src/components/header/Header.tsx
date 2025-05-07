@@ -73,7 +73,6 @@ const ResilienceHeader = ({ isAuthenticated = false }) => {
             )}
           </Space>
         </div>
-
         {/* SOS Button */}
         <Button
           danger

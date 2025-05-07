@@ -1,8 +1,10 @@
 ﻿using Abp.Application.Services;
 using Abp.Application.Services.Dto;
+using Abp.Authorization;
 using Abp.Domain.Repositories;
 using Abp.ObjectMapping;
 using Abp.UI;
+using NuGet.Protocol.Core.Types;
 using Resilience.Domain.Medical_AssistanceRecords;
 using Resilience.Services.MedicalAAppServices.Dtos;
 using System;
@@ -15,7 +17,7 @@ namespace Resilience.Services.MedicalAAppServices
     {
         private readonly MedicalFacilityManager _medicalFacilityManager;
         private readonly IObjectMapper _objectMapper;
-        private readonly IRepository<MedicalFacility, Guid> _repository;
+        
         public MedicalFacilityAppService( IRepository<MedicalFacility, Guid> repository, MedicalFacilityManager medicalFacilityManager, IObjectMapper ObjectMapper) :base(repository)
         {
             _medicalFacilityManager= medicalFacilityManager;
@@ -34,6 +36,15 @@ namespace Resilience.Services.MedicalAAppServices
             {
                 throw new UserFriendlyException("GetAll failed", ex.Message);
             }
+        }
+
+        [AbpAllowAnonymous] // Optional, allow public access
+        public async Task<List<MedicalFacilityDto>> GetNearbyFacilitiesAsync(GetNearbyFacilitiesInputDto input)
+        {
+            const double fixedRadiuskm = 15;
+            var allFacilities = await _medicalFacilityManager.GetCurrentMedicalFacilityAsync(input.Longitude,input.Latitude, fixedRadiuskm);
+
+            return _objectMapper.Map<List<MedicalFacilityDto>>(allFacilities);
         }
 
     }

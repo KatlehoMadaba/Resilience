@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { Button } from 'antd';
 import styles from './checklist.module.css';
-import { useRouter } from 'next/navigation';
+import Link from "next/link";
 const steps = [
   {
     title: '🛡 Step 1: Get to a Safe Place',
@@ -57,18 +57,12 @@ const steps = [
 
 export default function ChecklistPage() {
   const [currentStep, setCurrentStep] = useState(0);
-  const [loading, setLoading] = useState(true)
-  const router = useRouter();
-  const onClickHospitals = () => {
-    setLoading(false)
-    router.push("/hospitals")
-  }
+  const [loading,setLoading]=useState(true)
   const handleNextStep = () => {
     if (currentStep < steps.length - 1) {
       setCurrentStep(currentStep + 1);
     }
   };
-
   return (
     <main className={styles.container}>
       <div className={styles.header}>
@@ -106,9 +100,9 @@ export default function ChecklistPage() {
       </div>
 
       {currentStep === steps.length - 1 && (
-       
-          <Button type="primary" className={styles.nextButton}  onClick={onClickHospitals}>Next</Button>
-
+        <Link href="/hospitals">
+          <Button type="primary" className={styles.nextButton}>Next</Button>
+        </Link>
         
       )}
     </main>

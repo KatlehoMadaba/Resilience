@@ -1,38 +1,28 @@
 "use client";
-import React, { createContext, useState, useContext } from "react";
+import { ILocation } from "@/interfaces/interfaces";
+import { createContext } from "react";
 
-type Location = {
-  latitude: number;
-  longitude: number;
+export interface ILocationStateContext {
+  readonly isPending: boolean;
+  readonly isSuccess: boolean;
+  readonly isError: boolean;
+  readonly location?: ILocation;
+}
+
+export const INITIAL_LOCATION_STATE: ILocationStateContext = {
+  isPending: false,
+  isSuccess: false,
+  isError: false,
 };
 
-type LocationContextType = {
-  location: Location | null;
-  setLocation: (loc: Location) => void;
-};
+export interface ILocationActionContext {
+  getLocation: () => void;
+}
 
-const LocationContext = createContext<LocationContextType | undefined>(
-  undefined
+export const LocationStateContext = createContext<ILocationStateContext>(
+  INITIAL_LOCATION_STATE
 );
 
-export const LocationProvider = ({
-  children,
-}: {
-  children: React.ReactNode;
-}) => {
-  const [location, setLocation] = useState<Location | null>(null);
-
-  return (
-    <LocationContext.Provider value={{ location, setLocation }}>
-      {children}
-    </LocationContext.Provider>
-  );
-};
-
-export const useLocation = () => {
-  const context = useContext(LocationContext);
-  if (!context) {
-    throw new Error("useLocation must be used within a LocationProvider");
-  }
-  return context;
-};
+export const LocationActionContext = createContext<
+  ILocationActionContext | undefined
+>(undefined);
