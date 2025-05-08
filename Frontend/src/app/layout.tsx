@@ -4,10 +4,11 @@ import "./globals.css";
 import { AuthProvider } from "@/providers/auth-provider";
 import { UserProvider } from "@/providers/users-providers";
 import ConfigProvider from "antd/es/config-provider";
-import ResilienceHeader from '@/components/header/Header';
+import ResilienceHeader from "@/components/header/Header";
 import { SurvivorProvider } from "@/providers/survivors-provider";
 import { LocationProvider } from "../providers/location-provider";
 import { MedicalCentreProvider } from "@/providers/medicalCenter-provider";
+import { PoliceStationProvider } from "@/providers/police-provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,15 +27,15 @@ export const metadata: Metadata = {
 const ReslienceColors = {
   token: {
     colorPrimary: "#38512f",
-    colorPrimaryHover: "#8F997F",  
+    colorPrimaryHover: "#8F997F",
     colorBgContainer: "#ffffff",
-    colorBgTextHover: "#38512F",    
+    colorBgTextHover: "#38512F",
     wireframe: false,
   },
 };
 export default function RootLayout({
   children,
-}: Readonly<{ 
+}: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
@@ -43,16 +44,18 @@ export default function RootLayout({
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
-            <ResilienceHeader />
+          <ResilienceHeader />
           <AuthProvider>
             <UserProvider>
-          <LocationProvider>
-                  <MedicalCentreProvider>
-                  <SurvivorProvider>{children}</SurvivorProvider>
-              </MedicalCentreProvider>
-          </LocationProvider>
+              <LocationProvider>
+                <MedicalCentreProvider>
+                  <PoliceStationProvider>
+                    <SurvivorProvider>{children}</SurvivorProvider>
+                  </PoliceStationProvider>
+                </MedicalCentreProvider>
+              </LocationProvider>
             </UserProvider>
-            </AuthProvider>
+          </AuthProvider>
         </body>
       </html>
     </ConfigProvider>

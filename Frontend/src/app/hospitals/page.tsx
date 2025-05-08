@@ -43,7 +43,6 @@ const NearbyHospitals = () => {
     const fetchMedicalCentres = async () => {
       try {
         if (location) {
-          debugger;
           await getMedicalCentres(location);
         }
       } catch (error) {

@@ -24,7 +24,7 @@ export const PoliceStationProvider = ({
 
   const getPoliceStations = async (Location: ILocation): Promise<void> => {
     dispatch(getPoliceStationsPending());
-    const endpoint = `https://localhost:44311/api/services/app/PoliceStation/GetNearbyPoliceStations=${Location.latitude}&Longitude=${Location.longitude}`;
+    const endpoint = `https://localhost:44311/api/services/app/PoliceStation/GetNearbyPoliceStations?Latitude=${Location.latitude}&Longitude=${Location.longitude}`;
     await axios
       .get(endpoint)
 

@@ -49,7 +49,7 @@ export default function ImmdeiateRegisterForm() {
 
   // Handle state changes from auth operations
   // useEffect(() => {
-  //   debugger
+  
   //   if (isSuccess) {
   //     setLoading(false);
   //     showSuccessToast();
@@ -95,17 +95,17 @@ export default function ImmdeiateRegisterForm() {
   // };
 
   const onFinish = async (values: ISurvivorRegister) => {
-    // const formValues: ISurvivorRegister = {
-    //   ...values,
-    //   anonymousId: isAnonymous ? "Anyon123" : "",
-    //   incidentDate: values.incidentDate,
-    //   // role: "immediatesurvivor",
-    //   isAnonymous: false,
-    // };
+    const formValues: ISurvivorRegister = {
+      ...values,
+      anonymousId: isAnonymous ? "Anyon123" : "",
+      incidentDate: values.incidentDate,
+      // role: "immediatesurvivor",
+      isAnonymous: false,
+    };
 
-    console.log(values,"values");
-    //await signUpImmdetiateSurvivor(formValues);
-
+    console.log(values, "values");
+    await signUpImmdetiateSurvivor(formValues);
+    router.push("/login");
     console.log("this id the response");
   };
 

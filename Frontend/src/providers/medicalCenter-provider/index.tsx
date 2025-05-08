@@ -27,12 +27,14 @@ export const MedicalCentreProvider = ({
 
     const endpoint = `https://localhost:44311/api/services/app/MedicalFacility/GetNearbyFacilities?Latitude=${Location.latitude}&Longitude=${Location.longitude}`;
     //const endpoint = `https://localhost:44311/api/services/app/MedicalFacility/GetNearbyFacilities?Latitude=-25.740&Longitude=28.18`;
-    console.log("this is the location in medical",location)
+   
     await axios
       .get(endpoint)
       .then((response) => {
         dispatch(getMedicalCentresSuccess(response?.data.result));
+         console.log("this is the location in medical", location);
         console.log("medicalcenters", response?.data);
+      
       })
       .catch((error) => {
         console.error("Error fetching medical centres:", error);

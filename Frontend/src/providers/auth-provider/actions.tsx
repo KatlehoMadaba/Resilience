@@ -34,11 +34,10 @@ export const signUpPending = createAction<IAuthStateContext>(
 
 export const signUpSuccess = createAction<IAuthStateContext, IAuth>(
   AuthActionEnums.signUpSuccess,
-  (Auth: IAuth) => ({
+  () => ({
     isPending: false,
     isSuccess: true,
     isError: false,
-    Auth: Auth,
   })
 );
 export const signUpError = createAction<IAuthStateContext>(

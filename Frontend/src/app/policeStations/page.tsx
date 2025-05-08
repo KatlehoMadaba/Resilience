@@ -23,7 +23,7 @@ const Nearbypolice = () => {
   const router = useRouter();
   const { getLocation } = useLocationActions();
   const { location, isPending, isSuccess, isError } = useLocationState();
-  const { isPending: isMedicalPending } = usePoliceStationState();
+  const { isPending: isPoliceSuccess } = usePoliceStationState();
   const { getPoliceStations } = usePoliceStationActions();
   const { PoliceStations } = usePoliceStationState();
   
@@ -58,12 +58,12 @@ const Nearbypolice = () => {
   }, [isSuccess, location]);
 
   const handleNextClick = () => {
-    router.push("/policeStations");
+    router.push("/imd");
   };
 
   return (
     <div style={{ padding: "2rem", minHeight: "100vh" }}>
-      {isMedicalPending && <Spin size="large" />}
+      {isPoliceSuccess && <Spin size="large" />}
       <Title level={3} style={{ marginBottom: "2rem" }}>
         Nearby Police Staions
       </Title>
