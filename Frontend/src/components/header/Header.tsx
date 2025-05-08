@@ -42,15 +42,6 @@ const ResilienceHeader = ({ isAuthenticated = false }) => {
         {/* Desktop Navigation */}
         <div className={styles.desktopNav}>
           <Space size={24}>
-            <Link href="/resources" className={styles.navLink}>
-              Resources
-            </Link>
-            <Link href="/support" className={styles.navLink}>
-              Support
-            </Link>
-            <Link href="/about" className={styles.navLink}>
-              About Us
-            </Link>
             {isAuthenticated ? (
               <Link href="/dashboard" className={styles.navLink}>
                 Dashboard
@@ -97,27 +88,6 @@ const ResilienceHeader = ({ isAuthenticated = false }) => {
           className={`${styles.mobileNav} ${mobileMenuOpen ? styles.open : ""}`}
         >
           <div className={styles.mobileNavLinks}>
-            <Link
-              href="/resources"
-              className={styles.mobileNavLink}
-              onClick={toggleMobileMenu}
-            >
-              Resources
-            </Link>
-            <Link
-              href="/support"
-              className={styles.mobileNavLink}
-              onClick={toggleMobileMenu}
-            >
-              Support
-            </Link>
-            <Link
-              href="/about"
-              className={styles.mobileNavLink}
-              onClick={toggleMobileMenu}
-            >
-              About Us
-            </Link>
             <Button
               href="/about"
               className={styles.mobileNavLink}
@@ -145,7 +115,7 @@ const ResilienceHeader = ({ isAuthenticated = false }) => {
                       Login
                     </Button>
                   </Link>
-                  <Link href="/signup" onClick={toggleMobileMenu}>
+                  <Link href="/imd" onClick={toggleMobileMenu}>
                     <Button
                       type="primary"
                       block
