@@ -1,7 +1,7 @@
 "use client"
 import { useState } from 'react';
 
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { Button, Menu } from 'antd';
 import { 
   HomeOutlined, 
@@ -15,19 +15,19 @@ import {
 
 import styles from './sidebar.module.css';
 
-const routeMap = {
-  dashboard: "/dashboard",
-  report: "/report",
-  therapist: "/hospitals",
-  hospital: "/hospitals",
-  post: "/createPost",
-};
+// const routeMap = {
+//   dashboard: "/dashboard",
+//   report: "/report",
+//   therapist: "/hospitals",
+//   hospital: "/hospitals",
+//   post: "/createPost",
+// };
 const Sidebar = ({ 
   width = 200,
   onMenuItemClick,
   onLogout
 }) => {
-  const pathname = usePathname();
+  // const pathname = usePathname();
   const [selectedKey, setSelectedKey] = useState("dasboard");
   const router = useRouter();
   const handleMenuClick = (e) => {

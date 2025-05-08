@@ -9,9 +9,7 @@ import {
   Row,
   Col,
   Typography,
-  Divider,
-  Space,
-  Tooltip,
+  Divider
 } from "antd";
 import { useForm } from "antd/lib/form/Form";
 import { CheckboxChangeEvent } from "antd/es/checkbox";
@@ -20,7 +18,7 @@ const { TextArea } = Input;
 const { Title, Paragraph } = Typography;
 
 interface SexualAssaultReportFormProps {
-  onSubmit: (values: any) => void;
+  onSubmit: (values) => void;
 }
 
 const SexualAssaultReportForm: React.FC<SexualAssaultReportFormProps> = ({ onSubmit }) => {
@@ -31,7 +29,7 @@ const SexualAssaultReportForm: React.FC<SexualAssaultReportFormProps> = ({ onSub
     setIsSuspectKnown(e.target.checked);
   };
 
-  const handleFormSubmit = (values: any) => {
+  const handleFormSubmit = (values) => {
     onSubmit(values);
   };
 
