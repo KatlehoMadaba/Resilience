@@ -5,7 +5,9 @@ import {
   IAuth,
   ISignInResponse,
   IEmergencySignIn,
+  IPastSurvivorRegsister,
 } from "./models";
+import { ISurvivorRegisteration } from "../survivors-provider/models";
 
 // Context shape interface
 export interface IAuthStateContext {
@@ -18,7 +20,9 @@ export interface IAuthStateContext {
 // Auth action context interface
 export interface IAuthActionContext {
   signIn: (SignInRequest: ISignInRequest) => Promise<ISignInResponse>;
-  signUp: (Auth: IAuth) => Promise<void>;
+  signUpImmdetiateSurvivor: (Survivor: ISurvivorRegisteration) => void;
+  signUpPastSurvivor: (PastSurvivor: IPastSurvivorRegsister) => void;
+  signUp: (Auth: IAuth) => void;
   emergencySignIn: (emergencySignIn: IEmergencySignIn) => void;
 }
 

@@ -1,72 +1,118 @@
 "use client";
-import React from "react";
-import { Row, Col, Card, Typography, Button } from "antd";
+
+import React, { useEffect } from "react";
+import { Row, Col, Card, Typography, Button, Spin } from "antd";
 import {
   EnvironmentOutlined,
   InfoCircleOutlined,
   PhoneOutlined,
 } from "@ant-design/icons";
 import { useRouter } from "next/navigation";
+import {
+  useLocationActions,
+  useLocationState,
+} from "../../providers/location-provider";
+import {
+  usePoliceStationState,
+  usePoliceStationActions,
+} from "@/providers/police-provider";
 
-const { Title } = Typography;
+const { Title, Link } = Typography;
 
-const policeStations = [
-  {
-    name: "Central Police Station",
-    services: "Rape kits available, Trauma counseling",
-    contact: "011 100 2000",
-    location: "Civic Centre Rd",
-  },
-  {
-    name: "Northview Police Station",
-    services: "24/7 Support, Confidential services",
-    contact: "011 300 4000",
-    location: "North Road",
-  },
-  {
-    name: "Lakeside Police Station",
-    services: "On-site rape kits, Female officers available",
-    contact: "011 900 8000",
-    location: "Lakeview Drive",
-  },
-];
+const Nearbypolice = () => {
+  const router = useRouter();
+  const { getLocation } = useLocationActions();
+  const { location, isPending, isSuccess, isError } = useLocationState();
+  const { isPending: isPoliceSuccess } = usePoliceStationState();
+  const { getPoliceStations } = usePoliceStationActions();
+  const { PoliceStations } = usePoliceStationState();
+  
+  useEffect(() => {
+    const fetchLocation = async () => {
+      try {
+        await getLocation();
+      } catch (error) {
+        console.error("Failed to get location:", error);
+      }
+    };
 
-const NearbyPoliceStations = () => {
-     const router = useRouter();
-     const handleNextClick = () => {
-        router.push("register-immdetiateSurvivor");
-      };
-    
+    fetchLocation();
+  }, []);
+
+  useEffect(() => {
+    const fetchPoliceStations = async () => {
+      try {
+        if (location) {
+          debugger;
+          await getPoliceStations(location);
+        }
+      } catch (error) {
+        console.error("Failed to fetch police:", error);
+      } finally {
+        console.log("This are the police", PoliceStations);
+      }
+    };
+
+    fetchPoliceStations();
+  }, [isSuccess, location]);
+
+  const handleNextClick = () => {
+    router.push("/imd");
+  };
+
   return (
-    
-    <div style={{ padding: "2rem", background: "#f5ecdd", minHeight: "100vh" }}>
+    <div style={{ padding: "2rem", minHeight: "100vh" }}>
+      {isPoliceSuccess && <Spin size="large" />}
       <Title level={3} style={{ marginBottom: "2rem" }}>
-        Police Stations near you.
+        Nearby Police Staions
       </Title>
-
+      {/* Loading location */}
+      {isPending && (
+        <div style={{ textAlign: "center", marginBottom: 16 }}></div>
+      )}
+      {/* Location error */}
+      {isError && (
+        <div style={{ color: "red", marginBottom: 16 }}>
+          Unable to access your location. Please enable location permissions in
+          your browser settings.
+        </div>
+      )}
+      (
       <Row gutter={[32, 32]}>
-        {/* Left Column - Police Station Cards */}
         <Col xs={24} md={14}>
-          {policeStations.map((station, index) => (
-            <Card key={index} bordered style={{ marginBottom: "1rem" }}>
-              <Title level={5}>{station.name}</Title>
-              <p>
-                <InfoCircleOutlined style={{ marginRight: 8 }} />
-                {station.services}
-              </p>
-              <p>
-                <PhoneOutlined style={{ marginRight: 8 }} />
-                Contact: {station.contact}
-              </p>
-              <p>
-                <EnvironmentOutlined style={{ marginRight: 8 }} />
-                Location: {station.location}
-              </p>
-            </Card>
-          ))}
+          {PoliceStations.length > 0 ? (
+            PoliceStations.map((PoliceStation, index) => (
+              <Card key={index} bordered style={{ marginBottom: "1rem" }}>
+                <Title level={5}>{PoliceStation.name}</Title>
+
+                <p>
+                  <PhoneOutlined style={{ marginRight: 8 }} />
+                  Contact: {PoliceStation.phoneNumber}
+                </p>
+                <p>
+                  <EnvironmentOutlined style={{ marginRight: 8 }} />
+                  Location: {PoliceStation.address}
+                </p>
+                <p>
+                  <EnvironmentOutlined style={{ marginRight: 8 }} />
+                  Operating Hours:{" "}
+                  {PoliceStation.operatingHours ? "24 Hours" : "Unknown"}
+                </p>
+
+                <p>
+                  <InfoCircleOutlined style={{ marginRight: 8 }} />
+                  <Link href={PoliceStation.googleMapsUrl} target="_blank">
+                    View on Google Maps
+                  </Link>
+                </p>
+              </Card>
+            ))
+          ) : (
+            <p style={{ color: "red" }}>No nearby police found within 15 km.</p>
+          )}
         </Col>
 
-        {/* Right Column - Map Icon */}
+        {/* Right column - location display */}
         <Col xs={24} md={10}>
           <div
             style={{
@@ -76,21 +122,31 @@ const NearbyPoliceStations = () => {
               justifyContent: "center",
               alignItems: "center",
               borderRadius: 8,
+              flexDirection: "column",
+              color: "#fff",
             }}
           >
             <EnvironmentOutlined style={{ fontSize: 64 }} />
+            {isSuccess && location ? (
+              <p style={{ marginTop: 12 }}>
+                Next I will help you find the nearest Police Station
+                <Button
+                  type="primary"
+                  style={{ background: "#4b5e3f", borderColor: "#4b5e3f" }}
+                  onClick={handleNextClick}
+                >
+                  Next
+                </Button>
+              </p>
+            ) : (
+              <p style={{ marginTop: 12 }}>Location not yet available</p>
+            )}
           </div>
         </Col>
       </Row>
-
-      {/* Next Button */}
-      <div style={{ textAlign: "center", marginTop: "2rem" }}>
-        <Button type="primary" style={{ background: "#4b5e3f", borderColor: "#4b5e3f" }}  onClick={handleNextClick}>
-          Next
-        </Button>
-      </div>
+      )
     </div>
   );
 };
 
-export default NearbyPoliceStations;
+export default Nearbypolice;

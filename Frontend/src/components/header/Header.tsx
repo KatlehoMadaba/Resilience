@@ -7,7 +7,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation"; 
 import styles from "./Header.module.css";
 import SupportModal from "../../components/supportModal/SupportModal";
-
+import { useRouter } from "next/navigation";
 const { Header } = Layout;
 const { Title } = Typography;
 
@@ -20,7 +20,7 @@ const ResilienceHeader = ({ isAuthenticated = false }) => {
   const openSupportModal = () => setIsModalOpen(true);
   const closeSupportModal = () => setIsModalOpen(false);
   const toggleMobileMenu = () => setMobileMenuOpen(!mobileMenuOpen);
-
+  const router = useRouter();
   return (
     <Header className={styles.header}>
       <div className={styles.container}>
@@ -42,15 +42,6 @@ const ResilienceHeader = ({ isAuthenticated = false }) => {
         {/* Desktop Navigation */}
         <div className={styles.desktopNav}>
           <Space size={24}>
-            <Link href="/resources" className={styles.navLink}>
-              Resources
-            </Link>
-            <Link href="/support" className={styles.navLink}>
-              Support
-            </Link>
-            <Link href="/about" className={styles.navLink}>
-              About Us
-            </Link>
             {isAuthenticated ? (
               <Link href="/dashboard" className={styles.navLink}>
                 Dashboard
@@ -63,7 +54,7 @@ const ResilienceHeader = ({ isAuthenticated = false }) => {
                       Login
                     </Button>
                   </Link>
-                    <Link href="/imd">
+                  <Link href="/imd">
                     <Button type="primary" className={styles.signupBtn}>
                       Sign Up
                     </Button>
@@ -73,14 +64,12 @@ const ResilienceHeader = ({ isAuthenticated = false }) => {
             )}
           </Space>
         </div>
-
         {/* SOS Button */}
         <Button
           danger
           type="primary"
           className={styles.sosButton}
           onClick={openSupportModal}
-          aria-label="Open SOS support modal"
         >
           SOS
         </Button>
@@ -99,27 +88,13 @@ const ResilienceHeader = ({ isAuthenticated = false }) => {
           className={`${styles.mobileNav} ${mobileMenuOpen ? styles.open : ""}`}
         >
           <div className={styles.mobileNavLinks}>
-            <Link
-              href="/resources"
-              className={styles.mobileNavLink}
-              onClick={toggleMobileMenu}
-            >
-              Resources
-            </Link>
-            <Link
-              href="/support"
-              className={styles.mobileNavLink}
-              onClick={toggleMobileMenu}
-            >
-              Support
-            </Link>
-            <Link
+            <Button
               href="/about"
               className={styles.mobileNavLink}
-              onClick={toggleMobileMenu}
+              onClick={() => router.back()}
             >
-              About Us
-            </Link>
+              Back
+            </Button>
             {isAuthenticated ? (
               <Link
                 href="/dashboard"
@@ -140,7 +115,7 @@ const ResilienceHeader = ({ isAuthenticated = false }) => {
                       Login
                     </Button>
                   </Link>
-                  <Link href="/signup" onClick={toggleMobileMenu}>
+                  <Link href="/imd" onClick={toggleMobileMenu}>
                     <Button
                       type="primary"
                       block

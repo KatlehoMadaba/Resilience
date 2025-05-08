@@ -30,6 +30,23 @@ export interface ISavedResource {
 export interface ISupportSession {
   id?: string;
 }
+
+export interface ISurvivorRegister {
+  userName: string;
+  name: string;
+  surname: string;
+  password: string;
+  emailAddress: string;
+  displayName: string;
+  useDisplayNameOnly: boolean;
+  sex: number;
+  phoneNumber: string;
+  anonymousId: string;
+  isAnonymous: boolean;
+  incidentDate: Date;
+  hasReceivedMedicalAttention: boolean;
+  hasReportedToAuthorities: boolean;
+}
 export interface ISurvivor {
   userId: number;
   userName?: string;
@@ -84,7 +101,9 @@ export interface UpdateSurvivorDto {
   phoneNumber?: string;
   anonymousId?: string;
   isAnonymous?: boolean;
-  incidentDate?: Date;
+  incidentDate?: string;
   hasReceivedMedicalAttention?: boolean;
   hasReportedToAuthorities?: boolean;
 }
+
+

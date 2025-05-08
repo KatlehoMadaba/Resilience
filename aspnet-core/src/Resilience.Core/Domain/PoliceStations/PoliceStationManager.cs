@@ -1,5 +1,7 @@
 ﻿using Abp.Domain.Repositories;
 using Abp.Domain.Services;
+using Resilience.Domain.Helper;
+using Resilience.Domain.Medical_AssistanceRecords;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,6 +29,7 @@ namespace Resilience.Domain.PoliceStations
                 .Skip(skipCount)
                 .Take(maxResultCount)
                 .ToList();
+
             return distinctQuery;
         }
         public async Task<int> GetDistinctCountAsync()
@@ -40,5 +43,25 @@ namespace Resilience.Domain.PoliceStations
 
             return count;
         }
+
+        public async Task<List<PoliceStation>> GetCurrentPoliceStationAsync(
+        double longitude,
+        double latitude,
+        double radiusInKm)
+        {
+            var allFacilities = await _repository.GetAllListAsync();
+
+            return FacilityFilterHelper.FilterFacilities(
+                allFacilities,
+                latitude,
+                longitude,
+                radiusInKm,
+                facility => facility.Latitude,
+                facility => facility.Longitude,
+                facility => "24 hours",
+                facility => facility.PlaceId
+            );
+        }
+
     }
 }

@@ -1,5 +1,7 @@
 "use client"
 import { useState } from 'react';
+
+import { useRouter } from "next/navigation";
 import { Button, Menu } from 'antd';
 import { 
   HomeOutlined, 
@@ -9,17 +11,24 @@ import {
   GlobalOutlined, 
   LogoutOutlined 
 } from '@ant-design/icons';
-import { useRouter } from "next/navigation";
+
 
 import styles from './sidebar.module.css';
 
+// const routeMap = {
+//   dashboard: "/dashboard",
+//   report: "/report",
+//   therapist: "/hospitals",
+//   hospital: "/hospitals",
+//   post: "/createPost",
+// };
 const Sidebar = ({ 
   width = 200,
-  defaultSelectedKey = "dashboard",
   onMenuItemClick,
   onLogout
 }) => {
-  const [selectedKey, setSelectedKey] = useState(defaultSelectedKey);
+  // const pathname = usePathname();
+  const [selectedKey, setSelectedKey] = useState("dasboard");
   const router = useRouter();
   const handleMenuClick = (e) => {
     setSelectedKey(e.key);
@@ -45,7 +54,7 @@ const Sidebar = ({
         onClick={handleMenuClick}
         className={styles.menu}
       >
-        <Menu.Item key="dashboard" icon={<HomeOutlined />}>
+        <Menu.Item key="dashboard" icon={<HomeOutlined />}onClick={()=>router.push("/dashboard")}>
           Dashboard
         </Menu.Item>
         <Menu.Item key="report" icon={<FileTextOutlined />} onClick={()=>router.push("/report")}>

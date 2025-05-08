@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useState } from "react";
 import { Typography, Spin } from "antd";
 import Image from "next/image";
@@ -48,7 +47,7 @@ const SignupPage = () => {
                     Create Your Account
                   </Title>
                   <Title level={4} className={styles.subtitle}>
-                    You are never alone – take the first step
+                    You are never alone take the first step
                   </Title>
                   <ImmdeiateRegisterForm />
                 </div>
