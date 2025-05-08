@@ -19,12 +19,9 @@ const ReportPage = () => {
   const { getCurrentSurvivor } = useSurvivorActions();
   const { isPending, isError } = useUserState();
   const { currentSurvivor } = useSurvivorState();
-  const handleReportSubmit = (values: any) => {
+  const handleReportSubmit = (values) => {
     console.log('Submitted Report:', values);
-    // Send this data to your backend or store it as needed
   };
-  
-  const router = useRouter();
 
   useEffect(() => {
     fetchSurvivorOnReload();
@@ -48,23 +45,8 @@ const ReportPage = () => {
       setLoading(false);
     }
   };
-  const handleLogout = () => {
-    sessionStorage.removeItem("jwt");
-    router.push("/");
-  };
-
-  const handleMenuItemClick = (key: string) => {
-    console.log(`Menu item clicked: ${key}`);
-  };
   return (
     <Spin spinning={loading}>
-      <Layout style={{ minHeight: "100vh" }}>
-        <Sider width={200} className={styles.siderContainer}>
-          <Sidebar
-            onMenuItemClick={handleMenuItemClick}
-            onLogout={handleLogout}
-          />
-        </Sider>
         <Layout>
           <Content className={styles.content}>
             <SexualAssaultReportForm onSubmit={handleReportSubmit}/>
@@ -74,7 +56,6 @@ const ReportPage = () => {
             </Card>
           </Content>
         </Layout>
-      </Layout>
     </Spin>
   );
 };

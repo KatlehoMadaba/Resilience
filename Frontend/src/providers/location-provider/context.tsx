@@ -16,7 +16,7 @@ export const INITIAL_LOCATION_STATE: ILocationStateContext = {
 };
 
 export interface ILocationActionContext {
-  getLocation: () => void;
+  getLocation: () => Promise<void>;
 }
 
 export const LocationStateContext = createContext<ILocationStateContext>(
