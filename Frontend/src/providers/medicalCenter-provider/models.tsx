@@ -7,4 +7,5 @@ export interface IMedicalCentre {
   placeId: string;
   phoneNumber: string;
   operatingHours: string;
+  googleMapsUrl:string
 }
