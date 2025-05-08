@@ -79,7 +79,6 @@ const ResilienceHeader = ({ isAuthenticated = false }) => {
           type="primary"
           className={styles.sosButton}
           onClick={openSupportModal}
-          aria-label="Open SOS support modal"
         >
           SOS
         </Button>

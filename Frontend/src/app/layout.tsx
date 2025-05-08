@@ -43,16 +43,16 @@ export default function RootLayout({
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
-          <LocationProvider>
+            <ResilienceHeader />
           <AuthProvider>
             <UserProvider>
-                <ResilienceHeader />
+          <LocationProvider>
                   <MedicalCentreProvider>
                   <SurvivorProvider>{children}</SurvivorProvider>
               </MedicalCentreProvider>
+          </LocationProvider>
             </UserProvider>
             </AuthProvider>
-          </LocationProvider>
         </body>
       </html>
     </ConfigProvider>
