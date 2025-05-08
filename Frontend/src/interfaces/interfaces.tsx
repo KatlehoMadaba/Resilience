@@ -11,6 +11,6 @@ export interface IMedicalCentre {
 }
 
 export interface ILocation {
-  Latitude: number;
-  Longitude: number;
+  latitude: number;
+  longitude: number;
 }

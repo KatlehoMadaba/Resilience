@@ -5,12 +5,14 @@ import {
   LocationStateContext,
 } from "./context";
 import { LocationReducer } from "./reducers";
+
 import {
   getLocationPending,
   getLocationSuccess,
   getLocationError,
 } from "./actions";
 import { useContext, useReducer } from "react";
+import { ILocation } from '../../interfaces/interfaces';
 
 export const LocationProvider = ({
   children,
@@ -27,11 +29,12 @@ export const LocationProvider = ({
       navigator.geolocation.getCurrentPosition(
         (position) => {
           // Successfully retrieved location
-          const location = {
+          const location : ILocation = {
             latitude: position.coords.latitude,
             longitude: position.coords.longitude,
           };
-          dispatch(getLocationSuccess(location)); // Dispatch success with coordinates
+          dispatch(getLocationSuccess(location)); 
+          console.log("This is the location in location",location)
         },
         (error) => {
           console.error(error);
