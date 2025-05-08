@@ -48,39 +48,40 @@ export default function ImmdeiateRegisterForm() {
   // }, [isAnonymous]);
 
   // Handle state changes from auth operations
-  useEffect(() => {
-    if (isSuccess) {
-      setLoading(false);
-      showSuccessToast();
-      router.push("/login");
-    }
+  // useEffect(() => {
+  //   debugger
+  //   if (isSuccess) {
+  //     setLoading(false);
+  //     showSuccessToast();
+  //     router.push("/login");
+  //   }
     
-    if (isError) {
-      setLoading(false);
-      showErrorToast();
-    }
-  }, [isSuccess, isError, router]);
+  //   if (isError) {
+  //     setLoading(false);
+  //     showErrorToast();
+  //   }
+  // }, [isSuccess, isError, router]);
 
-  const showSuccessToast = () => {
-    messageApi.success({
-      content: "Signup successful!",
-      duration: 3,
-    });
-  };
+  // const showSuccessToast = () => {
+  //   messageApi.success({
+  //     content: "Signup successful!",
+  //     duration: 3,
+  //   });
+  // };
 
-  const showErrorToast = () => {
-    messageApi.error({
-      content: "Signup failed. Please try again.",
-      duration: 5,
-    });
-  };
+  // const showErrorToast = () => {
+  //   messageApi.error({
+  //     content: "Signup failed. Please try again.",
+  //     duration: 5,
+  //   });
+  // };
   // const onFinish = async (values: IAuth) => {
   //     setLoading(true);
     
   //   try {
   //     const formValues: IAuth = {
   //       ...values,
-  //       anonymousId: isAnonymous ? generatedAnonId : "",
+  //       anonymousId: isAnonymous ? "abc": "",
   //       incidentDate: values.incidentDate,
   //       role: "immediatesurvivor",
   //       isAnonymous: false,
@@ -103,11 +104,11 @@ export default function ImmdeiateRegisterForm() {
       isAnonymous: false,
     };
     await signUpImmdetiateSurvivor(formValues);
-
+    
   }
+
   return (
     <>
-      {/* {contextHolder} */}
       <Form
         layout="vertical"
         onFinish={onFinish}

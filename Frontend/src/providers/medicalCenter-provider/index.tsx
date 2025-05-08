@@ -23,40 +23,39 @@ export const MedicalCentreProvider = ({
 }) => {
   const [state, dispatch] = useReducer(MedicalCentreReducer, INITIAL_STATE);
 
-  // Fetch medical centres based on ILocation
-  // const getMedicalCentres = async (ILocation: ILocation): Promise<void> => {
-  //   dispatch(getMedicalCentresPending());
-  //   const { Latitude, Longitude } = ILocation;
-
-  //   // Backend URL (no need to pass radius as it is fixed in the backend)
-  //   const endpoint = `https://localhost:44311/api/services/app/MedicalFacility/GetNearbyFacilitiesAsync?Latitude=-25.740&Longitude=28.218`;
+  //Fetch medical centres based on ILocation
+  const getMedicalCentres = async (ILocation: ILocation): Promise<void> => {
+    dispatch(getMedicalCentresPending());
     
-  //   try {
-  //     const response = await axios.get<IMedicalCentre[]>(endpoint);
-  //     dispatch(getMedicalCentresSuccess(response.data)); // Dispatch success with fetched data
-  //   } catch (error) {
-  //     console.error(error);
-  //     dispatch(getMedicalCentresError()); // Dispatch error if request fails
-  //   }
-  // };
-const getMedicalCentres = async (location: ILocation) => {
+    // Backend URL (no need to pass radius as it is fixed in the backend)
+    const endpoint = `https://localhost:44311/api/services/app/MedicalFacility/GetNearbyFacilitiesAsync?Latitude=-25.740&Longitude=28.218`;
+    
     try {
-      const response = await axios.get(
-        "https://localhost:44311/api/services/app/MedicalFacility/GetNearbyFacilitiesAsync",
-        {
-          params: {
-            Latitude: -25.740,
-            Longitude: 28.218,
-          },
-        }
-      );
-  
-      // Dispatch to state/store
-      dispatch({ type: "SET_MEDICAL_CENTRES", payload: response.data.result });
+      const response = await axios.get<IMedicalCentre[]>(endpoint);
+      dispatch(getMedicalCentresSuccess(response.data)); // Dispatch success with fetched data
     } catch (error) {
-      console.error("Failed to fetch medical centres", error);
+      console.error(error);
+      dispatch(getMedicalCentresError()); // Dispatch error if request fails
     }
   };
+// const getMedicalCentres = async (location: ILocation) => {
+//     try {
+//       const response = await axios.get(
+//         "https://localhost:44311/api/services/app/MedicalFacility/GetNearbyFacilitiesAsync",
+//         {
+//           params: {
+//             Latitude: -25.740,
+//             Longitude: 28.218,
+//           },
+//         }
+//       );
+  
+//       // Dispatch to state/store
+//       dispatch({ type: "SET_MEDICAL_CENTRES", payload: response.data.result });
+//     } catch (error) {
+//       console.error("Failed to fetch medical centres", error);
+//     }
+//   };
   
   return (
     <MedicalCentreStateContext.Provider value={state}>

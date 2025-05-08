@@ -47,12 +47,12 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       });
   };
 
-  const  signUpImmdetiateSurvivor = async (ISurvivor:ISurvivorRegisteration): Promise<void> => {
+  const  signUpImmdetiateSurvivor = async (Survivor:ISurvivorRegisteration): Promise<void> => {
     dispatch(signUpSurvivorPending());
     const endpoint =
         `https://localhost:44311/api/services/app/ImdSurvivor/Create`;
        await axios
-      .post<IAuth>(endpoint, ISurvivor)
+      .post<IAuth>(endpoint, Survivor)
       .then((response) => {
         dispatch(signUpSurvivorSuccess(response.data));
       })

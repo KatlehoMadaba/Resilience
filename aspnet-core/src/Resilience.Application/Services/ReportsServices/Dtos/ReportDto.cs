@@ -9,5 +9,6 @@ namespace Resilience.Services.ReportsServices.Dtos
 {
     public class ReportDto: EntityDto<Guid>
     {
+
     }
 }

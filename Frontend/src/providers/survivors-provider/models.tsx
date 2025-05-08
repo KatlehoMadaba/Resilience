@@ -101,7 +101,7 @@ export interface UpdateSurvivorDto {
   phoneNumber?: string;
   anonymousId?: string;
   isAnonymous?: boolean;
-  incidentDate?: Date;
+  incidentDate?: string;
   hasReceivedMedicalAttention?: boolean;
   hasReportedToAuthorities?: boolean;
 }
