@@ -35,7 +35,7 @@ const ReportPage = () => {
     try {
       setLoading(true);
       const user = await getCurrentUser(token);
-      await getCurrentSurvivor(user.id);
+      await getCurrentSurvivor(user.userId);
     } catch (err) {
       console.error("Error loading survivor:", err);
     } finally {

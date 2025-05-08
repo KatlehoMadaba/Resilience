@@ -5,7 +5,7 @@ import { Typography, Spin } from "antd";
 import Image from "next/image";
 import { Heart } from "lucide-react";
 import styles from "../../../components/register-forms/immediateS/register-page.module.css";
-import ImmdeiateRegisterForm from "../../../components/register-forms/immediateS/page";
+import RegisterForm from "../../../components/register-forms/immediateS/page";
 import { useAuthState } from "@/providers/auth-provider";
 
 const { Title } = Typography;
@@ -50,7 +50,7 @@ const SignupPage = () => {
                 <Title level={4} className={styles.subtitle}>
                   You are never alone – take the first step
                 </Title>
-                <ImmdeiateRegisterForm />
+                <RegisterForm />
               </div>
             </Spin>
           </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect} from "react";
+import React, { useEffect } from "react";
 import { Row, Col, Card, Typography, Button, Spin } from "antd";
 import {
   EnvironmentOutlined,
@@ -23,8 +23,7 @@ const NearbyHospitals = () => {
   const router = useRouter();
   const { getLocation } = useLocationActions();
   const { location, isPending, isSuccess, isError } = useLocationState();
-  const { isPending: isMedicalPending} =
-    useMedicalCentreState();
+  const { isPending: isMedicalPending } = useMedicalCentreState();
   const { getMedicalCentres } = useMedicalCentreActions();
   const { medicalCentres } = useMedicalCentreState();
   useEffect(() => {
@@ -79,7 +78,11 @@ const NearbyHospitals = () => {
         <Col xs={24} md={14}>
           {medicalCentres.length > 0 ? (
             medicalCentres.map((medicalCentre, index) => (
-              <Card key={index} bordered style={{ marginBottom: "1rem" }}>
+              <Card
+                key={index}
+                variant="borderless"
+                style={{ marginBottom: "1rem" }}
+              >
                 <Title level={5}>{medicalCentre.name}</Title>
 
                 <p>

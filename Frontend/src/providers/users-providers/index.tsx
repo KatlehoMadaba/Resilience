@@ -37,9 +37,9 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => {
-        if (response?.data?.result?.user) {
-          dispatch(getCurrentUserSuccess(response?.data?.result?.user));
-          return response?.data?.result?.user;
+        if (response?.data?.result) {
+          dispatch(getCurrentUserSuccess(response?.data?.result));
+          return response?.data?.result;
         } else {
           console.warn("No user data found in response");
           dispatch(getCurrentUserError());
