@@ -20,7 +20,7 @@ export interface IAuthStateContext {
 // Auth action context interface
 export interface IAuthActionContext {
   signIn: (SignInRequest: ISignInRequest) => Promise<ISignInResponse>;
-  signUpImmdetiateSurvivor: (Survivor: ISurvivorRegisteration) => void;
+  signUpImmediateSurvivor: (Survivor: ISurvivorRegisteration) => void;
   signUpPastSurvivor: (PastSurvivor: IPastSurvivorRegsister) => void;
   signUp: (Auth: IAuth) => void;
   emergencySignIn: (emergencySignIn: IEmergencySignIn) => void;

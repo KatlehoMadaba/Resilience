@@ -26,7 +26,7 @@ const Nearbypolice = () => {
   const { isPending: isPoliceSuccess } = usePoliceStationState();
   const { getPoliceStations } = usePoliceStationActions();
   const { PoliceStations } = usePoliceStationState();
-  
+
   useEffect(() => {
     const fetchLocation = async () => {
       try {
@@ -82,7 +82,11 @@ const Nearbypolice = () => {
         <Col xs={24} md={14}>
           {PoliceStations.length > 0 ? (
             PoliceStations.map((PoliceStation, index) => (
-              <Card key={index} bordered style={{ marginBottom: "1rem" }}>
+              <Card
+                key={index}
+                variant="borderless"
+                style={{ marginBottom: "1rem" }}
+              >
                 <Title level={5}>{PoliceStation.name}</Title>
 
                 <p>
