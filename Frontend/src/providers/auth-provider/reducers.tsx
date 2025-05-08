@@ -56,6 +56,18 @@ export const AuthReducer = handleActions<IAuthStateContext, IAuthStateContext>(
       ...state,
       ...action.payload,
     }),
+    [AuthActionEnums.signUpPastSurvivorError]: (state, action) => ({
+      ...state,
+      ...action.payload,
+    }),
+    [AuthActionEnums.signUpPastSurvivorSuccess]: (state, action) => ({
+      ...state,
+      ...action.payload,
+    }),
+    [AuthActionEnums.signUpPastSurvivorPending]: (state, action) => ({
+      ...state,
+      ...action.payload,
+    }),
   },
   INITIAL_STATE
 );

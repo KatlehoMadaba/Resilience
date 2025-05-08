@@ -48,9 +48,6 @@ const NearbyHospitals = () => {
       } catch (error) {
         console.error("Failed to fetch medical centres:", error);
       }
-      finally {
-        console.log("This are the medical",medicalCentres)
-      }
     };
 
     fetchMedicalCentres();

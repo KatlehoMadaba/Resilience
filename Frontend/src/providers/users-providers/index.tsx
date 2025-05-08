@@ -22,6 +22,7 @@ import {
   deleteUserPending,
 } from "./actions";
 import axios from "axios";
+
 export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const [state, dispatch] = useReducer(UserReducer, INITIAL_STATE);
   const instance = getAxiosInstace();
@@ -29,15 +30,16 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   // Get current user
   const getCurrentUser = async (token: string): Promise<IUser | null> => {
     dispatch(getCurrentUserPending());
-    const endpoint = `https://localhost:44311/api/services/app/Session/GetCurrentLoginInformations`;
-    return axios
+    const endpoint = `services/app/Session/GetCurrentLoginInformations`;
+    debugger
+    return instance
       .get(endpoint, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => {
         if (response?.data?.result?.user) {
-          dispatch(getCurrentUserSuccess(response.data.result.user));
-          return response.data.result.user;
+          dispatch(getCurrentUserSuccess(response?.data?.result?.user));
+          return response?.data?.result?.user;
         } else {
           console.warn("No user data found in response");
           dispatch(getCurrentUserError());
@@ -55,11 +57,10 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const getUsers = async () => {
     dispatch(getUserPending());
     const endpoint = `/api/services/app/User/GetAll`;
-
     return instance
       .get(endpoint)
       .then((response) => {
-        dispatch(getUserSuccess(response.data?.result ?? []));
+        dispatch(getUserSuccess(response?.data?.result ?? []));
       })
       .catch((error) => {
         console.error("Error fetching users:", error);
@@ -75,7 +76,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
     return instance
       .post(endpoint, user)
       .then((response) => {
-        dispatch(createUserSuccess(response.data?.result));
+        dispatch(createUserSuccess(response?.data?.result));
       })
       .catch((error) => {
         console.error("Error creating user:", error);
@@ -91,7 +92,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
     return instance
       .put(endpoint, user)
       .then((response) => {
-        dispatch(updateUserSuccess(response.data?.result));
+        dispatch(updateUserSuccess(response?.data?.result));
       })
       .catch((error) => {
         console.error("Error updating user:", error);
@@ -107,7 +108,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
     return instance
       .delete(endpoint)
       .then((response) => {
-        dispatch(deleteUserSuccess(response.data?.result));
+        dispatch(deleteUserSuccess(response?.data?.result));
       })
       .catch((error) => {
         console.error("Error deleting user:", error);
@@ -122,7 +123,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
     return axios
       .get(endpoint)
       .then((response) => {
-        dispatch(getUserSuccess(response.data?.result));
+        dispatch(getUserSuccess(response?.data?.result));
       })
       .catch((error) => {
         console.error("Error fetching user:", error);

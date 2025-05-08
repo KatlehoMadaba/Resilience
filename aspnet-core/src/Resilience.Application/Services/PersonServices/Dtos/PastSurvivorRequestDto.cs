@@ -27,6 +27,6 @@ namespace Resilience.Services.PersonServices.Dtos
         public bool HasDisclosedBefore { get; set; }
         public int TimeElapsedInDays { get; set; } // Time since incident
         public ReflistRecoveryPhase? RecoveryPhase { get; set; } // Self-identified phase of recovery
-        public string? RecoveryPhaseText { get; set; }
+
     }
 }

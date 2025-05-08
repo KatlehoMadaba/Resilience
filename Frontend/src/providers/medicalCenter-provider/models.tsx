@@ -9,3 +9,4 @@ export interface IMedicalCentre {
   operatingHours: string;
   googleMapsUrl:string
 }
+

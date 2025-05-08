@@ -31,7 +31,6 @@ const Nearbypolice = () => {
     const fetchLocation = async () => {
       try {
         await getLocation();
-        console.log("Locations:",Location)
       } catch (error) {
         console.error("Failed to get location:", error);
       }

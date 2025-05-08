@@ -37,7 +37,6 @@ export const SurvivorProvider = ({
 
   // Get current Survivor
   const getCurrentSurvivor = async (
-
     userId: number
   ): Promise<ISurvivor | null> => {
     dispatch(getCurrentSurvivorPending());

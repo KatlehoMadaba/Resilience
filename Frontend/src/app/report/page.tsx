@@ -19,9 +19,9 @@ const ReportPage = () => {
   const { getCurrentSurvivor } = useSurvivorActions();
   const { isPending, isError } = useUserState();
   const { currentSurvivor } = useSurvivorState();
-  const handleReportSubmit = (values) => {
-    console.log('Submitted Report:', values);
-  };
+  // const handleReportSubmit = (values) => {
+  //   console.log('Submitted Report:', values);
+  // };
 
   useEffect(() => {
     fetchSurvivorOnReload();

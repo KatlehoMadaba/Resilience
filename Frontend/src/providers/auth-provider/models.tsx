@@ -66,3 +66,21 @@ export interface ISurvivorRegisteration {
   hasReceivedMedicalAttention?: boolean;
   hasReportedToAuthorities?: boolean;
 }
+
+export interface IPastSurvivorRegsister {
+  userName: string;
+  name: string;
+  surname: string;
+  password: string;
+  emailAddress: string;
+  displayName: string;
+  useDisplayNameOnly: boolean;
+  sex: number;
+  phoneNumber: string;
+  anonymousId: string;
+  isAnonymous: boolean;
+  incidentDate: Date;
+  hasDisclosedBefore: boolean;
+  timeElapsedInDays: number;
+  recoveryPhase: number;
+}

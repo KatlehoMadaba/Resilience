@@ -106,7 +106,7 @@ export default function ImmdeiateRegisterForm() {
     console.log(values, "values");
     await signUpImmdetiateSurvivor(formValues);
     router.push("/login");
-    console.log("this id the response");
+
   };
 
   return (

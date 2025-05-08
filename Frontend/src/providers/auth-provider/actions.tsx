@@ -25,6 +25,10 @@ export enum AuthActionEnums {
   signUpSurvivorPending = "SIGN__UP_SURVIVOR_PENDING",
   signUpSurvivorSuccess = "SIGN__UP_SURVIVOR_SUCCESS",
   signUpSurvivorError = "SIGN__UP_SURVIVOR_ERROR",
+
+  signUpPastSurvivorPending = "SIGN__UP_PAST_SURVIVOR_PENDING",
+  signUpPastSurvivorSuccess = "SIGN__UP_PAST_SURVIVOR_SUCCESS",
+  signUpPastSurvivorError = "SIGN__UP_PAST_SURVIVOR_ERROR",
 }
 //SIGN UP ACTIONS
 export const signUpPending = createAction<IAuthStateContext>(
@@ -63,6 +67,26 @@ export const signUpSurvivorError = createAction<IAuthStateContext>(
   AuthActionEnums.signUpError,
   () => ({ isPending: false, isSuccess: false, isError: true })
 );
+
+export const signUpPastSurvivorPending = createAction<IAuthStateContext>(
+  AuthActionEnums.signUpPending,
+  () => ({ isPending: true, isSuccess: false, isError: false })
+);
+
+export const signUpPastSurvivorSuccess = createAction<IAuthStateContext>(
+  AuthActionEnums.signUpSuccess,
+  () => ({
+    isPending: false,
+    isSuccess: true,
+    isError: false,
+  })
+);
+
+export const signUpPastSurvivorError = createAction<IAuthStateContext>(
+  AuthActionEnums.signUpError,
+  () => ({ isPending: false, isSuccess: false, isError: true })
+);
+
 
 //SIGN IN ACTIONS
 export const signInPending = createAction<IAuthStateContext>(

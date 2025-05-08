@@ -34,8 +34,8 @@ const Dashboard = () => {
     setIsModalVisible(false);
   };
 
-  const handleMenuItemClick = (key) => {
-    console.log(`Menu item clicked: ${key}`);
+  const handleMenuItemClick = () => {
+    // console.log(`Menu item clicked: ${key}`);
   };
 
   const handleLogout = () => {

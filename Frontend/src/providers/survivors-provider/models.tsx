@@ -105,3 +105,5 @@ export interface UpdateSurvivorDto {
   hasReceivedMedicalAttention?: boolean;
   hasReportedToAuthorities?: boolean;
 }
+
+

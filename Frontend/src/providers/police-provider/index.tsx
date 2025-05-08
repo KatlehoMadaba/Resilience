@@ -10,7 +10,7 @@ import {
   getPoliceStationsSuccess,
   getPoliceStationsError,
 } from "./actions";
-import axios from "axios";
+import { getAxiosInstace } from "@/utils/axiosInstance";
 import { ILocation } from "../../interfaces/interfaces"; // Import the ILocation interface
 import { PoliceStationReducer } from "./reducer";
 
@@ -21,17 +21,15 @@ export const PoliceStationProvider = ({
   children: React.ReactNode;
 }) => {
   const [state, dispatch] = useReducer(PoliceStationReducer, INITIAL_STATE);
-
+  const instance = getAxiosInstace();
   const getPoliceStations = async (Location: ILocation): Promise<void> => {
     dispatch(getPoliceStationsPending());
-    const endpoint = `https://localhost:44311/api/services/app/PoliceStation/GetNearbyPoliceStations?Latitude=${Location.latitude}&Longitude=${Location.longitude}`;
-    await axios
+    const endpoint = `services/app/PoliceStation/GetNearbyPoliceStations?Latitude=${Location.latitude}&Longitude=${Location.longitude}`;
+    await instance
       .get(endpoint)
 
       .then((response) => {
         dispatch(getPoliceStationsSuccess(response?.data.result));
-        console.log("this the location", location);
-        console.log("policeStations", response?.data);
       })
       .catch((error) => {
         console.error("Error fetching police station:", error);

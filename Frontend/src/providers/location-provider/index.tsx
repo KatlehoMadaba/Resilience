@@ -34,7 +34,7 @@ export const LocationProvider = ({
             longitude: position.coords.longitude,
           };
           dispatch(getLocationSuccess(location)); 
-          console.log("This is the location in location",location)
+         
         },
         (error) => {
           console.error(error);

@@ -10,31 +10,25 @@ import {
   getMedicalCentresSuccess,
   getMedicalCentresError,
 } from "./actions";
-import axios from "axios";
-import { ILocation } from "../../interfaces/interfaces"; // Import the ILocation interface
+import { getAxiosInstace } from "@/utils/axiosInstance";
+import { ILocation } from "../../providers/location-provider/models";
 import { MedicalCentreReducer } from "./reducer";
 
-// Define the provider component
 export const MedicalCentreProvider = ({
   children,
 }: {
   children: React.ReactNode;
 }) => {
   const [state, dispatch] = useReducer(MedicalCentreReducer, INITIAL_STATE);
+  const instance = getAxiosInstace();
   const getMedicalCentres = async (Location: ILocation): Promise<void> => {
     dispatch(getMedicalCentresPending());
-    // Backend URL with fixed radius; using actual coordinates from ILocation
 
-    const endpoint = `https://localhost:44311/api/services/app/MedicalFacility/GetNearbyFacilities?Latitude=${Location.latitude}&Longitude=${Location.longitude}`;
-    //const endpoint = `https://localhost:44311/api/services/app/MedicalFacility/GetNearbyFacilities?Latitude=-25.740&Longitude=28.18`;
-   
-    await axios
+    const endpoint = `services/app/MedicalFacility/GetNearbyFacilities?Latitude=${Location.latitude}&Longitude=${Location.longitude}`;
+    await instance
       .get(endpoint)
       .then((response) => {
         dispatch(getMedicalCentresSuccess(response?.data.result));
-         console.log("this is the location in medical", location);
-        console.log("medicalcenters", response?.data);
-      
       })
       .catch((error) => {
         console.error("Error fetching medical centres:", error);
