@@ -8,74 +8,48 @@ import {
   PhoneOutlined,
 } from "@ant-design/icons";
 import styles from "./register-page.module.css";
-import { IAuth } from "../../../providers/auth-provider/models";
 import { useAuthActions } from "@/providers/auth-provider";
-import { useAuthState } from "@/providers/auth-provider";
-
-import { ReflistSex } from "../../../enums/ReflistSex";
-const { Option } = Select;
 import { useRouter } from "next/navigation";
+// import { ISurvivorRegister } from "@/providers/survivors-provider/models";
+import { IAuth } from "@/providers/auth-provider/models";
 
-export default function ImmdeiateRegisterForm() {
+const { Option } = Select;
+
+const RegisterForm = () => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [isAnonymous, setIsAnonymous] = useState(false);
   const [generatedAnonId, setGeneratedAnonId] = useState("");
   const [messageApi, contextHolder] = message.useMessage();
-  const { signUp } = useAuthActions();
-  const { isSuccess, isError, isPending } = useAuthState();
-  const generateAnonymousId = () => {
-    const random = Math.floor(1000 + Math.random() * 9000);
-    return `Anonymous${random}`;
-  };
+  const { signUpImmediateSurvivor } = useAuthActions();
+
+  const generateAnonymousId = () =>
+    `Anonymous${Math.floor(1000 + Math.random() * 9000)}`;
 
   useEffect(() => {
-    if (isAnonymous) {
-      const anonId = generateAnonymousId();
-      setGeneratedAnonId(anonId);
-    } else {
-      setGeneratedAnonId("");
-    }
+    setGeneratedAnonId(isAnonymous ?
+      generateAnonymousId() : "");
   }, [isAnonymous]);
 
-  const showSuccessToast = () => {
-    messageApi.success({
-      content: "Signup successful!",
-      duration: 3,
-    });
-  };
+  const showSuccessToast = () => messageApi.success("Signup successful!");
+  const showErrorToast = () =>
+    messageApi.error("Signup failed. Please try again.");
 
-  const showErrorToast = () => {
-    messageApi.error({
-      content: "Signup failed. Please try again.",
-      duration: 5,
-    });
-  };
   const onFinish = async (values: IAuth) => {
-    if (isPending) {
-      setLoading(true);
-    }
+    setLoading(true);
     try {
-      const formValues: IAuth = {
+      const formValues = {
         ...values,
-        anonymousId: isAnonymous ? generatedAnonId : "",
-        incidentDate: values.incidentDate,
-        role: "immediatesurvivor",
-        isAnonymous: false,
+        anonymousId: isAnonymous ? generateAnonymousId() : "",
+        //role: "immediatesurvivor",
+        isAnonymous,
       };
-      await signUp(formValues);
-      if (isPending) {
-        setLoading(true);
-      }
-      if (isSuccess) {
-        setLoading(false);
-        showSuccessToast();
-        router.push("/login");
-      }
-    } catch{
-      if (isError) {
-        showErrorToast();
-      }
+
+      signUpImmediateSurvivor(formValues);
+      showSuccessToast();
+      router.push("/login");
+    } catch {
+      showErrorToast();
     } finally {
       setLoading(false);
     }
@@ -139,11 +113,9 @@ export default function ImmdeiateRegisterForm() {
             </Form.Item>
             <Form.Item name="sex" label="Sex" rules={[{ required: true }]}>
               <Select placeholder="Select your gender">
-                <Option value={ReflistSex.Male}>Male</Option>
-                <Option value={ReflistSex.Female}>Female</Option>
-                <Option value={ReflistSex.PreferNotToSay}>
-                  Prefer Not Say
-                </Option>
+                <Option value={1}>Male</Option>
+                <Option value={2}>Female</Option>
+                <Option value={3}>Prefer Not Say</Option>
               </Select>
             </Form.Item>
           </>
@@ -152,6 +124,7 @@ export default function ImmdeiateRegisterForm() {
         {isAnonymous && (
           <Form.Item label="Anonymous ID">
             <Input value={generatedAnonId} disabled />
+            
           </Form.Item>
         )}
 
@@ -163,7 +136,7 @@ export default function ImmdeiateRegisterForm() {
           <Input.Password prefix={<LockOutlined />} placeholder="Password" />
         </Form.Item>
 
-        <Form.Item name="IncidentDate" label="Incident Date">
+        <Form.Item name="incidentDate" label="Incident Date">
           <DatePicker style={{ width: "100%" }} />
         </Form.Item>
 
@@ -197,4 +170,6 @@ export default function ImmdeiateRegisterForm() {
       </Form>
     </>
   );
-}
+};
+
+export default RegisterForm;

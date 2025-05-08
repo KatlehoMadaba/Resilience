@@ -57,13 +57,12 @@ const steps = [
 
 export default function ChecklistPage() {
   const [currentStep, setCurrentStep] = useState(0);
-
+  // const [loading,setLoading]=useState(true)
   const handleNextStep = () => {
     if (currentStep < steps.length - 1) {
       setCurrentStep(currentStep + 1);
     }
   };
-
   return (
     <main className={styles.container}>
       <div className={styles.header}>

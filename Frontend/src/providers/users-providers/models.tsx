@@ -1,6 +1,6 @@
 "use client";
 export interface IUser {
-  id?: number;
+  userId?: number;
   name: string;
   surname: string;
   emailAddress: string;

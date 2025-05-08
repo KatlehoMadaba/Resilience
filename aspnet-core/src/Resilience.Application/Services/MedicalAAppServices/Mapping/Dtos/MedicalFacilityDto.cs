@@ -16,6 +16,7 @@ namespace Resilience.Services.MedicalAAppServices.Dtos
         public string PlaceId { get; set; }
         public string PhoneNumber { get; set; }
         public string OperatingHours { get; set; }
+        public string GoogleMapsUrl { get; set; }
     }
 
 }

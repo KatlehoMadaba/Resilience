@@ -34,8 +34,8 @@ const Dashboard = () => {
     setIsModalVisible(false);
   };
 
-  const handleMenuItemClick = (key) => {
-    console.log(`Menu item clicked: ${key}`);
+  const handleMenuItemClick = () => {
+    // console.log(`Menu item clicked: ${key}`);
   };
 
   const handleLogout = () => {
@@ -66,13 +66,14 @@ useEffect(()=>{
     if (isError) setLoading(false);
   }, [isPending, isError]);
 
-  const fetchSurvivorOnReload= async ()=>{
+  const fetchSurvivorOnReload = async () => {
     const token =sessionStorage.getItem("jwt");
     if(!token) return;
     try{
       setLoading(true)
-      const user=await getCurrentUser(token);
-      await getCurrentSurvivor(user.id);
+      const user = await getCurrentUser(token);
+      console.log("user",user)
+      await getCurrentSurvivor(user.userId);
     }
     catch(err)
     {
