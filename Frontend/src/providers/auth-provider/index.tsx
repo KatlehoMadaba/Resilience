@@ -47,19 +47,19 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       });
   };
 
-  const  signUpImmdetiateSurvivor = async (Survivor:ISurvivorRegisteration): Promise<void> => {
+  const  signUpImmdetiateSurvivor = async (Survivor:ISurvivorRegisteration) => {
     dispatch(signUpSurvivorPending());
     const endpoint =
         `https://localhost:44311/api/services/app/ImdSurvivor/Create`;
        await axios
-      .post<IAuth>(endpoint, Survivor)
-      .then((response) => {
-        dispatch(signUpSurvivorSuccess(response.data));
-      })
-      .catch((error) => {
-        dispatch(signUpSurvivorError())
-        console.error(error);
-      });
+         .post(endpoint, Survivor)
+         .then(() => {
+           dispatch(signUpSurvivorSuccess());
+         })
+         .catch((error) => {
+           dispatch(signUpSurvivorError());
+           console.error(error);
+         });
   };
 
   const signIn = async (

@@ -23,7 +23,7 @@ export default function ImmdeiateRegisterForm() {
   const [isAnonymous, setIsAnonymous] = useState(false);
   // const [generatedAnonId, setGeneratedAnonId] = useState("");
   const [messageApi, contextHolder] = message.useMessage();
-  const { signUp ,signUpImmdetiateSurvivor} = useAuthActions();
+  const { signUp, signUpImmdetiateSurvivor } = useAuthActions();
   const { isSuccess, isError, isPending } = useAuthState();
   // const generateAnonymousId = () => {
   //   const random = Math.floor(1000 + Math.random() * 9000);
@@ -55,7 +55,7 @@ export default function ImmdeiateRegisterForm() {
   //     showSuccessToast();
   //     router.push("/login");
   //   }
-    
+
   //   if (isError) {
   //     setLoading(false);
   //     showErrorToast();
@@ -77,7 +77,7 @@ export default function ImmdeiateRegisterForm() {
   // };
   // const onFinish = async (values: IAuth) => {
   //     setLoading(true);
-    
+
   //   try {
   //     const formValues: IAuth = {
   //       ...values,
@@ -89,23 +89,25 @@ export default function ImmdeiateRegisterForm() {
   //     await signUp(formValues);
 
   //   } catch{
-      
+
   //     setLoading(false);
   //     showErrorToast();
   // };
 
   const onFinish = async (values: ISurvivorRegister) => {
+    // const formValues: ISurvivorRegister = {
+    //   ...values,
+    //   anonymousId: isAnonymous ? "Anyon123" : "",
+    //   incidentDate: values.incidentDate,
+    //   // role: "immediatesurvivor",
+    //   isAnonymous: false,
+    // };
 
-    const formValues: ISurvivorRegister = {
-      ...values,
-      anonymousId: isAnonymous ? "Anyon123" : "",
-      incidentDate: values.incidentDate,
-      // role: "immediatesurvivor",
-      isAnonymous: false,
-    };
-    await signUpImmdetiateSurvivor(formValues);
-    
-  }
+    console.log(values,"values");
+    //await signUpImmdetiateSurvivor(formValues);
+
+    console.log("this id the response");
+  };
 
   return (
     <>

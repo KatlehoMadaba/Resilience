@@ -21,7 +21,7 @@ export const INITIAL_STATE: IMedicalCentreStateContext = {
 
 // Define action context interface for handling functions like getMedicalCentres
 export interface IMedicalCentreActionContext {
-  getMedicalCentres: (location: ILocation) => void;
+  getMedicalCentres: (location: ILocation) => Promise<void>;
 }
 
 // Create state context for providing state
