@@ -12,6 +12,7 @@ using Abp.ObjectMapping;
 using Resilience.Domain.PoliceStations;
 using Resilience.Services.PoliceStationAppServices.Dtos;
 using Abp.UI;
+using Abp.Authorization;
 
 namespace Resilience.Services.PoliceStationAppServices
 {
@@ -39,6 +40,13 @@ namespace Resilience.Services.PoliceStationAppServices
                 throw new UserFriendlyException("GetAll failed", ex.Message);
             }
         }
+        [AbpAllowAnonymous] 
+        public async Task<List<PoliceStationDto>> GetNearbyPoliceStationsAsync(GetNearbyFacilitiesInputDto input)
+        {
+            const double fixedRadiuskm = 15;
+            var allFacilities = await _policeStationManager.GetCurrentPoliceStationAsync(input.Longitude, input.Latitude, fixedRadiuskm);
 
+            return _objectMapper.Map<List<PoliceStationDto>>(allFacilities);
+        }
     }
 }
