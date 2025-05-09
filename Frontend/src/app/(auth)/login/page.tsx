@@ -26,8 +26,8 @@ const LoginPage = () => {
       setLoading(false);
     }
 
-    if (isSuccess) {
-      const role = getRole(token);
+  if (isSuccess) {
+  const role = getRole(token);
       if (role === "generalsupporter") {
         router.push("/supporter");
       } else if (role === "professional") {
@@ -37,12 +37,12 @@ const LoginPage = () => {
       } else if (role === "immediatesurvivor") {
         router.push("/dashboard");
       } else {
-        router.push("/");
+        router.push("/login");
       }
 
-      setLoading(false);
-    }
-  }, [isPending, isError, isSuccess, router]);
+    setLoading(false);
+  }
+  }, [isPending, isError, router]);
   return (
     <div className={styles.page}>
       <main className={styles.main}>

@@ -10,7 +10,7 @@ import {
   useSurvivorActions,
   useSurvivorState,
 } from "@/providers/survivors-provider";
-
+import withAuth from "@/hoc/withAuth";
 const { Content, Sider } = Layout;
 const { Title, Text } = Typography;
 
@@ -19,7 +19,7 @@ const Dashboard = () => {
   const [selectedEmoji, setSelectedEmoji] = useState("");
   const { getCurrentUser } = useUserActions();
   const { getCurrentSurvivor } = useSurvivorActions();
-  const { isPending, isError} = useUserState();
+  const { isPending, isError } = useUserState();
   const { currentSurvivor } = useSurvivorState();
   const [loading, setLoading] = useState(true);
   const router = useRouter();
@@ -69,7 +69,9 @@ const Dashboard = () => {
 
   const fetchSurvivorOnReload = async () => {
     const token = sessionStorage.getItem("jwt");
-    if (!token) return;
+    if (!token) {
+      router.push("/login");
+    }
     try {
       setLoading(true);
       const user = await getCurrentUser(token);
@@ -185,4 +187,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default withAuth(Dashboard);
