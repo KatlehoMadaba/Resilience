@@ -43,7 +43,6 @@ const Nearbypolice = () => {
     const fetchPoliceStations = async () => {
       try {
         if (location) {
-          debugger;
           await getPoliceStations(location);
         }
       } catch (error) {

@@ -31,15 +31,14 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const getCurrentUser = async (token: string): Promise<IUser | null> => {
     dispatch(getCurrentUserPending());
     const endpoint = `services/app/Session/GetCurrentLoginInformations`;
-    debugger
     return instance
       .get(endpoint, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => {
         if (response?.data?.result) {
-          dispatch(getCurrentUserSuccess(response?.data?.result));
-          return response?.data?.result;
+          dispatch(getCurrentUserSuccess(response?.data?.result?.user));
+          return response?.data?.result?.user;
         } else {
           console.warn("No user data found in response");
           dispatch(getCurrentUserError());
