@@ -13,15 +13,29 @@ namespace Resilience.Services.ProgressTrackerServices
     {
         
         private readonly MoodEntryManager _moodEntryManager;
-        private readonly IRepository<MoodEntry, Guid> _moodentryrespository;
         private readonly IMapper _mapper;
 
-        public MoodEntryService(IRepository<MoodEntry, Guid> repository, MoodEntryManager moodEntryManager, IMapper mapper, IRepository<MoodEntry, Guid> moodentryrespository) : base(repository)
+        public MoodEntryService(IRepository<MoodEntry, Guid> repository, MoodEntryManager moodEntryManager, IMapper mapper) : base(repository)
         {
             _moodEntryManager = moodEntryManager;
             _mapper = mapper;
-            _moodentryrespository = moodentryrespository;
+
         }
+        public  override async  Task<MoodEntryDto> CreateAsync(MoodEntryDto input)
+        {
+            var moodEntry = await _moodEntryManager.CreateMoodEntryAsync
+                (
+                    input.ProgressTrackerId,
+                    input.Rating,
+                    input.MoodType,
+                    input.Notes,
+                    input.EntryDate
+                );
+
+            return _mapper.Map<MoodEntryDto>(moodEntry);
+        }
+
+
     }
 }
 
