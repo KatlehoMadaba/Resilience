@@ -1,6 +1,7 @@
 ﻿namespace Resilience.Services.ProgressTrackerServices
 {
-    public interface IMoodEntryService
+    public class ProgressTrackerAppService
     {
+
     }
 }
