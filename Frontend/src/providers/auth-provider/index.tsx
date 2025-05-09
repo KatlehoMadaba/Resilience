@@ -55,7 +55,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       .post(endpoint, Survivor)
       .then(() => {
         dispatch(signUpSurvivorSuccess());
-        console.log(Survivor, "survivor");
       })
       .catch((error) => {
         dispatch(signUpSurvivorError());

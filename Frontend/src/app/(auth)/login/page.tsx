@@ -16,7 +16,6 @@ const LoginPage = () => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const { isSuccess, isError, isPending } = useAuthState();
-  console.log()
   useEffect(() => {
     const token = sessionStorage.getItem("jwt");
 

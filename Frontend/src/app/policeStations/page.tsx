@@ -45,10 +45,10 @@ const Nearbypolice = () => {
         if (location) {
           await getPoliceStations(location);
         }
-      } catch (error) {
-        console.error("Failed to fetch police:", error);
+      } catch  {
+        console.error("Failed to fetch police:");
       } finally {
-        console.log("This are the police", PoliceStations);
+
       }
     };
 
