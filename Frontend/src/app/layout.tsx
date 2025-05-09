@@ -9,6 +9,7 @@ import { SurvivorProvider } from "@/providers/survivors-provider";
 import { LocationProvider } from "../providers/location-provider";
 import { MedicalCentreProvider } from "@/providers/medicalCenter-provider";
 import { PoliceStationProvider } from "@/providers/police-provider";
+import Phoenix from "@/components/aiagent/Phoenix";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -50,6 +51,10 @@ export default function RootLayout({
               <LocationProvider>
                 <MedicalCentreProvider>
                   <PoliceStationProvider>
+                    <Phoenix
+                      agentId="bVFnERsV0nyoI4qa0YPm"
+                      className="w-full h-96"
+                    />
                     <SurvivorProvider>{children}</SurvivorProvider>
                   </PoliceStationProvider>
                 </MedicalCentreProvider>
