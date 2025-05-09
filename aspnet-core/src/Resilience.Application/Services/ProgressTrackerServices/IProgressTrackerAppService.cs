@@ -1,6 +1,6 @@
 ﻿namespace Resilience.Services.ProgressTrackerServices
 {
-    public interface IJournalEntryService
+    public interface IProgressTrackerAppService
     {
     }
 }

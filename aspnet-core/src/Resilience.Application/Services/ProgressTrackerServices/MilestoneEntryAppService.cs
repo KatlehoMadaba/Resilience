@@ -1,6 +1,6 @@
 ﻿namespace Resilience.Services.ProgressTrackerServices
 {
-    public class MilestoneEntryService
+    public class MilestoneEntryAppService
     {
     }
 }
