@@ -63,11 +63,11 @@ const getCurrentSurvivor = async (
   userId: number
 ): Promise<ISurvivor | null> => {
   dispatch(getCurrentSurvivorPending());
-  const endpoint = `/ImdSurvivor/GetCurrentSurvivor?userId=${userId}`;
+  const endpoint = `/services/app/ImdSurvivor/GetCurrentSurvivor?userId=${userId}`;
   try {
     const response = await instance.get(endpoint);
     if (response?.data?.result) {
-      dispatch(getCurrentSurvivorSuccess(response.data.result));
+      dispatch(getCurrentSurvivorSuccess(response?.data?.result));
       return response.data.result;
     } else {
       console.warn("No Survivor data found in response");
