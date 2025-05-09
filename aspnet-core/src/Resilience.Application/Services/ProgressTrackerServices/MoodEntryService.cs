@@ -1,6 +1,42 @@
-﻿namespace Resilience.Services.ProgressTrackerServices
+﻿using System;
+using System.Threading.Tasks;
+using Abp.Application.Services;
+using Abp.Application.Services.Dto;
+using Abp.Domain.Repositories;
+using AutoMapper;
+using Resilience.Domain.ProgressTrackers;
+using Resilience.Services.ProgressTrackerServices.Dtos;
+
+namespace Resilience.Services.ProgressTrackerServices
 {
-    public class MoodEntryService
+    public class MoodEntryService : AsyncCrudAppService<MoodEntry, MoodEntryDto, Guid, PagedAndSortedResultRequestDto, MoodEntryDto>
     {
+        
+        private readonly MoodEntryManager _moodEntryManager;
+        private readonly IMapper _mapper;
+
+        public MoodEntryService(IRepository<MoodEntry, Guid> repository, MoodEntryManager moodEntryManager, IMapper mapper) : base(repository)
+        {
+            _moodEntryManager = moodEntryManager;
+            _mapper = mapper;
+
+        }
+        public  override async  Task<MoodEntryDto> CreateAsync(MoodEntryDto input)
+        {
+            var moodEntry = await _moodEntryManager.CreateMoodEntryAsync
+                (
+                    input.ProgressTrackerId,
+                    input.Rating,
+                    input.MoodType,
+                    input.Notes,
+                    input.EntryDate
+                );
+
+            return _mapper.Map<MoodEntryDto>(moodEntry);
+        }
+
+
     }
 }
+
+
