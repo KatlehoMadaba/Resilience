@@ -3,52 +3,58 @@ import React, { useState } from "react";
 import { Layout, Menu, Button, Popconfirm } from "antd";
 import {
   HomeOutlined,
-  FileTextOutlined,
+  FileOutlined,
   MedicineBoxOutlined,
   AlertOutlined,
   CommentOutlined,
   UserOutlined,
   LogoutOutlined,
+  BookOutlined,
 } from "@ant-design/icons";
 import { useRouter } from "next/navigation";
-import BottomNav from "../../components/shared/BottomNav";
 import withAuth from "@/hoc/withAuth";
 import { useStyles } from "../style/styles";
+import Phoenix from "@/components/aiagent/Phoenix";
 
-const { Sider, Header, Content } = Layout;
+const { Sider, Content } = Layout;
 
 const survivorsNavigationItems = [
   { key: "/survivor", label: "Dashboard", icon: <HomeOutlined /> },
   {
     key: "/survivor/journalEntry",
     label: "Journal Entry",
-    icon: <FileTextOutlined />,
+    icon: <BookOutlined />,
   },
+  {
+    key: "/survivor/humanTherapist",
+    label: "Therapy",
+    icon: <UserOutlined />,
+  },
+  { key: "/survivor/report", label: "Report", icon: <FileOutlined /> },
   {
     key: "/survivor/medicalCentres",
     label: "Medical Centres",
     icon: <MedicineBoxOutlined />,
   },
-  { key: "/survivor/report", label: "Report", icon: <AlertOutlined /> },
   { key: "/survivor/testimony", label: "Testimony", icon: <CommentOutlined /> },
   {
-    key: "/survivor/humanTherapist",
-    label: "Human Therapist",
-    icon: <UserOutlined />,
-  },
+    key: "/survivor/policeStations",
+    label: "Police Stations",
+    icon: <AlertOutlined />,
+  }, // Changed to Alert icon
 ];
 
 const SurvivorLayout = ({ children }) => {
   const router = useRouter();
   const [collapsed, setCollapsed] = useState(false);
   const { styles } = useStyles();
-
+  const userName = "John Doe";
+  const userInitials = userName
+    .split(" ")
+    .map((word) => word[0])
+    .join("");
   const handleLogout = () => {
-    // Clear authentication tokens/data
-    localStorage.removeItem("auth_token"); // Adjust based on your auth implementation
-    sessionStorage.removeItem("user_data");
-
-    // Redirect to login page
+    sessionStorage.removeItem("jwt");
     router.push("/login");
   };
 
@@ -62,7 +68,7 @@ const SurvivorLayout = ({ children }) => {
         collapsedWidth="0"
         className={styles.sider}
       >
-        <div className={styles.logo} />
+        <div className={styles.initialsAvatar}>{userInitials}</div>
         <Menu
           theme="dark"
           mode="inline"
@@ -96,26 +102,12 @@ const SurvivorLayout = ({ children }) => {
       </Sider>
 
       <Layout>
-        <Header className={styles.header} />
         <Content className={styles.content}>{children}</Content>
       </Layout>
-
-      {/* Mobile bottom navigation */}
       <div className="md:hidden">
-        <BottomNav
-          navItems={survivorsNavigationItems}
-          onLogout={handleLogout}
-        />
+        <Phoenix agentId="bVFnERsV0nyoI4qa0YPm" className="w-full h-96" />
       </div>
     </Layout>
   );
 };
-
-// Wrap the component with authentication HOC
-// const AuthenticatedSurvivorLayout = withAuth(SurvivorLayoutContent);
-
-// const SurvivorLayout = ({ children }) => (
-//   <AuthenticatedSurvivorLayout>{children}</AuthenticatedSurvivorLayout>
-// );
-
 export default withAuth(SurvivorLayout);

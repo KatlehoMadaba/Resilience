@@ -33,6 +33,21 @@ export const useStyles = createStyles(({ token, css }) => ({
       width: 100%;
     }
   `,
+    initialsAvatar: css`
+  height: 64px;
+  width: 64px;
+  margin: 16px auto;
+  background: rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 24px;
+  font-weight: bold;
+  color: white;
+  text-transform: uppercase;
+`,
+
 
     header: css`
     padding: 0;
