@@ -5,14 +5,14 @@ import axios from "axios";
 import dayjs from "dayjs";
 
 const JournalEntriesList: React.FC = () => {
-  const [entries, setEntries] = useState<any[]>([]);
+  const [entries, setEntries] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const fetchEntries = async () => {
     try {
       const response = await axios.get("/api/journal-entries");
       setEntries(response.data.items || []);
-    } catch (error) {
+    } catch {
       message.error("Failed to fetch journal entries.");
     } finally {
       setLoading(false);
