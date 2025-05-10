@@ -37,7 +37,7 @@ const survivorsNavigationItems = [
   },
 ];
 
-const SurvivorLayoutContent = ({ children }) => {
+const SurvivorLayout = ({ children }) => {
   const router = useRouter();
   const [collapsed, setCollapsed] = useState(false);
   const { styles } = useStyles();
@@ -111,10 +111,10 @@ const SurvivorLayoutContent = ({ children }) => {
 };
 
 // Wrap the component with authentication HOC
-const AuthenticatedSurvivorLayout = withAuth(SurvivorLayoutContent);
+// const AuthenticatedSurvivorLayout = withAuth(SurvivorLayoutContent);
 
-const SurvivorLayout = ({ children }) => (
-  <AuthenticatedSurvivorLayout>{children}</AuthenticatedSurvivorLayout>
-);
+// const SurvivorLayout = ({ children }) => (
+//   <AuthenticatedSurvivorLayout>{children}</AuthenticatedSurvivorLayout>
+// );
 
-export default SurvivorLayout;
+export default withAuth(SurvivorLayout);
