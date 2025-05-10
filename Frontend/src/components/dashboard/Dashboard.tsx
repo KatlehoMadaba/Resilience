@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Layout, Card, Typography, Row, Col, Modal, Rate, Spin } from "antd";
+import { Card,Typography, Row, Col, Modal, Rate, Spin } from "antd";
 import { FaSmile, FaMeh, FaFrown } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 import styles from "./dashboard.module.css";
@@ -10,7 +10,6 @@ import {
   useSurvivorState,
 } from "@/providers/survivors-provider";
 import withAuth from "@/hoc/withAuth";
-const { Content } = Layout;
 const { Title, Text } = Typography;
 
 const Dashboard = () => {
@@ -45,7 +44,7 @@ const Dashboard = () => {
   };
 
   const handleChatClick = () => {
-    router.push("/survivor/aiChat");
+    router.push("/survivor/humanTherapist");
   };
 
   useEffect(() => {
