@@ -13,8 +13,8 @@ using Resilience.EntityFrameworkCore;
 namespace Resilience.Migrations
 {
     [DbContext(typeof(ResilienceDbContext))]
-    [Migration("20250502180119_IntialMigration")]
-    partial class IntialMigration
+    [Migration("20250510143813_SepratedTablesMoodAndJournals")]
+    partial class SepratedTablesMoodAndJournals
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -2223,13 +2223,18 @@ namespace Resilience.Migrations
                     b.Property<long?>("LastModifierUserId")
                         .HasColumnType("bigint");
 
-                    b.Property<Guid>("ProgressTrackerId")
+                    b.Property<Guid>("PersonId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid?>("ProgressTrackerId")
                         .HasColumnType("uuid");
 
                     b.PrimitiveCollection<List<string>>("Tags")
                         .HasColumnType("text[]");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("PersonId");
 
                     b.HasIndex("ProgressTrackerId");
 
@@ -2327,13 +2332,18 @@ namespace Resilience.Migrations
                     b.Property<string>("Notes")
                         .HasColumnType("text");
 
-                    b.Property<Guid>("ProgressTrackerId")
+                    b.Property<Guid>("PersonId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid?>("ProgressTrackerId")
                         .HasColumnType("uuid");
 
                     b.Property<int>("Rating")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("PersonId");
 
                     b.HasIndex("ProgressTrackerId");
 
@@ -2945,6 +2955,9 @@ namespace Resilience.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<string>("Content")
+                        .HasColumnType("text");
+
                     b.Property<DateTime>("CreationTime")
                         .HasColumnType("timestamp with time zone");
 
@@ -3454,13 +3467,17 @@ namespace Resilience.Migrations
 
             modelBuilder.Entity("Resilience.Domain.ProgressTrackers.JournalEntry", b =>
                 {
-                    b.HasOne("Resilience.Domain.ProgressTrackers.ProgressTracker", "ProgressTracker")
+                    b.HasOne("Resilience.Domain.Persons.Person", "Person")
                         .WithMany("JournalEntries")
-                        .HasForeignKey("ProgressTrackerId")
+                        .HasForeignKey("PersonId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("ProgressTracker");
+                    b.HasOne("Resilience.Domain.ProgressTrackers.ProgressTracker", null)
+                        .WithMany("JournalEntries")
+                        .HasForeignKey("ProgressTrackerId");
+
+                    b.Navigation("Person");
                 });
 
             modelBuilder.Entity("Resilience.Domain.ProgressTrackers.MilestoneEntry", b =>
@@ -3476,13 +3493,17 @@ namespace Resilience.Migrations
 
             modelBuilder.Entity("Resilience.Domain.ProgressTrackers.MoodEntry", b =>
                 {
-                    b.HasOne("Resilience.Domain.ProgressTrackers.ProgressTracker", "ProgressTracker")
+                    b.HasOne("Resilience.Domain.Persons.Person", "Preson")
                         .WithMany("MoodEntries")
-                        .HasForeignKey("ProgressTrackerId")
+                        .HasForeignKey("PersonId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("ProgressTracker");
+                    b.HasOne("Resilience.Domain.ProgressTrackers.ProgressTracker", null)
+                        .WithMany("MoodEntries")
+                        .HasForeignKey("ProgressTrackerId");
+
+                    b.Navigation("Preson");
                 });
 
             modelBuilder.Entity("Resilience.Domain.ProgressTrackers.ProgressTracker", b =>
@@ -3731,6 +3752,10 @@ namespace Resilience.Migrations
             modelBuilder.Entity("Resilience.Domain.Persons.Person", b =>
                 {
                     b.Navigation("CrowdfundingCampaigns");
+
+                    b.Navigation("JournalEntries");
+
+                    b.Navigation("MoodEntries");
 
                     b.Navigation("Petitions");
 

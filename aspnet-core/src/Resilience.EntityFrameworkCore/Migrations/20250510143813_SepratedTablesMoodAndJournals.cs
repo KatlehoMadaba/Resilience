@@ -8,7 +8,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Resilience.Migrations
 {
     /// <inheritdoc />
-    public partial class IntialMigration : Migration
+    public partial class SepratedTablesMoodAndJournals : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -1291,6 +1291,7 @@ namespace Resilience.Migrations
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     PersonId = table.Column<Guid>(type: "uuid", nullable: false),
                     Title = table.Column<string>(type: "text", nullable: true),
+                    Content = table.Column<string>(type: "text", nullable: true),
                     Tags = table.Column<List<string>>(type: "text[]", nullable: true),
                     IsAnonymous = table.Column<bool>(type: "boolean", nullable: false),
                     CreationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
@@ -1402,11 +1403,12 @@ namespace Resilience.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    ProgressTrackerId = table.Column<Guid>(type: "uuid", nullable: false),
+                    PersonId = table.Column<Guid>(type: "uuid", nullable: false),
                     Content = table.Column<string>(type: "text", nullable: true),
                     EntryDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     Tags = table.Column<List<string>>(type: "text[]", nullable: true),
                     IsPrivate = table.Column<bool>(type: "boolean", nullable: false),
+                    ProgressTrackerId = table.Column<Guid>(type: "uuid", nullable: true),
                     CreationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     CreatorUserId = table.Column<long>(type: "bigint", nullable: true),
                     LastModificationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
@@ -1419,11 +1421,16 @@ namespace Resilience.Migrations
                 {
                     table.PrimaryKey("PK_JournalEntries", x => x.Id);
                     table.ForeignKey(
+                        name: "FK_JournalEntries_Persons_PersonId",
+                        column: x => x.PersonId,
+                        principalTable: "Persons",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
                         name: "FK_JournalEntries_ProgressTrackers_ProgressTrackerId",
                         column: x => x.ProgressTrackerId,
                         principalTable: "ProgressTrackers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -1461,12 +1468,13 @@ namespace Resilience.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    ProgressTrackerId = table.Column<Guid>(type: "uuid", nullable: false),
+                    PersonId = table.Column<Guid>(type: "uuid", nullable: false),
                     Rating = table.Column<int>(type: "integer", nullable: false),
                     MoodType = table.Column<long>(type: "bigint", nullable: false),
                     MoodTypeText = table.Column<string>(type: "text", nullable: true),
                     Notes = table.Column<string>(type: "text", nullable: true),
                     EntryDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    ProgressTrackerId = table.Column<Guid>(type: "uuid", nullable: true),
                     CreationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     CreatorUserId = table.Column<long>(type: "bigint", nullable: true),
                     LastModificationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
@@ -1479,11 +1487,16 @@ namespace Resilience.Migrations
                 {
                     table.PrimaryKey("PK_MoodEntries", x => x.Id);
                     table.ForeignKey(
+                        name: "FK_MoodEntries_Persons_PersonId",
+                        column: x => x.PersonId,
+                        principalTable: "Persons",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
                         name: "FK_MoodEntries_ProgressTrackers_ProgressTrackerId",
                         column: x => x.ProgressTrackerId,
                         principalTable: "ProgressTrackers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -2064,6 +2077,11 @@ namespace Resilience.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_JournalEntries_PersonId",
+                table: "JournalEntries",
+                column: "PersonId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_JournalEntries_ProgressTrackerId",
                 table: "JournalEntries",
                 column: "ProgressTrackerId");
@@ -2077,6 +2095,11 @@ namespace Resilience.Migrations
                 name: "IX_MilestoneEntries_ProgressTrackerId",
                 table: "MilestoneEntries",
                 column: "ProgressTrackerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MoodEntries_PersonId",
+                table: "MoodEntries",
+                column: "PersonId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_MoodEntries_ProgressTrackerId",

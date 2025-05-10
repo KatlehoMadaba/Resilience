@@ -101,7 +101,6 @@ namespace Resilience.Domain.Persons
                         Stories = new List<Story>(),
                         Petitions = new List<Petition>(),
                         CrowdfundingCampaigns = new List<CrowdfundingCampaign>(),
-                        ProgressTracker = new ProgressTracker(),
                         SavedResources = new List<SupportResource>(),
                         Testimonies = new List<Testimony>()
                     };
@@ -162,8 +161,9 @@ namespace Resilience.Domain.Persons
                 p => p.User,
                 p => p.CrowdfundingCampaigns,
                 p => p.SupportSessions,
-                p=> p.ProgressTracker,
-                p=> p.Testimonies
+                p => p.Testimonies,
+                p=>p.JournalEntries,
+                p=>p.MoodEntries
             );
 
                 var pastSurvivor = await pastSurvivors.FirstOrDefaultAsync(p => p.UserId == userId);

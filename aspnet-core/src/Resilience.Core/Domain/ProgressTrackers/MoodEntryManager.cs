@@ -16,7 +16,7 @@ namespace Resilience.Domain.ProgressTrackers
 
         public async Task<MoodEntry> CreateMoodEntryAsync
            (
-               Guid progressTrackerId,
+               Guid personId,
                int rating,
                ReflistMoodType moodType,
                string notes,
@@ -27,7 +27,7 @@ namespace Resilience.Domain.ProgressTrackers
             {
                 var moodEntry = new MoodEntry
                 {
-                    ProgressTrackerId= progressTrackerId,
+                    PersonId= personId,
                     Rating = rating,
                     MoodType = moodType,
                     Notes = notes,

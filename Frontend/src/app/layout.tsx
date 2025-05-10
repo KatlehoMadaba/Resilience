@@ -1,4 +1,3 @@
-
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
@@ -10,6 +9,7 @@ import { SurvivorProvider } from "@/providers/survivors-provider";
 import { LocationProvider } from "../providers/location-provider";
 import { MedicalCentreProvider } from "@/providers/medicalCenter-provider";
 import { PoliceStationProvider } from "@/providers/police-provider";
+import { JournalEntryProvider } from "@/providers/journal-provider";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -50,7 +50,9 @@ export default function RootLayout({
               <LocationProvider>
                 <MedicalCentreProvider>
                   <PoliceStationProvider>
-                    <SurvivorProvider>{children}</SurvivorProvider>
+                    <SurvivorProvider>
+                      <JournalEntryProvider>{children}</JournalEntryProvider>
+                    </SurvivorProvider>
                   </PoliceStationProvider>
                 </MedicalCentreProvider>
               </LocationProvider>
