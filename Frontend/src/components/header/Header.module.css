@@ -1,159 +1,108 @@
-
 .header {
-    background-color: #ffffff;
-    padding: 0 1rem;
-    height: 70px;
-    line-height: 70px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    width: 100%;
-  }
-  
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 100%;
-  }
-  
-  .logoContainer {
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-  }
-  
-  .logoWrapper {
-    display: flex;
-    align-items: center;
-  }
-  
-  .logo {
-    margin-right: 10px;
-  }
-  
-  .title {
-    margin: 0 !important;
-    color: #38512f !important;
-    font-weight: 600 !important;
-    letter-spacing: 0.5px;
-  }
-  
-  .desktopNav {
-    display: flex;
-    align-items: center;
-  }
-  
-  .navLink {
-    color: #38512f;
-    font-weight: 500;
-    font-size: 1rem;
-    transition: color 0.2s ease;
-    text-decoration: none;
-  }
-  
-  .navLink:hover {
-    color: #8F997F;
-  }
-  
-  .loginBtn {
-    border-color: #38512f;
-    color: #38512f;
-    background-color: #fff;
-  }
-  
-  .loginBtn:hover {
-    border-color: #bbc0b5;
-    color: #8F997F;
-    background-color: #f0f5ec; /* Light green background on hover */
-    box-shadow: 0 2px 4px rgba(56, 81, 47, 0.1); /* Add a subtle shadow */
-  }
-  
-  .signupBtn {
-    background-color: #38512f;
-    border-color: #38512f;
-  }
-  
-  .signupBtn:hover {
-    background-color: #2b3e25;
-    border-color: #2b3e25;
-  }
-  
-  .sosButton {
-    border-radius: 20px;
-    font-weight: 600;
-    box-shadow: 0 2px 8px rgba(220, 38, 38, 0.2);
-    height: 36px;
-    padding: 0 16px;
-  }
-  
-  /* Mobile Navigation */
-  .mobileMenuBtn {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  width: 100%;
+  padding: 0 1rem;
+  background-color: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  display: flex;
+  align-items: center;
+  height: 64px;
+}
+
+.headerContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.headerLeft {
+  display: flex;
+  align-items: center;
+}
+
+.headerRight {
+  display: flex;
+  align-items: center;
+}
+
+.menuButton {
+  margin-right: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logoContainer {
+  display: flex;
+  align-items: center;
+  height: 64px;
+}
+
+.headerLogo {
+  height: 40px;
+  width: 40px;
+  margin-right: 8px;
+}
+
+.logoText {
+  margin: 0;
+  color: #7B75AA;
+}
+
+.logoLink {
+  display: flex;
+  text-decoration: none;
+}
+
+.drawer {
+  border-right: 1px solid #f0f0f0;
+}
+
+.drawerMenu {
+  border-right: none;
+}
+
+.buttonLink {
+  color: inherit;
+  text-decoration: none;
+}
+
+.drawerFooter {
+  padding: 16px 0;
+}
+
+.exitButton {
+  margin-bottom: 16px;
+}
+
+.footerDivider {
+  margin: 8px 0;
+}
+
+.copyright {
+  display: block;
+  text-align: center;
+  font-size: 12px;
+  color: #666;
+}
+
+.signupButton {
+  background-color: #A5D5E8;
+  border: none;
+  color: #fff;
+}
+
+.signupButton:hover {
+  background-color: #8EC5DE;
+  color: #fff;
+}
+
+@media (max-width: 576px) {
+  .buttonLink span {
     display: none;
-    font-size: 1.5rem;
-    margin-left: 1rem;
   }
-  
-  .mobileNav {
-    display: none;
-    position: fixed;
-    top: 70px;
-    left: 0;
-    right: 0;
-    background-color: #ffffff;
-    height: 0;
-    overflow: hidden;
-    transition: height 0.3s ease;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
-  }
-  
-  .mobileNav.open {
-    height: calc(100vh - 70px);
-    display: block;
-  }
-  
-  .mobileNavLinks {
-    display: flex;
-    flex-direction: column;
-    padding: 1.5rem;
-  }
-  
-  .mobileNavLink {
-    font-size: 1.2rem;
-    color: #38512f;
-    padding: 1rem 0;
-    text-decoration: none;
-    border-bottom: 1px solid #f0f0f0;
-  }
-  
-  .mobileAuthBtns {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    margin-top: 1.5rem;
-  }
-  
-  .mobileLoginBtn,
-  .mobileSignupBtn {
-    height: 44px;
-    font-size: 1rem;
-    
-  }
-  
-  /* Media Queries */
-  @media (max-width: 768px) {
-    .desktopNav {
-      display: none;
-    }
-    
-    .mobileMenuBtn {
-      display: block;
-    }
-    
-    .logoContainer {
-      flex: 1;
-    }
-  }
+}
