@@ -27,7 +27,7 @@ const withAuth = (WrappedLayout: React.ComponentType<LayoutProps>) => {
         } else if (role === "pastsurvivor") {
           router.push("/survivor");
         } else if (role === "immediatesurvivor") {
-          router.push("/dashboard");
+          router.push("/survivor");
         } else {
           router.push("/login");
         }

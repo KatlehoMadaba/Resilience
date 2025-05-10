@@ -54,7 +54,7 @@ const ResilienceHeader = ({ isAuthenticated = false }) => {
                       Login
                     </Button>
                   </Link>
-                  <Link href="/imd">
+                  <Link href="register">
                     <Button type="primary" className={styles.signupBtn}>
                       Sign Up
                     </Button>
@@ -115,7 +115,7 @@ const ResilienceHeader = ({ isAuthenticated = false }) => {
                       Login
                     </Button>
                   </Link>
-                  <Link href="/imd" onClick={toggleMobileMenu}>
+                  <Link href="register" onClick={toggleMobileMenu}>
                     <Button
                       type="primary"
                       block
