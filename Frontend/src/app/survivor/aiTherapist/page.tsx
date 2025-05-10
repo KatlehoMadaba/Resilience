@@ -1,4 +1,4 @@
-import Phoenix from "../../components/aiagent/Phoenix";
+import Phoenix from "../../../components/aiagent/Phoenix";
 
 function App() {
   return (

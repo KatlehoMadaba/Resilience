@@ -56,7 +56,7 @@ const Nearbypolice = () => {
   }, [isSuccess, location]);
 
   const handleNextClick = () => {
-    router.push("/imd");
+    router.push("register");
   };
 
   return (

@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { Layout, Card, Typography, Row, Col, Modal, Rate, Spin } from "antd";
 import { FaSmile, FaMeh, FaFrown } from "react-icons/fa";
-import Sidebar from "../../../components/dashboards/Sidebar";
+import Sidebar from "../global/Sidebar";
 import { useRouter } from "next/navigation";
 import styles from "./dashboard.module.css";
 import { useUserActions, useUserState } from "@/providers/users-providers";
