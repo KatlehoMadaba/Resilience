@@ -177,9 +177,8 @@ export default function LandingPage(): React.ReactElement {
           <Col xs={24} md={10}>
             <div className={styles.supportImageContainer}>
               <div className={styles.supportImage}>
-                {/* Placeholder support image */}
                 <Image
-                  src="/api/placeholder/600/400"
+                  src="/images/SupportingEachOther.jpg"
                   alt="People supporting each other"
                   width={600}
                   height={400}
