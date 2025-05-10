@@ -1,8 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Layout, Card, Typography, Row, Col, Modal, Rate, Spin } from "antd";
+import { Card,Typography, Row, Col, Modal, Rate, Spin } from "antd";
 import { FaSmile, FaMeh, FaFrown } from "react-icons/fa";
-import Sidebar from "../global/Sidebar";
 import { useRouter } from "next/navigation";
 import styles from "./dashboard.module.css";
 import { useUserActions, useUserState } from "@/providers/users-providers";
@@ -11,7 +10,6 @@ import {
   useSurvivorState,
 } from "@/providers/survivors-provider";
 import withAuth from "@/hoc/withAuth";
-const { Content, Sider } = Layout;
 const { Title, Text } = Typography;
 
 const Dashboard = () => {
@@ -37,25 +35,16 @@ const Dashboard = () => {
     setIsModalVisible(false);
   };
 
-  const handleMenuItemClick = () => {
-    // console.log(`Menu item clicked: ${key}`);
-  };
-
-  const handleLogout = () => {
-    sessionStorage.removeItem("jwt");
-    router.push("/");
-  };
-
   const handleTestimonyClick = () => {
-    router.push("/testimony");
+    router.push("/survivor/testimony");
   };
 
   const handleJournalClick = () => {
-    router.push("/journalEntry");
+    router.push("/survivor/journalEntry");
   };
 
   const handleChatClick = () => {
-    router.push("/aiChat");
+    router.push("/survivor/humanTherapist");
   };
 
   useEffect(() => {
@@ -82,107 +71,97 @@ const Dashboard = () => {
       setLoading(false);
     }
   };
+
   return (
     <Spin spinning={loading}>
-      <Layout style={{ minHeight: "100vh" }}>
-        <Sider width={200} className={styles.siderContainer}>
-          <Sidebar
-            onMenuItemClick={handleMenuItemClick}
-            onLogout={handleLogout}
-          />
-        </Sider>
+      <div className={styles.content}>
+        <Card className={styles.welcomeCard}>
+          <Title level={4}>
+            👋 Welcome,{" "}
+            {currentSurvivor?.isAnonymous
+              ? currentSurvivor?.anonymousId
+              : currentSurvivor?.useDisplayNameOnly
+              ? currentSurvivor?.displayName
+              : currentSurvivor?.name}
+            !
+          </Title>
+          <p>
+            Today is a new day. You are strong and resilient. <br />
+            Remember to take care of yourself and reach out for support when
+            needed.
+          </p>
+        </Card>
 
-        <Layout>
-          <Content className={styles.content}>
-            <Card className={styles.welcomeCard}>
-              <Title level={4}>
-                👋 Welcome,
-                {currentSurvivor?.isAnonymous
-                  ? currentSurvivor?.anonymousId
-                  : currentSurvivor?.useDisplayNameOnly
-                  ? currentSurvivor?.displayName
-                  : currentSurvivor?.name}
-                !
-              </Title>
-              <p>
-                Today is a new day. You are strong and resilient. <br />
-                Remember to take care of yourself and reach out for support when
-                needed.
-              </p>
-            </Card>
+        <div className={styles.moodSection}>
+          <Title level={4}>How are you feeling today?</Title>
+          <div className={styles.emojiContainer}>
+            <FaSmile
+              className={styles.emoji}
+              onClick={() => showRatingModal("Happy")}
+            />
+            <FaMeh
+              className={styles.emoji}
+              onClick={() => showRatingModal("Neutral")}
+            />
+            <FaFrown
+              className={styles.emoji}
+              onClick={() => showRatingModal("Sad")}
+            />
+          </div>
+        </div>
 
-            <div className={styles.moodSection}>
-              <Title level={4}>How are you feeling today?</Title>
-              <div className={styles.emojiContainer}>
-                <FaSmile
-                  className={styles.emoji}
-                  onClick={() => showRatingModal("Happy")}
-                />
-                <FaMeh
-                  className={styles.emoji}
-                  onClick={() => showRatingModal("Neutral")}
-                />
-                <FaFrown
-                  className={styles.emoji}
-                  onClick={() => showRatingModal("Sad")}
-                />
-              </div>
-            </div>
+        <Modal
+          title={`Rate your mood: ${selectedEmoji}`}
+          open={isModalVisible}
+          onOk={handleModalOk}
+          onCancel={handleModalCancel}
+        >
+          <Rate />
+        </Modal>
 
-            <Modal
-              title={`Rate your mood: ${selectedEmoji}`}
-              open={isModalVisible}
-              onOk={handleModalOk}
-              onCancel={handleModalCancel}
+        <div className={styles.quoteBox}>
+          <Text italic>
+            When you love what you have, you have everything you need
+          </Text>
+          <br />
+          <Text strong>- Unknown</Text>
+        </div>
+
+        <Row gutter={[16, 16]} justify="center">
+          <Col xs={24} sm={24} md={8}>
+            <Card
+              className={styles.card}
+              hoverable
+              onClick={handleTestimonyClick}
+              cover={<div className={styles.testimonyCard}></div>}
             >
-              <Rate />
-            </Modal>
+              <Card.Meta title="Write Testimony ?" />
+            </Card>
+          </Col>
 
-            <div className={styles.quoteBox}>
-              <Text italic>
-                When you love what you have, you have everything you need
-              </Text>
-              <br />
-              <Text strong>- Unknown</Text>
-            </div>
+          <Col xs={24} sm={24} md={8}>
+            <Card
+              className={styles.card}
+              hoverable
+              onClick={handleJournalClick}
+              cover={<div className={styles.journalCard}></div>}
+            >
+              <Card.Meta title="Write Journal Entry?" />
+            </Card>
+          </Col>
 
-            <Row gutter={[16, 16]} justify="center">
-              <Col xs={24} sm={24} md={8}>
-                <Card
-                  className={styles.card}
-                  hoverable
-                  onClick={handleTestimonyClick}
-                  cover={<div className={styles.testimonyCard}></div>}
-                >
-                  <Card.Meta title="Write Testimony ?" />
-                </Card>
-              </Col>
-
-              <Col xs={24} sm={24} md={8}>
-                <Card
-                  className={styles.card}
-                  hoverable
-                  onClick={handleJournalClick}
-                  cover={<div className={styles.journalCard}></div>}
-                >
-                  <Card.Meta title="Write Journal Entry?" />
-                </Card>
-              </Col>
-
-              <Col xs={24} sm={24} md={8}>
-                <Card
-                  className={styles.card}
-                  hoverable
-                  onClick={handleChatClick}
-                  cover={<div className={styles.chatCard}></div>}
-                >
-                  <Card.Meta title="Let's Talk 🗨️" />
-                </Card>
-              </Col>
-            </Row>
-          </Content>
-        </Layout>
-      </Layout>
+          <Col xs={24} sm={24} md={8}>
+            <Card
+              className={styles.card}
+              hoverable
+              onClick={handleChatClick}
+              cover={<div className={styles.chatCard}></div>}
+            >
+              <Card.Meta title="Let's Talk 🗨️" />
+            </Card>
+          </Col>
+        </Row>
+      </div>
     </Spin>
   );
 };
