@@ -90,7 +90,7 @@ export default function LandingPage(): React.ReactElement {
                 d="M150 60 C 150 60, 220 80, 220 80 C 220 80, 220 160, 220 160 C 220 160, 150 220, 150 220 C 150 220, 80 160, 80 160 C 80 160, 80 80, 80 80 C 80 80, 150 60, 150 60"
                 fill="#9E9AC8"
                 stroke="#7B75AA"
-                stroke-width="5"
+                strokeWidth="5"
               />
               <path
                 d="M150 170 C 130 150, 100 130, 100 110 C 100 90, 120 90, 130 100 C 140 110, 150 130, 150 130 C 150 130, 160 110, 170 100 C 180 90, 200 90, 200 110 C 200 130, 170 150, 150 170"
@@ -133,7 +133,7 @@ export default function LandingPage(): React.ReactElement {
         <Row gutter={[32, 32]} className={styles.featuresGrid}>
           {supportResources.map((feature, index) => (
             <Col xs={24} sm={12} lg={6} key={index}>
-              <Card className={styles.featureCard} bordered={false}>
+              <Card className={styles.featureCard} variant="borderless">
                 <div className={styles.featureIconWrapper}>{feature.icon}</div>
                 <Title level={4} className={styles.featureTitle}>
                   {feature.title}
@@ -203,7 +203,7 @@ export default function LandingPage(): React.ReactElement {
         <Row gutter={[32, 32]} className={styles.testimonialRow}>
           {testimonials.map((testimonial, index) => (
             <Col xs={24} md={12} key={index}>
-              <Card className={styles.testimonialCard} bordered={false}>
+              <Card className={styles.testimonialCard} variant="borderless">
                 <div className={styles.quoteIcon}></div>
                 <Paragraph className={styles.testimonialQuote}>
                   {testimonial.quote}
