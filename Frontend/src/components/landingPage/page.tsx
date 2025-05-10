@@ -17,6 +17,24 @@ interface SupportResource {
 export default function LandingPage(): React.ReactElement {
   const supportResources: Array<SupportResource> = [
     {
+      title: "Medical & Legal Support",
+      description:
+        "Find nearby medical centers and generate reports without having to repeatedly share your experience.",
+      icon: <icons.HeartOutlined className={styles.featureIcon} />,
+    },
+    {
+      title: "Secure & Private",
+      description:
+        "Access Resilience's secure and confidential platform with complete anonymity and privacy protection.",
+      icon: <icons.SafetyCertificateOutlined className={styles.featureIcon} />,
+    },
+    {
+      title: "Immediate Guidance",
+      description:
+        "Get a personalized step-by-step guide for what to do in the critical hours and days following trauma.",
+      icon: <icons.ClockCircleOutlined className={styles.featureIcon} />,
+    },
+    {
       title: "24/7 AI Therapist",
       description:
         "Talk to Phoenix, our always-available AI therapist, for calm, validating conversation whenever you need it.",
@@ -33,24 +51,6 @@ export default function LandingPage(): React.ReactElement {
       description:
         "Share your story in a safe space—anonymously or openly—to inspire others or begin your healing through writing.",
       icon: <icons.EditOutlined className={styles.featureIcon} />,
-    },
-    {
-      title: "Secure & Private",
-      description:
-        "Access Resilience's secure and confidential platform with complete anonymity and privacy protection.",
-      icon: <icons.SafetyCertificateOutlined className={styles.featureIcon} />,
-    },
-    {
-      title: "Immediate Guidance",
-      description:
-        "Get a personalized step-by-step guide for what to do in the critical hours and days following trauma.",
-      icon: <icons.ClockCircleOutlined className={styles.featureIcon} />,
-    },
-    {
-      title: "Medical & Legal Support",
-      description:
-        "Find nearby medical centers and generate reports without having to repeatedly share your experience.",
-      icon: <icons.HeartOutlined className={styles.featureIcon} />,
     },
     {
       title: "Healing Resources",
