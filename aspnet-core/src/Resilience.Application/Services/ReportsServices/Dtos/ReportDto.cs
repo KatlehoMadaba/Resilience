@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Abp.Application.Services.Dto;
 using Abp.AutoMapper;
-using Resilience.Domain.Persons;
 using Resilience.Domain.Reports;
 
 namespace Resilience.Services.ReportsServices.Dtos
