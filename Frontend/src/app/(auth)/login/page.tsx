@@ -16,7 +16,6 @@ const LoginPage = () => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const { isSuccess, isError, isPending } = useAuthState();
-  console.log()
   useEffect(() => {
     const token = sessionStorage.getItem("jwt");
 
@@ -27,8 +26,8 @@ const LoginPage = () => {
       setLoading(false);
     }
 
-    if (isSuccess) {
-      const role = getRole(token);
+  if (isSuccess) {
+  const role = getRole(token);
       if (role === "generalsupporter") {
         router.push("/supporter");
       } else if (role === "professional") {
@@ -36,14 +35,14 @@ const LoginPage = () => {
       } else if (role === "pastsurvivor") {
         router.push("/survivor");
       } else if (role === "immediatesurvivor") {
-        router.push("/dashboard");
+        router.push("/survivor");
       } else {
-        router.push("/");
+        router.push("/login");
       }
 
-      setLoading(false);
-    }
-  }, [isPending, isError, isSuccess, router]);
+    setLoading(false);
+  }
+  }, [isPending, isError, router]);
   return (
     <div className={styles.page}>
       <main className={styles.main}>

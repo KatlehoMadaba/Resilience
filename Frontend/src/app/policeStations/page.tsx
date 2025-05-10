@@ -43,13 +43,12 @@ const Nearbypolice = () => {
     const fetchPoliceStations = async () => {
       try {
         if (location) {
-          debugger;
           await getPoliceStations(location);
         }
-      } catch (error) {
-        console.error("Failed to fetch police:", error);
+      } catch  {
+        console.error("Failed to fetch police:");
       } finally {
-        console.log("This are the police", PoliceStations);
+
       }
     };
 
@@ -57,7 +56,7 @@ const Nearbypolice = () => {
   }, [isSuccess, location]);
 
   const handleNextClick = () => {
-    router.push("/imd");
+    router.push("register");
   };
 
   return (

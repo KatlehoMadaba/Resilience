@@ -48,14 +48,13 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   const signUpImmediateSurvivor = async (Survivor: ISurvivorRegisteration) => {
-    debugger;
+
     dispatch(signUpSurvivorPending());
     const endpoint = `https://localhost:44311/api/services/app/ImdSurvivor/Create`;
     await axios
       .post(endpoint, Survivor)
       .then(() => {
         dispatch(signUpSurvivorSuccess());
-        console.log(Survivor, "survivor");
       })
       .catch((error) => {
         dispatch(signUpSurvivorError());

@@ -10,7 +10,7 @@ namespace Resilience.Domain.Testimonies
         public Guid PersonId { get; set; }
         public Person Person { get; set; }
         public string Title { get; set; }
-        //PostedDate:
+        public string Content { get; set; }
         public List<string> Tags { get; set; }
         public bool IsAnonymous { get; set; }
     }

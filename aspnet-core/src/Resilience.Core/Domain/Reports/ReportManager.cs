@@ -4,7 +4,7 @@ using Abp.Domain.Entities.Auditing;
 
 namespace Resilience.Domain.Reports
 {
-    public class ReportManager:FullAuditedEntity<Guid>
+    public class ReportManager
     {
 
     }
