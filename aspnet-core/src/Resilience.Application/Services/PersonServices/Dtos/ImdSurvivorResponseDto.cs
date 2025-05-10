@@ -30,9 +30,10 @@ namespace Resilience.Services.PersonServices.Dtos
         public  List<ReportDto>? Reports { get; set; }
         public  List<StoryDto>? Stories { get; set; }
         public  List<PetitionDto>? Petitions { get; set; }
-        public  List<CrowdfundingCampaignDto>? CrowdfundingCampaigns { get; set; }
-        public  ProgressTrackerDto? ProgressTracker { get; set; }
-        public  List<SupportResourceDto>? SavedResources { get; set; }
+        public List<CrowdfundingCampaignDto>? CrowdfundingCampaigns { get; set; }
+        public List<JournalEntryDto>? JournalEntry { get; set; }
+        public List<MoodEntryDto>? MoodEntry { get; set; }
+        public List<SupportResourceDto>? SavedResources { get; set; }
         public  List<TestimonyDto>? Testimonies { get; set; }
         //ImdSurvivor
         public string? AnonymousId { get; set; }

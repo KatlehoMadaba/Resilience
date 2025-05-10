@@ -1,11 +1,8 @@
+import JournalEntryForm from '@/components/journalEntries/JournalEntryForm';
 import React from 'react'
 
 const Journal = () => {
-  return (
-    <div>
-      <p>Journal</p>
-    </div>
-  )
+  return <div><JournalEntryForm/></div>;
 }
 
 export default Journal

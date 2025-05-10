@@ -4,11 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Abp.Application.Services.Dto;
+using Abp.AutoMapper;
 using Resilience.Domain.Persons;
 using Resilience.Domain.ProgressTrackers;
 
 namespace Resilience.Services.ProgressTrackerServices.Dtos
 {
+    [AutoMap(typeof(ProgressTracker))]
     public class ProgressTrackerDto: EntityDto<Guid>
     {
         public Guid PersonId { get; set; }

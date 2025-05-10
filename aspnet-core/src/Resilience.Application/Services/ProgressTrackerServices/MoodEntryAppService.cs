@@ -25,7 +25,7 @@ namespace Resilience.Services.ProgressTrackerServices
         {
             var moodEntry = await _moodEntryManager.CreateMoodEntryAsync
                 (
-                    input.ProgressTrackerId,
+                    input.PersonId,
                     input.Rating,
                     input.MoodType,
                     input.Notes,
