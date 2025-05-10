@@ -1,11 +1,12 @@
 import React from 'react'
 
-function Jounal() {
+const Journal = () => {
   return (
     <div>
-      <h1>Journal</h1>
+      <p>Journal</p>
     </div>
   )
 }
 
-export default Jounal
+export default Journal
+
