@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { Layout, Card, Typography, Spin } from "antd";
-import styles from "../../components/dashboards/sidebar.module.css";
+import styles from "../../../components/global/sidebar.module.css";
 import { useUserActions, useUserState } from "@/providers/users-providers";
 import { useSurvivorActions } from "@/providers/survivors-provider";
 //import SexualAssaultReportForm from "@/components/report/SexualAssaultReportForm";

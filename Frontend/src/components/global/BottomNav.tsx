@@ -1,7 +1,7 @@
 "use client";
 import { Button, Space } from "antd";
 import { usePathname, useRouter } from "next/navigation";
-import { useStyles } from "../styles";
+import { useStyles } from "./styles";
 
 interface NavItem {
   key: string;
