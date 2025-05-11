@@ -24,11 +24,11 @@ const { isSuccess,isPending,isError} = useJournalEntryState();
         isPrivate: true,
         };
         if (isError) {
-            console.log("Sorry there was an error creating")
+            //console.log("Sorry there was an error creating")
             setLoading(false);
         }
         if (isSuccess) {
-            console.log("that was sucessful..")
+            //console.log("that was sucessful..")
             setLoading(false)
         }
         if (isPending) {
@@ -36,7 +36,7 @@ const { isSuccess,isPending,isError} = useJournalEntryState();
         }
             
         createJournalEntry(journalEntry);
-      console.log("Journal Entry Submitted:", journalEntry);
+      //console.log("Journal Entry Submitted:", journalEntry);
     } catch (error) {
       console.error("Error submitting journal entry:", error);
     }

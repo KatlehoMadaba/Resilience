@@ -45,7 +45,7 @@ export const TestimonyProvider = ({
       .get(endpoint)
       .then((response) => {
           dispatch(getTestimoniesSuccess(response?.data?.result));
-          console.log("these are the testimonies response:",response?.data?.result)
+          //console.log("these are the testimonies response:",response?.data?.result)
       })
       .catch((error) => {
         console.error("Error fetching testimonies:", error);
