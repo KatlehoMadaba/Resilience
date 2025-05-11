@@ -13,7 +13,7 @@ namespace Resilience.Domain.SupportSessions
         public DateTime StartTime { get; set; }
         public DateTime? EndTime { get; set; }
         public string SessionNotes { get; set; } // Encrypted summary of session
-        public virtual ICollection<Message> Messages { get; set; }
+
         public virtual ICollection<ProsessionalMessage> ProsessionalMessages { get; set; }
     }
 }
