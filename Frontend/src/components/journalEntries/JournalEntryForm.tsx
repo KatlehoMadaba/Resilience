@@ -24,11 +24,11 @@ const { isSuccess,isPending,isError} = useJournalEntryState();
         isPrivate: true,
         };
         if (isError) {
-           // console.log("Sorry there was an error creating")
+            //console.log("Sorry there was an error creating")
             setLoading(false);
         }
         if (isSuccess) {
-           // console.log("that was sucessful..")
+            //console.log("that was sucessful..")
             setLoading(false)
         }
         if (isPending) {

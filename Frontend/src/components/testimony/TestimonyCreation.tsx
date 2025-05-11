@@ -24,11 +24,11 @@ const TestimonyForm = () => {
         isAnonymous: true,
       };
       if (isError) {
-        //console.log("Sorry there was an error creating");
+
         setLoading(false);
       }
       if (isSuccess) {
-        //console.log("that was sucessful..");
+
         setLoading(false);
       }
       if (isPending) {
@@ -36,7 +36,6 @@ const TestimonyForm = () => {
       }
 
       createTestimony(Testimony);
-      //console.log("Testimony Entry Submitted:", Testimony);
     } catch (error) {
       console.error("Error submitting Testimony entry:", error);
     }
