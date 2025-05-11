@@ -15,14 +15,14 @@ export default function RoleSelection(): React.ReactElement {
         "I've recently experienced trauma and need immediate support and resources.",
       icon: <icons.HeartOutlined className={styles.roleIcon} />,
       color: "#A5D5E8", // Light blue
-      path: "/signup/immediate-survivor",
+      path: "/register/immdetiateSurvivor",
     },
     {
       title: "Past Survivor",
       description: "I'm on my healing journey and looking for ongoing support.",
       icon: <icons.UserOutlined className={styles.roleIcon} />,
       color: "#9E9AC8", // Light purple
-      path: "/signup/past-survivor",
+      path: "/register/pastSurvivor",
     },
     {
       title: "Professional",
@@ -30,14 +30,14 @@ export default function RoleSelection(): React.ReactElement {
         "I'm a healthcare or legal professional looking to support survivors.",
       icon: <icons.SafetyCertificateOutlined className={styles.roleIcon} />,
       color: "#87D068", // Light green
-      path: "/signup/professional",
+      path: "/register/professional",
     },
     {
       title: "Anonymous Access",
       description: "I want to access resources without creating an account.",
       icon: <icons.UserSwitchOutlined className={styles.roleIcon} />,
       color: "#FFB74D", // Light orange
-      path: "/signup/anonymous",
+      path: "/register/anonymous",
     },
   ];
 
@@ -77,8 +77,7 @@ export default function RoleSelection(): React.ReactElement {
 
       {/* Role Selection Section */}
       <section className={styles.selectionSection}>
-        <Title level={2} className={styles.sectionTitle}>
-        </Title>
+        <Title level={2} className={styles.sectionTitle}></Title>
         <Row gutter={[24, 24]} className={styles.rolesGrid}>
           {userRoles.map((role, index) => (
             <Col xs={24} sm={12} key={index}>
