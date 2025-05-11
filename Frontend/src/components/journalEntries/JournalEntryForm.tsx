@@ -19,7 +19,7 @@ const { isSuccess,isPending,isError} = useJournalEntryState();
       const journalEntry: IJournalEntry = {
         personId: currentSurvivor?.id,
         content: "I am feeling sad",
-        entryDate: new Date().toISOString(), // Converts date to ISO 8601 format
+        entryDate: new Date().toISOString(), 
         tags: ["I am sad", "Abc"],
         isPrivate: true,
         };
