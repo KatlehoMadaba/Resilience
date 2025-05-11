@@ -103,7 +103,6 @@ namespace Resilience.Domain.Persons
                         Stories = new List<Story>(),
                         Petitions = new List<Petition>(),
                         CrowdfundingCampaigns = new List<CrowdfundingCampaign>(),
-                        ProgressTracker = new ProgressTracker(),
                         SavedResources = new List<SupportResource>(),
                         Testimonies = new List<Testimony>()
                     };
@@ -127,7 +126,7 @@ namespace Resilience.Domain.Persons
         }
 
 
-        public async Task<ImmediateSurvivor> GetImmediateSurvivorByIdWithUserAsync(Guid id)
+        public async Task<ImmediateSurvivor> GetImmediateSurvivorByPersonIdAsync(Guid id)
         {
             try
             {
@@ -164,7 +163,9 @@ namespace Resilience.Domain.Persons
                 p => p.User,
                 p => p.CrowdfundingCampaigns,
                 p => p.SupportSessions,
-                p => p.MedicalAssistanceRecord
+                p => p.MedicalAssistanceRecord,
+                p => p.JournalEntries,
+                p => p.MoodEntries
             );
 
                 var ImmediateSurvivor = await ImmediateSurvivors.FirstOrDefaultAsync(p => p.UserId == userId);

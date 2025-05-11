@@ -51,7 +51,7 @@ namespace Resilience.Services.PersonServices
 
         protected override async Task<ImmediateSurvivor> GetEntityByIdAsync(Guid id)
         {
-            var immediateSurvivor = await _immediateSurvivorManager.GetImmediateSurvivorByIdWithUserAsync(id);
+            var immediateSurvivor = await _immediateSurvivorManager.GetImmediateSurvivorByPersonIdAsync(id);
             if (immediateSurvivor == null)
             {
                 throw new UserFriendlyException("ImdSurvivor not found");

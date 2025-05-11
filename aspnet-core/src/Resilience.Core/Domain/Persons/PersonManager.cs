@@ -75,8 +75,9 @@ namespace Resilience.Domain.Persons
                     Stories = new List<Story>(),
                     Petitions = new List<Petition>(),
                     CrowdfundingCampaigns = new List<CrowdfundingCampaign>(),
-                    ProgressTracker = new ProgressTracker(),
                     SavedResources = new List<SupportResource>(),
+                    MoodEntries = new List<MoodEntry>(),
+                    JournalEntries=new List<JournalEntry>(),
                     Testimonies = new List<Testimony>(),
                 };
                 await _personRepository.InsertAsync(person);

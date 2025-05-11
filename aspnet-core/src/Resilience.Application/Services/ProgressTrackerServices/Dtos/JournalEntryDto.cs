@@ -12,7 +12,7 @@ namespace Resilience.Services.ProgressTrackerServices.Dtos
     public class JournalEntryDto: EntityDto<Guid>
     {
         [Required]
-        public Guid ProgressTrackerId { get; set; }
+        public Guid PersonId { get; set; }
         [Required]
         public string Content { get; set; }
         [Required]
