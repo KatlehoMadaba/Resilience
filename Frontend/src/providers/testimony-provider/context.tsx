@@ -1,6 +1,6 @@
 "use client";
 import { createContext } from "react";
-import { ITestimony, ITestimonyResponse } from "./models";
+import { ITestimony} from "./models";
 
 // Context shape interface
 export interface ITestimonyStateContext {
@@ -8,7 +8,7 @@ export interface ITestimonyStateContext {
   isSuccess: boolean;
   isError: boolean;
   Testimony?: ITestimony;
-  testimonies?: ITestimonyResponse[];
+  testimonies?: ITestimony[];
 }
 
 // Testimony action context interface
