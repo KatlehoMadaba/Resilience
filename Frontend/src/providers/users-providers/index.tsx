@@ -34,7 +34,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   // Get current user
   const getCurrentUser = async (token: string): Promise<IUser | null> => {
     dispatch(getCurrentUserPending());
-    const endpoint = `services/app/Session/GetCurrentLoginInformations`;
+    const endpoint = `/api/services/app/Session/GetCurrentLoginInformations`;
     return instance
       .get(endpoint, {
         headers: { Authorization: `Bearer ${token}` },

@@ -10,16 +10,15 @@ interface LayoutProps {
 const withAuth = (WrappedLayout: React.ComponentType<LayoutProps>) => {
   const WithAuthWrapper: React.FC<LayoutProps> = ({ children, ...props }) => {
     const router = useRouter();
-
     useEffect(() => {
       const token = sessionStorage.getItem("jwt");
       if (!token) {
         router.push("/login");
         return;
       }
+
       try {
-        // Redirect based on role
-          const role = getRole(token);
+        const role = getRole(token);
         if (role === "generalsupporter") {
           router.push("/supporter");
         } else if (role === "professional") {

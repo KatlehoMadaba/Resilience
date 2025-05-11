@@ -27,7 +27,7 @@ export const TestimonyProvider = ({
 
   const createTestimony = async (Testimony: ITestimony) => {
     dispatch(createTestimonyPending());
-    const endpoint = `services/app/Testimony/Create`;
+    const endpoint = `/api/services/app/Testimony/Create`;
     await instance
       .post(endpoint, Testimony)
       .then((response) => {
