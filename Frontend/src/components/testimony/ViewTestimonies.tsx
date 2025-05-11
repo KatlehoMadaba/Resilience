@@ -23,6 +23,7 @@ const ViewTestimonies = () => {
           <div key={index}>
             <h3>{testimony.title || "untitled"}</h3>
             <p>{testimony.content || "no content avail"}</p>
+            <p>{testimony.tags || "no content avail"}</p>
           </div>
         ))
       ) : (
