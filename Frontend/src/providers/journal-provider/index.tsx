@@ -23,7 +23,7 @@ export const JournalEntryProvider = ({
   const instance = getAxiosInstace();
   const createJournalEntry = async (JournalEntry: IJournalEntry) => {
     dispatch(createJournalEntryPending());
-    const endpoint = `services/app/JournalEntry/Create`;
+    const endpoint = `/api/services/app/JournalEntry/Create`;
     await instance
       .post(endpoint, JournalEntry)
       .then((response) => {

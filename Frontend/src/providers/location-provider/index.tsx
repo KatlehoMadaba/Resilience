@@ -28,7 +28,7 @@ export const LocationProvider = ({
       // Using the browser's geolocation API
       navigator.geolocation.getCurrentPosition(
         (position) => {
-          // Successfully retrieved location
+          // retrieved location
           const location : ILocation = {
             latitude: position.coords.latitude,
             longitude: position.coords.longitude,
@@ -38,13 +38,13 @@ export const LocationProvider = ({
         },
         (error) => {
           console.error(error);
-          dispatch(getLocationError()); // Dispatch error if permission denied or other issue
+          dispatch(getLocationError()); // error if permission denied or other issue
         }
       );
     } else {
       // Geolocation is not supported by the browser
       console.error("Geolocation is not supported by this browser.");
-      dispatch(getLocationError()); // Dispatch error if geolocation is not available
+      dispatch(getLocationError()); // error if geolocation not available
     }
   };
 

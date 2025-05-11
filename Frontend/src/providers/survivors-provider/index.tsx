@@ -63,7 +63,7 @@ const getCurrentSurvivor = async (
   userId: number
 ): Promise<ISurvivor | null> => {
   dispatch(getCurrentSurvivorPending());
-  const endpoint = `/services/app/ImdSurvivor/GetCurrentSurvivor?userId=${userId}`;
+  const endpoint = `/api/services/app/ImdSurvivor/GetCurrentSurvivor?userId=${userId}`;
   try {
     const response = await instance.get(endpoint);
     if (response?.data?.result) {
@@ -83,7 +83,7 @@ const getCurrentSurvivor = async (
   // Get Survivor
   const getSurvivor = async (SurvivorId: string): Promise<ISurvivor | null> => {
     dispatch(getSurvivorPending());
-    const endpoint = `/Survivor/Get?Id=${SurvivorId}`;
+    const endpoint = `/api/services/app/Survivor/Get?Id=${SurvivorId}`;
     return instance
       .get(endpoint)
       .then((response) => {
@@ -99,7 +99,7 @@ const getCurrentSurvivor = async (
   // Register the Survivor
   const registerSurvivor = async (Survivor: ISurvivorRegisteration) => {
     dispatch(registerSurvivorPending());
-    const endpoint = `/Survivor/Create`;
+    const endpoint = `/api/services/app/Survivor/Create`;
     await instance
       .post(endpoint, Survivor)
       .then((response) => {
@@ -114,7 +114,7 @@ const getCurrentSurvivor = async (
   // Get All Survivors
   const getSurvivors = async () => {
     dispatch(getSurvivorsPending());
-    const endpoint = `/Survivor/GetAll`;
+    const endpoint = `/api/services/app/Survivor/GetAll`;
     await instance
       .get(endpoint)
       .then((response) => {
@@ -135,7 +135,7 @@ const getCurrentSurvivor = async (
       ...SurvivorData,
       id: SurvivorId,
     };
-    const endpoint = `/Survivor/UpdateSurvivor`;
+    const endpoint = `/api/services/app/Survivor/UpdateSurvivor`;
     await instance
       .put(endpoint, payload)
       .then((response) => {
@@ -150,7 +150,7 @@ const getCurrentSurvivor = async (
   // Delete Survivor
   const deleteSurvivorbyId = async (SurvivorId: string) => {
     dispatch(deleteSurvivorPending());
-    const endpoint = `/Survivor/Delete?Id=${SurvivorId}`;
+    const endpoint = `/api/services/app/Survivor/Delete?Id=${SurvivorId}`;
     await instance
       .delete(endpoint)
       .then((response) => {

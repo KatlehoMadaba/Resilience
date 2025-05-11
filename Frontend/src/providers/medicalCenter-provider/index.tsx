@@ -24,7 +24,7 @@ export const MedicalCentreProvider = ({
   const getMedicalCentres = async (Location: ILocation): Promise<void> => {
     dispatch(getMedicalCentresPending());
 
-    const endpoint = `services/app/MedicalFacility/GetNearbyFacilities?Latitude=${Location.latitude}&Longitude=${Location.longitude}`;
+    const endpoint = `/api/services/app/MedicalFacility/GetNearbyFacilities?Latitude=${Location.latitude}&Longitude=${Location.longitude}`;
     await instance
       .get(endpoint)
       .then((response) => {
