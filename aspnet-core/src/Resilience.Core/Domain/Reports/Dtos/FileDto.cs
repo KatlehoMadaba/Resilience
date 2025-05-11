@@ -6,8 +6,12 @@
         public string ContentType { get; set; }
         public byte[] FileBytes { get; set; }
         public long FileSize => FileBytes?.Length ?? 0;
-    
-    
+
+        //method overloading for stages in the pdf generation
+        public FileDto()
+        {
+        }
+
         public FileDto(string fileName, string contentType)
         {
             FileName = fileName;

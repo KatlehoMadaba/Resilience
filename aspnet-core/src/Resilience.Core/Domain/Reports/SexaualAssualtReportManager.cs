@@ -17,7 +17,7 @@ using Document = iTextSharp.text.Document;
 
 namespace Resilience.Domain.Reports
 {
-    class SexaualAssualtReportManager : DomainService
+    public class SexaualAssualtReportManager : DomainService
     {
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly IRepository<SexualAssaultReport, Guid> _sexualAssualtrepository;
@@ -140,21 +140,29 @@ namespace Resilience.Domain.Reports
         }
 
         //Create the Pdf 
+       
+
+
 
         //Generate the PDF
         public FileDto GeneratePdf(SexualAssaultReport sexualAssaultReport, string reportInput)
         {
             using (var memoryStream = new MemoryStream())
             {
+                //Document fomating
                 Document document = new Document(PageSize.A4, 50, 50, 50, 50);
+                //Creating instance for pdf writer
                 PdfWriter writer = PdfWriter.GetInstance(document, memoryStream);
+                //Open document for writing 
                 document.Open();
-
+                //adding a title paragraph to document 
                 Paragraph title = new Paragraph("Sexual Assualt Report",
+                //adding fonts and styling to the document
                 new Font(Font.FontFamily.HELVETICA, 18, Font.BOLD));
                 title.Alignment = Element.ALIGN_CENTER;
                 title.SpacingAfter = 20;
                 document.Add(title);
+                //closing document after writing to it 
                 document.Close();
 
                 return new FileDto
@@ -165,6 +173,9 @@ namespace Resilience.Domain.Reports
                 };
             }
         }
+
+       
+
 
     }
 }
