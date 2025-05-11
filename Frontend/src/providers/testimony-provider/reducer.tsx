@@ -21,8 +21,17 @@ export const TestimonyReducer = handleActions<
       ...state,
       ...action.payload,
     }),
-    [TestimonyActionEnums.resetTestimonyState]: () => ({
-      ...INITIAL_STATE,
+    [TestimonyActionEnums.getTestimoniesPending]: (state, action) => ({
+      ...state,
+      ...action.payload,
+    }),
+    [TestimonyActionEnums.getTestimoniesSuccess]: (state, action) => ({
+      ...state,
+      ...action.payload,
+    }),
+    [TestimonyActionEnums.getTestimoniesError]: (state, action) => ({
+      ...state,
+      ...action.payload,
     }),
   },
   INITIAL_STATE

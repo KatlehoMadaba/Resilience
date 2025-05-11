@@ -21,12 +21,16 @@ import {
   deleteUserError,
   deleteUserPending,
 } from "./actions";
+
 import axios from "axios";
+
+//import { useAuthActions } from "../auth-provider";
 
 export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const [state, dispatch] = useReducer(UserReducer, INITIAL_STATE);
   const instance = getAxiosInstace();
 
+  
   // Get current user
   const getCurrentUser = async (token: string): Promise<IUser | null> => {
     dispatch(getCurrentUserPending());

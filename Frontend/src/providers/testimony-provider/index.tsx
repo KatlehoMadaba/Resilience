@@ -9,6 +9,9 @@ import {
   createTestimonyPending,
   createTestimonySuccess,
   createTestimonyError,
+  getTestimoniesPending,
+  getTestimoniesSuccess,
+  getTestimoniesError,
 } from "./actions";
 import { getAxiosInstace } from "@/utils/axiosInstance";
 import { ITestimony } from "../../providers/testimony-provider/models";
@@ -21,6 +24,7 @@ export const TestimonyProvider = ({
 }) => {
   const [state, dispatch] = useReducer(TestimonyReducer, INITIAL_STATE);
   const instance = getAxiosInstace();
+
   const createTestimony = async (Testimony: ITestimony) => {
     dispatch(createTestimonyPending());
     const endpoint = `services/app/Testimony/Create`;
@@ -34,10 +38,25 @@ export const TestimonyProvider = ({
         dispatch(createTestimonyError());
       });
   };
-
+  const getAllTestimonies = async () => {
+      dispatch(getTestimoniesPending());
+    const endpoint = `services/app/Testimony/GetAll`;
+    await instance
+      .get(endpoint)
+      .then((response) => {
+          dispatch(getTestimoniesSuccess(response?.data?.result));
+          console.log("these are the testimonies response:",response?.data?.result)
+      })
+      .catch((error) => {
+        console.error("Error fetching testimonies:", error);
+        dispatch(getTestimoniesError());
+      });
+  };
   return (
     <TestimonyStateContext.Provider value={state}>
-      <TestimonyActionContext.Provider value={{ createTestimony }}>
+      <TestimonyActionContext.Provider
+        value={{ createTestimony, getAllTestimonies }}
+      >
         {children}
       </TestimonyActionContext.Provider>
     </TestimonyStateContext.Provider>

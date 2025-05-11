@@ -8,7 +8,9 @@ export enum TestimonyActionEnums {
   createTestimonyPending = "CREATE_Testimony_PENDING",
   createTestimonySuccess = "CREATE_Testimony_SUCCESS",
   createTestimonyError = "CREATE_Testimony_ERROR",
-  resetTestimonyState = "RESET_Testimony_STATE",
+  getTestimoniesPending = "GET_Testimonies_PENDING",
+  getTestimoniesSuccess = "GET_Testimonies_SUCCESS",
+  getTestimoniesError = "GET_Testimonies_ERROR",
 }
 
 // CREATE Testimony ACTIONS
@@ -31,8 +33,21 @@ export const createTestimonyError = createAction<ITestimonyStateContext>(
   TestimonyActionEnums.createTestimonyError,
   () => ({ isPending: false, isSuccess: false, isError: true })
 );
+export const getTestimoniesPending = createAction<ITestimonyStateContext>(
+  TestimonyActionEnums.createTestimonyPending,
+  () => ({ isPending: true, isSuccess: false, isError: false })
+);
 
-export const resetTestimonyState = createAction<ITestimonyStateContext>(
-  TestimonyActionEnums.resetTestimonyState,
-  () => ({ isPending: false, isSuccess: false, isError: false })
+export const getTestimoniesSuccess = createAction<
+  ITestimonyStateContext,
+  ITestimony
+>(TestimonyActionEnums.createTestimonySuccess, () => ({
+  isPending: false,
+  isSuccess: true,
+  isError: false,
+}));
+
+export const getTestimoniesError = createAction<ITestimonyStateContext>(
+  TestimonyActionEnums.createTestimonyError,
+  () => ({ isPending: false, isSuccess: false, isError: true })
 );
