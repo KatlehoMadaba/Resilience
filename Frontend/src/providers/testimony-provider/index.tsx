@@ -40,7 +40,7 @@ export const TestimonyProvider = ({
   };
   const getAllTestimonies = async () => {
     dispatch(getTestimoniesPending());
-    const endpoint = `services/app/Testimony/GetAll`;
+    const endpoint = `/api/services/app/Testimony/GetAll`;
     await instance
       .get(endpoint)
       .then((response) => {
