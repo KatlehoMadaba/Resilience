@@ -48,9 +48,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   const signUpImmediateSurvivor = async (Survivor: ISurvivorRegisteration) => {
-
     dispatch(signUpSurvivorPending());
-    const endpoint = `/app/ImdSurvivor/Create`;
+    const endpoint = `/api/services/app/ImdSurvivor/Create`;
     await axios
       .post(endpoint, Survivor)
       .then(() => {
@@ -64,7 +63,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   const signUpPastSurvivor = async (Survivor: ISurvivorRegisteration) => {
     dispatch(signUpSurvivorPending());
-    const endpoint = `services/app/ImdSurvivor/Create`;
+    const endpoint = `/api/services/app/ImdSurvivor/Create`;
     await instance
       .post(endpoint, Survivor)
       .then(() => {
@@ -80,7 +79,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     SignInRequest: ISignInRequest
   ): Promise<ISignInResponse> => {
     dispatch(signInPending());
-    const endpoint = `TokenAuth/Authenticate`;
+    const endpoint = `/api/TokenAuth/Authenticate`;
     return instance
       .post(endpoint, SignInRequest)
       .then((response) => {
