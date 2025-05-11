@@ -11,96 +11,82 @@ import { useRouter } from "next/navigation";
 import {
   useLocationActions,
   useLocationState,
-} from "../../providers/location-provider";
+} from "@/providers/location-provider";
 import {
   useMedicalCentreState,
   useMedicalCentreActions,
 } from "@/providers/medicalCenter-provider";
+import { useHospitalStyles } from "./styles"; // import new styles
 
-const { Title, Link } = Typography;
+const { Title, Link, Paragraph } = Typography;
 
 const NearbyHospitals = () => {
   const router = useRouter();
   const { getLocation } = useLocationActions();
-  const { location, isPending, isSuccess, isError } = useLocationState();
-  const { isPending: isMedicalPending } = useMedicalCentreState();
+  const { location, isSuccess, isError } = useLocationState();
   const { getMedicalCentres } = useMedicalCentreActions();
-  const { medicalCentres } = useMedicalCentreState();
-  useEffect(() => {
-    const fetchLocation = async () => {
-      try {
-        await getLocation();
-      } catch (error) {
-        console.error("Failed to get location:", error);
-      }
-    };
+  const { medicalCentres, isPending: isMedicalPending } =
+    useMedicalCentreState();
+  const { styles } = useHospitalStyles(); // use the styles hook
 
-    fetchLocation();
+  useEffect(() => {
+    getLocation().catch(console.error);
   }, []);
 
   useEffect(() => {
-    const fetchMedicalCentres = async () => {
-      try {
-        if (location) {
-          await getMedicalCentres(location);
-        }
-      } catch (error) {
-        console.error("Failed to fetch medical centres:", error);
-      }
-    };
-
-    fetchMedicalCentres();
-  }, [isSuccess, location]);
+    if (location && isSuccess) {
+      getMedicalCentres(location).catch(console.error);
+    }
+  }, [location, isSuccess]);
 
   const handleNextClick = () => {
     router.push("/policeStations");
   };
 
   return (
-    <div style={{ padding: "2rem", minHeight: "100vh" }}>
-      {isMedicalPending && <Spin size="large" />}
-      <Title level={3} style={{ marginBottom: "2rem" }}>
-        Nearby Hospitals with Rape Kits
-      </Title>
-      {/* Loading location */}
-      {isPending && (
-        <div style={{ textAlign: "center", marginBottom: 16 }}></div>
-      )}
-      {/* Location error */}
-      {isError && (
-        <div style={{ color: "red", marginBottom: 16 }}>
-          Unable to access your location. Please enable location permissions in
-          your browser settings.
+    <div className={styles.page}>
+      <Title className={styles.title}>Nearby Hospitals</Title>
+      <Paragraph className={styles.subtitle}>
+        These hospitals are equipped to support you with{" "}
+        <strong>rape kits</strong> and <strong>trauma care</strong>. You deserve
+        compassion and help — every step of the way.
+      </Paragraph>
+
+      {isMedicalPending && (
+        <div className={styles.spinnerWrapper}>
+          <Spin size="large" />
         </div>
       )}
-      (
+
+      {isError && (
+        <Paragraph className={styles.error}>
+          Location access failed. Please enable it in your browser settings.
+        </Paragraph>
+      )}
+
       <Row gutter={[32, 32]}>
         <Col xs={24} md={14}>
           {medicalCentres.length > 0 ? (
             medicalCentres.map((medicalCentre, index) => (
-              <Card
-                key={index}
-                variant="borderless"
-                style={{ marginBottom: "1rem" }}
-              >
-                <Title level={5}>{medicalCentre.name}</Title>
-
-                <p>
-                  <PhoneOutlined style={{ marginRight: 8 }} />
-                  Contact: {medicalCentre.phoneNumber}
+              <Card key={index} className={styles.card}>
+                <Title level={4} className={styles.cardTitle}>
+                  {medicalCentre.name}
+                </Title>
+                <p className={styles.info}>
+                  <PhoneOutlined className={styles.icon} />
+                  <strong>Contact:</strong> {medicalCentre.phoneNumber}
                 </p>
-                <p>
-                  <EnvironmentOutlined style={{ marginRight: 8 }} />
-                  Location: {medicalCentre.address}
+                <p className={styles.info}>
+                  <EnvironmentOutlined className={styles.icon} />
+                  <strong>Address:</strong> {medicalCentre.address}
                 </p>
-                <p>
-                  <EnvironmentOutlined style={{ marginRight: 8 }} />
-                  Operating Hours:{" "}
+                <p className={styles.info}>
+                  <EnvironmentOutlined className={styles.icon} />
+                  <strong>Hours:</strong>{" "}
                   {medicalCentre.operatingHours ? "24 Hours" : "Unknown"}
                 </p>
-
-                <p>
-                  <InfoCircleOutlined style={{ marginRight: 8 }} />
+                <p className={styles.info}>
+                  <InfoCircleOutlined className={styles.icon} />
                   <Link href={medicalCentre.googleMapsUrl} target="_blank">
                     View on Google Maps
                   </Link>
@@ -108,45 +94,33 @@ const NearbyHospitals = () => {
               </Card>
             ))
           ) : (
-            <p style={{ color: "red" }}>
-              No nearby hospitals found within 15 km.
-            </p>
+            <Paragraph className={styles.error}>
+              No hospitals found nearby (within 15 km).
+            </Paragraph>
           )}
         </Col>
 
-        {/* Right column - location display */}
         <Col xs={24} md={10}>
-          <div
-            style={{
-              backgroundColor: "#8f997f",
-              height: 250,
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              borderRadius: 8,
-              flexDirection: "column",
-              color: "#fff",
-            }}
-          >
-            <EnvironmentOutlined style={{ fontSize: 64 }} />
+          <div className={styles.locationBox}>
+            <EnvironmentOutlined className={styles.locationIcon} />
             {isSuccess && location ? (
-              <p style={{ marginTop: 12 }}>
-                Next I will help you find the nearest Police Station
-                <Button
-                  type="primary"
-                  style={{ background: "#4b5e3f", borderColor: "#4b5e3f" }}
-                  onClick={handleNextClick}
-                >
+              <>
+                <p className={styles.supportiveMessage}>
+                  When you are ready, we will help you find the{" "}
+                  <strong>nearest police station</strong>.
+                </p>
+                <Button className={styles.nextButton} onClick={handleNextClick}>
                   Next
                 </Button>
-              </p>
+              </>
             ) : (
-              <p style={{ marginTop: 12 }}>Location not yet available</p>
+              <p className={styles.supportiveMessage}>
+                Location not yet available.
+              </p>
             )}
           </div>
         </Col>
       </Row>
-      )
     </div>
   );
 };
