@@ -39,13 +39,12 @@ export const TestimonyProvider = ({
       });
   };
   const getAllTestimonies = async () => {
-      dispatch(getTestimoniesPending());
+    dispatch(getTestimoniesPending());
     const endpoint = `services/app/Testimony/GetAll`;
     await instance
       .get(endpoint)
       .then((response) => {
-          dispatch(getTestimoniesSuccess(response?.data?.result));
-          //console.log("these are the testimonies response:",response?.data?.result)
+        dispatch(getTestimoniesSuccess(response?.data?.result?.items));
       })
       .catch((error) => {
         console.error("Error fetching testimonies:", error);
