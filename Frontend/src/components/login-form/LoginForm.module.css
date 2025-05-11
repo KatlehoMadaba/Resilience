@@ -1,0 +1,39 @@
+.form {
+    width: 100%;
+}
+
+.input {
+    height: 46px;
+    border-radius: 8px;
+}
+
+.inputIcon {
+    color: #9E9AC8;
+    margin-right: 8px;
+}
+
+.rememberMe {
+    margin-bottom: 10px;
+}
+
+.submitButton {
+    height: 46px;
+    font-size: 16px;
+    font-weight: 500;
+    background-color: #9E9AC8;
+    border-color: #9E9AC8;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.submitButton:hover,
+.submitButton:focus {
+    background-color: #7B75AA;
+    border-color: #7B75AA;
+    box-shadow: 0 4px 12px rgba(123, 117, 170, 0.2);
+}
+
+.submitButton:active {
+    background-color: #6A659A;
+    border-color: #6A659A;
+}
