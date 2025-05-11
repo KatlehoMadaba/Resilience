@@ -24,7 +24,7 @@ namespace Resilience.EntityFrameworkCore.Seed
 
         public async Task SeedAsync()
         {
-            string apiKey = "YOUR_GOOGLE_API_KEY_HERE";
+            string apiKey = "AIzaSyAMGW5ic5jY_AT4bPE3N915OtPZbkhSIc4";
             string[] searchTerms = new[]
             {
                 "hospitals in Gauteng",
