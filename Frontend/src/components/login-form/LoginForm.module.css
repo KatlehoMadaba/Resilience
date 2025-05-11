@@ -37,28 +37,3 @@
     background-color: #6A659A;
     border-color: #6A659A;
 }
-
-/* Override Ant Design styles */
-/* :global(.ant-input-affix-wrapper) {
-    border-color: #e6e6fa;
-} */
-
-/* :global(.ant-input-affix-wrapper:hover) {
-    border-color: #9E9AC8;
-} */
-
-:global(.ant-input-affix-wrapper:focus),
-:global(.ant-input-affix-wrapper-focused) {
-    border-color: #9E9AC8;
-    box-shadow: 0 0 0 2px rgba(158, 154, 200, 0.2);
-}
-
-:global(.ant-checkbox-checked .ant-checkbox-inner) {
-    background-color: #9E9AC8;
-    border-color: #9E9AC8;
-}
-
-:global(.ant-form-item-explain-error) {
-    font-size: 0.9rem;
-    margin-top: 4px;
-}
