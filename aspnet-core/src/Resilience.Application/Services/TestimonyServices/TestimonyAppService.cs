@@ -10,9 +10,9 @@ using Resilience.Services.TestimonyServices.Dtos;
 
 namespace Resilience.Services.TestimonyServices
 {
-    public class TestimonyService : AsyncCrudAppService<Testimony, TestimonyDto, Guid, TestimonyDto>
+    public class TestimonyAppService : AsyncCrudAppService<Testimony, TestimonyDto, Guid, TestimonyDto>
     {
-        public TestimonyService(IRepository<Testimony, Guid> repository) : base(repository)
+        public TestimonyAppService(IRepository<Testimony, Guid> repository) : base(repository)
         {
         }
     }

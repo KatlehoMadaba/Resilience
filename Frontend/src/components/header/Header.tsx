@@ -66,7 +66,7 @@ const ResilienceHeader: React.FC = () => {
               </Link>
             </Button>
             <Button className={styles.signupButton} size="middle">
-              <Link href="/signup" className={styles.buttonLink}>
+              <Link href="/register" className={styles.buttonLink}>
                 Sign Up
               </Link>
             </Button>
