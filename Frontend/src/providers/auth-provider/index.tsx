@@ -50,7 +50,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const signUpImmediateSurvivor = async (Survivor: ISurvivorRegisteration) => {
 
     dispatch(signUpSurvivorPending());
-    const endpoint = `https://localhost:44311/api/services/app/ImdSurvivor/Create`;
+    const endpoint = `/app/ImdSurvivor/Create`;
     await axios
       .post(endpoint, Survivor)
       .then(() => {
