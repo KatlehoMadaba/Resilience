@@ -87,6 +87,14 @@ export const getCurrentUserSuccess = createAction<IUserStateContext, IUser>(
   })
 );
 
+
+//get set PersonId
+export const setUserPersonId = (personId: string) => ({
+  type: "SET_USER_PERSON_ID",
+  payload: personId,
+});
+
+
 export const getCurrentUserError = createAction<IUserStateContext>(
   UserActionEnums.getCurrentUserError,
   () => ({ isPending: false, isSuccess: false, isError: true })

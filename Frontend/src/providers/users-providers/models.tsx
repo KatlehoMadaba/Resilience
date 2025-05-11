@@ -5,4 +5,5 @@ export interface IUser {
   surname: string;
   emailAddress: string;
   userName: string;
+  personId?: string;
 }

@@ -22,11 +22,22 @@ import {
   deleteUserPending,
 } from "./actions";
 import axios from "axios";
+//import { getMyPersonId } from "@/utils/chat-api";
 
 export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const [state, dispatch] = useReducer(UserReducer, INITIAL_STATE);
   const instance = getAxiosInstace();
 
+// useEffect(() => {
+//   const load = async () => {
+//     const personId = await getMyPersonId();
+//     getUser((prev) => ({ ...prev, personId }));
+//   };
+
+//   if (getCurrentUser?.id && !user.personId) {
+//     load();
+//   }
+// }, [loggedInUser]);
   // Get current user
   const getCurrentUser = async (token: string): Promise<IUser | null> => {
     dispatch(getCurrentUserPending());
@@ -129,6 +140,8 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
         dispatch(getUserError());
       });
   };
+
+
 
   return (
     <UserStateContext.Provider value={state}>
