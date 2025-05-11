@@ -1,12 +1,11 @@
 "use client";
 import { useState } from "react";
-import { Form, Input, Button, message } from "antd";
-import { MailOutlined } from "@ant-design/icons";
+import { Form, Input, Button, message, Checkbox} from "antd";
+import { MailOutlined, LockOutlined} from "@ant-design/icons";
 import { ISignInRequest } from "@/providers/auth-provider/models";
 import { useAuthActions } from "@/providers/auth-provider";
 import { useUserActions } from "@/providers/users-providers";
-
-import styles from "../../app/(auth)/login/login-page.module.css";
+import styles from "./LoginForm.module.css";
 
 interface LoginFormProps {
   onLoginSuccess?: () => void;
@@ -47,11 +46,9 @@ export default function LoginForm({
     });
   };
 
-  // Handle login submit
   const onFinishLogin = async (values: ISignInRequest) => {
     onBeforeSubmit?.();
     setLoading(true);
-
     try {
       const loginResult = await signIn(values);
 
@@ -99,9 +96,10 @@ export default function LoginForm({
           ]}
         >
           <Input
-            prefix={<MailOutlined />}
+            prefix={<MailOutlined className={styles.inputIcon} />}
             placeholder="Email"
             disabled={loading}
+            className={styles.input}
           />
         </Form.Item>
 
@@ -109,7 +107,19 @@ export default function LoginForm({
           name="password"
           rules={[{ required: true, message: "Please input your password!" }]}
         >
-          <Input.Password placeholder="Password" />
+          <Input.Password
+            prefix={<LockOutlined className={styles.inputIcon} />}
+            placeholder="Password"
+            className={styles.input}
+          />
+        </Form.Item>
+
+        <Form.Item
+          name="remember"
+          valuePropName="checked"
+          className={styles.rememberMe}
+        >
+          <Checkbox>Remember me</Checkbox>
         </Form.Item>
 
         <Form.Item>
@@ -118,6 +128,7 @@ export default function LoginForm({
             htmlType="submit"
             className={styles.submitButton}
             loading={loading}
+            block
           >
             Log In
           </Button>

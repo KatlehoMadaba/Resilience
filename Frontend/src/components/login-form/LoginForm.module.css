@@ -1,0 +1,64 @@
+.form {
+    width: 100%;
+}
+
+.input {
+    height: 46px;
+    border-radius: 8px;
+}
+
+.inputIcon {
+    color: #9E9AC8;
+    margin-right: 8px;
+}
+
+.rememberMe {
+    margin-bottom: 10px;
+}
+
+.submitButton {
+    height: 46px;
+    font-size: 16px;
+    font-weight: 500;
+    background-color: #9E9AC8;
+    border-color: #9E9AC8;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.submitButton:hover,
+.submitButton:focus {
+    background-color: #7B75AA;
+    border-color: #7B75AA;
+    box-shadow: 0 4px 12px rgba(123, 117, 170, 0.2);
+}
+
+.submitButton:active {
+    background-color: #6A659A;
+    border-color: #6A659A;
+}
+
+/* Override Ant Design styles */
+:global(.ant-input-affix-wrapper) {
+    border-color: #e6e6fa;
+}
+
+:global(.ant-input-affix-wrapper:hover) {
+    border-color: #9E9AC8;
+}
+
+:global(.ant-input-affix-wrapper:focus),
+:global(.ant-input-affix-wrapper-focused) {
+    border-color: #9E9AC8;
+    box-shadow: 0 0 0 2px rgba(158, 154, 200, 0.2);
+}
+
+:global(.ant-checkbox-checked .ant-checkbox-inner) {
+    background-color: #9E9AC8;
+    border-color: #9E9AC8;
+}
+
+:global(.ant-form-item-explain-error) {
+    font-size: 0.9rem;
+    margin-top: 4px;
+}

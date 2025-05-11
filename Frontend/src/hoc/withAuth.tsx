@@ -18,7 +18,6 @@ const withAuth = (WrappedLayout: React.ComponentType<LayoutProps>) => {
         return;
       }
       try {
-        // Redirect based on role
           const role = getRole(token);
         if (role === "generalsupporter") {
           router.push("/supporter");
