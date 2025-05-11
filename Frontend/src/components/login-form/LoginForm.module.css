@@ -39,13 +39,13 @@
 }
 
 /* Override Ant Design styles */
-:global(.ant-input-affix-wrapper) {
+/* :global(.ant-input-affix-wrapper) {
     border-color: #e6e6fa;
-}
+} */
 
-:global(.ant-input-affix-wrapper:hover) {
+/* :global(.ant-input-affix-wrapper:hover) {
     border-color: #9E9AC8;
-}
+} */
 
 :global(.ant-input-affix-wrapper:focus),
 :global(.ant-input-affix-wrapper-focused) {
