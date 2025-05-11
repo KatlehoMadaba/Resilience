@@ -40,11 +40,12 @@ export const getTestimoniesPending = createAction<ITestimonyStateContext>(
 
 export const getTestimoniesSuccess = createAction<
   ITestimonyStateContext,
-  ITestimony
->(TestimonyActionEnums.createTestimonySuccess, () => ({
+  ITestimony[]
+>(TestimonyActionEnums.getTestimoniesSuccess, (testimonies: ITestimony[]) => ({
   isPending: false,
   isSuccess: true,
   isError: false,
+  testimonies,
 }));
 
 export const getTestimoniesError = createAction<ITestimonyStateContext>(
