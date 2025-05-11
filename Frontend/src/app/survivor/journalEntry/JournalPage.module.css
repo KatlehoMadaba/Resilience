@@ -1,0 +1,25 @@
+.container {
+    padding: 3rem 1rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.card {
+    margin-bottom: 2rem;
+    padding: 2rem;
+    border-radius: 12px;
+    background-color: #fff;
+    box-shadow: 0 4px 16px rgba(158, 154, 200, 0.15);
+}
+
+.entryList {
+    margin-top: 2rem;
+}
+
+.entryCard {
+    margin-bottom: 1.5rem;
+    background-color: #fafafa;
+    border: 1px solid #e8e8f0;
+    border-radius: 8px;
+    padding: 1rem;
+}
