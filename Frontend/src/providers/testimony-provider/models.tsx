@@ -3,6 +3,7 @@ export interface ITestimony {
   title: string;
   content: string;
   tags: string[];
+  // creationTime: Date;
   isAnonymous: boolean;
 }
 export interface ITestimonyResponse {
@@ -11,5 +12,6 @@ export interface ITestimonyResponse {
   content: string;
   tags: string[];
   isAnonymous: true;
+  creationTime: Date;
   id: string;
 }
