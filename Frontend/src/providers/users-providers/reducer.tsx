@@ -46,7 +46,18 @@ export const UserReducer = handleActions<
       ...state,
       ...(action.payload ?? {}),
     }),
-    
+    [UserActionEnums.getCurrentPersonIdPending]: (state, action) => ({
+      ...state,
+      ...(action.payload ?? {}),
+    }),
+    [UserActionEnums.getCurrentPersonIdSuccess]: (state, action) => ({
+      ...state,
+      ...(action.payload ?? {}),
+    }),
+    [UserActionEnums.getCurrentPersonIdError]: (state, action) => ({
+      ...state,
+      ...(action.payload ?? {}),
+    }),
   },
   INITIAL_STATE
 );
