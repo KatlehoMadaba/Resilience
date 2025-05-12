@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Resilience.EntityFrameworkCore;
@@ -12,9 +13,11 @@ using Resilience.EntityFrameworkCore;
 namespace Resilience.Migrations
 {
     [DbContext(typeof(ResilienceDbContext))]
-    partial class ResilienceDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250511103014_ChatSesssion")]
+    partial class ChatSesssion
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -2028,7 +2031,7 @@ namespace Resilience.Migrations
                     b.Property<string>("DisplayName")
                         .HasColumnType("text");
 
-                    b.Property<bool?>("IsAnonymous")
+                    b.Property<bool>("IsAnonymous")
                         .HasColumnType("boolean");
 
                     b.Property<bool>("IsDeleted")

@@ -46,6 +46,7 @@ export const UserReducer = handleActions<
       ...state,
       ...(action.payload ?? {}),
     }),
+    
   },
   INITIAL_STATE
 );

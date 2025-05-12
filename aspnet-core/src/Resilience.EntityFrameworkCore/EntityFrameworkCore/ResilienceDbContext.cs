@@ -18,6 +18,7 @@ using Resilience.Domain.Medical_AssistanceRecords;
 using System.Linq;
 using System;
 using Resilience.Domain.PoliceStations;
+using Resilience.Domain.ChatSessions;
 
 namespace Resilience.EntityFrameworkCore;
 
@@ -71,6 +72,8 @@ public class ResilienceDbContext : AbpZeroDbContext<Tenant, Role, User, Resilien
     public DbSet<ProsessionalMessage> PrsessionalMessagess { get; set; }
     //Testimonies
     public DbSet<Testimony> Testimonies { get; set; }
+    //Chat Messages 
+    public DbSet<ChatMessage> ChatMessages { get; set; }
     //Handling the DateTime when it get to date time 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

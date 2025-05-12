@@ -1,11 +1,19 @@
-import React from 'react'
+// import ChatInterface from "@/components/chat/ChatInterface";
 
-function HumaneTherapist() {
-  return (
-    <div>
-      <h1>Human Therapist</h1>
-    </div>
-  )
-}
+// interface Props {
+//   params: {
+//     personId: string;
+//   };
+// }
 
-export default HumaneTherapist
+// export default function ChatPage({ params }: Props) {
+//   return <ChatInterface personId={params.personId} />;
+// }
+
+import React from "react";
+
+const HumanTherapist = () => {
+  return <div>HumanTherapist</div>;
+};
+
+export default HumanTherapist;

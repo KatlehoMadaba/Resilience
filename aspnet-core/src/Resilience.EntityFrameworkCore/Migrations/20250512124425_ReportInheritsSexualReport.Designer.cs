@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Resilience.EntityFrameworkCore;
@@ -12,9 +13,11 @@ using Resilience.EntityFrameworkCore;
 namespace Resilience.Migrations
 {
     [DbContext(typeof(ResilienceDbContext))]
-    partial class ResilienceDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250512124425_ReportInheritsSexualReport")]
+    partial class ReportInheritsSexualReport
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1581,67 +1584,6 @@ namespace Resilience.Migrations
                     b.ToTable("AbpUsers");
                 });
 
-            modelBuilder.Entity("Resilience.Domain.ChatSessions.ChatMessage", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid?>("ChatSessionId")
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("Content")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<long?>("CreatorUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("DeleterUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime?>("DeletionTime")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("boolean");
-
-                    b.Property<bool>("IsRead")
-                        .HasColumnType("boolean");
-
-                    b.Property<DateTime?>("LastModificationTime")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<long?>("LastModifierUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<Guid?>("ReceiverId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("ReceiverPersonId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid?>("SenderId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("SenderPersonId")
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime>("SentAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ReceiverId");
-
-                    b.HasIndex("SenderId");
-
-                    b.ToTable("ChatMessages");
-                });
-
             modelBuilder.Entity("Resilience.Domain.CheckLists.Checklist", b =>
                 {
                     b.Property<Guid>("Id")
@@ -2028,7 +1970,7 @@ namespace Resilience.Migrations
                     b.Property<string>("DisplayName")
                         .HasColumnType("text");
 
-                    b.Property<bool?>("IsAnonymous")
+                    b.Property<bool>("IsAnonymous")
                         .HasColumnType("boolean");
 
                     b.Property<bool>("IsDeleted")
@@ -2436,61 +2378,6 @@ namespace Resilience.Migrations
                     b.ToTable("ProgressTrackers");
                 });
 
-            modelBuilder.Entity("Resilience.Domain.Reports.Report", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<long?>("CreatorUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("DeleterUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime?>("DeletionTime")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("EncryptedContent")
-                        .HasColumnType("text");
-
-                    b.Property<string>("FileReference")
-                        .HasColumnType("text");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("boolean");
-
-                    b.Property<bool>("IsSharedWithAuthorities")
-                        .HasColumnType("boolean");
-
-                    b.Property<DateTime?>("LastModificationTime")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<long?>("LastModifierUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<Guid>("PersonId")
-                        .HasColumnType("uuid");
-
-                    b.Property<long>("ReportStatus")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("ReportStatusText")
-                        .HasColumnType("text");
-
-                    b.Property<DateTime?>("SharedDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PersonId");
-
-                    b.ToTable("Reports");
-                });
-
             modelBuilder.Entity("Resilience.Domain.Reports.SexualAssaultReport", b =>
                 {
                     b.Property<Guid>("Id")
@@ -2532,6 +2419,11 @@ namespace Resilience.Migrations
 
                     b.Property<DateTime?>("DeletionTime")
                         .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasMaxLength(21)
+                        .HasColumnType("character varying(21)");
 
                     b.Property<bool>("FeelsSafe")
                         .HasColumnType("boolean");
@@ -2613,10 +2505,13 @@ namespace Resilience.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ReportId")
-                        .IsUnique();
+                    b.HasIndex("ReportId");
 
                     b.ToTable("SexualAssaultReports");
+
+                    b.HasDiscriminator().HasValue("SexualAssaultReport");
+
+                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("Resilience.Domain.Stories.Story", b =>
@@ -3239,6 +3134,36 @@ namespace Resilience.Migrations
                     b.HasDiscriminator().HasValue("Professional");
                 });
 
+            modelBuilder.Entity("Resilience.Domain.Reports.Report", b =>
+                {
+                    b.HasBaseType("Resilience.Domain.Reports.SexualAssaultReport");
+
+                    b.Property<string>("EncryptedContent")
+                        .HasColumnType("text");
+
+                    b.Property<string>("FileReference")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsSharedWithAuthorities")
+                        .HasColumnType("boolean");
+
+                    b.Property<Guid>("PersonId")
+                        .HasColumnType("uuid");
+
+                    b.Property<long>("ReportStatus")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("ReportStatusText")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("SharedDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasIndex("PersonId");
+
+                    b.HasDiscriminator().HasValue("Report");
+                });
+
             modelBuilder.Entity("Abp.Authorization.Roles.RoleClaim", b =>
                 {
                     b.HasOne("Resilience.Authorization.Roles.Role", null)
@@ -3404,21 +3329,6 @@ namespace Resilience.Migrations
                     b.Navigation("LastModifierUser");
                 });
 
-            modelBuilder.Entity("Resilience.Domain.ChatSessions.ChatMessage", b =>
-                {
-                    b.HasOne("Resilience.Domain.Persons.Person", "Receiver")
-                        .WithMany()
-                        .HasForeignKey("ReceiverId");
-
-                    b.HasOne("Resilience.Domain.Persons.Person", "Sender")
-                        .WithMany()
-                        .HasForeignKey("SenderId");
-
-                    b.Navigation("Receiver");
-
-                    b.Navigation("Sender");
-                });
-
             modelBuilder.Entity("Resilience.Domain.CheckLists.ChecklistItem", b =>
                 {
                     b.HasOne("Resilience.Domain.CheckLists.Checklist", "Checklist")
@@ -3555,22 +3465,11 @@ namespace Resilience.Migrations
                     b.Navigation("Preson");
                 });
 
-            modelBuilder.Entity("Resilience.Domain.Reports.Report", b =>
-                {
-                    b.HasOne("Resilience.Domain.Persons.Person", "Person")
-                        .WithMany("Reports")
-                        .HasForeignKey("PersonId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Person");
-                });
-
             modelBuilder.Entity("Resilience.Domain.Reports.SexualAssaultReport", b =>
                 {
                     b.HasOne("Resilience.Domain.Reports.Report", "Report")
-                        .WithOne("SexualAssaultReport")
-                        .HasForeignKey("Resilience.Domain.Reports.SexualAssaultReport", "ReportId")
+                        .WithMany()
+                        .HasForeignKey("ReportId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -3640,7 +3539,7 @@ namespace Resilience.Migrations
             modelBuilder.Entity("Resilience.Domain.SupportSessions.Message", b =>
                 {
                     b.HasOne("Resilience.Domain.SupportSessions.SupportSession", "Session")
-                        .WithMany()
+                        .WithMany("Messages")
                         .HasForeignKey("SessionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -3735,6 +3634,17 @@ namespace Resilience.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Resilience.Domain.Reports.Report", b =>
+                {
+                    b.HasOne("Resilience.Domain.Persons.Person", "Person")
+                        .WithMany("Reports")
+                        .HasForeignKey("PersonId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Person");
+                });
+
             modelBuilder.Entity("Abp.DynamicEntityProperties.DynamicProperty", b =>
                 {
                     b.Navigation("DynamicPropertyValues");
@@ -3813,11 +3723,6 @@ namespace Resilience.Migrations
                     b.Navigation("Signatures");
                 });
 
-            modelBuilder.Entity("Resilience.Domain.Reports.Report", b =>
-                {
-                    b.Navigation("SexualAssaultReport");
-                });
-
             modelBuilder.Entity("Resilience.Domain.Stories.Story", b =>
                 {
                     b.Navigation("Comments");
@@ -3827,6 +3732,8 @@ namespace Resilience.Migrations
 
             modelBuilder.Entity("Resilience.Domain.SupportSessions.SupportSession", b =>
                 {
+                    b.Navigation("Messages");
+
                     b.Navigation("ProsessionalMessages");
                 });
 
