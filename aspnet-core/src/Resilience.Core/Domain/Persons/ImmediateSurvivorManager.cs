@@ -54,7 +54,6 @@ namespace Resilience.Domain.Persons
             bool? useDisplayNameOnly,
             ReflistSex? sex,
             string? phoneNumber,
-            bool isAnonymous,
             DateTime? incidentDate,
             bool? hasReceivedMedicalAttention,
             bool? hasReportedToAuthorities
@@ -94,7 +93,7 @@ namespace Resilience.Domain.Persons
                         UseDisplayNameOnly = useDisplayNameOnly,
                         Sex = sex,
                         PhoneNumber = phoneNumber,
-                        IsAnonymous = isAnonymous,
+                        IsAnonymous = false,
                         IncidentDate = incidentDate,
                         HasReceivedMedicalAttention = hasReceivedMedicalAttention ?? false,
                         HasReportedToAuthorities = hasReportedToAuthorities ?? false,

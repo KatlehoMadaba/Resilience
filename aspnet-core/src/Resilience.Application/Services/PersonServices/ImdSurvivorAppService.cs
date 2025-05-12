@@ -19,13 +19,11 @@ namespace Resilience.Services.PersonServices
 
     {
         private readonly ImmediateSurvivorManager _immediateSurvivorManager;
-        private readonly IRepository<ImmediateSurvivor, Guid> _Imdrepository;
         private readonly IMapper _mapper;
         public ImdSurvivorAppService(IRepository<ImmediateSurvivor, Guid> repository, ImmediateSurvivorManager immediateSurvivorManager, IMapper mapper, IRepository<ImmediateSurvivor, Guid> imdrepository) : base(repository)
         {
             _immediateSurvivorManager = immediateSurvivorManager;
             _mapper = mapper;
-            _Imdrepository = imdrepository;
         }
         public override async Task<ImdSurvivorResponseDto> CreateAsync(ImdSurvivorRequestDto input)
         {
@@ -40,7 +38,6 @@ namespace Resilience.Services.PersonServices
                 input.UseDisplayNameOnly,
                 input.Sex,
                 input.PhoneNumber,
-                input.IsAnonymous,
                 input.IncidentDate,
                 input.HasReceivedMedicalAttention,
                 input.HasReportedToAuthorities
