@@ -79,7 +79,7 @@ export default function LandingPage(): React.ReactElement {
       <section className={styles.heroSection}>
         <div className={styles.heroContent}>
           <div className={styles.imageWrapper}>
-            {/* SVG Logo */}
+
             <svg
               viewBox="0 0 300 300"
               xmlns="http://www.w3.org/2000/svg"
