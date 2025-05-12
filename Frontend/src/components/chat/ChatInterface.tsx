@@ -31,12 +31,10 @@ const ChatInterface =()=> {
     
     const handleSendMessage = () => {
       const message: IChatMessage = {
-        senderPersonId: "0196bde8-8ec9-79ef-8a19-8ba867d5e0d8",
         receiverPersonId: "0196c3d5-5509-795a-b25e-60f31bff6c20",
-        content: "I am feeling Good today",
+        content: "I am feeling Good today 123",
       };
       sendMessage(message);
-
       console.log("the message sent", message);
     };
     return (

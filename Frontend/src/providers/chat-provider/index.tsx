@@ -26,6 +26,7 @@ export const ChatMessageProvider = ({
   const instance = getAxiosInstace();
 
   const sendMessage = async (ChatMessage: IChatMessage) => {
+    
     dispatch(sendMessagePending());
     const endpoint = `/api/services/app/Chat/SendMessage`;
     await instance
@@ -34,13 +35,14 @@ export const ChatMessageProvider = ({
         dispatch(sendMessageSuccess(response?.data?.result));
       })
       .catch((error) => {
-        console.error("Error sending messages:", error);
+        console.error("Error sending messages for sending:", error);
         dispatch(sendMessageError());
       });
   };
   const getMessagesWithPerson = async (personId: string) => {
     dispatch(getMessagesWithPersonPending());
-    const endpoint = `/api/services/app/Chat/GetMessagesWithPerson?personId=${personId}`;
+    const endpoint = `https://localhost:44311/api/services/app/Chat/GetMessagesWithPerson?personId=0196c3d5-5509-795a-b25e-60f31bff6c20`;
+
     await instance
       .get(endpoint)
       .then((response) => {
@@ -48,7 +50,7 @@ export const ChatMessageProvider = ({
         console.log("this is the response", response);
       })
       .catch((error) => {
-        console.error("Error fetching messages:", error);
+        console.error("Error fetching messages for getting chats:", error);
         dispatch(getMessagesWithPersonError());
       });
   };
