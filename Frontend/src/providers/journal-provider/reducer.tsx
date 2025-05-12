@@ -21,6 +21,27 @@ export const JournalEntryReducer = handleActions<
       ...state,
       ...action.payload,
     }),
+    [JournalEntryActionEnums.getJournalEntriesByPersonIdPending]: (
+      state,
+      action
+    ) => ({
+      ...state,
+      ...action.payload,
+    }),
+    [JournalEntryActionEnums.getJournalEntriesByPersonIdSuccess]: (
+      state,
+      action
+    ) => ({
+      ...state,
+      ...action.payload,
+    }),
+    [JournalEntryActionEnums.getJournalEntriesByPersonIdError]: (
+      state,
+      action
+    ) => ({
+      ...state,
+      ...action.payload,
+    }),
   },
   INITIAL_STATE
 );
