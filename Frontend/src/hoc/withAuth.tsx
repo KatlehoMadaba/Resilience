@@ -19,17 +19,20 @@ const withAuth = (WrappedLayout: React.ComponentType<LayoutProps>) => {
 
       try {
         const role = getRole(token);
-        if (role === "generalsupporter") {
-          router.push("/supporter");
-        } else if (role === "professional") {
-          router.push("/professional");
-        } else if (role === "pastsurvivor") {
-          router.push("/survivor");
-        } else if (role === "immediatesurvivor") {
-          router.push("/survivor");
-        } else {
+        if (role === "null") {
           router.push("/login");
         }
+        // if (role === "generalsupporter") {
+        //   router.push("/supporter");
+        // } else if (role === "professional") {
+        //   router.push("/professional");
+        // } else if (role === "pastsurvivor") {
+        //   router.push("/survivor");
+        // } else if (role === "immediatesurvivor") {
+        //   router.push("/survivor");
+        // } else {
+        //   router.push("/login");
+        // }
       } catch (error) {
         console.error("Error decoding token:", error);
         router.push("/login");
