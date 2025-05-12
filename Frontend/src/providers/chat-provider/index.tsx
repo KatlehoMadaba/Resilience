@@ -40,7 +40,7 @@ export const ChatMessageProvider = ({
   };
   const getMessagesWithPerson = async (personId: string) => {
     dispatch(getMessagesWithPersonPending());
-    const endpoint = `/api/services/app/Chat/GetMessagesWithPerson?personId=${personId}`;
+    const endpoint = `https://localhost:44311/api/services/app/Chat/GetMessagesWithPerson?personId=0196c3d5-5509-795a-b25e-60f31bff6c20`;
     await instance
       .get(endpoint)
       .then((response) => {

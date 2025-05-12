@@ -4,8 +4,7 @@ import { INITIAL_STATE, IUserStateContext } from "./context";
 import { UserActionEnums } from "./actions";
 
 export const UserReducer = handleActions<
-  IUserStateContext,
-  Partial<IUserStateContext>
+  IUserStateContext
 >(
   {
     [UserActionEnums.getUsersPending]: (state, action) => ({
