@@ -57,7 +57,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       })
       .catch((error) => {
         dispatch(signUpSurvivorError());
+        const backendMessage = error.response?.data?.error?.message;
         console.error(error);
+        throw new Error(backendMessage);
       });
   };
 

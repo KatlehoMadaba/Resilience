@@ -13,7 +13,10 @@ import { useRegisterStyles } from "./styles";
 import { ISurvivorRegister } from "@/providers/survivors-provider/models";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { useAuthActions } from '../../../providers/auth-provider/index';
+import {
+  useAuthActions,
+  useAuthState,
+} from "../../../providers/auth-provider/index";
 const { Paragraph } = Typography;
 const { Option } = Select;
 
@@ -21,27 +24,28 @@ const ImmediateRegisterForm: React.FC = () => {
   const { styles } = useRegisterStyles();
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
+  const { isSuccess } = useAuthState();
   const router = useRouter();
   const [messageApi, contextHolder] = message.useMessage();
-  const { signUpImmediateSurvivor }=useAuthActions();
+  const { signUpImmediateSurvivor } = useAuthActions();
   const showSuccessToast = () => messageApi.success("Signup successful!");
   const showErrorToast = () =>
-    messageApi.error("sorry we couldnt signUp please try again");
+    messageApi.error("sorry we couldnt sign you up please try again");
   const onFinish = async (values: ISurvivorRegister) => {
     setLoading(true);
     try {
-      const formValues = {
-        ...values,
-        role: "immediatesurvivor",
-      };
+      const formValues = { ...values };
       signUpImmediateSurvivor(formValues);
-      console.log("formValues", formValues);
-      showSuccessToast();
-      router.push("/login");
     } catch {
       showErrorToast();
     } finally {
       setLoading(false);
+    }
+    if (isSuccess) {
+      showSuccessToast();
+      router.push("/login");
+    } else {
+      showErrorToast();
     }
   };
 
@@ -160,5 +164,3 @@ const ImmediateRegisterForm: React.FC = () => {
   );
 };
 export default ImmediateRegisterForm;
-
-
