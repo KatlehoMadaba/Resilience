@@ -50,7 +50,7 @@ export const ChatMessageProvider = ({
         console.error("Error fetching testimonies:", error);
         dispatch(getMessagesWithPersonError());
       });
-    };
+  };
   return (
     <ChatMessageStateContext.Provider value={state}>
       <ChatMessageActionContext.Provider
