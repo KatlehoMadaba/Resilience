@@ -12,8 +12,6 @@ const SignUpPage = () => {
   const [loading, setLoading] = useState(false);
   const { isPending } = useAuthState();
   const { styles } = useSignUpPageStyles();
-
-  // Loading spinner state
   useEffect(() => {
     if (isPending) {
       setLoading(true);
@@ -26,11 +24,9 @@ const SignUpPage = () => {
     <div className={styles.page}>
       <main className={styles.main}>
         <div className={styles.authContainer}>
-          {/* Brand Section */}
           <div className={styles.brandSide}>
             <div className={styles.logoWrapper}>
               <div className={styles.logoIcon}>
-                {/* Place your logo here */}
                 <svg
                   viewBox="0 0 300 300"
                   xmlns="http://www.w3.org/2000/svg"
