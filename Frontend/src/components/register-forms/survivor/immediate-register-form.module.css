@@ -1,0 +1,146 @@
+.formContainer {
+    width: 100%;
+    max-width: 500px;
+}
+
+.formIntro {
+    margin-bottom: 24px;
+}
+
+.introText {
+    font-size: 16px;
+    color: #666;
+    line-height: 1.6;
+}
+
+.form {
+    width: 100%;
+}
+
+.inputIcon {
+    color: #bfbfbf;
+    margin-right: 8px;
+}
+
+.passwordInput {
+    height: 40px;
+}
+
+.securityNote {
+    background-color: rgba(165, 213, 232, 0.15);
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.securityIcon {
+    font-size: 16px;
+    margin-right: 8px;
+}
+
+.securityText {
+    font-size: 14px;
+    color: #555;
+}
+
+.agreementItem {
+    margin-bottom: 24px;
+}
+
+.checkbox {
+    font-size: 15px;
+}
+
+.link {
+    color: #9E9AC8;
+    text-decoration: underline;
+}
+
+.link:hover {
+    color: #7B75AA;
+}
+
+.submitItem {
+    margin-bottom: 16px;
+}
+
+.submitButton {
+    height: 48px;
+    font-size: 16px;
+    background-color: #9E9AC8;
+    border-color: #9E9AC8;
+    border-radius: 6px;
+    box-shadow: 0 2px 0 rgba(0, 0, 0, 0.045);
+    transition: all 0.3s ease;
+}
+
+.submitButton:hover,
+.submitButton:focus {
+    background-color: #7B75AA;
+    border-color: #7B75AA;
+}
+
+.divider {
+    margin: 24px 0;
+}
+
+.dividerText {
+    color: #999;
+    font-size: 14px;
+}
+
+.loginPrompt {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+
+.loginButton {
+    color: #9E9AC8;
+    font-size: 15px;
+}
+
+.loginButton:hover {
+    color: #7B75AA;
+}
+
+.emergencySection {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.emergencyText {
+    color: #666;
+    font-size: 14px;
+}
+
+.emergencyLink {
+    color: #ff4d4f;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.emergencyLink:hover {
+    color: #ff7875;
+    text-decoration: underline;
+}
+
+/* Responsive adjustments */
+@media (max-width: 576px) {
+    .formContainer {
+        padding: 0 12px;
+    }
+
+    .introText {
+        font-size: 15px;
+    }
+
+    .submitButton {
+        height: 44px;
+    }
+}

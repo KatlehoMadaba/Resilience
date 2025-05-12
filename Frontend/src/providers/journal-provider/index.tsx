@@ -21,6 +21,7 @@ export const JournalEntryProvider = ({
 }) => {
   const [state, dispatch] = useReducer(JournalEntryReducer, INITIAL_STATE);
   const instance = getAxiosInstace();
+
   const createJournalEntry = async (JournalEntry: IJournalEntry) => {
     dispatch(createJournalEntryPending());
     const endpoint = `/api/services/app/JournalEntry/Create`;
@@ -34,10 +35,14 @@ export const JournalEntryProvider = ({
         dispatch(createJournalEntryError());
       });
   };
-
+  const getJournalEntries = async () => {
+  
+}
   return (
     <JournalEntryStateContext.Provider value={state}>
-      <JournalEntryActionContext.Provider value={{ createJournalEntry }}>
+      <JournalEntryActionContext.Provider
+        value={{ createJournalEntry, getJournalEntries }}
+      >
         {children}
       </JournalEntryActionContext.Provider>
     </JournalEntryStateContext.Provider>

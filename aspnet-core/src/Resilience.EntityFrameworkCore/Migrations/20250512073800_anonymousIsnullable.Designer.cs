@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Resilience.EntityFrameworkCore;
@@ -12,9 +13,11 @@ using Resilience.EntityFrameworkCore;
 namespace Resilience.Migrations
 {
     [DbContext(typeof(ResilienceDbContext))]
-    partial class ResilienceDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250512073800_anonymousIsnullable")]
+    partial class anonymousIsnullable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1579,67 +1582,6 @@ namespace Resilience.Migrations
                     b.HasIndex("TenantId", "NormalizedUserName");
 
                     b.ToTable("AbpUsers");
-                });
-
-            modelBuilder.Entity("Resilience.Domain.ChatSessions.ChatMessage", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid?>("ChatSessionId")
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("Content")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<long?>("CreatorUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("DeleterUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime?>("DeletionTime")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("boolean");
-
-                    b.Property<bool>("IsRead")
-                        .HasColumnType("boolean");
-
-                    b.Property<DateTime?>("LastModificationTime")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<long?>("LastModifierUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<Guid?>("ReceiverId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("ReceiverPersonId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid?>("SenderId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("SenderPersonId")
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime>("SentAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ReceiverId");
-
-                    b.HasIndex("SenderId");
-
-                    b.ToTable("ChatMessages");
                 });
 
             modelBuilder.Entity("Resilience.Domain.CheckLists.Checklist", b =>
@@ -3404,21 +3346,6 @@ namespace Resilience.Migrations
                     b.Navigation("LastModifierUser");
                 });
 
-            modelBuilder.Entity("Resilience.Domain.ChatSessions.ChatMessage", b =>
-                {
-                    b.HasOne("Resilience.Domain.Persons.Person", "Receiver")
-                        .WithMany()
-                        .HasForeignKey("ReceiverId");
-
-                    b.HasOne("Resilience.Domain.Persons.Person", "Sender")
-                        .WithMany()
-                        .HasForeignKey("SenderId");
-
-                    b.Navigation("Receiver");
-
-                    b.Navigation("Sender");
-                });
-
             modelBuilder.Entity("Resilience.Domain.CheckLists.ChecklistItem", b =>
                 {
                     b.HasOne("Resilience.Domain.CheckLists.Checklist", "Checklist")
@@ -3640,7 +3567,7 @@ namespace Resilience.Migrations
             modelBuilder.Entity("Resilience.Domain.SupportSessions.Message", b =>
                 {
                     b.HasOne("Resilience.Domain.SupportSessions.SupportSession", "Session")
-                        .WithMany()
+                        .WithMany("Messages")
                         .HasForeignKey("SessionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -3827,6 +3754,8 @@ namespace Resilience.Migrations
 
             modelBuilder.Entity("Resilience.Domain.SupportSessions.SupportSession", b =>
                 {
+                    b.Navigation("Messages");
+
                     b.Navigation("ProsessionalMessages");
                 });
 

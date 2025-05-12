@@ -7,7 +7,7 @@ using Resilience.Domain.Testimonies;
 namespace Resilience.Services.TestimonyServices.Dtos
 {
     [AutoMap(typeof(Testimony))]
-    public class TestimonyDto: EntityDto<Guid>
+    public class TestimonyDto: FullAuditedEntityDto<Guid>
     {
         public Guid PersonId { get; set; }
         public string Title { get; set; }

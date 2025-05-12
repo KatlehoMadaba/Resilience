@@ -27,8 +27,7 @@ const RegisterForm = () => {
     `Anonymous${Math.floor(1000 + Math.random() * 9000)}`;
 
   useEffect(() => {
-    setGeneratedAnonId(isAnonymous ?
-      generateAnonymousId() : "");
+    setGeneratedAnonId(isAnonymous ? generateAnonymousId() : "");
   }, [isAnonymous]);
 
   const showSuccessToast = () => messageApi.success("Signup successful!");
@@ -124,7 +123,6 @@ const RegisterForm = () => {
         {isAnonymous && (
           <Form.Item label="Anonymous ID">
             <Input value={generatedAnonId} disabled />
-            
           </Form.Item>
         )}
 

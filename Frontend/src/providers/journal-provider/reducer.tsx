@@ -21,9 +21,6 @@ export const JournalEntryReducer = handleActions<
       ...state,
       ...action.payload,
     }),
-    [JournalEntryActionEnums.resetJournalEntryState]: () => ({
-      ...INITIAL_STATE,
-    }),
   },
   INITIAL_STATE
 );
