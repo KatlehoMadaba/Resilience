@@ -8,9 +8,9 @@ export enum JournalEntryActionEnums {
   createJournalEntryPending = "CREATE_JournalEntry_PENDING",
   createJournalEntrySuccess = "CREATE_JournalEntry_SUCCESS",
   createJournalEntryError = "CREATE_JournalEntry_ERROR",
-  getJournalEntriesPending = "GET_JournalEntries_PENDING",
-  getJournalEntriesSuccess = "GET_JournalEntries_SUCCESS",
-  getJournalEntriesError = "GET_JournalEntries_ERROR",
+  getJournalEntriesByPersonIdPending = "GET_JournalEntriesPersonId_PENDING",
+  getJournalEntriesByPersonIdSuccess = "GET_JournalEntriesPersonId_SUCCESS",
+  getJournalEntriesByPersonIdError = "GET_JournalEntriesPersonId_ERROR",
 }
 
 // CREATE JournalEntry ACTIONS
@@ -39,12 +39,13 @@ export const createJournalEntryError = createAction<IJournalEntryStateContext>(
 );
 //Get Journal Entries
 
-export const getJournalEntriesPending = createAction<IJournalEntryStateContext>(
-  JournalEntryActionEnums.createJournalEntryPending,
-  () => ({ isPending: true, isSuccess: false, isError: false })
-);
+export const getJournalEntriesByPersonIdPending =
+  createAction<IJournalEntryStateContext>(
+    JournalEntryActionEnums.createJournalEntryPending,
+    () => ({ isPending: true, isSuccess: false, isError: false })
+  );
 
-export const getJournalEntriesSuccess = createAction<
+export const getJournalEntriesByPersonIdSuccess = createAction<
   IJournalEntryStateContext,
   IJournalEntry[]
 >(
@@ -57,7 +58,8 @@ export const getJournalEntriesSuccess = createAction<
   })
 );
 
-export const getJournalEntriesError = createAction<IJournalEntryStateContext>(
-  JournalEntryActionEnums.createJournalEntryError,
-  () => ({ isPending: false, isSuccess: false, isError: true })
-);
+export const getJournalEntriesByPersonIdError =
+  createAction<IJournalEntryStateContext>(
+    JournalEntryActionEnums.createJournalEntryError,
+    () => ({ isPending: false, isSuccess: false, isError: true })
+  );

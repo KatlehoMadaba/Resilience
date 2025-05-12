@@ -9,6 +9,8 @@ import {
   createJournalEntryPending,
   createJournalEntrySuccess,
   createJournalEntryError,
+  getJournalEntriesByPersonIdPending,
+  getJournalEntriesByPersonIdSuccess,
 } from "./actions";
 import { getAxiosInstace } from "@/utils/axiosInstance";
 import { IJournalEntry } from "../../providers/journal-provider/models";
@@ -35,13 +37,18 @@ export const JournalEntryProvider = ({
         dispatch(createJournalEntryError());
       });
   };
-  const getJournalEntries = async () => {
-  
-}
+  const getJournalEntriesByPersonId = async (PersonId: string) => {
+    dispatch(getJournalEntriesByPersonIdPending());
+    const endpoint = `/api/services/app/PersonService/GetCurrentPersonId?=${PersonId}`;
+    await instance.get(endpoint).then((response) => {
+      dispatch(getJournalEntriesByPersonIdSuccess(response?.data));
+    });
+  };
+
   return (
     <JournalEntryStateContext.Provider value={state}>
       <JournalEntryActionContext.Provider
-        value={{ createJournalEntry, getJournalEntries }}
+        value={{ createJournalEntry, getJournalEntriesByPersonId }}
       >
         {children}
       </JournalEntryActionContext.Provider>
