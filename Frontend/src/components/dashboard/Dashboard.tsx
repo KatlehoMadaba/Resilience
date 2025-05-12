@@ -1,18 +1,20 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Card,Typography, Row, Col, Modal, Rate, Spin } from "antd";
+import { Card, Typography, Row, Col, Modal, Rate, Spin } from "antd";
 import { FaSmile, FaMeh, FaFrown } from "react-icons/fa";
 import { useRouter } from "next/navigation";
-import styles from "./dashboard.module.css";
 import { useUserActions, useUserState } from "@/providers/users-providers";
 import {
   useSurvivorActions,
   useSurvivorState,
 } from "@/providers/survivors-provider";
 import withAuth from "@/hoc/withAuth";
+import { useDashboardStyles } from "./styles";
+
 const { Title, Text } = Typography;
 
 const Dashboard = () => {
+  const { styles } = useDashboardStyles();
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedEmoji, setSelectedEmoji] = useState("");
   const { getCurrentUser } = useUserActions();
@@ -22,30 +24,17 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 
-  const showRatingModal = (mood) => {
+  const showRatingModal = (mood: string) => {
     setSelectedEmoji(mood);
     setIsModalVisible(true);
   };
 
-  const handleModalOk = () => {
-    setIsModalVisible(false);
-  };
+  const handleModalOk = () => setIsModalVisible(false);
+  const handleModalCancel = () => setIsModalVisible(false);
 
-  const handleModalCancel = () => {
-    setIsModalVisible(false);
-  };
-
-  const handleTestimonyClick = () => {
-    router.push("/survivor/testimony");
-  };
-
-  const handleJournalClick = () => {
-    router.push("/survivor/journalEntry");
-  };
-
-  const handleChatClick = () => {
-    router.push("/survivor/humanTherapist");
-  };
+  const handleTestimonyClick = () => router.push("/survivor/testimony");
+  const handleJournalClick = () => router.push("/survivor/journalEntry");
+  const handleChatClick = () => router.push("/survivor/humanTherapist");
 
   useEffect(() => {
     fetchSurvivorOnReload();
@@ -60,6 +49,7 @@ const Dashboard = () => {
     const token = sessionStorage.getItem("jwt");
     if (!token) {
       router.push("/login");
+      return;
     }
     try {
       setLoading(true);
@@ -111,7 +101,7 @@ const Dashboard = () => {
         </div>
 
         <Modal
-          title={`Rate your mood: ${selectedEmoji}`}
+          title={`Ratne your mood: ${selectedEmoji}`}
           open={isModalVisible}
           onOk={handleModalOk}
           onCancel={handleModalCancel}
