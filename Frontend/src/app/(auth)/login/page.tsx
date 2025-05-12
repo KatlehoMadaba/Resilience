@@ -88,7 +88,7 @@ const LoginPage = () => {
               </Divider>
 
               <div className={styles.signupSection}>
-                <Link href="/register" className={styles.signupLink}>
+                <Link href="/roleSelectionPage" className={styles.signupLink}>
                   Create a new account
                 </Link>
               </div>
