@@ -3,10 +3,8 @@ using Abp.Domain.Entities.Auditing;
 
 namespace Resilience.Domain.Reports
 {
-    public class SexualAssaultReport : FullAuditedEntity<Guid>
+    public class SexualAssaultReport : Report
     {
-        public Guid ReportId { get; set; }
-        public virtual Report Report { get; set; }
 
         // Victim Details
         public string FullName { get; set; }

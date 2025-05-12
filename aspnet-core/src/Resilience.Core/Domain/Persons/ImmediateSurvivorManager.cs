@@ -162,9 +162,7 @@ namespace Resilience.Domain.Persons
                 p => p.User,
                 p => p.CrowdfundingCampaigns,
                 p => p.SupportSessions,
-                p => p.MedicalAssistanceRecord,
-                p => p.JournalEntries,
-                p => p.MoodEntries
+                p => p.MedicalAssistanceRecord
             );
 
                 var ImmediateSurvivor = await ImmediateSurvivors.FirstOrDefaultAsync(p => p.UserId == userId);

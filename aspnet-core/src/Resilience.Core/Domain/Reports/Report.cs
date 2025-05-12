@@ -14,6 +14,5 @@ namespace Resilience.Domain.Reports
         public bool IsSharedWithAuthorities { get; set; }
         public DateTime? SharedDate { get; set; }
         public string FileReference { get; set; } // For PDF generation
-        public virtual SexualAssaultReport SexualAssaultReport {  get; set; }
     }
 }

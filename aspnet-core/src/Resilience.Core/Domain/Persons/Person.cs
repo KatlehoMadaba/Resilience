@@ -36,8 +36,5 @@ namespace Resilience.Domain.Persons
         public virtual ICollection<CrowdfundingCampaign>? CrowdfundingCampaigns { get; set; }
         public virtual ICollection<SupportResource>? SavedResources { get; set; }
         public virtual ICollection<Testimony>? Testimonies { get; set; }
-        public virtual ICollection<MoodEntry>? MoodEntries { get; set; }
-        public virtual ICollection<JournalEntry>?JournalEntries { get; set; }
-
     }
 }

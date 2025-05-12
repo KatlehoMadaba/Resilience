@@ -161,9 +161,7 @@ namespace Resilience.Domain.Persons
                 p => p.User,
                 p => p.CrowdfundingCampaigns,
                 p => p.SupportSessions,
-                p => p.Testimonies,
-                p=>p.JournalEntries,
-                p=>p.MoodEntries
+                p => p.Testimonies
             );
 
                 var pastSurvivor = await pastSurvivors.FirstOrDefaultAsync(p => p.UserId == userId);
