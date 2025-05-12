@@ -128,15 +128,6 @@ const ImmediateRegisterForm: React.FC = () => {
           >
             <Input size="large" />
           </Form.Item>
-
-          <Form.Item name="anonymousId" label="Anonymous ID">
-            <Input size="large" />
-          </Form.Item>
-
-          <Form.Item name="isAnonymous" valuePropName="checked">
-            <Checkbox>Remain Anonymous</Checkbox>
-          </Form.Item>
-
           <Form.Item
             name="incidentDate"
             label="Incident Date"
