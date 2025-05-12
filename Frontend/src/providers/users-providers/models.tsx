@@ -5,5 +5,7 @@ export interface IUser {
   surname: string;
   emailAddress: string;
   userName: string;
-  personId?: string;
+}
+export interface IPersonId{
+  personId?:string
 }

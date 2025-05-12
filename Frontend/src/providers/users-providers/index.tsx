@@ -11,6 +11,9 @@ import {
   getCurrentUserPending,
   getCurrentUserSuccess,
   getCurrentUserError,
+  getCurrentPersonIdPending,
+  getCurrentPersonIdError,
+  getCurrentPersonIdSuccess,
   createUserSuccess,
   createUserError,
   createUserPending,
@@ -21,24 +24,22 @@ import {
   deleteUserError,
   deleteUserPending,
 } from "./actions";
-
 import axios from "axios";
-//import { getMyPersonId } from "@/utils/chat-api";
 
 export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const [state, dispatch] = useReducer(UserReducer, INITIAL_STATE);
   const instance = getAxiosInstace();
 
-// useEffect(() => {
-//   const load = async () => {
-//     const personId = await getMyPersonId();
-//     getUser((prev) => ({ ...prev, personId }));
-//   };
+  // useEffect(() => {
+  //   const load = async () => {
+  //     const personId = await getMyPersonId();
+  //     getUser((prev) => ({ ...prev, personId }));
+  //   };
 
-//   if (getCurrentUser?.id && !user.personId) {
-//     load();
-//   }
-// }, [loggedInUser]);
+  //   if (getCurrentUser?.id && !user.personId) {
+  //     load();
+  //   }
+  // }, [loggedInUser]);
   // Get current user
   const getCurrentUser = async (token: string): Promise<IUser | null> => {
     dispatch(getCurrentUserPending());
@@ -61,6 +62,22 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
         console.error("Error fetching current user:", error);
         dispatch(getCurrentUserError());
         return null;
+      });
+  };
+
+  const getCurrentPersonId = async (token: string) => {
+    const endpoint = `/api/services/app/PersonService/GetCurrentPersonId`;
+    dispatch(getCurrentPersonIdPending());
+    instance
+      .get(endpoint, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((response) => {
+        dispatch(getCurrentPersonIdSuccess(response?.data?.result));
+      })
+      .catch((error) => {
+        console.error("Error while getting current Person:", error);
+        dispatch(getCurrentPersonIdError());
       });
   };
 
@@ -142,8 +159,6 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
       });
   };
 
-
-
   return (
     <UserStateContext.Provider value={state}>
       <UserActionContext.Provider
@@ -153,6 +168,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
           updateUser,
           deleteUser,
           getCurrentUser,
+          getCurrentPersonId,
           getUser,
         }}
       >
