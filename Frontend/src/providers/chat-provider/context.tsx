@@ -14,7 +14,7 @@ export interface IChatMessageStateContext {
 // ChatMessage action context interface
 export interface IChatMessageActionContext {
   sendMessage: (ChatMessage: IChatMessage) => void;
-  getMessagesWithPerson: (personId: string) => Promise<void>;
+  getMessagesWithPerson: (personId: string) => void;
 }
 
 // Initial state with default values

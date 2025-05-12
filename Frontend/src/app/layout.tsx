@@ -11,6 +11,7 @@ import { MedicalCentreProvider } from "@/providers/medicalCenter-provider";
 import { PoliceStationProvider } from "@/providers/police-provider";
 import { JournalEntryProvider } from "@/providers/journal-provider";
 import { TestimonyProvider } from "@/providers/testimony-provider";
+import { ChatMessageProvider } from "@/providers/chat-provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -104,7 +105,9 @@ export default function RootLayout({
                   <PoliceStationProvider>
                     <SurvivorProvider>
                       <TestimonyProvider>
-                        <JournalEntryProvider>{children}</JournalEntryProvider>
+                        <JournalEntryProvider>
+                          <ChatMessageProvider>{children}</ChatMessageProvider>
+                        </JournalEntryProvider>
                       </TestimonyProvider>
                     </SurvivorProvider>
                   </PoliceStationProvider>

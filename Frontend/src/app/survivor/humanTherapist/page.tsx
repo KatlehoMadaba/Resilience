@@ -1,4 +1,4 @@
-// import ChatInterface from "@/components/chat/ChatInterface";
+import ChatInterface from "@/components/chat/ChatInterface";
 
 // interface Props {
 //   params: {
@@ -13,7 +13,7 @@
 import React from "react";
 
 const HumanTherapist = () => {
-  return <div>HumanTherapist</div>;
+  return <div><ChatInterface/></div>;
 };
 
 export default HumanTherapist;

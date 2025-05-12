@@ -1,76 +1,59 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Input, Button, Spin } from "antd";
+import { Input, Button, Spin, message } from 'antd';
 import MessageBubble from "./MessageBubble";
 import styles from "./ChatInterface.module.css";
-import { fetchMessagesWith, sendMessage } from "@/utils/chat-api";
 import { ChatMessage } from "./ChatMessage";
 import { IPersonId } from "@/providers/users-providers/models";
-
-export default function ChatInterface({ personId }: IPersonId) {
+import {
+  useChatMessageActions,
+  useChatMessageState,
+} from "@/providers/chat-provider";
+import { IChatMessage } from "@/providers/chat-provider/models";
+import { useUserState } from "@/providers/users-providers";
+const ChatInterface =()=> {
   //const { } = useUserState();
-  const [messages, setMessages] = useState<ChatMessage[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [input, setInput] = useState("");
-  const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  const loadMessages = async () => {
-    setLoading(true);
+  const { getMessagesWithPerson, sendMessage } = useChatMessageActions();
+  const { personId } = useUserState();
+  const { ChatMessages, ChatMessage } = useChatMessageState();
+  
+  useEffect(() => {
+    getMessagesWithPerson("0196c3d5-5509-795a-b25e-60f31bff6c20");
     try {
-      const data = await fetchMessagesWith(personId);
-      setMessages(data);
+      console.log("the messages", ChatMessages);
+    } catch (error) {
+      console.log("this is the error", error);
     } finally {
-      setLoading(false);
     }
-  };
+  }, [ChatMessages]);
+    
+    const handleSendMessage = () => {
+      const message: IChatMessage = {
+        senderPersonId: "0196bde8-8ec9-79ef-8a19-8ba867d5e0d8",
+        receiverPersonId: "0196c3d5-5509-795a-b25e-60f31bff6c20",
+        content: "I am feeling Good today",
+      };
+      sendMessage(message);
 
-  const handleSend = async () => {
-    if (!input.trim()) return;
-    await sendMessage(personId, input);
-    setInput("");
-    await loadMessages();
-  };
-
-  useEffect(() => {
-    loadMessages();
-  }, [personId]);
-
-  useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
-
-  return (
-    <div className={styles.chatWrapper}>
-      <div className={styles.chatBox}>
-        <div className={styles.messagesArea}>
-          {loading ? (
-            <Spin />
-          ) : (
-            messages?.map((msg) => (
-              <MessageBubble
-                key={msg.id}
-                content={msg.content}
-                isOwn={
-                  msg.senderPersonId === personId
-                }
-              />
-            ))
-          )}
-          <div ref={messagesEndRef} />
-        </div>
-        <div className={styles.inputArea}>
-          <Input.TextArea
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            placeholder="Type your message..."
-            rows={2}
-          />
-          <Button type="primary" onClick={handleSend}>
-            Send
-          </Button>
-        </div>
-      </div>
+      console.log("the message sent", message);
+    };
+    return (
+      <div>
+      <Button onClick={handleSendMessage}>send Message</Button>
     </div>
-  );
-}
+    )
+   
+};
+export default ChatInterface;
+
+
+
+
+
+
+
+
+
+
