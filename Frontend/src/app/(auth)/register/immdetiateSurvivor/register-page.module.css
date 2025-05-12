@@ -1,0 +1,213 @@
+.page {
+    min-height: 100vh;
+    display: flex;
+    background-color: #f5f7fa;
+}
+
+.main {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 24px;
+}
+
+.authContainer {
+    display: flex;
+    width: 100%;
+    max-width: 1200px;
+    min-height: 650px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+/* Brand Side Styling */
+.brandSide {
+    flex: 1;
+    background: linear-gradient(135deg, #A5D5E8 0%, #9E9AC8 100%);
+    color: white;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.logoWrapper {
+    display: flex;
+    align-items: center;
+    margin-bottom: 32px;
+}
+
+.logoIcon {
+    width: 42px;
+    height: 42px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 12px;
+}
+
+.icon {
+    width: 24px;
+    height: 24px;
+}
+
+.logoText {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.brandContent {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 20px;
+}
+
+.brandTitle {
+    color: white !important;
+    font-size: 32px !important;
+    margin-bottom: 16px !important;
+}
+
+.brandMessage {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 30px !important;
+    max-width: 400px;
+}
+
+.testimonial {
+    background-color: rgba(255, 255, 255, 0.15);
+    border-left: 4px solid white;
+    padding: 16px;
+    border-radius: 0 8px 8px 0;
+    margin: 32px 0;
+    max-width: 400px;
+}
+
+.quote {
+    font-size: 16px;
+    font-style: italic;
+    margin-bottom: 8px !important;
+}
+
+.quoteAuthor {
+    font-size: 14px;
+    text-align: right;
+    opacity: 0.9;
+    margin-bottom: 0 !important;
+}
+
+.imageWrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 24px;
+}
+
+.image {
+    border-radius: 12px;
+    object-fit: cover;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.safetyInfo {
+    margin-top: auto;
+}
+
+.safetyAlert {
+    background-color: rgba(255, 255, 255, 0.2);
+    border: none;
+}
+
+.safetyAlert :global(.ant-alert-message) {
+    color: white;
+    font-weight: 500;
+}
+
+.safetyAlert :global(.ant-alert-description) {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* Form Side Styling */
+.formSide {
+    flex: 1;
+    background-color: white;
+    padding: 48px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.spinnerContainer {
+    width: 100%;
+}
+
+.formCard {
+    width: 100%;
+    max-width: 480px;
+}
+
+.title {
+    font-size: 28px !important;
+    color: #333 !important;
+    margin-bottom: 8px !important;
+    text-align: center;
+}
+
+.subtitle {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 32px !important;
+    text-align: center;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 992px) {
+    .authContainer {
+        flex-direction: column;
+    }
+
+    .brandSide {
+        padding: 32px 24px;
+    }
+
+    .brandContent {
+        padding: 0;
+    }
+
+    .formSide {
+        padding: 32px 24px;
+    }
+}
+
+@media (max-width: 576px) {
+    .main {
+        padding: 0;
+    }
+
+    .authContainer {
+        border-radius: 0;
+        box-shadow: none;
+        min-height: 100vh;
+    }
+
+    .brandSide {
+        padding: 24px 16px;
+    }
+
+    .formSide {
+        padding: 24px 16px;
+    }
+
+    .title {
+        font-size: 24px !important;
+    }
+}

@@ -3,8 +3,8 @@ import React, { useEffect, useState } from "react";
 import { Typography, Spin } from "antd";
 import Image from "next/image";
 import { Heart } from "lucide-react";
-import styles from "../../../components/register-forms/survivor/register-page.module.css";
-import ImmdeiateRegisterForm from "../../../components/register-forms/survivor/page";
+import styles from "../../../../components/register-forms/survivor/register-page.module.css";
+import ImmdeiateRegisterForm from "../../../../components/register-forms/survivor/page";
 import { useAuthState } from "@/providers/auth-provider";
 
 const { Title } = Typography;
