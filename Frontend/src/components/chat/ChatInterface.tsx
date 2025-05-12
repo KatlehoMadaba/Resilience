@@ -6,14 +6,14 @@ import MessageBubble from "./MessageBubble";
 import styles from "./ChatInterface.module.css";
 import { fetchMessagesWith, sendMessage } from "@/utils/chat-api";
 import { ChatMessage } from "./ChatMessage";
-import { useUserState } from "@/providers/users-providers";
+// import { useUserState } from "@/providers/users-providers";
 
 interface Props {
   personId: string;
 }
 
 export default function ChatInterface({ personId }: Props) {
-  const { currentUser } = useUserState();
+  // const { currentUser } = useUserState();
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [loading, setLoading] = useState(true);
   const [input, setInput] = useState("");
