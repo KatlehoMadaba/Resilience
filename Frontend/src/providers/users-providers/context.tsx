@@ -10,6 +10,7 @@ export interface IUserStateContext {
   currentUser?: IUser; // Changed for naming consistency
   user?: IUser;
   users?: IUser[]; // Array of users
+  personId?: string;
 }
 
 // User action context interface
@@ -20,6 +21,7 @@ export interface IUserActionContext {
   createUser: (user: IUser) => void; // Create a new user
   updateUser: (user: IUser) => void; // Update an existing user
   deleteUser: (id: string) => void; // Delete a user
+  getCurrentPersonId: (toke: string) => void;
 }
 
 // Initial state with default values

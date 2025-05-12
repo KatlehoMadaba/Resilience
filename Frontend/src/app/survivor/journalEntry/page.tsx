@@ -2,22 +2,24 @@
 
 import { Typography, Card, List, Tag } from "antd";
 import {
-  useJournalEntryActions,
+  // useJournalEntryActions,
   useJournalEntryState,
 } from "@/providers/journal-provider";
-import { useEffect } from "react";
+// import { useEffect } from "react";
 import JournalEntryForm from "@/components/journalEntries/JournalEntryForm";
 import styles from "./JournalPage.module.css";
+// import { useUserState } from '../../../providers/users-providers/index';
 
 const { Title, Paragraph, Text } = Typography;
 
 export default function JournalPage() {
   const { journalEntries } = useJournalEntryState();
-  const { getJournalEntries } = useJournalEntryActions();
+  // const { getJournalEntriesByPersonId } = useJournalEntryActions();
+  // const {person}=useUserState()
 
-  useEffect(() => {
-    getJournalEntries?.();
-  }, []);
+  // useEffect(() => {
+  //   getJournalEntriesByPersonId(personId)?.();
+  // }, []);
 
   return (
     <div className={styles.container}>
