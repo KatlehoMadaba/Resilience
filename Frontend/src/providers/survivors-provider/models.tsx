@@ -41,8 +41,6 @@ export interface ISurvivorRegister {
   useDisplayNameOnly: boolean;
   sex: number;
   phoneNumber: string;
-  anonymousId: string;
-  isAnonymous: boolean;
   incidentDate: Date;
   hasReceivedMedicalAttention: boolean;
   hasReportedToAuthorities: boolean;
