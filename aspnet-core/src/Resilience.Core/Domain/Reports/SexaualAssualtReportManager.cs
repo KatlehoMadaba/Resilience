@@ -32,7 +32,13 @@ namespace Resilience.Domain.Reports
 
         public async Task<SexualAssaultReport> CreateSexualReportAsync
             (
-                Guid reportId,
+                
+                Guid PersonId,
+                ReflistReportStatus ? reportStatus,
+                string? EncryptedContent,
+                bool isSharedWithAuthorities,
+                DateTime ? SharedDate,
+                string fileReference,
                 string fullName,
                 string idNumber,
                 DateTime? dateOfBirth,
@@ -82,7 +88,13 @@ namespace Resilience.Domain.Reports
                 var SexualAssaultReport = new SexualAssaultReport
                 {
 
-                    ReportId = reportId,
+                     PersonId=PersonId,
+                     ReportStatus=reportStatus,
+                     EncryptedContent = EncryptedContent,
+                     IsSharedWithAuthorities = isSharedWithAuthorities,
+                     SharedDate = SharedDate,
+                     FileReference = fileReference,
+
                     FullName = fullName,
                     IDNumber = idNumber,
                     DateOfBirth = dateOfBirth,
