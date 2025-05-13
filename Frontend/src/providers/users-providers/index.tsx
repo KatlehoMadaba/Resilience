@@ -63,13 +63,11 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
       });
   };
 
-  const getCurrentPersonId = async (token: string) => {
+  const getCurrentPersonId = async () => {
     const endpoint = `/api/services/app/PersonService/GetCurrentPersonId`;
     dispatch(getCurrentPersonIdPending());
     instance
-      .get(endpoint, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
+      .get(endpoint)
       .then((response) => {
         dispatch(getCurrentPersonIdSuccess(response?.data?.result));
       })
