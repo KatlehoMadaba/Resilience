@@ -16,10 +16,5 @@ namespace Resilience.Services.ReportsServices
             _sexaualAssualtReportManager = sexaualAssualtReportManager;
         }
 
-        public async Task<FileDto>DownloadablePdf(Guid id)
-        {
-            var pdf=await _sexaualAssualtReportManager.
-        }
-
     }
 }
