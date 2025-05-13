@@ -6,3 +6,7 @@ export interface ChatMessage {
     isRead: boolean;
     sentAt: string;
 }
+export interface ISendMessage{
+    receiverPersonId: string;
+    content: string;
+}

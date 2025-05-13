@@ -2,6 +2,8 @@
 import { createAction } from "redux-actions";
 import { IChatMessageStateContext } from "./context";
 import { IChatMessage } from "./models";
+import { sendMessage } from "@/utils/chat-api";
+import { ISendMessage } from "@/components/chat/ChatMessage";
 
 // Enum defining the actions for creating a ChatMessage
 export enum ChatMessageActionEnums {
@@ -22,11 +24,10 @@ export const sendMessagePending = createAction<IChatMessageStateContext>(
 export const sendMessageSuccess = createAction<
   IChatMessageStateContext,
   IChatMessage
->(ChatMessageActionEnums.sendMessageSuccess, (ChatMessage: IChatMessage) => ({
+>(ChatMessageActionEnums.sendMessageSuccess, () => ({
   isPending: false,
   isSuccess: true,
   isError: false,
-  ChatMessage,
 }));
 
 export const sendMessageError = createAction<IChatMessageStateContext>(

@@ -1,6 +1,7 @@
 "use client";
 import { createContext } from "react";
 import { IChatMessage } from "./models";
+import { ISendMessage } from "@/components/chat/ChatMessage";
 
 // Context shape interface
 export interface IChatMessageStateContext {
@@ -13,7 +14,7 @@ export interface IChatMessageStateContext {
 
 // ChatMessage action context interface
 export interface IChatMessageActionContext {
-  sendMessage: (ChatMessage: IChatMessage) => void;
+  sendMessage: (sendMessage: ISendMessage) => void;
   getMessagesWithPerson: (personId: string) => void;
 }
 

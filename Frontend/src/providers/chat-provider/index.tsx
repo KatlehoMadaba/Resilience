@@ -14,8 +14,8 @@ import {
   getMessagesWithPersonError,
 } from "./actions";
 import { getAxiosInstace } from "@/utils/axiosInstance";
-import { IChatMessage } from "../../providers/chat-provider/models";
 import { ChatMessageReducer } from "./reducer";
+import { ISendMessage } from "@/components/chat/ChatMessage";
 
 export const ChatMessageProvider = ({
   children,
@@ -25,12 +25,12 @@ export const ChatMessageProvider = ({
   const [state, dispatch] = useReducer(ChatMessageReducer, INITIAL_STATE);
   const instance = getAxiosInstace();
 
-  const sendMessage = async (ChatMessage: IChatMessage) => {
+  const sendMessage = async (sendMessage: ISendMessage) => {
     
     dispatch(sendMessagePending());
     const endpoint = `/api/services/app/Chat/SendMessage`;
     await instance
-      .post(endpoint, ChatMessage)
+      .post(endpoint, sendMessage)
       .then((response) => {
         dispatch(sendMessageSuccess(response?.data?.result));
       })
