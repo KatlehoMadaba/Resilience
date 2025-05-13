@@ -1,3 +1,4 @@
+"use client"
 import { useState } from "react";
 import ChatInterface from "@/components/chat/ChatInterface";
 import ProfessionalContacts from "@/components/chat/ProfessionalContacts";
