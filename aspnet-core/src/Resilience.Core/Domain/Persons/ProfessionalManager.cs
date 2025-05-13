@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Abp.Domain.Repositories;
 using Abp.Domain.Services;
@@ -128,6 +130,26 @@ namespace Resilience.Domain.Persons
             }
 
         }
+
+        public async Task<IQueryable<Professional>> GetAllProfessionalsWithUserAsync()
+        {
+            using (var uow = _unitOfWorkManager.Begin()) using (_unitOfWorkManager.Current.SetTenantId(1))
+            {
+
+                var session = _abpSession.Use(1, 1);
+
+                using (_unitOfWorkManager.Current.SetTenantId(1))
+                {
+                    var professionals = await _professionalRepository.GetAllIncludingAsync(p => p.User);
+                    await uow.CompleteAsync();
+
+                    return professionals;
+                }
+            }
+        }
+        
+
+
 
         public async Task<Professional> GetProfessionalByUserIdAsync(long userId)
         {

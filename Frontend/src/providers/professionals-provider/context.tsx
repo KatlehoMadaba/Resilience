@@ -21,7 +21,6 @@ export interface IProfessionalActionContext {
   createProfessional: (Professional: IProfessionalRegister) => void; // Create a new Professional
   updateProfessional: (Professional: IProfessional) => void; // Update an existing Professional
   deleteProfessional: (id: string) => void; // Delete a Professional
-  getCurrentPersonId: (token: string) => void;
 }
 
 // Initial state with default values
@@ -33,7 +32,8 @@ export const INITIAL_STATE: IProfessionalStateContext = {
 };
 
 // Create the state context and the action context
-export const ProfessionalStateContext = createContext<IProfessionalStateContext>(INITIAL_STATE);
-export const ProfessionalActionContext = createContext<IProfessionalActionContext | undefined>(
-  undefined
-);
+export const ProfessionalStateContext =
+  createContext<IProfessionalStateContext>(INITIAL_STATE);
+export const ProfessionalActionContext = createContext<
+  IProfessionalActionContext | undefined
+>(undefined);

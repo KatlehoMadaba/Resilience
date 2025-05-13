@@ -39,9 +39,12 @@ export const getProfessionalsPending = createAction<IProfessionalStateContext>(
   () => ({ isPending: true, isSuccess: false, isError: false })
 );
 
-export const getProfessionalsSuccess = createAction<IProfessionalStateContext, IProfessional[]>(
+export const getProfessionalsSuccess = createAction<
+  IProfessionalStateContext,
+  IProfessional[]
+>(
   ProfessionalActionEnums.getProfessionalsSuccess,
-  (Professionals) => ({
+  (Professionals: IProfessional[]) => ({
     isPending: false,
     isSuccess: true,
     isError: false,
@@ -51,7 +54,11 @@ export const getProfessionalsSuccess = createAction<IProfessionalStateContext, I
 
 export const getProfessionalsError = createAction<IProfessionalStateContext>(
   ProfessionalActionEnums.getProfessionalsError,
-  () => ({ isPending: false, isSuccess: false, isError: true })
+  () => ({
+    isPending: false,
+    isSuccess: false,
+    isError: true,
+  })
 );
 
 // Get Single Professional
@@ -60,15 +67,15 @@ export const getProfessionalPending = createAction<IProfessionalStateContext>(
   () => ({ isPending: true, isSuccess: false, isError: false })
 );
 
-export const getProfessionalSuccess = createAction<IProfessionalStateContext, IProfessional>(
-  ProfessionalActionEnums.getProfessionalSuccess,
-  (Professional) => ({
-    isPending: false,
-    isSuccess: true,
-    isError: false,
-    Professional,
-  })
-);
+export const getProfessionalSuccess = createAction<
+  IProfessionalStateContext,
+  IProfessional
+>(ProfessionalActionEnums.getProfessionalSuccess, (Professional) => ({
+  isPending: false,
+  isSuccess: true,
+  isError: false,
+  Professional,
+}));
 
 export const getProfessionalError = createAction<IProfessionalStateContext>(
   ProfessionalActionEnums.getProfessionalError,
@@ -76,12 +83,16 @@ export const getProfessionalError = createAction<IProfessionalStateContext>(
 );
 
 //Get Current Professional
-export const getCurrentProfessionalPending = createAction<IProfessionalStateContext>(
-  ProfessionalActionEnums.getCurrentProfessionalPending,
-  () => ({ isPending: true, isSuccess: false, isError: false })
-);
+export const getCurrentProfessionalPending =
+  createAction<IProfessionalStateContext>(
+    ProfessionalActionEnums.getCurrentProfessionalPending,
+    () => ({ isPending: true, isSuccess: false, isError: false })
+  );
 
-export const getCurrentProfessionalSuccess = createAction<IProfessionalStateContext, IProfessional>(
+export const getCurrentProfessionalSuccess = createAction<
+  IProfessionalStateContext,
+  IProfessional
+>(
   ProfessionalActionEnums.getCurrentProfessionalSuccess,
   (currentProfessional) => ({
     isPending: false,
@@ -91,48 +102,49 @@ export const getCurrentProfessionalSuccess = createAction<IProfessionalStateCont
   })
 );
 
-export const getCurrentProfessionalError = createAction<IProfessionalStateContext>(
-  ProfessionalActionEnums.getCurrentProfessionalError,
-  () => ({ isPending: false, isSuccess: false, isError: true })
-);
+export const getCurrentProfessionalError =
+  createAction<IProfessionalStateContext>(
+    ProfessionalActionEnums.getCurrentProfessionalError,
+    () => ({ isPending: false, isSuccess: false, isError: true })
+  );
 
+export const getCurrentPersonIdPending =
+  createAction<IProfessionalStateContext>(
+    ProfessionalActionEnums.getCurrentPersonIdPending,
+    () => ({ isPending: true, isSuccess: false, isError: false })
+  );
 
-export const getCurrentPersonIdPending = createAction<IProfessionalStateContext>(
-  ProfessionalActionEnums.getCurrentPersonIdPending,
-  () => ({ isPending: true, isSuccess: false, isError: false })
-);
-
-export const getCurrentPersonIdSuccess = createAction<IProfessionalStateContext,string>(
-  ProfessionalActionEnums.getCurrentPersonIdSuccess,
-  (personId) => ({
-    isPending: false,
-    isSuccess: true,
-    isError: false,
-    personId,
-  })
-);
+export const getCurrentPersonIdSuccess = createAction<
+  IProfessionalStateContext,
+  string
+>(ProfessionalActionEnums.getCurrentPersonIdSuccess, (personId) => ({
+  isPending: false,
+  isSuccess: true,
+  isError: false,
+  personId,
+}));
 
 export const getCurrentPersonIdError = createAction<IProfessionalStateContext>(
   ProfessionalActionEnums.getCurrentPersonIdError,
   () => ({ isPending: false, isSuccess: false, isError: true })
 );
 
-
 // Create Professional
-export const createProfessionalPending = createAction<IProfessionalStateContext>(
-  ProfessionalActionEnums.createProfessionalPending,
-  () => ({ isPending: true, isSuccess: false, isError: false })
-);
+export const createProfessionalPending =
+  createAction<IProfessionalStateContext>(
+    ProfessionalActionEnums.createProfessionalPending,
+    () => ({ isPending: true, isSuccess: false, isError: false })
+  );
 
-export const createProfessionalSuccess = createAction<IProfessionalStateContext, IProfessional>(
-  ProfessionalActionEnums.createProfessionalSuccess,
-  (Professional) => ({
-    isPending: false,
-    isSuccess: true,
-    isError: false,
-    Professional,
-  })
-);
+export const createProfessionalSuccess = createAction<
+  IProfessionalStateContext,
+  IProfessional
+>(ProfessionalActionEnums.createProfessionalSuccess, (Professional) => ({
+  isPending: false,
+  isSuccess: true,
+  isError: false,
+  Professional,
+}));
 
 export const createProfessionalError = createAction<IProfessionalStateContext>(
   ProfessionalActionEnums.createProfessionalError,
@@ -140,40 +152,42 @@ export const createProfessionalError = createAction<IProfessionalStateContext>(
 );
 
 //Update Professional
-export const updateProfessionalPending = createAction<IProfessionalStateContext>(
-  ProfessionalActionEnums.updateProfessionalPending,
-  () => ({ isPending: true, isSuccess: false, isError: false })
-);
+export const updateProfessionalPending =
+  createAction<IProfessionalStateContext>(
+    ProfessionalActionEnums.updateProfessionalPending,
+    () => ({ isPending: true, isSuccess: false, isError: false })
+  );
 
-export const updateProfessionalSuccess = createAction<IProfessionalStateContext, IProfessional>(
-  ProfessionalActionEnums.updateProfessionalSuccess,
-  (Professional) => ({
-    isPending: false,
-    isSuccess: true,
-    isError: false,
-    Professional,
-  })
-);
+export const updateProfessionalSuccess = createAction<
+  IProfessionalStateContext,
+  IProfessional
+>(ProfessionalActionEnums.updateProfessionalSuccess, (Professional) => ({
+  isPending: false,
+  isSuccess: true,
+  isError: false,
+  Professional,
+}));
 
 export const updateProfessionalError = createAction<IProfessionalStateContext>(
   ProfessionalActionEnums.updateProfessionalError,
   () => ({ isPending: false, isSuccess: false, isError: true })
 );
 
-export const deleteProfessionalPending = createAction<IProfessionalStateContext>(
-  ProfessionalActionEnums.deleteProfessionalPending,
-  () => ({ isPending: true, isSuccess: false, isError: false })
-);
+export const deleteProfessionalPending =
+  createAction<IProfessionalStateContext>(
+    ProfessionalActionEnums.deleteProfessionalPending,
+    () => ({ isPending: true, isSuccess: false, isError: false })
+  );
 
-export const deleteProfessionalSuccess = createAction<IProfessionalStateContext, IProfessional>(
-  ProfessionalActionEnums.deleteProfessionalSuccess,
-  (Professional) => ({
-    isPending: false,
-    isSuccess: true,
-    isError: false,
-    Professional,
-  })
-);
+export const deleteProfessionalSuccess = createAction<
+  IProfessionalStateContext,
+  IProfessional
+>(ProfessionalActionEnums.deleteProfessionalSuccess, (Professional) => ({
+  isPending: false,
+  isSuccess: true,
+  isError: false,
+  Professional,
+}));
 
 export const deleteProfessionalError = createAction<IProfessionalStateContext>(
   ProfessionalActionEnums.deleteProfessionalError,
