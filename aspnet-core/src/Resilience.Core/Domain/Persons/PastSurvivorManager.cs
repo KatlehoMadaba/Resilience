@@ -97,7 +97,6 @@ namespace Resilience.Domain.Persons
                         HasDisclosedBefore = hasDisclosedBefore ?? false,
                         TimeElapsedInDays = timeElapsedInDays,
                         SupportSessions = new List<SupportSession>(),
-                        Reports = new List<Report>(),
                         Stories = new List<Story>(),
                         Petitions = new List<Petition>(),
                         CrowdfundingCampaigns = new List<CrowdfundingCampaign>(),
@@ -161,9 +160,7 @@ namespace Resilience.Domain.Persons
                 p => p.User,
                 p => p.CrowdfundingCampaigns,
                 p => p.SupportSessions,
-                p => p.Testimonies,
-                p=>p.JournalEntries,
-                p=>p.MoodEntries
+                p => p.Testimonies
             );
 
                 var pastSurvivor = await pastSurvivors.FirstOrDefaultAsync(p => p.UserId == userId);

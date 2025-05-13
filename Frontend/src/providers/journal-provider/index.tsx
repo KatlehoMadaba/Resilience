@@ -30,7 +30,7 @@ export const JournalEntryProvider = ({
     await instance
       .post(endpoint, JournalEntry)
       .then((response) => {
-        dispatch(createJournalEntrySuccess(response?.data));
+        dispatch(createJournalEntrySuccess(response?.data?.result));
       })
       .catch((error) => {
         console.error("Error fetching medical centres:", error);
@@ -41,7 +41,7 @@ export const JournalEntryProvider = ({
     dispatch(getJournalEntriesByPersonIdPending());
     const endpoint = `/api/services/app/PersonService/GetCurrentPersonId?=${PersonId}`;
     await instance.get(endpoint).then((response) => {
-      dispatch(getJournalEntriesByPersonIdSuccess(response?.data));
+      dispatch(getJournalEntriesByPersonIdSuccess(response?.data.result));
     });
   };
 
