@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Abp.Domain.Repositories;
 using Abp.Domain.Services;
 using Abp.Domain.Uow;
 using Abp.Runtime.Session;
 using Abp.UI;
-using Microsoft.EntityFrameworkCore;
 
 namespace Resilience.Domain.ProgressTrackers
 {
@@ -30,25 +27,22 @@ namespace Resilience.Domain.ProgressTrackers
 
 
 
-        public async Task<IQueryable<JournalEntry>> GetJournalEntryByPersonIdWithUserAsync(Guid personid)
+        public IQueryable<JournalEntry> GetJournalEntriesByPersonId(Guid personId)
         {
-            using (var uow = _unitOfWorkManager.Begin()) using (_unitOfWorkManager.Current.SetTenantId(1))
+            try
             {
-                var session = _abpSession.Use(1, 1);
-                try
+                return _journalEntryRepository
+                    .GetAll()
+                    .Where(entry => entry.PersonId == personId);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error($"Error retrieving journal entries for PersonId {personId}: {ex.Message}", ex);
+                if (ex.InnerException != null)
                 {
-                    var query = await _journalEntryRepository.GetAllIncludingAsync(p=>p.Person);
-                    await uow.CompleteAsync();
-                    return query;
+                    Logger.Error($"Inner exception: {ex.InnerException.Message}");
                 }
-                catch (Exception ex)
-                {
-                    Logger.Error($"Error getting entries: {ex.Message}", ex);
-                    if (ex.InnerException != null)
-                        Logger.Error($"Inner exception: {ex.InnerException.Message}");
-                    throw new UserFriendlyException("Error getting entries", ex);
-                }
-
+                throw new UserFriendlyException("An error occurred while retrieving journal entries.", ex);
             }
         }
 
