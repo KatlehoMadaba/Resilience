@@ -1,3 +1,4 @@
+"use client"
 import ChatInterface from "@/components/chat/ChatInterface";
 import ProfessionalContacts from "@/components/chat/ProfessionalContacts";
 import SurviorContacts from "@/components/chat/SurviorContacts";
