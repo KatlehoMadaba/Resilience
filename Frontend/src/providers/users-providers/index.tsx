@@ -41,13 +41,11 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   //   }
   // }, [loggedInUser]);
   // Get current user
-  const getCurrentUser = async (token: string): Promise<IUser | null> => {
+  const getCurrentUser = async (): Promise<IUser | null> => {
     dispatch(getCurrentUserPending());
     const endpoint = `/api/services/app/Session/GetCurrentLoginInformations`;
     return instance
-      .get(endpoint, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
+      .get(endpoint)
       .then((response) => {
         if (response?.data?.result) {
           dispatch(getCurrentUserSuccess(response?.data?.result?.user));
@@ -74,6 +72,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
       })
       .then((response) => {
         dispatch(getCurrentPersonIdSuccess(response?.data?.result));
+        console.log("the response", response?.data?.result);
       })
       .catch((error) => {
         console.error("Error while getting current Person:", error);
