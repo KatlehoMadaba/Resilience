@@ -1,15 +1,11 @@
-"use client"
-import React, { useEffect } from "react";
+"use client";
+import React, { useEffect} from "react";
 import { useProfessionalActions } from "@/providers/professionals-provider";
 import { useProfessionalState } from "@/providers/professionals-provider";
+import { Spin } from "antd";
 const ProfessionalContacts = () => {
   const { getProfessionals } = useProfessionalActions();
-  const {
-    getProfessionalsSuccess,
-    getProfessionalsError,
-    getCurrentProfessionalPending,
-    Professionals,
-  } = useProfessionalState();
+  const { Professionals, isPending } = useProfessionalState();
   useEffect(() => {
     if (!Professionals || Professionals.length === 0) {
       getProfessionals();
@@ -17,6 +13,7 @@ const ProfessionalContacts = () => {
   }, []);
   return (
     <div>
+      {isPending && <Spin tip="loading contacts"/>}
       {Professionals && Professionals.length > 0 ? (
         Professionals.map((professional, index) => (
           <div key={index}>
