@@ -15,13 +15,13 @@ export interface IUserStateContext {
 
 // User action context interface
 export interface IUserActionContext {
-  getCurrentUser: (token: string) => Promise<IUser>;
+  getCurrentUser: () => Promise<IUser>;
   getUsers: () => void; // Fetch all users
   getUser: (id: string) => void; // Fetch a single user
   createUser: (user: IUser) => void; // Create a new user
   updateUser: (user: IUser) => void; // Update an existing user
   deleteUser: (id: string) => void; // Delete a user
-  getCurrentPersonId: (toke: string) => void;
+  getCurrentPersonId: (token: string) => void;
 }
 
 // Initial state with default values

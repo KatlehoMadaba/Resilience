@@ -53,8 +53,7 @@ export default function LoginForm({
       const loginResult = await signIn(values);
 
       if (loginResult) {
-        const token = sessionStorage.getItem("jwt");
-        getCurrentUser(token);
+        getCurrentUser();
         setLoading(false);
         showSuccessToast();
         onLoginSuccess?.();

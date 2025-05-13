@@ -16,7 +16,7 @@ import {
   useMedicalCentreState,
   useMedicalCentreActions,
 } from "@/providers/medicalCenter-provider";
-import { useHospitalStyles } from "./styles"; // import new styles
+import { useHospitalStyles } from "./styles"; 
 
 const { Title, Link, Paragraph } = Typography;
 
@@ -27,7 +27,7 @@ const NearbyHospitals = () => {
   const { getMedicalCentres } = useMedicalCentreActions();
   const { medicalCentres, isPending: isMedicalPending } =
     useMedicalCentreState();
-  const { styles } = useHospitalStyles(); // use the styles hook
+  const { styles } = useHospitalStyles(); 
 
   useEffect(() => {
     getLocation().catch(console.error);
