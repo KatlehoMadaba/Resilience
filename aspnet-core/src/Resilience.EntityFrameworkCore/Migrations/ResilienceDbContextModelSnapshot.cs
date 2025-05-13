@@ -2480,7 +2480,7 @@ namespace Resilience.Migrations
                     b.Property<Guid>("PersonId")
                         .HasColumnType("uuid");
 
-                    b.Property<long>("ReportStatus")
+                    b.Property<long?>("ReportStatus")
                         .HasColumnType("bigint");
 
                     b.Property<string>("ReportStatusText")

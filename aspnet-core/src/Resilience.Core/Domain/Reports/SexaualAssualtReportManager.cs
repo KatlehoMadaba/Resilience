@@ -7,6 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Abp.Domain.Repositories;
 using Abp.Domain.Services;
+using Abp.Domain.Uow;
+using Abp.Runtime.Session;
 using Abp.UI;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
@@ -21,13 +23,14 @@ namespace Resilience.Domain.Reports
     {
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly IRepository<SexualAssaultReport, Guid> _sexualAssualtrepository;
-
-        public SexaualAssualtReportManager(IRepository<SexualAssaultReport, Guid> sexualAssualtrepository, IWebHostEnvironment hostingEnviroment, IRepository sexualAssaultReportRepository)
+        private readonly IUnitOfWorkManager _unitOfWorkManager;
+        private readonly IAbpSession _abpSession;
+        public SexaualAssualtReportManager(IRepository<SexualAssaultReport, Guid> sexualAssualtrepository, IWebHostEnvironment hostingEnviroment, IRepository sexualAssaultReportRepository, IUnitOfWorkManager unitOfWorkManager, IAbpSession _abpSession)
         {
 
             _webHostEnvironment = hostingEnviroment;
             _sexualAssualtrepository = sexualAssualtrepository;
-
+            _unitOfWorkManager = unitOfWorkManager;
         }
 
         public async Task<SexualAssaultReport> CreateSexualReportAsync
@@ -38,32 +41,32 @@ namespace Resilience.Domain.Reports
                 string? EncryptedContent,
                 bool isSharedWithAuthorities,
                 DateTime ? SharedDate,
-                string fileReference,
+                string? fileReference,
                 string fullName,
                 string idNumber,
                 DateTime? dateOfBirth,
                 string address,
                 string phoneNumber,
-                string occupation,
+                string? occupation,
 
                 // Incident Details
                 DateTime? incidentDateTime,
-                string location,
+                string? location,
                 bool aloneOrWithSomeone,
-                string leadingEventsDescription,
+                string? leadingEventsDescription,
 
                 // Suspect Details
                 bool isSuspectKnown,
-                string suspectName,
-                string suspectDescription,
-                string weaponOrThreats,
+                string? suspectName,
+                string? suspectDescription,
+                string? weaponOrThreats,
 
                 // Assault Details
-                string assaultDescription,
+                string? assaultDescription,
                 bool injuries,
-                string wordsSpokenBySuspect,
+                string? wordsSpokenBySuspect,
                 // Post-Incident Actions
-                string actionsTaken,
+                string? actionsTaken,
                 bool changedClothesOrShowered,
                 bool clothesKept,
 
@@ -72,7 +75,7 @@ namespace Resilience.Domain.Reports
                 string witnessDetails,
                 bool cctvAvailable,
                 bool isOtherEvidence,
-                string otherEvidenceDescription,
+                string? otherEvidenceDescription,
 
                 // Medical
                 bool receivedMedicalAttention,
@@ -83,64 +86,71 @@ namespace Resilience.Domain.Reports
                 bool prefersFemaleOfficer
             )
         {
+              SexualAssaultReport asexualAssaultReport;
             try
             {
-                var SexualAssaultReport = new SexualAssaultReport
+                using (var uow = _unitOfWorkManager.Begin()) using (_unitOfWorkManager.Current.SetTenantId(1))
                 {
+                    var session = _abpSession.Use(1, 1);
+                    var sexualAssaultReport = new SexualAssaultReport
+                    {
 
-                     PersonId=PersonId,
-                     ReportStatus=reportStatus,
-                     EncryptedContent = EncryptedContent,
-                     IsSharedWithAuthorities = isSharedWithAuthorities,
-                     SharedDate = SharedDate,
-                     FileReference = fileReference,
+                        PersonId = PersonId,
+                        ReportStatus = reportStatus,
+                        EncryptedContent = EncryptedContent,
+                        IsSharedWithAuthorities = isSharedWithAuthorities,
+                        SharedDate = SharedDate,
+                        FileReference = fileReference,
 
-                    FullName = fullName,
-                    IDNumber = idNumber,
-                    DateOfBirth = dateOfBirth,
-                    Address = address,
-                    PhoneNumber = phoneNumber,
-                    Occupation = occupation,
+                        FullName = fullName,
+                        IDNumber = idNumber,
+                        DateOfBirth = dateOfBirth,
+                        Address = address,
+                        PhoneNumber = phoneNumber,
+                        Occupation = occupation,
 
-                    // Incident Details  
-                    IncidentDateTime = incidentDateTime,
-                    Location = location,
-                    AloneOrWithSomeone = aloneOrWithSomeone,
-                    LeadingEventsDescription = leadingEventsDescription,
+                        // Incident Details  
+                        IncidentDateTime = incidentDateTime,
+                        Location = location,
+                        AloneOrWithSomeone = aloneOrWithSomeone,
+                        LeadingEventsDescription = leadingEventsDescription,
 
-                    // Suspect Details  
-                    IsSuspectKnown = isSuspectKnown,
-                    SuspectName = suspectName,
-                    SuspectDescription = suspectDescription,
-                    WeaponOrThreats = weaponOrThreats,
+                        // Suspect Details  
+                        IsSuspectKnown = isSuspectKnown,
+                        SuspectName = suspectName,
+                        SuspectDescription = suspectDescription,
+                        WeaponOrThreats = weaponOrThreats,
 
-                    // Assault Details  
-                    AssaultDescription = assaultDescription,
-                    Injuries = injuries,
-                    WordsSpokenBySuspect = wordsSpokenBySuspect,
+                        // Assault Details  
+                        AssaultDescription = assaultDescription,
+                        Injuries = injuries,
+                        WordsSpokenBySuspect = wordsSpokenBySuspect,
 
-                    // Post-Incident Actions  
-                    ActionsTaken = actionsTaken,
-                    ChangedClothesOrShowered = changedClothesOrShowered,
-                    ClothesKept = clothesKept,
+                        // Post-Incident Actions  
+                        ActionsTaken = actionsTaken,
+                        ChangedClothesOrShowered = changedClothesOrShowered,
+                        ClothesKept = clothesKept,
 
-                    // Witnesses and Evidence  
-                    WitnessPresent = witnessPresent,
-                    WitnessDetails = witnessDetails,
-                    CCTVAvailable = cctvAvailable,
-                    IsOtherEvidence = isOtherEvidence,
-                    OtherEvidenceDescription = otherEvidenceDescription,
+                        // Witnesses and Evidence  
+                        WitnessPresent = witnessPresent,
+                        WitnessDetails = witnessDetails,
+                        CCTVAvailable = cctvAvailable,
+                        IsOtherEvidence = isOtherEvidence,
+                        OtherEvidenceDescription = otherEvidenceDescription,
 
-                    // Medical  
-                    ReceivedMedicalAttention = receivedMedicalAttention,
-                    WillingForensicExam = willingForensicExam,
+                        // Medical  
+                        ReceivedMedicalAttention = receivedMedicalAttention,
+                        WillingForensicExam = willingForensicExam,
 
-                    // Safety and Support  
-                    FeelsSafe = feelsSafe,
-                    WantsCounsellor = wantsCounsellor,
-                    PrefersFemaleOfficer = prefersFemaleOfficer
-                };
-                return await _sexualAssualtrepository.InsertAsync(SexualAssaultReport);
+                        // Safety and Support  
+                        FeelsSafe = feelsSafe,
+                        WantsCounsellor = wantsCounsellor,
+                        PrefersFemaleOfficer = prefersFemaleOfficer
+                    };
+                    await _sexualAssualtrepository.InsertAsync(sexualAssaultReport);
+                    asexualAssaultReport = sexualAssaultReport;
+                    await uow.CompleteAsync();
+                }
             }
             catch (Exception ex)
             {
@@ -149,10 +159,11 @@ namespace Resilience.Domain.Reports
                     Logger.Error($"Inner exception: {ex.InnerException.Message}");
                 throw new UserFriendlyException("An error occurred while creating the Person", ex);
             }
+            return asexualAssaultReport;
         }
 
         //Create the Pdf 
-       
+
 
 
 

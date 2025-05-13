@@ -5,7 +5,6 @@ using Resilience.Domain.Reports;
 
 namespace Resilience.Services.ReportsServices.Dtos
 {
-    [AutoMap(typeof(Report))]
     public class ReportDto: EntityDto<Guid>
     {
         public Guid PersonId { get; set; }

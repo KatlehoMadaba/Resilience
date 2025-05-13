@@ -8,7 +8,14 @@ namespace Resilience.Services.ReportsServices.Dtos
     [AutoMap(typeof(SexualAssaultReport))]
     public class SexualAssaultReportDto:EntityDto<Guid>
     {
-        public Guid ReportId { get; set; }
+        public Guid PersonId { get; set; }
+        public ReflistReportStatus ReportStatus { get; set; }
+        public string? EncryptedContent { get; set; } // Encrypted report details
+        public bool IsSharedWithAuthorities { get; set; }
+        public DateTime? SharedDate { get; set; }
+        public string FileReference { get; set; } // For PDF generation
+
+
         // Victim Details
         public string FullName { get; set; }
         public string IDNumber { get; set; }
@@ -25,14 +32,14 @@ namespace Resilience.Services.ReportsServices.Dtos
 
         // Suspect Details
         public bool IsSuspectKnown { get; set; }
-        public string SuspectName { get; set; }
-        public string SuspectDescription { get; set; }
-        public string WeaponOrThreats { get; set; }
+        public string? SuspectName { get; set; }
+        public string? SuspectDescription { get; set; }
+        public string? WeaponOrThreats { get; set; }
 
         // Assault Details
-        public string AssaultDescription { get; set; }
+        public string? AssaultDescription { get; set; }
         public bool Injuries { get; set; }
-        public string WordsSpokenBySuspect { get; set; }
+        public string? WordsSpokenBySuspect { get; set; }
 
         // Post-Incident Actions
         public string ActionsTaken { get; set; }
