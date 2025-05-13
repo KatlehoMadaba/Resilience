@@ -1,76 +1,96 @@
 "use client";
+import React, { useEffect, useRef, useState } from "react";
+import {
+  useChatMessageActions,
+  useChatMessageState,
+} from "@/providers/chat-provider";
+import { IChatMessage, ISendMessage } from "@/providers/chat-provider/models";
+import { Button, Input, Spin } from "antd";
+import * as S from "./ChatInterface.styles";
 
-import { useEffect, useRef, useState } from "react";
-import { Input, Button, Spin } from "antd";
-import MessageBubble from "./MessageBubble";
-import styles from "./ChatInterface.module.css";
-import { fetchMessagesWith, sendMessage } from "@/utils/chat-api";
-import { ChatMessage } from "./ChatMessage";
-import { IPersonId } from "@/providers/users-providers/models";
+interface ChatInterfaceProps {
+  personId: string;
+}
 
-export default function ChatInterface({ personId }: IPersonId) {
-  //const { } = useUserState();
-  const [messages, setMessages] = useState<ChatMessage[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [input, setInput] = useState("");
+const ChatInterface = ({ personId }: ChatInterfaceProps) => {
+  const { getMessagesWithPerson, sendMessage } = useChatMessageActions();
+  const { ChatMessages, isPending } = useChatMessageState();
+  const [messageContent, setMessageContent] = useState("");
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  const loadMessages = async () => {
-    setLoading(true);
-    try {
-      const data = await fetchMessagesWith(personId);
-      setMessages(data);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleSend = async () => {
-    if (!input.trim()) return;
-    await sendMessage(personId, input);
-    setInput("");
-    await loadMessages();
-  };
-
   useEffect(() => {
-    loadMessages();
+    if (personId) getMessagesWithPerson(personId);
   }, [personId]);
 
   useEffect(() => {
+    scrollToBottom();
+  }, [ChatMessages]);
+
+  const handleSendMessage = () => {
+    if (messageContent.trim()) {
+      const payload: ISendMessage = {
+        receiverPersonId: personId,
+        content: messageContent.trim(),
+      };
+      sendMessage(payload);
+      setMessageContent("");
+    }
+  };
+
+  const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
+  };
+
+  const userId =
+    typeof window !== "undefined" ? localStorage.getItem("userId") : null;
 
   return (
-    <div className={styles.chatWrapper}>
-      <div className={styles.chatBox}>
-        <div className={styles.messagesArea}>
-          {loading ? (
+    <S.ChatContainer>
+      <S.MessagesContainer>
+        {isPending ? (
+          <S.Spinner>
             <Spin />
-          ) : (
-            messages?.map((msg) => (
-              <MessageBubble
-                key={msg.id}
-                content={msg.content}
-                isOwn={
-                  msg.senderPersonId === personId
-                }
-              />
-            ))
-          )}
-          <div ref={messagesEndRef} />
-        </div>
-        <div className={styles.inputArea}>
-          <Input.TextArea
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            placeholder="Type your message..."
-            rows={2}
-          />
-          <Button type="primary" onClick={handleSend}>
-            Send
-          </Button>
-        </div>
-      </div>
-    </div>
+          </S.Spinner>
+        ) : (
+          ChatMessages?.map((msg: IChatMessage) => (
+            <S.MessageWrapper
+              key={msg.id}
+              align={msg.senderPersonId === userId ? "right" : "left"}
+            >
+              <S.MessageBubble isSender={msg.senderPersonId === userId}>
+                {msg.content}
+              </S.MessageBubble>
+              <S.Timestamp>
+                {new Date(msg.sentAt).toLocaleTimeString([], {
+                  hour: "2-digit",
+                  minute: "2-digit",
+                })}
+              </S.Timestamp>
+            </S.MessageWrapper>
+          ))
+        )}
+        <div ref={messagesEndRef} />
+      </S.MessagesContainer>
+
+      <S.InputContainer>
+        <Input.TextArea
+          value={messageContent}
+          onChange={(e) => setMessageContent(e.target.value)}
+          onPressEnter={(e) => {
+            if (!e.shiftKey) {
+              e.preventDefault();
+              handleSendMessage();
+            }
+          }}
+          placeholder="Type your message..."
+          autoSize={{ minRows: 1, maxRows: 4 }}
+        />
+        <Button type="primary" onClick={handleSendMessage}>
+          Send
+        </Button>
+      </S.InputContainer>
+    </S.ChatContainer>
   );
-}
+};
+
+export default ChatInterface;

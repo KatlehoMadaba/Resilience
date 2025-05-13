@@ -1,19 +1,16 @@
-// import ChatInterface from "@/components/chat/ChatInterface";
-
-// interface Props {
-//   params: {
-//     personId: string;
-//   };
-// }
-
-// export default function ChatPage({ params }: Props) {
-//   return <ChatInterface personId={params.personId} />;
-// }
-
-import React from "react";
+import { useState } from "react";
+import ChatInterface from "@/components/chat/ChatInterface";
+import ProfessionalContacts from "@/components/chat/ProfessionalContacts";
 
 const HumanTherapist = () => {
-  return <div>HumanTherapist</div>;
+  const [selectedPersonId, setSelectedPersonId] = useState<string>("");
+
+  return (
+    <div>
+      {selectedPersonId && <ChatInterface personId={selectedPersonId} />}
+      <ProfessionalContacts onSelectPerson={setSelectedPersonId} />
+    </div>
+  );
 };
 
 export default HumanTherapist;
