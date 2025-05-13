@@ -44,13 +44,13 @@ const ChatInterface = () => {
       };
       sendMessage(message);
     } catch (error) {
-      console.log(error);
+      console.error("messages error", error);
     }
   };
 
   return (
     <div>
-      {isPending && <Spin tip="loading messages"/>}
+      {isPending && <Spin tip="loading messages" />}
       {ChatMessages && ChatMessages.length > 0 ? (
         ChatMessages.map((messages, index) => (
           <div key={index}>

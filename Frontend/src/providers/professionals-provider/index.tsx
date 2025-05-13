@@ -60,12 +60,9 @@ export const ProfessionalProvider = ({
       .get(endpoint)
       .then((response) => {
         dispatch(getProfessionalsSuccess(response?.data?.result?.items));
-        console.log("profs", response.data);
       })
       .catch((error) => {
         console.error("Error fetching Professionals:", error);
-        console.log("profs not getting");
-
         dispatch(getProfessionalsError());
       });
   };

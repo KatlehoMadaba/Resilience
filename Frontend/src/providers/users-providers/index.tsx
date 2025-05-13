@@ -72,7 +72,6 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
       })
       .then((response) => {
         dispatch(getCurrentPersonIdSuccess(response?.data?.result));
-        console.log("the response", response?.data?.result);
       })
       .catch((error) => {
         console.error("Error while getting current Person:", error);

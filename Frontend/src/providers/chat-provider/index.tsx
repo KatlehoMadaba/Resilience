@@ -32,23 +32,19 @@ export const ChatMessageProvider = ({
       .post(endpoint, sendMessage)
       .then((response) => {
         dispatch(sendMessageSuccess(response?.data?.result));
-        console.log("this the successful message", sendMessage);
       })
       .catch((error) => {
         console.error("Error sending messages for sending:", error);
-        console.log("This message failed", error);
         dispatch(sendMessageError());
       });
   };
   const getMessagesWithPerson = async (personId: string) => {
     dispatch(getMessagesWithPersonPending());
-    // const endpoint = `/api/services/app/Chat/GetMessagesWithPerson?personId=0196c3d5-5509-795a-b25e-60f31bff6c20`;
     const endpoint = `/api/services/app/Chat/GetMessagesWithPerson?personId=${personId}`;
     await instance
       .get(endpoint)
       .then((response) => {
         dispatch(getMessagesWithPersonSuccess(response?.data?.result));
-        console.log("this is the response", response);
       })
       .catch((error) => {
         console.error("Error fetching messages for getting chats:", error);
