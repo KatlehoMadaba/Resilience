@@ -1,23 +1,35 @@
 import ChatInterface from "@/components/chat/ChatInterface";
 import ProfessionalContacts from "@/components/chat/ProfessionalContacts";
 import SurviorContacts from "@/components/chat/SurviorContacts";
-import React from "react";
-import { useSurvivorActions } from "@/providers/survivors-provider/index";
-import { useSurvivorState } from "@/providers/survivors-provider/index";
-import { useSurvState } from '@/providers/professionals-provider';
-import { useState } from "react";
-
+import React, { useEffect, useState } from "react";
+import { getRole } from "@/utils/decoder";
 const HumanTherapist = () => {
-  const { Survivor } = useSurvivorState();
-  const { getCurrentSurvivor } = useSurvivorActions();
-  const [loggedInUser,setLoggedinUser]=useState("professional")
+  const token = sessionStorage.getItem("jwt");
+  const [userRole, setUserRole] = useState("");
 
+  //showing contacts based on role of the user
+  useEffect(() => {
+    const fetchUserRole = async () => {
+      try {
+        const role = await getRole(token);
+        setUserRole(role);
+      } catch (error) {
+        console.error("Error getting user role:", error);
+        setUserRole("survivor");
+      }
+    };
+    fetchUserRole();
+  }, [token]);
   return (
-    <div>
+    <>
       <ChatInterface />
-      <ProfessionalContacts />
-      <SurviorContacts/>
-    </div>
+      {/* {rendering contacts based on the role} */}
+      {userRole === "professional" ? (
+        <SurviorContacts />
+      ) : (
+        <ProfessionalContacts />
+      )}
+    </>
   );
 };
 
