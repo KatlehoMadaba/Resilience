@@ -8,15 +8,15 @@ import {
 import { useEffect } from "react";
 import JournalEntryForm from "@/components/journalEntries/JournalEntryForm";
 import styles from "./JournalPage.module.css";
-import {useSurvivorState,useSurvivorActions} from "@/providers/survivors-provider"
-import { useUser } from '@/providers/users-providers';
+//import {useSurvivorState,useSurvivorActions} from "@/providers/survivors-provider"
+// import { useUser } from '@/providers/users-providers';
 const { Title, Paragraph, Text } = Typography;
 
 export default function JournalPage() {
   const { journalEntries } = useJournalEntryState();
   const { getJournalEntriesByPersonId } = useJournalEntryActions();
-  const { Survivor } = useSurvivorState();
-  const { getCurrentSurvivor } = useSurvivorActions();
+ // const { Survivor } = useSurvivorState();
+ // const { getCurrentSurvivor } = useSurvivorActions();
   // const {user}
   // if (Survivor == null) {
   //   getCurrentSurvivor();
