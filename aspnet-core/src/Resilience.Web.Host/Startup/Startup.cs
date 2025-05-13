@@ -17,6 +17,8 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using ElmahCore.Mvc;
+using ElmahCore;
 
 namespace Resilience.Web.Host.Startup
 {
@@ -41,6 +43,11 @@ namespace Resilience.Web.Host.Startup
             services.AddControllersWithViews(options =>
             {
                 options.Filters.Add(new AbpAutoValidateAntiforgeryTokenAttribute());
+            });
+            services.AddElmah<XmlFileErrorLog>(options =>
+            {
+                options.Path = "elmah"; // Access logs at /elmah
+                options.LogPath = "~/logs"; // You can customize the log directory
             });
 
             IdentityRegistrar.Register(services);
@@ -85,6 +92,8 @@ namespace Resilience.Web.Host.Startup
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
+            app.UseElmah(); // <- Must be placed early in the middleware pipeline
+
             app.UseAbp(options => { options.UseAbpRequestLocalization = false; }); // Initializes ABP framework.
 
             app.UseCors(_defaultCorsPolicyName); // Enable CORS!
