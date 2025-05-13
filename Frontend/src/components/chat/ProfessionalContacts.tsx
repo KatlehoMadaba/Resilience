@@ -13,7 +13,7 @@ const ProfessionalContacts = () => {
   }, []);
   return (
     <div>
-      {isPending && <Spin tip="loading contacts"/>}
+      {isPending && <Spin/>}
       {Professionals && Professionals.length > 0 ? (
         Professionals.map((professional, index) => (
           <div key={index}>
