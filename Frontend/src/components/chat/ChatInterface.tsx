@@ -21,8 +21,7 @@ const ChatInterface = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const token = sessionStorage.getItem("jwt");
-        getCurrentPersonId(token);
+        getCurrentPersonId();
       } catch (error) {
         console.error("Error fetching person ID:", error);
       }
@@ -32,7 +31,7 @@ const ChatInterface = () => {
 
   useEffect(() => {
     if (personId) {
-      getMessagesWithPerson(personId);
+      getMessagesWithPerson("0196cb88-bed4-7033-b1fb-bf32225574e5");
     }
   }, [personId]);
 
