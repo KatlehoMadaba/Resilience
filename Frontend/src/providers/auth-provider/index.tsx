@@ -53,7 +53,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       .post(endpoint, Survivor)
       .then(() => {
         dispatch(signUpSurvivorSuccess());
-        console.log("The signUp value", Survivor);
       })
       .catch((error) => {
         dispatch(signUpSurvivorError());
@@ -86,7 +85,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       .post(endpoint, SignInRequest)
       .then((response) => {
         const token = response?.data?.result.accessToken;
-        console.log("The signUp value", response);
         if (token) {
           sessionStorage.setItem("jwt", token);
           dispatch(signInSuccess(token));

@@ -4,10 +4,7 @@ import { ChatMessageActionEnums } from "./actions";
 import { IChatMessageStateContext, INITIAL_STATE } from "./context";
 
 // Define the reducer for handling ChatMessage actions
-export const ChatMessageReducer = handleActions<
-  IChatMessageStateContext,
-  IChatMessageStateContext
->(
+export const ChatMessageReducer = handleActions<IChatMessageStateContext>(
   {
     [ChatMessageActionEnums.sendMessagePending]: (state, action) => ({
       ...state,

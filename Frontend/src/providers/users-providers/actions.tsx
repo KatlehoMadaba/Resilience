@@ -104,11 +104,11 @@ export const getCurrentPersonIdPending = createAction<IUserStateContext>(
 
 export const getCurrentPersonIdSuccess = createAction<IUserStateContext,string>(
   UserActionEnums.getCurrentPersonIdSuccess,
-  (personId) => ({
+  (personId:string) => ({
     isPending: false,
     isSuccess: true,
     isError: false,
-    personId,
+    personId:personId
   })
 );
 

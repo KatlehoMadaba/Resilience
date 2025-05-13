@@ -53,7 +53,7 @@ const Dashboard = () => {
     }
     try {
       setLoading(true);
-      const user = await getCurrentUser(token);
+      const user = await getCurrentUser();
       await getCurrentSurvivor(user.id);
     } catch (err) {
       console.error("Error loading the Survivor:", err);

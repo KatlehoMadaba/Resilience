@@ -14,8 +14,8 @@ import {
   getMessagesWithPersonError,
 } from "./actions";
 import { getAxiosInstace } from "@/utils/axiosInstance";
-import { IChatMessage } from "../../providers/chat-provider/models";
 import { ChatMessageReducer } from "./reducer";
+import { ISendMessage } from "@/providers/chat-provider/models";
 
 export const ChatMessageProvider = ({
   children,
@@ -25,16 +25,16 @@ export const ChatMessageProvider = ({
   const [state, dispatch] = useReducer(ChatMessageReducer, INITIAL_STATE);
   const instance = getAxiosInstace();
 
-  const sendMessage = async (ChatMessage: IChatMessage) => {
+  const sendMessage = async (sendMessage: ISendMessage) => {
     dispatch(sendMessagePending());
     const endpoint = `/api/services/app/Chat/SendMessage`;
     await instance
-      .post(endpoint, ChatMessage)
+      .post(endpoint, sendMessage)
       .then((response) => {
-        dispatch(sendMessageSuccess(response?.data));
+        dispatch(sendMessageSuccess(response?.data?.result));
       })
       .catch((error) => {
-        console.error("Error fetching medical centres:", error);
+        console.error("Error sending messages for sending:", error);
         dispatch(sendMessageError());
       });
   };
@@ -47,7 +47,7 @@ export const ChatMessageProvider = ({
         dispatch(getMessagesWithPersonSuccess(response?.data?.result));
       })
       .catch((error) => {
-        console.error("Error fetching testimonies:", error);
+        console.error("Error fetching messages for getting chats:", error);
         dispatch(getMessagesWithPersonError());
       });
   };
