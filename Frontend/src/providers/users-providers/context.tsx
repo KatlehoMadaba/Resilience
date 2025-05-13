@@ -21,7 +21,7 @@ export interface IUserActionContext {
   createUser: (user: IUser) => void; // Create a new user
   updateUser: (user: IUser) => void; // Update an existing user
   deleteUser: (id: string) => void; // Delete a user
-  getCurrentPersonId: (token: string) => void;
+  getCurrentPersonId: () => void;
 }
 
 // Initial state with default values

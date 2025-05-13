@@ -11,6 +11,7 @@ import {
   createJournalEntryError,
   getJournalEntriesByPersonIdPending,
   getJournalEntriesByPersonIdSuccess,
+  getJournalEntriesByPersonIdError,
 } from "./actions";
 import { getAxiosInstace } from "@/utils/axiosInstance";
 import { IJournalEntry } from "../../providers/journal-provider/models";
@@ -30,19 +31,26 @@ export const JournalEntryProvider = ({
     await instance
       .post(endpoint, JournalEntry)
       .then((response) => {
-        dispatch(createJournalEntrySuccess(response?.data));
+        dispatch(createJournalEntrySuccess(response?.data?.result));
       })
       .catch((error) => {
-        console.error("Error fetching medical centres:", error);
+        console.error("creating entry:", error);
         dispatch(createJournalEntryError());
       });
   };
   const getJournalEntriesByPersonId = async (PersonId: string) => {
     dispatch(getJournalEntriesByPersonIdPending());
-    const endpoint = `/api/services/app/PersonService/GetCurrentPersonId?=${PersonId}`;
-    await instance.get(endpoint).then((response) => {
-      dispatch(getJournalEntriesByPersonIdSuccess(response?.data));
-    });
+    const endpoint = `/api/services/app/JournalEntry/GetJournalEntryByPersonId?personId=${PersonId}`;
+    await instance
+      .get(endpoint)
+      .then((response) => {
+        dispatch(getJournalEntriesByPersonIdSuccess(response?.data?.result));
+        console.log(response?.data?.result);
+      })
+      .catch((error) => {
+        console.error("getting entries:", error);
+        dispatch(getJournalEntriesByPersonIdError());
+      });
   };
 
   return (

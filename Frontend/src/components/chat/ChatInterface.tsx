@@ -21,8 +21,7 @@ const ChatInterface = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const token = sessionStorage.getItem("jwt");
-        getCurrentPersonId(token);
+        getCurrentPersonId();
       } catch (error) {
         console.error("Error fetching person ID:", error);
       }
