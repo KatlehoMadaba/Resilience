@@ -22,9 +22,7 @@ namespace Resilience.Services.ProgressTrackerServices
 
         public async Task<List<JournalEntry>> GetJournalEntryByPersonIdAsync(Guid personId)
         {
-            var journalEntries = await _journalEntryManager
-                .GetJournalEntriesByPersonId(personId)
-                .ToListAsync();
+            var journalEntries = _journalEntryManager.GetJournalEntriesByPersonId(personId); // No async here
 
             if (journalEntries == null || !journalEntries.Any())
             {
@@ -32,6 +30,7 @@ namespace Resilience.Services.ProgressTrackerServices
             }
 
             return journalEntries;
+
         }
 
 

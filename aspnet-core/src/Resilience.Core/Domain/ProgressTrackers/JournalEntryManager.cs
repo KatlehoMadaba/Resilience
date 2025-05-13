@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Abp.Domain.Repositories;
 using Abp.Domain.Services;
@@ -27,25 +28,36 @@ namespace Resilience.Domain.ProgressTrackers
 
 
 
-        public IQueryable<JournalEntry> GetJournalEntriesByPersonId(Guid personId)
+        public List<JournalEntry> GetJournalEntriesByPersonId(Guid personId)
         {
-            try
+            using (var uow = _unitOfWorkManager.Begin())
             {
-                return _journalEntryRepository
-                    .GetAll()
-                    .Where(entry => entry.PersonId == personId);
-            }
-            catch (Exception ex)
-            {
-                Logger.Error($"Error retrieving journal entries for PersonId {personId}: {ex.Message}", ex);
-                if (ex.InnerException != null)
+                _unitOfWorkManager.Current.SetTenantId(1); 
+
+                try
                 {
-                    Logger.Error($"Inner exception: {ex.InnerException.Message}");
+                    var session = _abpSession.Use(1, 1);
+
+                    var entries = _journalEntryRepository
+                         .GetAll()
+                         .Where(entry => entry.PersonId == personId)
+                         .ToList(); 
+
+                    uow.Complete(); 
+
+                    return entries;
                 }
-                throw new UserFriendlyException("An error occurred while retrieving journal entries.", ex);
+                catch (Exception ex)
+                {
+                    Logger.Error($"Error retrieving journal entries for PersonId {personId}: {ex.Message}", ex);
+                    if (ex.InnerException != null)
+                    {
+                        Logger.Error($"Inner exception: {ex.InnerException.Message}");
+                    }
+                    throw new UserFriendlyException("An error occurred while retrieving journal entries.", ex);
+                }
             }
         }
-
 
     }
 
