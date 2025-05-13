@@ -59,13 +59,13 @@ export const ProfessionalProvider = ({
     await instance
       .get(endpoint)
       .then((response) => {
-          dispatch(getProfessionalsSuccess(response?.data?.result?.items));
-          console.log("profs",response.data)
+        dispatch(getProfessionalsSuccess(response?.data?.result?.items));
+        console.log("profs", response.data);
       })
       .catch((error) => {
-          console.error("Error fetching Professionals:", error);
-          console.log("profs not getting");
-          
+        console.error("Error fetching Professionals:", error);
+        console.log("profs not getting");
+
         dispatch(getProfessionalsError());
       });
   };
@@ -116,15 +116,11 @@ export const ProfessionalProvider = ({
         dispatch(getProfessionalError());
       });
   };
-  const getCurrentProfessional = async (
-    token: string
-  ): Promise<IProfessional | null> => {
+  const getCurrentProfessional = async (): Promise<IProfessional | null> => {
     dispatch(getCurrentProfessionalPending());
     const endpoint = `/api/services/app/Session/GetCurrentLoginInformations`;
     return instance
-      .get(endpoint, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
+      .get(endpoint)
       .then((response) => {
         if (response?.data?.result) {
           dispatch(getCurrentProfessionalSuccess(response?.data?.result?.user));

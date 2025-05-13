@@ -1,7 +1,6 @@
 "use client";
 import { createContext } from "react";
-import { IChatMessage } from "./models";
-import { ISendMessage } from "@/components/chat/ChatMessage";
+import { IChatMessage, ISendMessage } from "./models";
 
 // Context shape interface
 export interface IChatMessageStateContext {

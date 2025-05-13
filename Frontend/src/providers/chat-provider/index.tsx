@@ -15,7 +15,7 @@ import {
 } from "./actions";
 import { getAxiosInstace } from "@/utils/axiosInstance";
 import { ChatMessageReducer } from "./reducer";
-import { ISendMessage } from "@/components/chat/ChatMessage";
+import { ISendMessage } from "@/providers/chat-provider/models";
 
 export const ChatMessageProvider = ({
   children,
@@ -26,23 +26,24 @@ export const ChatMessageProvider = ({
   const instance = getAxiosInstace();
 
   const sendMessage = async (sendMessage: ISendMessage) => {
-    
     dispatch(sendMessagePending());
     const endpoint = `/api/services/app/Chat/SendMessage`;
     await instance
       .post(endpoint, sendMessage)
       .then((response) => {
         dispatch(sendMessageSuccess(response?.data?.result));
+        console.log("this the successful message", sendMessage);
       })
       .catch((error) => {
         console.error("Error sending messages for sending:", error);
+        console.log("This message failed", error);
         dispatch(sendMessageError());
       });
   };
   const getMessagesWithPerson = async (personId: string) => {
     dispatch(getMessagesWithPersonPending());
-    const endpoint = `https://localhost:44311/api/services/app/Chat/GetMessagesWithPerson?personId=0196c3d5-5509-795a-b25e-60f31bff6c20`;
-
+    // const endpoint = `/api/services/app/Chat/GetMessagesWithPerson?personId=0196c3d5-5509-795a-b25e-60f31bff6c20`;
+    const endpoint = `/api/services/app/Chat/GetMessagesWithPerson?personId=${personId}`;
     await instance
       .get(endpoint)
       .then((response) => {
