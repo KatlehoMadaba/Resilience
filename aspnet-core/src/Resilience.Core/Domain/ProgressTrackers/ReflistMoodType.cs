@@ -9,11 +9,11 @@ namespace Resilience.Domain.ProgressTrackers
         [Description("Sombre")]
         Sombre = 2,
         [Description("Hopeful")]
-        Hopeful = 3,
+        Hopeful = 4,
         [Description("Neutral")]
-        Neutral = 4,
+        Neutral = 5,
         [Description("Angered")]
-        Angered = 3,
+        Angered = 6,
     }
 
 }
