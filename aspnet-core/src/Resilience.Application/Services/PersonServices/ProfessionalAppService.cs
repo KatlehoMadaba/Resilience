@@ -75,9 +75,6 @@ namespace Resilience.Services.PersonServices
             return new PagedResultDto<ProfessionalResponseDto>(
                 totalCount,
                 _mapper.Map<List<ProfessionalResponseDto>>(professionals));
-
-
-
             
         }
 
