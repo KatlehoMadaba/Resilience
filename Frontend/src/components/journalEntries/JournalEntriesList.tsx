@@ -16,6 +16,7 @@ const JournalEntriesList: React.FC = () => {
   const { getJournalEntriesByPersonId } = useJournalEntryActions();
   const { journalEntries } = useJournalEntryState();
   
+  debugger
   const fetchEntries = async () => {
     if (journalEntries == null || length == 0) {
     }
