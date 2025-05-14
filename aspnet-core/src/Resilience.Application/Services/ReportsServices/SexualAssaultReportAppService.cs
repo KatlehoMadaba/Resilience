@@ -1,6 +1,5 @@
 ﻿using System;
 using Abp.Application.Services;
-using Abp.Application.Services.Dto;
 using Abp.Domain.Repositories;
 using Resilience.Domain.Reports;
 using Resilience.Services.ReportsServices.Dtos;
