@@ -28,6 +28,7 @@ export const INITIAL_STATE: ITestimonyStateContext = {
 // Create the state context and the action context
 export const TestimonyStateContext =
   createContext<ITestimonyStateContext>(INITIAL_STATE);
+  
 export const TestimonyActionContext = createContext<
   ITestimonyActionContext | undefined
 >(undefined);

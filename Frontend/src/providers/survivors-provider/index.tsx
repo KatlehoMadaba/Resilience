@@ -34,52 +34,27 @@ export const SurvivorProvider = ({
 }) => {
   const [state, dispatch] = useReducer(SurvivorReducer, INITIAL_STATE);
   const instance = getAxiosInstace();
-
-  // Get current Survivor
-  // const getCurrentSurvivor = async (
-  //   userId: number
-  // ): Promise<ISurvivor | null> => {
-  //   dispatch(getCurrentSurvivorPending());
-  //   const endpoint = `/ImdSurvivor/GetCurrentSurvivor?userId=${userId}`;
-  //   return instance
-  //     .get(endpoint)
-  //     .then((response) => {
-  //       if (response?.data?.result) {
-  //         dispatch(getCurrentSurvivorSuccess(response.data.result));
-  //         return response.data.result;
-  //       } else {
-  //         console.warn("No Survivor data found in response");
-  //         dispatch(getCurrentSurvivorError());
-  //         return null;
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error fetching current Survivor:", error);
-  //       dispatch(getCurrentSurvivorError());
-  //       return null;
-  //     });
-  // };
-const getCurrentSurvivor = async (
-  userId: number
-): Promise<ISurvivor | null> => {
-  dispatch(getCurrentSurvivorPending());
-  const endpoint = `/api/services/app/ImdSurvivor/GetCurrentSurvivor?userId=${userId}`;
-  try {
-    const response = await instance.get(endpoint);
-    if (response?.data?.result) {
-      dispatch(getCurrentSurvivorSuccess(response?.data?.result));
-      return response.data.result;
-    } else {
-      console.warn("No Survivor data found in response");
+  const getCurrentSurvivor = async (
+    userId: number
+  ): Promise<ISurvivor | null> => {
+    dispatch(getCurrentSurvivorPending());
+    const endpoint = `/api/services/app/ImdSurvivor/GetCurrentSurvivor?userId=${userId}`;
+    try {
+      const response = await instance.get(endpoint);
+      if (response?.data?.result) {
+        dispatch(getCurrentSurvivorSuccess(response?.data?.result));
+        return response.data.result;
+      } else {
+        console.warn("No Survivor data found in response");
+        dispatch(getCurrentSurvivorError());
+        return null;
+      }
+    } catch (error) {
+      console.error("Error fetching current Survivor:", error);
       dispatch(getCurrentSurvivorError());
       return null;
     }
-  } catch (error) {
-    console.error("Error fetching current Survivor:", error);
-    dispatch(getCurrentSurvivorError());
-    return null;
-  }
-};
+  };
   // Get Survivor
   const getSurvivor = async (SurvivorId: string): Promise<ISurvivor | null> => {
     dispatch(getSurvivorPending());
@@ -114,11 +89,11 @@ const getCurrentSurvivor = async (
   // Get All Survivors
   const getSurvivors = async () => {
     dispatch(getSurvivorsPending());
-    const endpoint = `/api/services/app/Survivor/GetAll`;
+    const endpoint = `/api/services/app/ImdSurvivor/GetAll`;
     await instance
       .get(endpoint)
       .then((response) => {
-        dispatch(getSurvivorsSuccess(response.data));
+        dispatch(getSurvivorsSuccess(response?.data?.result?.items));
       })
       .catch((error) => {
         console.error(error);
