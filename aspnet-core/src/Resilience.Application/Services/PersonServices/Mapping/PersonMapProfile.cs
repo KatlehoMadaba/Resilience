@@ -53,7 +53,6 @@ namespace Resilience.Services.PersonServices.Mapping
             .ForMember(dest => dest.Surname, opt => opt.MapFrom(src => src.User != null ? src.User.Surname : null));
 
             CreateMap<SupportSession, SupportSessionDto>();
-            CreateMap<Report, ReportDto>();
             CreateMap<Story, StoryDto>();
             CreateMap<Petition, PetitionDto>();
             CreateMap<CrowdfundingCampaign, CrowdfundingCampaignDto>();
