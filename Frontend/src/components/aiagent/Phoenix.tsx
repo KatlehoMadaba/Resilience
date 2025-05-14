@@ -1,12 +1,8 @@
 "use client"
 import { useEffect, useRef } from "react";
-import { IElevenLabdConVAIProps } from "../../interfaces/interfaces"
 const agentId = process.env.NEXT_PUBLIC_ELEVENLABS_AGENT_ID!;
-
-
-
-const Phoenix = ({ className = "" }: IElevenLabdConVAIProps) => {
-  //creating a refrence to a div in the DOM ,whivh will act as a container for the widget and script
+const Phoenix = () => {
+  //creating a refrence to a div in the DOM ,which will act as a container for the widget and script
   //where the widget will go
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -45,7 +41,7 @@ const Phoenix = ({ className = "" }: IElevenLabdConVAIProps) => {
     };
   }, [agentId]);
 
-  return <div ref={containerRef} className={className}></div>;
+  return <div ref={containerRef}></div>;
 };
 
 export default Phoenix;
