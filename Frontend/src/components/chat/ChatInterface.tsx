@@ -1,21 +1,25 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Spin, Input, Typography, List, Avatar } from "antd";
+import { Avatar,Input, List, Spin, Typography } from "antd";
+import { ISendMessage } from "@/providers/chat-provider/models";
 import {
   useChatMessageActions,
   useChatMessageState,
 } from "@/providers/chat-provider";
-import { ISendMessage } from "@/providers/chat-provider/models";
 import * as S from "./styles";
 
-const { Text, Paragraph } = Typography;
+
+const { Paragraph, Text} = Typography;
 
 interface ChatInterfaceProps {
   personId: string;
+  personName?: string;
 }
-
-const ChatInterface: React.FC<ChatInterfaceProps> = ({ personId }) => {
+const ChatInterface: React.FC<ChatInterfaceProps> = ({
+  personId,
+  personName,
+}) => {
   const { getMessagesWithPerson, sendMessage } = useChatMessageActions();
   const { ChatMessages, isPending } = useChatMessageState();
 
@@ -39,49 +43,63 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ personId }) => {
     setMessageInput("");
   };
 
-  return (
-    <S.ChatContainer>
-      <S.Title level={3}>Conversation</S.Title>
+  const getInitial = () => {
+    if (!personName) return "?";
+    return personName.trim().charAt(0).toUpperCase();
+  };
 
-      {isPending ? (
-        <Spin tip="Loading messages..." />
-      ) : (
-        <List
-          dataSource={ChatMessages}
-          renderItem={(msg) => {
-            const isOwn = msg.senderPersonId !== personId;
-            return (
-              <S.MessageBubble key={msg.sentAt} $isOwn={isOwn}>
-                <List.Item.Meta
-                  avatar={<Avatar src="/images/user-avatar-placeholder.png" />}
-                  title={
-                    <Text type="secondary">
+  return (
+    <S.ChatWrapper>
+      <S.ChatContainer>
+        <S.Header>
+          <Avatar size={40} style={{ backgroundColor: "#9E9AC8" }}>
+            {getInitial()}
+          </Avatar>
+          <Text strong style={{ marginLeft: 10 }}>
+            Chatting with {personName || "Unknown"}
+          </Text>
+        </S.Header>
+
+        <S.MessagesContainer>
+          {isPending ? (
+            <Spin tip="Loading messages..." />
+          ) : ChatMessages.length === 0 ? (
+            <Text type="secondary">
+              No messages yet. Start the conversation.
+            </Text>
+          ) : (
+            <List
+              dataSource={ChatMessages}
+              renderItem={(msg) => {
+                const isOwn = msg.receiverPersonId !== personId;
+                return (
+                  <S.MessageBubble key={msg.sentAt} $isOwn={isOwn}>
+                    <Paragraph>{msg.content}</Paragraph>
+                    <Text type="secondary" style={{ fontSize: 10 }}>
                       {new Date(msg.sentAt).toLocaleString()}
                     </Text>
-                  }
-                  description={<Paragraph>{msg.content}</Paragraph>}
-                />
-              </S.MessageBubble>
-            );
-          }}
-        />
-      )}
+                  </S.MessageBubble>
+                );
+              }}
+            />
+          )}
+        </S.MessagesContainer>
 
-      <Input.TextArea
-        rows={3}
-        value={messageInput}
-        onChange={(e) => setMessageInput(e.target.value)}
-        placeholder="Type your message here..."
-      />
-      <S.SendButton
-        type="primary"
-        onClick={handleSendMessage}
-        disabled={!messageInput.trim()}
-      >
-        Send
-      </S.SendButton>
-    </S.ChatContainer>
+        <Input.TextArea
+          rows={2}
+          placeholder="Type your message..."
+          value={messageInput}
+          onChange={(e) => setMessageInput(e.target.value)}
+        />
+        <S.SendButton
+          type="primary"
+          onClick={handleSendMessage}
+          disabled={!messageInput.trim()}
+        >
+          Send
+        </S.SendButton>
+      </S.ChatContainer>
+    </S.ChatWrapper>
   );
 };
-
 export default ChatInterface;
