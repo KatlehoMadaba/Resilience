@@ -2,9 +2,9 @@ import axios from "axios";
 
 const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
 
-export const getAxiosInstace = () => {
+export const getAxiosInstance = (customBaseUrl?: string) => {
     const instance = axios.create({
-        baseURL: `${baseURL}`,
+        baseURL: customBaseUrl || baseURL,
         headers: {
             "Content-Type": "application/json;charset=utf-8",
         },

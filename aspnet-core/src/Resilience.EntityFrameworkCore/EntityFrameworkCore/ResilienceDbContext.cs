@@ -60,6 +60,10 @@ public class ResilienceDbContext : AbpZeroDbContext<Tenant, Role, User, Resilien
     //Reports
     public DbSet<Report> Reports { get; set; }
     public DbSet<SexualAssaultReport> SexualAssaultReports { get; set; }
+
+    /// <summary>
+    /// New reports table because previous not 
+    /// </summary>
     //Stories
     public DbSet<Story> Stories { get; set; }
     public DbSet<StoryComment> StoryComments { get; set; }

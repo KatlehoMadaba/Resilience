@@ -8,7 +8,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Resilience.Migrations
 {
     /// <inheritdoc />
-    public partial class SepratedTablesMoodAndJournals : Migration
+    public partial class IntialMigration3 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -535,6 +535,26 @@ namespace Resilience.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ProgressTrackers",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    StartDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    DaysSinceStart = table.Column<int>(type: "integer", nullable: false),
+                    CreationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    CreatorUserId = table.Column<long>(type: "bigint", nullable: true),
+                    LastModificationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    LastModifierUserId = table.Column<long>(type: "bigint", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
+                    DeleterUserId = table.Column<long>(type: "bigint", nullable: true),
+                    DeletionTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProgressTrackers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AbpDynamicEntityProperties",
                 columns: table => new
                 {
@@ -841,7 +861,7 @@ namespace Resilience.Migrations
                     Sex = table.Column<long>(type: "bigint", nullable: true),
                     SexText = table.Column<string>(type: "text", nullable: true),
                     PhoneNumber = table.Column<string>(type: "text", nullable: true),
-                    IsAnonymous = table.Column<bool>(type: "boolean", nullable: false),
+                    IsAnonymous = table.Column<bool>(type: "boolean", nullable: true),
                     Discriminator = table.Column<string>(type: "character varying(21)", maxLength: 21, nullable: false),
                     SupportMotivation = table.Column<string>(type: "text", nullable: true),
                     IsSubscribedToUpdates = table.Column<bool>(type: "boolean", nullable: true),
@@ -926,6 +946,36 @@ namespace Resilience.Migrations
                         name: "FK_CheckListItem_CheckLists_ChecklistId",
                         column: x => x.ChecklistId,
                         principalTable: "CheckLists",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "MilestoneEntries",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    ProgressTrackerId = table.Column<Guid>(type: "uuid", nullable: false),
+                    Title = table.Column<string>(type: "text", nullable: true),
+                    Description = table.Column<string>(type: "text", nullable: true),
+                    AchievedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    Type = table.Column<long>(type: "bigint", nullable: false),
+                    MilestoneTypeText = table.Column<string>(type: "text", nullable: true),
+                    CreationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    CreatorUserId = table.Column<long>(type: "bigint", nullable: true),
+                    LastModificationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    LastModifierUserId = table.Column<long>(type: "bigint", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
+                    DeleterUserId = table.Column<long>(type: "bigint", nullable: true),
+                    DeletionTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MilestoneEntries", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_MilestoneEntries_ProgressTrackers_ProgressTrackerId",
+                        column: x => x.ProgressTrackerId,
+                        principalTable: "ProgressTrackers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -1035,6 +1085,42 @@ namespace Resilience.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ChatMessages",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    SenderPersonId = table.Column<Guid>(type: "uuid", nullable: false),
+                    SenderId = table.Column<Guid>(type: "uuid", nullable: true),
+                    ReceiverPersonId = table.Column<Guid>(type: "uuid", nullable: false),
+                    ReceiverId = table.Column<Guid>(type: "uuid", nullable: true),
+                    Content = table.Column<string>(type: "text", nullable: false),
+                    IsRead = table.Column<bool>(type: "boolean", nullable: false),
+                    SentAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    ChatSessionId = table.Column<Guid>(type: "uuid", nullable: true),
+                    CreationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    CreatorUserId = table.Column<long>(type: "bigint", nullable: true),
+                    LastModificationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    LastModifierUserId = table.Column<long>(type: "bigint", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
+                    DeleterUserId = table.Column<long>(type: "bigint", nullable: true),
+                    DeletionTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ChatMessages", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ChatMessages_Persons_ReceiverId",
+                        column: x => x.ReceiverId,
+                        principalTable: "Persons",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_ChatMessages_Persons_SenderId",
+                        column: x => x.SenderId,
+                        principalTable: "Persons",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "CrowdfundingCampaigns",
                 columns: table => new
                 {
@@ -1104,6 +1190,65 @@ namespace Resilience.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "JournalEntries",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    PersonId = table.Column<Guid>(type: "uuid", nullable: false),
+                    Content = table.Column<string>(type: "text", nullable: true),
+                    EntryDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    Tags = table.Column<List<string>>(type: "text[]", nullable: true),
+                    IsPrivate = table.Column<bool>(type: "boolean", nullable: false),
+                    CreationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    CreatorUserId = table.Column<long>(type: "bigint", nullable: true),
+                    LastModificationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    LastModifierUserId = table.Column<long>(type: "bigint", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
+                    DeleterUserId = table.Column<long>(type: "bigint", nullable: true),
+                    DeletionTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_JournalEntries", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_JournalEntries_Persons_PersonId",
+                        column: x => x.PersonId,
+                        principalTable: "Persons",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "MoodEntries",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    PersonId = table.Column<Guid>(type: "uuid", nullable: false),
+                    Rating = table.Column<int>(type: "integer", nullable: false),
+                    MoodType = table.Column<long>(type: "bigint", nullable: false),
+                    MoodTypeText = table.Column<string>(type: "text", nullable: true),
+                    Notes = table.Column<string>(type: "text", nullable: true),
+                    EntryDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    CreationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    CreatorUserId = table.Column<long>(type: "bigint", nullable: true),
+                    LastModificationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    LastModifierUserId = table.Column<long>(type: "bigint", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
+                    DeleterUserId = table.Column<long>(type: "bigint", nullable: true),
+                    DeletionTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MoodEntries", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_MoodEntries_Persons_PersonId",
+                        column: x => x.PersonId,
+                        principalTable: "Persons",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Petitions",
                 columns: table => new
                 {
@@ -1136,44 +1281,48 @@ namespace Resilience.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ProgressTrackers",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    PersonId = table.Column<Guid>(type: "uuid", nullable: false),
-                    StartDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    DaysSinceStart = table.Column<int>(type: "integer", nullable: false),
-                    CreationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    CreatorUserId = table.Column<long>(type: "bigint", nullable: true),
-                    LastModificationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    LastModifierUserId = table.Column<long>(type: "bigint", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
-                    DeleterUserId = table.Column<long>(type: "bigint", nullable: true),
-                    DeletionTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ProgressTrackers", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ProgressTrackers_Persons_PersonId",
-                        column: x => x.PersonId,
-                        principalTable: "Persons",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Reports",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     PersonId = table.Column<Guid>(type: "uuid", nullable: false),
-                    ReportStatus = table.Column<long>(type: "bigint", nullable: false),
+                    ReportStatus = table.Column<long>(type: "bigint", nullable: true),
                     ReportStatusText = table.Column<string>(type: "text", nullable: true),
                     EncryptedContent = table.Column<string>(type: "text", nullable: true),
                     IsSharedWithAuthorities = table.Column<bool>(type: "boolean", nullable: false),
                     SharedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     FileReference = table.Column<string>(type: "text", nullable: true),
+                    Discriminator = table.Column<string>(type: "character varying(21)", maxLength: 21, nullable: false),
+                    FullName = table.Column<string>(type: "text", nullable: true),
+                    IDNumber = table.Column<string>(type: "text", nullable: true),
+                    DateOfBirth = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    Address = table.Column<string>(type: "text", nullable: true),
+                    PhoneNumber = table.Column<string>(type: "text", nullable: true),
+                    Occupation = table.Column<string>(type: "text", nullable: true),
+                    IncidentDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    Location = table.Column<string>(type: "text", nullable: true),
+                    AloneOrWithSomeone = table.Column<bool>(type: "boolean", nullable: true),
+                    LeadingEventsDescription = table.Column<string>(type: "text", nullable: true),
+                    IsSuspectKnown = table.Column<bool>(type: "boolean", nullable: true),
+                    SuspectName = table.Column<string>(type: "text", nullable: true),
+                    SuspectDescription = table.Column<string>(type: "text", nullable: true),
+                    WeaponOrThreats = table.Column<string>(type: "text", nullable: true),
+                    AssaultDescription = table.Column<string>(type: "text", nullable: true),
+                    Injuries = table.Column<bool>(type: "boolean", nullable: true),
+                    WordsSpokenBySuspect = table.Column<string>(type: "text", nullable: true),
+                    ActionsTaken = table.Column<string>(type: "text", nullable: true),
+                    ChangedClothesOrShowered = table.Column<bool>(type: "boolean", nullable: true),
+                    ClothesKept = table.Column<bool>(type: "boolean", nullable: true),
+                    WitnessPresent = table.Column<bool>(type: "boolean", nullable: true),
+                    WitnessDetails = table.Column<string>(type: "text", nullable: true),
+                    CCTVAvailable = table.Column<bool>(type: "boolean", nullable: true),
+                    IsOtherEvidence = table.Column<bool>(type: "boolean", nullable: true),
+                    OtherEvidenceDescription = table.Column<string>(type: "text", nullable: true),
+                    ReceivedMedicalAttention = table.Column<bool>(type: "boolean", nullable: true),
+                    WillingForensicExam = table.Column<bool>(type: "boolean", nullable: true),
+                    FeelsSafe = table.Column<bool>(type: "boolean", nullable: true),
+                    WantsCounsellor = table.Column<bool>(type: "boolean", nullable: true),
+                    PrefersFemaleOfficer = table.Column<bool>(type: "boolean", nullable: true),
                     CreationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     CreatorUserId = table.Column<long>(type: "bigint", nullable: true),
                     LastModificationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
@@ -1394,162 +1543,6 @@ namespace Resilience.Migrations
                         name: "FK_PetitionSignatures_Petitions_PetitionId",
                         column: x => x.PetitionId,
                         principalTable: "Petitions",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "JournalEntries",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    PersonId = table.Column<Guid>(type: "uuid", nullable: false),
-                    Content = table.Column<string>(type: "text", nullable: true),
-                    EntryDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    Tags = table.Column<List<string>>(type: "text[]", nullable: true),
-                    IsPrivate = table.Column<bool>(type: "boolean", nullable: false),
-                    ProgressTrackerId = table.Column<Guid>(type: "uuid", nullable: true),
-                    CreationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    CreatorUserId = table.Column<long>(type: "bigint", nullable: true),
-                    LastModificationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    LastModifierUserId = table.Column<long>(type: "bigint", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
-                    DeleterUserId = table.Column<long>(type: "bigint", nullable: true),
-                    DeletionTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_JournalEntries", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_JournalEntries_Persons_PersonId",
-                        column: x => x.PersonId,
-                        principalTable: "Persons",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_JournalEntries_ProgressTrackers_ProgressTrackerId",
-                        column: x => x.ProgressTrackerId,
-                        principalTable: "ProgressTrackers",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "MilestoneEntries",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    ProgressTrackerId = table.Column<Guid>(type: "uuid", nullable: false),
-                    Title = table.Column<string>(type: "text", nullable: true),
-                    Description = table.Column<string>(type: "text", nullable: true),
-                    AchievedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    Type = table.Column<long>(type: "bigint", nullable: false),
-                    MilestoneTypeText = table.Column<string>(type: "text", nullable: true),
-                    CreationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    CreatorUserId = table.Column<long>(type: "bigint", nullable: true),
-                    LastModificationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    LastModifierUserId = table.Column<long>(type: "bigint", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
-                    DeleterUserId = table.Column<long>(type: "bigint", nullable: true),
-                    DeletionTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_MilestoneEntries", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_MilestoneEntries_ProgressTrackers_ProgressTrackerId",
-                        column: x => x.ProgressTrackerId,
-                        principalTable: "ProgressTrackers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "MoodEntries",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    PersonId = table.Column<Guid>(type: "uuid", nullable: false),
-                    Rating = table.Column<int>(type: "integer", nullable: false),
-                    MoodType = table.Column<long>(type: "bigint", nullable: false),
-                    MoodTypeText = table.Column<string>(type: "text", nullable: true),
-                    Notes = table.Column<string>(type: "text", nullable: true),
-                    EntryDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    ProgressTrackerId = table.Column<Guid>(type: "uuid", nullable: true),
-                    CreationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    CreatorUserId = table.Column<long>(type: "bigint", nullable: true),
-                    LastModificationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    LastModifierUserId = table.Column<long>(type: "bigint", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
-                    DeleterUserId = table.Column<long>(type: "bigint", nullable: true),
-                    DeletionTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_MoodEntries", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_MoodEntries_Persons_PersonId",
-                        column: x => x.PersonId,
-                        principalTable: "Persons",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_MoodEntries_ProgressTrackers_ProgressTrackerId",
-                        column: x => x.ProgressTrackerId,
-                        principalTable: "ProgressTrackers",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "SexualAssaultReports",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    ReportId = table.Column<Guid>(type: "uuid", nullable: false),
-                    FullName = table.Column<string>(type: "text", nullable: true),
-                    IDNumber = table.Column<string>(type: "text", nullable: true),
-                    DateOfBirth = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    Address = table.Column<string>(type: "text", nullable: true),
-                    PhoneNumber = table.Column<string>(type: "text", nullable: true),
-                    Occupation = table.Column<string>(type: "text", nullable: true),
-                    IncidentDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    Location = table.Column<string>(type: "text", nullable: true),
-                    AloneOrWithSomeone = table.Column<bool>(type: "boolean", nullable: false),
-                    LeadingEventsDescription = table.Column<string>(type: "text", nullable: true),
-                    IsSuspectKnown = table.Column<bool>(type: "boolean", nullable: false),
-                    SuspectName = table.Column<string>(type: "text", nullable: true),
-                    SuspectDescription = table.Column<string>(type: "text", nullable: true),
-                    WeaponOrThreats = table.Column<string>(type: "text", nullable: true),
-                    AssaultDescription = table.Column<string>(type: "text", nullable: true),
-                    Injuries = table.Column<bool>(type: "boolean", nullable: false),
-                    WordsSpokenBySuspect = table.Column<string>(type: "text", nullable: true),
-                    ActionsTaken = table.Column<string>(type: "text", nullable: true),
-                    ChangedClothesOrShowered = table.Column<bool>(type: "boolean", nullable: false),
-                    ClothesKept = table.Column<bool>(type: "boolean", nullable: false),
-                    WitnessPresent = table.Column<bool>(type: "boolean", nullable: false),
-                    WitnessDetails = table.Column<string>(type: "text", nullable: true),
-                    CCTVAvailable = table.Column<bool>(type: "boolean", nullable: false),
-                    IsOtherEvidence = table.Column<bool>(type: "boolean", nullable: false),
-                    OtherEvidenceDescription = table.Column<string>(type: "text", nullable: true),
-                    ReceivedMedicalAttention = table.Column<bool>(type: "boolean", nullable: false),
-                    WillingForensicExam = table.Column<bool>(type: "boolean", nullable: false),
-                    FeelsSafe = table.Column<bool>(type: "boolean", nullable: false),
-                    WantsCounsellor = table.Column<bool>(type: "boolean", nullable: false),
-                    PrefersFemaleOfficer = table.Column<bool>(type: "boolean", nullable: false),
-                    CreationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    CreatorUserId = table.Column<long>(type: "bigint", nullable: true),
-                    LastModificationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    LastModifierUserId = table.Column<long>(type: "bigint", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
-                    DeleterUserId = table.Column<long>(type: "bigint", nullable: true),
-                    DeletionTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_SexualAssaultReports", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_SexualAssaultReports_Reports_ReportId",
-                        column: x => x.ReportId,
-                        principalTable: "Reports",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -2041,6 +2034,16 @@ namespace Resilience.Migrations
                 column: "WebhookEventId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ChatMessages_ReceiverId",
+                table: "ChatMessages",
+                column: "ReceiverId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ChatMessages_SenderId",
+                table: "ChatMessages",
+                column: "SenderId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_CheckListItem_ChecklistId",
                 table: "CheckListItem",
                 column: "ChecklistId");
@@ -2082,11 +2085,6 @@ namespace Resilience.Migrations
                 column: "PersonId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_JournalEntries_ProgressTrackerId",
-                table: "JournalEntries",
-                column: "ProgressTrackerId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Messages_SessionId",
                 table: "Messages",
                 column: "SessionId");
@@ -2100,11 +2098,6 @@ namespace Resilience.Migrations
                 name: "IX_MoodEntries_PersonId",
                 table: "MoodEntries",
                 column: "PersonId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_MoodEntries_ProgressTrackerId",
-                table: "MoodEntries",
-                column: "ProgressTrackerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Persons_UserId",
@@ -2132,12 +2125,6 @@ namespace Resilience.Migrations
                 column: "PetitionId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProgressTrackers_PersonId",
-                table: "ProgressTrackers",
-                column: "PersonId",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
                 name: "IX_PrsessionalMessagess_SessionId",
                 table: "PrsessionalMessagess",
                 column: "SessionId");
@@ -2146,12 +2133,6 @@ namespace Resilience.Migrations
                 name: "IX_Reports_PersonId",
                 table: "Reports",
                 column: "PersonId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_SexualAssaultReports_ReportId",
-                table: "SexualAssaultReports",
-                column: "ReportId",
-                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Stories_PersonId",
@@ -2289,6 +2270,9 @@ namespace Resilience.Migrations
                 name: "AbpWebhookSubscriptions");
 
             migrationBuilder.DropTable(
+                name: "ChatMessages");
+
+            migrationBuilder.DropTable(
                 name: "CheckListItem");
 
             migrationBuilder.DropTable(
@@ -2319,7 +2303,7 @@ namespace Resilience.Migrations
                 name: "PrsessionalMessagess");
 
             migrationBuilder.DropTable(
-                name: "SexualAssaultReports");
+                name: "Reports");
 
             migrationBuilder.DropTable(
                 name: "StoryComments");
@@ -2365,9 +2349,6 @@ namespace Resilience.Migrations
 
             migrationBuilder.DropTable(
                 name: "SupportSessions");
-
-            migrationBuilder.DropTable(
-                name: "Reports");
 
             migrationBuilder.DropTable(
                 name: "Stories");

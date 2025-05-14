@@ -1,0 +1,171 @@
+﻿<error errorId="7ce8e193-e1b1-4552-8b3a-7782e22473a9" application="Resilience.Web.Host" host="LAPTOP-IU87V3ER" type="HTTP" message="NotFound" detail="# caller: @C:\Sources\ElmahCore\ElmahCore\ElmahCore\Internal$\CallerInfo.cs:9&#xD;&#xA;ElmahCore.HttpException: NotFound" time="2025-05-14T09:07:57.2516703Z" statusCode="404">
+  <serverVariables>
+    <item name="HttpVersion">
+      <value string="2.0" />
+    </item>
+    <item name="Scheme">
+      <value string="https" />
+    </item>
+    <item name="Method">
+      <value string="GET" />
+    </item>
+    <item name="PathBase">
+      <value string="" />
+    </item>
+    <item name="Path">
+      <value string="/favicon.ico" />
+    </item>
+    <item name="QueryString">
+      <value string="" />
+    </item>
+    <item name="RawTarget">
+      <value string="/favicon.ico" />
+    </item>
+    <item name="HasResponseStarted">
+      <value string="False" />
+    </item>
+    <item name="RemotePort">
+      <value string="0" />
+    </item>
+    <item name="LocalPort">
+      <value string="0" />
+    </item>
+    <item name="TraceIdentifier">
+      <value string="40000036-0006-fe00-b63f-84710c7967bb" />
+    </item>
+    <item name="Protocol">
+      <value string="Tls13" />
+    </item>
+    <item name="SniHostName">
+      <value string="" />
+    </item>
+    <item name="CipherAlgorithm">
+      <value string="Aes256" />
+    </item>
+    <item name="CipherStrength">
+      <value string="256" />
+    </item>
+    <item name="HashAlgorithm">
+      <value string="Sha384" />
+    </item>
+    <item name="HashStrength">
+      <value string="0" />
+    </item>
+    <item name="KeyExchangeAlgorithm">
+      <value string="None" />
+    </item>
+    <item name="KeyExchangeStrength">
+      <value string="255" />
+    </item>
+    <item name="Header_Accept">
+      <value string="image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8" />
+    </item>
+    <item name="Header_Accept-Encoding">
+      <value string="gzip, deflate, br, zstd" />
+    </item>
+    <item name="Header_Accept-Language">
+      <value string="en-US,en;q=0.9" />
+    </item>
+    <item name="Header_Connection">
+      <value string="close" />
+    </item>
+    <item name="Header_Cookie">
+      <value string="Abp.AuthToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjYiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiRHJUaGVtYmkiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJUaGVtYmkxMjNAZ21haWwuY29tIiwiQXNwTmV0LklkZW50aXR5LlNlY3VyaXR5U3RhbXAiOiI3UzY3VExBQUlMNEc1Tk5BRlU0S0ZXV1JDUllZM0FGRSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IlByb2Zlc3Npb25hbCIsImh0dHA6Ly93d3cuYXNwbmV0Ym9pbGVycGxhdGUuY29tL2lkZW50aXR5L2NsYWltcy90ZW5hbnRJZCI6IjEiLCJzdWIiOiI2IiwianRpIjoiYTBhNjYzYTUtM2M2OS00Mjk2LTg1MTMtYTg2Mzc3NDc0YWJlIiwiaWF0IjoxNzQ3MTcxNjQ5LCJuYmYiOjE3NDcxNzE2NDksImV4cCI6MTc0NzI1ODA0OSwiaXNzIjoiUmVzaWxpZW5jZSIsImF1ZCI6IlJlc2lsaWVuY2UifQ.DZjUgM1gRm4OfGN6Bs01UmjVR6WZJlxq_WugoEgeggQ; .AspNetCore.Antiforgery.PMSTjSBRzMU=CfDJ8K-oWHT--kFPo70Uv2x3L0prHpgGuRnb0iCi-mQhtXu6CcG6C9xToyJP7N4mZy9jOxLedZYezo-eugC5Nyu33nI3SNi_0ZDZiipKgHLiuW3xzv7si4bdh47n_m_HJaoP10AlgKiwBVUQTLKp9bCNPCY; XSRF-TOKEN=CfDJ8K-oWHT--kFPo70Uv2x3L0qqJjv4CKgyP5SRrOBHv75XOMQGnI6TWRHLKQYx49TReaxQco2TI5WmIbMq0GZ_BQHHi18A7cZa_WKgJ16pFcAr_uRwd-Pk59SVG3iOuG9JEiGQXzez2Oc08JDoK5-pWp0XN0fKEPX5ZpMVJ5OmPVTb1t9CVHu9yUtcIx-FzpvPag" />
+    </item>
+    <item name="Header_Host">
+      <value string="localhost:44311" />
+    </item>
+    <item name="Header_Referer">
+      <value string="https://localhost:44311/elmah/index.html" />
+    </item>
+    <item name="Header_User-Agent">
+      <value string="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36" />
+    </item>
+    <item name="Header_sec-ch-ua-platform">
+      <value string="&quot;Windows&quot;" />
+    </item>
+    <item name="Header_sec-ch-ua">
+      <value string="&quot;Chromium&quot;;v=&quot;136&quot;, &quot;Google Chrome&quot;;v=&quot;136&quot;, &quot;Not.A/Brand&quot;;v=&quot;99&quot;" />
+    </item>
+    <item name="Header_sec-ch-ua-mobile">
+      <value string="?0" />
+    </item>
+    <item name="Header_sec-fetch-site">
+      <value string="same-origin" />
+    </item>
+    <item name="Header_sec-fetch-mode">
+      <value string="no-cors" />
+    </item>
+    <item name="Header_sec-fetch-dest">
+      <value string="image" />
+    </item>
+    <item name="Header_priority">
+      <value string="u=1, i" />
+    </item>
+    <item name="ResponseHeaders_X-Content-Type-Options">
+      <value string="nosniff" />
+    </item>
+    <item name="ResponseHeaders_X-XSS-Protection">
+      <value string="1; mode=block" />
+    </item>
+    <item name="ResponseHeaders_X-Frame-Options">
+      <value string="SAMEORIGIN" />
+    </item>
+    <item name="MaxRequestBodySize">
+      <value string="30000000" />
+    </item>
+    <item name="StatusCode">
+      <value string="404" />
+    </item>
+    <item name="RequestInfo_2">
+      <value string="System.ReadOnlyMemory&lt;Byte&gt;[28]" />
+    </item>
+    <item name="RequestInfo_5">
+      <value string="System.ReadOnlyMemory&lt;Byte&gt;[248]" />
+    </item>
+    <item name="RequestInfo_7">
+      <value string="System.ReadOnlyMemory&lt;Byte&gt;[56]" />
+    </item>
+    <item name="RequestInfo_11">
+      <value string="System.ReadOnlyMemory&lt;Byte&gt;[152]" />
+    </item>
+    <item name="RequestInfo_9">
+      <value string="System.ReadOnlyMemory&lt;Byte&gt;[136]" />
+    </item>
+    <item name="RequestInfo_6">
+      <value string="System.ReadOnlyMemory&lt;Byte&gt;[88]" />
+    </item>
+    <item name="Items_Items___RequestUnhandled">
+      <value string="True" />
+    </item>
+    <item name="Connection_Id">
+      <value string="18302628912208805941" />
+    </item>
+    <item name="Connection_RemoteIpAddress">
+      <value string="::1" />
+    </item>
+    <item name="Connection_RemotePort">
+      <value string="54913" />
+    </item>
+    <item name="Connection_LocalIpAddress">
+      <value string="::1" />
+    </item>
+    <item name="Connection_LocalPort">
+      <value string="44311" />
+    </item>
+    <item name="HttpStatusCode">
+      <value string="404" />
+    </item>
+  </serverVariables>
+  <cookies>
+    <item name="Abp.AuthToken">
+      <value string="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjYiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiRHJUaGVtYmkiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJUaGVtYmkxMjNAZ21haWwuY29tIiwiQXNwTmV0LklkZW50aXR5LlNlY3VyaXR5U3RhbXAiOiI3UzY3VExBQUlMNEc1Tk5BRlU0S0ZXV1JDUllZM0FGRSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IlByb2Zlc3Npb25hbCIsImh0dHA6Ly93d3cuYXNwbmV0Ym9pbGVycGxhdGUuY29tL2lkZW50aXR5L2NsYWltcy90ZW5hbnRJZCI6IjEiLCJzdWIiOiI2IiwianRpIjoiYTBhNjYzYTUtM2M2OS00Mjk2LTg1MTMtYTg2Mzc3NDc0YWJlIiwiaWF0IjoxNzQ3MTcxNjQ5LCJuYmYiOjE3NDcxNzE2NDksImV4cCI6MTc0NzI1ODA0OSwiaXNzIjoiUmVzaWxpZW5jZSIsImF1ZCI6IlJlc2lsaWVuY2UifQ.DZjUgM1gRm4OfGN6Bs01UmjVR6WZJlxq_WugoEgeggQ" />
+    </item>
+    <item name=".AspNetCore.Antiforgery.PMSTjSBRzMU">
+      <value string="CfDJ8K-oWHT--kFPo70Uv2x3L0prHpgGuRnb0iCi-mQhtXu6CcG6C9xToyJP7N4mZy9jOxLedZYezo-eugC5Nyu33nI3SNi_0ZDZiipKgHLiuW3xzv7si4bdh47n_m_HJaoP10AlgKiwBVUQTLKp9bCNPCY" />
+    </item>
+    <item name="XSRF-TOKEN">
+      <value string="CfDJ8K-oWHT--kFPo70Uv2x3L0qqJjv4CKgyP5SRrOBHv75XOMQGnI6TWRHLKQYx49TReaxQco2TI5WmIbMq0GZ_BQHHi18A7cZa_WKgJ16pFcAr_uRwd-Pk59SVG3iOuG9JEiGQXzez2Oc08JDoK5-pWp0XN0fKEPX5ZpMVJ5OmPVTb1t9CVHu9yUtcIx-FzpvPag" />
+    </item>
+  </cookies>
+</error>
