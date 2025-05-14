@@ -11,14 +11,10 @@ const { Title, Text } = Typography;
 
 const ReportPage = () => {
   const [loading, setLoading] = useState(true);
-  // const [collapsed, setCollapsed] = useState(false);
   const { getCurrentUser } = useUserActions();
   const { getCurrentSurvivor } = useSurvivorActions();
   const { isPending, isError } = useUserState();
-  // const { currentSurvivor } = useSurvivorState();
-  // const handleReportSubmit = (values) => {
-  //   console.log('Submitted Report:', values);
-  // };
+
 
   useEffect(() => {
     fetchSurvivorOnReload();
