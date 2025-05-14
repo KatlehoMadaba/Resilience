@@ -44,8 +44,7 @@ export const JournalEntryProvider = ({
     await instance
       .get(endpoint)
       .then((response) => {
-        dispatch(getJournalEntriesByPersonIdSuccess(response?.data?.result));
-        console.log(response?.data?.result);
+        dispatch(getJournalEntriesByPersonIdSuccess(response?.data?.result))
       })
       .catch((error) => {
         console.error("getting entries:", error);
