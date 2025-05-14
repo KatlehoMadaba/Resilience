@@ -1,11 +1,13 @@
-﻿using Abp.AspNetCore;
+﻿using System;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using Abp.AspNetCore;
 using Abp.AspNetCore.Mvc.Antiforgery;
 using Abp.AspNetCore.SignalR.Hubs;
 using Abp.Castle.Logging.Log4Net;
-using Abp.Extensions;
-using Resilience.Configuration;
-using Resilience.Identity;
 using Castle.Facilities.Logging;
+using ElmahCore.Mvc;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -13,12 +15,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using System;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using ElmahCore.Mvc;
-using ElmahCore;
+using Resilience.Configuration;
+using Resilience.Identity;
 
 namespace Resilience.Web.Host.Startup
 {
@@ -44,12 +42,12 @@ namespace Resilience.Web.Host.Startup
             {
                 options.Filters.Add(new AbpAutoValidateAntiforgeryTokenAttribute());
             });
-            services.AddElmah<XmlFileErrorLog>(options =>
+            services.AddElmah<ElmahCore.XmlFileErrorLog>(options =>
             {
                 options.Path = "elmah"; // Access logs at /elmah
                 options.LogPath = "~/logs"; // You can customize the log directory
             });
-
+           
             IdentityRegistrar.Register(services);
             AuthConfigurer.Configure(services, _appConfiguration);
 

@@ -1,34 +1,23 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reflection.Metadata;
-using System.Text;
 using System.Threading.Tasks;
 using Abp.Domain.Repositories;
 using Abp.Domain.Services;
 using Abp.Domain.Uow;
 using Abp.Runtime.Session;
 using Abp.UI;
-using iTextSharp.text;
-using iTextSharp.text.pdf;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.CodeAnalysis;
-using Resilience.Domain.Reports.Dtos;
-using Document = iTextSharp.text.Document;
 
 namespace Resilience.Domain.Reports
 {
     public class SexaualAssualtReportManager : DomainService
     {
-        private readonly IWebHostEnvironment _webHostEnvironment;
+        //private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly IRepository<SexualAssaultReport, Guid> _sexualAssualtrepository;
         private readonly IUnitOfWorkManager _unitOfWorkManager;
         private readonly IAbpSession _abpSession;
-        public SexaualAssualtReportManager(IRepository<SexualAssaultReport, Guid> sexualAssualtrepository, IWebHostEnvironment hostingEnviroment, IRepository sexualAssaultReportRepository, IUnitOfWorkManager unitOfWorkManager, IAbpSession _abpSession)
+        public SexaualAssualtReportManager(IRepository<SexualAssaultReport, Guid> sexualAssualtrepository, /*IWebHostEnvironment hostingEnviroment*/ IRepository sexualAssaultReportRepository, IUnitOfWorkManager unitOfWorkManager, IAbpSession _abpSession)
         {
 
-            _webHostEnvironment = hostingEnviroment;
+            //_webHostEnvironment = hostingEnviroment;
             _sexualAssualtrepository = sexualAssualtrepository;
             _unitOfWorkManager = unitOfWorkManager;
         }
@@ -168,34 +157,34 @@ namespace Resilience.Domain.Reports
 
 
         //Generate the PDF
-        public FileDto GeneratePdf(SexualAssaultReport sexualAssaultReport, string reportInput)
-        {
-            using (var memoryStream = new MemoryStream())
-            {
-                //Document fomating
-                Document document = new Document(PageSize.A4, 50, 50, 50, 50);
-                //Creating instance for pdf writer
-                PdfWriter writer = PdfWriter.GetInstance(document, memoryStream);
-                //Open document for writing 
-                document.Open();
-                //adding a title paragraph to document 
-                Paragraph title = new Paragraph("Sexual Assualt Report",
-                //adding fonts and styling to the document
-                new Font(Font.FontFamily.HELVETICA, 18, Font.BOLD));
-                title.Alignment = Element.ALIGN_CENTER;
-                title.SpacingAfter = 20;
-                document.Add(title);
-                //closing document after writing to it 
-                document.Close();
+        //public FileDto GeneratePdf(SexualAssaultReport sexualAssaultReport, string reportInput)
+        //{
+        //    using (var memoryStream = new MemoryStream())
+        //    {
+        //        //Document fomating
+        //        Document document = new Document(PageSize.A4, 50, 50, 50, 50);
+        //        //Creating instance for pdf writer
+        //        PdfWriter writer = PdfWriter.GetInstance(document, memoryStream);
+        //        //Open document for writing 
+        //        document.Open();
+        //        //adding a title paragraph to document 
+        //        Paragraph title = new Paragraph("Sexual Assualt Report",
+        //        //adding fonts and styling to the document
+        //        new Font(Font.FontFamily.HELVETICA, 18, Font.BOLD));
+        //        title.Alignment = Element.ALIGN_CENTER;
+        //        title.SpacingAfter = 20;
+        //        document.Add(title);
+        //        //closing document after writing to it 
+        //        document.Close();
 
-                return new FileDto
-                {
-                     FileName= $"SexualAssualtReport_{sexualAssaultReport.Id}_{DateTime.Now:yyyyMMMM}.pdf",
-                     ContentType="application/pdf",
-                     FileBytes= memoryStream.ToArray()
-                };
-            }
-        }
+        //        return new FileDto
+        //        {
+        //             FileName= $"SexualAssualtReport_{sexualAssaultReport.Id}_{DateTime.Now:yyyyMMMM}.pdf",
+        //             ContentType="application/pdf",
+        //             FileBytes= memoryStream.ToArray()
+        //        };
+        //    }
+        //}
 
        
 

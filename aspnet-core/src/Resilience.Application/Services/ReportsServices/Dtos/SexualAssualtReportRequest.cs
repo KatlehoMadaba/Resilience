@@ -1,14 +1,10 @@
 ﻿using System;
 using Abp.Application.Services.Dto;
-using Abp.AutoMapper;
 using Resilience.Domain.Reports;
-using Resilience.Domain.Testimonies;
 
 namespace Resilience.Services.ReportsServices.Dtos
 {
-
-    [AutoMap(typeof(SexualAssaultReport))]
-    public class SexualAssaultReportDto:EntityDto<Guid>
+    public class SexualAssualtReportRequest:EntityDto<Guid>
     {
         public Guid PersonId { get; set; }
         public ReflistReportStatus ReportStatus { get; set; }
