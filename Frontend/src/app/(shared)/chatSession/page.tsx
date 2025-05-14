@@ -1,14 +1,18 @@
 "use client";
+
+import React, { useEffect, useState } from "react";
 import ChatInterface from "@/components/chat/ChatInterface";
 import ProfessionalContacts from "@/components/chat/ProfessionalContacts";
-import SurviorContacts from "@/components/chat/SurviorContacts";
-import React, { useEffect, useState } from "react";
+import SurvivorContacts from "@/components/chat/SurviorContacts";
 import { getRole } from "@/utils/decoder";
-const ChatSession = () => {
-  const token = sessionStorage.getItem("jwt");
-  const [userRole, setUserRole] = useState("");
 
-  //showing contacts based on role of the user
+const ChatSession = () => {
+  const [userRole, setUserRole] = useState("");
+  const [selectedPersonId, setSelectedPersonId] = useState<string | null>(null);
+
+  const token =
+    typeof window !== "undefined" ? sessionStorage.getItem("jwt") : null;
+
   useEffect(() => {
     const fetchUserRole = async () => {
       try {
@@ -19,16 +23,24 @@ const ChatSession = () => {
         setUserRole("survivor");
       }
     };
+
     fetchUserRole();
   }, [token]);
+
   return (
     <>
-      <ChatInterface />
-      {/* {rendering contacts based on the role} */}
-      {userRole === "professional" ? (
-        <SurviorContacts />
+      {/* Chat UI */}
+      {selectedPersonId ? (
+        <ChatInterface personId={selectedPersonId} />
       ) : (
-        <ProfessionalContacts />
+        <p>Select a contact to begin chatting.</p>
+      )}
+
+      {/* Contacts */}
+      {userRole === "professional" ? (
+        <SurvivorContacts onSelect={setSelectedPersonId} />
+      ) : (
+        <ProfessionalContacts onSelect={setSelectedPersonId} />
       )}
     </>
   );
