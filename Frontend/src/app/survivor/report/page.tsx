@@ -11,14 +11,10 @@ const { Title, Text } = Typography;
 
 const ReportPage = () => {
   const [loading, setLoading] = useState(true);
-  // const [collapsed, setCollapsed] = useState(false);
   const { getCurrentUser } = useUserActions();
   const { getCurrentSurvivor } = useSurvivorActions();
   const { isPending, isError } = useUserState();
-  // const { currentSurvivor } = useSurvivorState();
-  // const handleReportSubmit = (values) => {
-  //   console.log('Submitted Report:', values);
-  // };
+
 
   useEffect(() => {
     fetchSurvivorOnReload();
@@ -34,7 +30,7 @@ const ReportPage = () => {
     if (!token) return;
     try {
       setLoading(true);
-      const user = await getCurrentUser(token);
+      const user = await getCurrentUser();
       await getCurrentSurvivor(user.id);
     } catch (err) {
       console.error("Error loading survivor:", err);

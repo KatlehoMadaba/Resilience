@@ -22,7 +22,6 @@ import {
   signUpSurvivorError,
 } from "./actions";
 import { getAxiosInstace } from "@/utils/axiosInstance";
-import axios from "axios";
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [state, dispatch] = useReducer(AuthReducer, INITIAL_STATE);
@@ -50,14 +49,16 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const signUpImmediateSurvivor = async (Survivor: ISurvivorRegisteration) => {
     dispatch(signUpSurvivorPending());
     const endpoint = `/api/services/app/ImdSurvivor/Create`;
-    await axios
+    instance
       .post(endpoint, Survivor)
       .then(() => {
         dispatch(signUpSurvivorSuccess());
       })
       .catch((error) => {
         dispatch(signUpSurvivorError());
+        const backendMessage = error.response?.data?.error?.message;
         console.error(error);
+        throw new Error(backendMessage);
       });
   };
 

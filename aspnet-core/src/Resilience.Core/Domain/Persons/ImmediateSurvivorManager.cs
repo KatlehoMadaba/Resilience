@@ -54,7 +54,6 @@ namespace Resilience.Domain.Persons
             bool? useDisplayNameOnly,
             ReflistSex? sex,
             string? phoneNumber,
-            bool isAnonymous,
             DateTime? incidentDate,
             bool? hasReceivedMedicalAttention,
             bool? hasReportedToAuthorities
@@ -94,12 +93,11 @@ namespace Resilience.Domain.Persons
                         UseDisplayNameOnly = useDisplayNameOnly,
                         Sex = sex,
                         PhoneNumber = phoneNumber,
-                        IsAnonymous = isAnonymous,
+                        IsAnonymous = false,
                         IncidentDate = incidentDate,
                         HasReceivedMedicalAttention = hasReceivedMedicalAttention ?? false,
                         HasReportedToAuthorities = hasReportedToAuthorities ?? false,
                         SupportSessions = new List<SupportSession>(),
-                        Reports = new List<Report>(),
                         Stories = new List<Story>(),
                         Petitions = new List<Petition>(),
                         CrowdfundingCampaigns = new List<CrowdfundingCampaign>(),
@@ -163,9 +161,7 @@ namespace Resilience.Domain.Persons
                 p => p.User,
                 p => p.CrowdfundingCampaigns,
                 p => p.SupportSessions,
-                p => p.MedicalAssistanceRecord,
-                p => p.JournalEntries,
-                p => p.MoodEntries
+                p => p.MedicalAssistanceRecord
             );
 
                 var ImmediateSurvivor = await ImmediateSurvivors.FirstOrDefaultAsync(p => p.UserId == userId);

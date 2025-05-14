@@ -71,13 +71,10 @@ namespace Resilience.Domain.Persons
                     PhoneNumber = phoneNumber,
                     IsAnonymous = isAnonymous,
                     SupportSessions = new List<SupportSession>(),
-                    Reports = new List<Report>(),
                     Stories = new List<Story>(),
                     Petitions = new List<Petition>(),
                     CrowdfundingCampaigns = new List<CrowdfundingCampaign>(),
                     SavedResources = new List<SupportResource>(),
-                    MoodEntries = new List<MoodEntry>(),
-                    JournalEntries=new List<JournalEntry>(),
                     Testimonies = new List<Testimony>(),
                 };
                 await _personRepository.InsertAsync(person);

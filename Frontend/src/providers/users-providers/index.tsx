@@ -11,6 +11,9 @@ import {
   getCurrentUserPending,
   getCurrentUserSuccess,
   getCurrentUserError,
+  getCurrentPersonIdPending,
+  getCurrentPersonIdError,
+  getCurrentPersonIdSuccess,
   createUserSuccess,
   createUserError,
   createUserPending,
@@ -21,24 +24,28 @@ import {
   deleteUserError,
   deleteUserPending,
 } from "./actions";
-
 import axios from "axios";
-
-//import { useAuthActions } from "../auth-provider";
 
 export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const [state, dispatch] = useReducer(UserReducer, INITIAL_STATE);
   const instance = getAxiosInstace();
 
-  
+  // useEffect(() => {
+  //   const load = async () => {
+  //     const personId = await getMyPersonId();
+  //     getUser((prev) => ({ ...prev, personId }));
+  //   };
+
+  //   if (getCurrentUser?.id && !user.personId) {
+  //     load();
+  //   }
+  // }, [loggedInUser]);
   // Get current user
-  const getCurrentUser = async (token: string): Promise<IUser | null> => {
+  const getCurrentUser = async (): Promise<IUser | null> => {
     dispatch(getCurrentUserPending());
     const endpoint = `/api/services/app/Session/GetCurrentLoginInformations`;
     return instance
-      .get(endpoint, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
+      .get(endpoint)
       .then((response) => {
         if (response?.data?.result) {
           dispatch(getCurrentUserSuccess(response?.data?.result?.user));
@@ -53,6 +60,20 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
         console.error("Error fetching current user:", error);
         dispatch(getCurrentUserError());
         return null;
+      });
+  };
+
+  const getCurrentPersonId = async () => {
+    const endpoint = `/api/services/app/PersonService/GetCurrentPersonId`;
+    dispatch(getCurrentPersonIdPending());
+    instance
+      .get(endpoint)
+      .then((response) => {
+        dispatch(getCurrentPersonIdSuccess(response?.data?.result));
+      })
+      .catch((error) => {
+        console.error("Error while getting current Person:", error);
+        dispatch(getCurrentPersonIdError());
       });
   };
 
@@ -143,6 +164,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
           updateUser,
           deleteUser,
           getCurrentUser,
+          getCurrentPersonId,
           getUser,
         }}
       >

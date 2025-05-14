@@ -1,0 +1,20 @@
+.bubble {
+    padding: 10px 14px;
+    border-radius: 16px;
+    max-width: 70%;
+    font-size: 14px;
+    line-height: 1.5;
+    word-break: break-word;
+}
+
+.own {
+    background-color: #9e9ac8;
+    color: #fff;
+    align-self: flex-end;
+}
+
+.other {
+    background-color: #f0f2f5;
+    color: #333;
+    align-self: flex-start;
+}

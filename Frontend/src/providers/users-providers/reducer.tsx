@@ -4,8 +4,7 @@ import { INITIAL_STATE, IUserStateContext } from "./context";
 import { UserActionEnums } from "./actions";
 
 export const UserReducer = handleActions<
-  IUserStateContext,
-  Partial<IUserStateContext>
+  IUserStateContext
 >(
   {
     [UserActionEnums.getUsersPending]: (state, action) => ({
@@ -43,6 +42,18 @@ export const UserReducer = handleActions<
       ...(action.payload ?? {}),
     }),
     [UserActionEnums.getCurrentUserError]: (state, action) => ({
+      ...state,
+      ...(action.payload ?? {}),
+    }),
+    [UserActionEnums.getCurrentPersonIdPending]: (state, action) => ({
+      ...state,
+      ...(action.payload ?? {}),
+    }),
+    [UserActionEnums.getCurrentPersonIdSuccess]: (state, action) => ({
+      ...state,
+      ...(action.payload ?? {}),
+    }),
+    [UserActionEnums.getCurrentPersonIdError]: (state, action) => ({
       ...state,
       ...(action.payload ?? {}),
     }),

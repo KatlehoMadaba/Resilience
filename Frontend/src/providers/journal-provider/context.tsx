@@ -10,7 +10,7 @@ export interface IJournalEntryStateContext {
 }
 export interface IJournalEntryActionContext {
   createJournalEntry: (JournalEntry: IJournalEntry) => void;
-  getJournalEntries: () => void;
+  getJournalEntriesByPersonId: (personId: string) => void;
 }
 export const INITIAL_STATE: IJournalEntryStateContext = {
   isPending: false,

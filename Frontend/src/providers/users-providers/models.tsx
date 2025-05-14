@@ -6,3 +6,6 @@ export interface IUser {
   emailAddress: string;
   userName: string;
 }
+export interface IPersonId{
+  personId?:string
+}

@@ -26,7 +26,7 @@ const survivorsNavigationItems = [
     icon: <BookOutlined />,
   },
   {
-    key: "/survivor/humanTherapist",
+    key: "/chatSession",
     label: "Therapy",
     icon: <UserOutlined />,
   },

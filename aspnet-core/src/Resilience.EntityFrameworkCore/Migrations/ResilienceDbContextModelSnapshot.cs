@@ -1581,6 +1581,67 @@ namespace Resilience.Migrations
                     b.ToTable("AbpUsers");
                 });
 
+            modelBuilder.Entity("Resilience.Domain.ChatSessions.ChatMessage", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid?>("ChatSessionId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<long?>("CreatorUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("DeleterUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("DeletionTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("IsRead")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime?>("LastModificationTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<long?>("LastModifierUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<Guid?>("ReceiverId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("ReceiverPersonId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid?>("SenderId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("SenderPersonId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("SentAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ReceiverId");
+
+                    b.HasIndex("SenderId");
+
+                    b.ToTable("ChatMessages");
+                });
+
             modelBuilder.Entity("Resilience.Domain.CheckLists.Checklist", b =>
                 {
                     b.Property<Guid>("Id")
@@ -1967,7 +2028,7 @@ namespace Resilience.Migrations
                     b.Property<string>("DisplayName")
                         .HasColumnType("text");
 
-                    b.Property<bool>("IsAnonymous")
+                    b.Property<bool?>("IsAnonymous")
                         .HasColumnType("boolean");
 
                     b.Property<bool>("IsDeleted")
@@ -2223,17 +2284,12 @@ namespace Resilience.Migrations
                     b.Property<Guid>("PersonId")
                         .HasColumnType("uuid");
 
-                    b.Property<Guid?>("ProgressTrackerId")
-                        .HasColumnType("uuid");
-
                     b.PrimitiveCollection<List<string>>("Tags")
                         .HasColumnType("text[]");
 
                     b.HasKey("Id");
 
                     b.HasIndex("PersonId");
-
-                    b.HasIndex("ProgressTrackerId");
 
                     b.ToTable("JournalEntries");
                 });
@@ -2332,17 +2388,12 @@ namespace Resilience.Migrations
                     b.Property<Guid>("PersonId")
                         .HasColumnType("uuid");
 
-                    b.Property<Guid?>("ProgressTrackerId")
-                        .HasColumnType("uuid");
-
                     b.Property<int>("Rating")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
 
                     b.HasIndex("PersonId");
-
-                    b.HasIndex("ProgressTrackerId");
 
                     b.ToTable("MoodEntries");
                 });
@@ -2377,16 +2428,10 @@ namespace Resilience.Migrations
                     b.Property<long?>("LastModifierUserId")
                         .HasColumnType("bigint");
 
-                    b.Property<Guid>("PersonId")
-                        .HasColumnType("uuid");
-
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("PersonId")
-                        .IsUnique();
 
                     b.ToTable("ProgressTrackers");
                 });
@@ -3359,6 +3404,21 @@ namespace Resilience.Migrations
                     b.Navigation("LastModifierUser");
                 });
 
+            modelBuilder.Entity("Resilience.Domain.ChatSessions.ChatMessage", b =>
+                {
+                    b.HasOne("Resilience.Domain.Persons.Person", "Receiver")
+                        .WithMany()
+                        .HasForeignKey("ReceiverId");
+
+                    b.HasOne("Resilience.Domain.Persons.Person", "Sender")
+                        .WithMany()
+                        .HasForeignKey("SenderId");
+
+                    b.Navigation("Receiver");
+
+                    b.Navigation("Sender");
+                });
+
             modelBuilder.Entity("Resilience.Domain.CheckLists.ChecklistItem", b =>
                 {
                     b.HasOne("Resilience.Domain.CheckLists.Checklist", "Checklist")
@@ -3470,17 +3530,13 @@ namespace Resilience.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Resilience.Domain.ProgressTrackers.ProgressTracker", null)
-                        .WithMany("JournalEntries")
-                        .HasForeignKey("ProgressTrackerId");
-
                     b.Navigation("Person");
                 });
 
             modelBuilder.Entity("Resilience.Domain.ProgressTrackers.MilestoneEntry", b =>
                 {
                     b.HasOne("Resilience.Domain.ProgressTrackers.ProgressTracker", "ProgressTracker")
-                        .WithMany("Milestones")
+                        .WithMany()
                         .HasForeignKey("ProgressTrackerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -3496,22 +3552,7 @@ namespace Resilience.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Resilience.Domain.ProgressTrackers.ProgressTracker", null)
-                        .WithMany("MoodEntries")
-                        .HasForeignKey("ProgressTrackerId");
-
                     b.Navigation("Preson");
-                });
-
-            modelBuilder.Entity("Resilience.Domain.ProgressTrackers.ProgressTracker", b =>
-                {
-                    b.HasOne("Resilience.Domain.Persons.Person", "Person")
-                        .WithOne("ProgressTracker")
-                        .HasForeignKey("Resilience.Domain.ProgressTrackers.ProgressTracker", "PersonId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Person");
                 });
 
             modelBuilder.Entity("Resilience.Domain.Reports.Report", b =>
@@ -3599,7 +3640,7 @@ namespace Resilience.Migrations
             modelBuilder.Entity("Resilience.Domain.SupportSessions.Message", b =>
                 {
                     b.HasOne("Resilience.Domain.SupportSessions.SupportSession", "Session")
-                        .WithMany("Messages")
+                        .WithMany()
                         .HasForeignKey("SessionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -3756,8 +3797,6 @@ namespace Resilience.Migrations
 
                     b.Navigation("Petitions");
 
-                    b.Navigation("ProgressTracker");
-
                     b.Navigation("Reports");
 
                     b.Navigation("SavedResources");
@@ -3774,15 +3813,6 @@ namespace Resilience.Migrations
                     b.Navigation("Signatures");
                 });
 
-            modelBuilder.Entity("Resilience.Domain.ProgressTrackers.ProgressTracker", b =>
-                {
-                    b.Navigation("JournalEntries");
-
-                    b.Navigation("Milestones");
-
-                    b.Navigation("MoodEntries");
-                });
-
             modelBuilder.Entity("Resilience.Domain.Reports.Report", b =>
                 {
                     b.Navigation("SexualAssaultReport");
@@ -3797,8 +3827,6 @@ namespace Resilience.Migrations
 
             modelBuilder.Entity("Resilience.Domain.SupportSessions.SupportSession", b =>
                 {
-                    b.Navigation("Messages");
-
                     b.Navigation("ProsessionalMessages");
                 });
 

@@ -1,0 +1,35 @@
+.chatWrapper {
+    padding: 24px;
+    display: flex;
+    justify-content: center;
+    background-color: #f5f3ff;
+    min-height: calc(100vh - 80px);
+}
+
+.chatBox {
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    width: 100%;
+    max-width: 700px;
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+}
+
+.messagesArea {
+    flex: 1;
+    overflow-y: auto;
+    max-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 16px;
+}
+
+.inputArea {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    align-items: flex-end;
+}
