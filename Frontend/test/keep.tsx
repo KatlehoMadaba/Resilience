@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Abp.Application.Services;
 using Abp.Application.Services.Dto;
 using Abp.Domain.Repositories;
 using Abp.UI;
-using Microsoft.EntityFrameworkCore;
 using Resilience.Domain.ProgressTrackers;
 using Resilience.Services.ProgressTrackerServices.Dtos;
 
@@ -17,22 +15,20 @@ namespace Resilience.Services.ProgressTrackerServices
         private readonly JournalEntryManager _journalEntryManager;
         public JournalEntryAppService(IRepository<JournalEntry, Guid> repository, JournalEntryManager journalEntryManager) : base(repository)
         {
-            _journalEntryManager = journalEntryManager;
+            _journalEntryManager = journalEntryManager ;
         }
 
-        public async Task<List<JournalEntry>> GetJournalEntryByPersonIdAsync(Guid personId)
+        public async Task<IQueryable<JournalEntry>> GetJournalEntryByPersonIdAsync(Guid personId)
         {
-            var journalEntries = _journalEntryManager.GetJournalEntriesByPersonId(personId); // No async here
 
-            if (journalEntries == null || !journalEntries.Any())
+            var JournalEntries = await _journalEntryManager.GetJournalEntryByPersonIdWithUserAsync(personId);
+
+            if (JournalEntries == null)
             {
-                throw new UserFriendlyException("No journal entries found for this person.");
+                throw new UserFriendlyException("Progress Tracker not found");
             }
-
-            return journalEntries;
-
+            return JournalEntries;
         }
-
-
     }
+
 }

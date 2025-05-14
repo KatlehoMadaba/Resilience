@@ -98,7 +98,6 @@ namespace Resilience.Domain.Persons
                         HasReceivedMedicalAttention = hasReceivedMedicalAttention ?? false,
                         HasReportedToAuthorities = hasReportedToAuthorities ?? false,
                         SupportSessions = new List<SupportSession>(),
-                        Reports = new List<Report>(),
                         Stories = new List<Story>(),
                         Petitions = new List<Petition>(),
                         CrowdfundingCampaigns = new List<CrowdfundingCampaign>(),
@@ -162,9 +161,7 @@ namespace Resilience.Domain.Persons
                 p => p.User,
                 p => p.CrowdfundingCampaigns,
                 p => p.SupportSessions,
-                p => p.MedicalAssistanceRecord,
-                p => p.JournalEntries,
-                p => p.MoodEntries
+                p => p.MedicalAssistanceRecord
             );
 
                 var ImmediateSurvivor = await ImmediateSurvivors.FirstOrDefaultAsync(p => p.UserId == userId);

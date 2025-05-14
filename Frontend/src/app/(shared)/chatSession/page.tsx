@@ -1,10 +1,10 @@
-"use client"
+"use client";
 import ChatInterface from "@/components/chat/ChatInterface";
 import ProfessionalContacts from "@/components/chat/ProfessionalContacts";
 import SurviorContacts from "@/components/chat/SurviorContacts";
 import React, { useEffect, useState } from "react";
 import { getRole } from "@/utils/decoder";
-const HumanTherapist = () => {
+const ChatSession = () => {
   const token = sessionStorage.getItem("jwt");
   const [userRole, setUserRole] = useState("");
 
@@ -34,4 +34,4 @@ const HumanTherapist = () => {
   );
 };
 
-export default HumanTherapist;
+export default ChatSession;

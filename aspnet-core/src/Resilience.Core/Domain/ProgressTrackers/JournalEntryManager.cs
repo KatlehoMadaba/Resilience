@@ -1,48 +1,63 @@
 ﻿using System;
-using System.Threading.Tasks;
+using System.Collections.Generic;
+using System.Linq;
 using Abp.Domain.Repositories;
 using Abp.Domain.Services;
+using Abp.Domain.Uow;
+using Abp.Runtime.Session;
 using Abp.UI;
-using Microsoft.EntityFrameworkCore;
 
 namespace Resilience.Domain.ProgressTrackers
 {
     public class JournalEntryManager : DomainService
     {
         private readonly IRepository<JournalEntry, Guid> _journalEntryRepository;
-
+        private readonly IUnitOfWorkManager _unitOfWorkManager;
+        private readonly IAbpSession _abpSession;
         public JournalEntryManager
             (
-            IRepository<JournalEntry, Guid> journalEntryRepository
+            IRepository<JournalEntry, Guid> journalEntryRepository,
+            IUnitOfWorkManager unitOfWorkManager,
+            IAbpSession abpSession
             )
         {
             _journalEntryRepository = journalEntryRepository;
+            _abpSession = abpSession;
+            _unitOfWorkManager = unitOfWorkManager;
         }
 
 
 
-        public async Task<JournalEntry> GetJournalEntryByPersonIdWithUserAsync(Guid personid)
+        public List<JournalEntry> GetJournalEntriesByPersonId(Guid personId)
         {
-            try
+            using (var uow = _unitOfWorkManager.Begin())
             {
-                    var query = await _journalEntryRepository.GetAllIncludingAsync(p => p.Person);
+                _unitOfWorkManager.Current.SetTenantId(1); 
 
-                    var JournalEntry = await query.FirstOrDefaultAsync(p => p.PersonId == personid);
-                
-                    return JournalEntry;
-               
-            }
-            catch (Exception ex)
-            {
-                Logger.Error($"Error creating ImmediateSurvivor: {ex.Message}", ex);
-                if (ex.InnerException != null)
-                    Logger.Error($"Inner exception: {ex.InnerException.Message}");
-                throw new UserFriendlyException("An error occurred while creating the ImmediateSurvivor", ex);
-            }
+                try
+                {
+                    var session = _abpSession.Use(1, 1);
 
+                    var entries = _journalEntryRepository
+                         .GetAll()
+                         .Where(entry => entry.PersonId == personId)
+                         .ToList(); 
+
+                    uow.Complete(); 
+
+                    return entries;
+                }
+                catch (Exception ex)
+                {
+                    Logger.Error($"Error retrieving journal entries for PersonId {personId}: {ex.Message}", ex);
+                    if (ex.InnerException != null)
+                    {
+                        Logger.Error($"Inner exception: {ex.InnerException.Message}");
+                    }
+                    throw new UserFriendlyException("An error occurred while retrieving journal entries.", ex);
+                }
+            }
         }
-
-
 
     }
 
