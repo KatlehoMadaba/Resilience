@@ -1,47 +1,67 @@
 "use client";
+
 import React, { useEffect } from "react";
 import {
-  useProfessionalActions,
-  useProfessionalState,
-} from "@/providers/professionals-provider";
+  useSurvivorActions,
+  useSurvivorState,
+} from "@/providers/survivors-provider";
 import { Spin, Card } from "antd";
 
-interface Props {
-  onSelect: (id: string) => void;
+interface SurvivorContactProps {
+  onSelect: (person: {
+    id: string;
+    displayName?: string;
+    name?: string;
+    surname?: string;
+  }) => void;
 }
 
-const ProfessionalContacts: React.FC<Props> = ({ onSelect }) => {
-  const { getProfessionals } = useProfessionalActions();
-  const { Professionals, isPending } = useProfessionalState();
+const SurvivorContacts: React.FC<SurvivorContactProps> = ({ onSelect }) => {
+  const { getSurvivors } = useSurvivorActions();
+  const { Survivors, isPending } = useSurvivorState();
 
   useEffect(() => {
-    if (!Professionals || Professionals.length === 0) {
-      getProfessionals();
+    if (!Survivors || Survivors.length === 0) {
+      getSurvivors();
     }
   }, []);
 
   return (
     <div>
-      <h3>Select a Professional</h3>
+      <h3>Select a Survivor</h3>
       {isPending && <Spin />}
-      {Professionals && Professionals.length > 0 ? (
-        Professionals.map((professional) => (
+      {Survivors?.length > 0 ? (
+        Survivors.map((survivor) => (
           <Card
-            key={professional.id}
-            onClick={() => onSelect(professional.id)}
+            key={survivor.id}
+            onClick={() =>
+              onSelect({
+                id: survivor.id,
+                displayName: survivor.displayName,
+                name: survivor.name,
+                surname: survivor.surname,
+              })
+            }
             hoverable
             style={{ marginBottom: 8 }}
           >
-            <h4>{professional.userName || "untitled"}</h4>
-            <p>{professional.profession}</p>
-            <p>{professional.organization}</p>
+            <h4>
+              {survivor.displayName || `${survivor.name} ${survivor.surname}`}
+            </h4>
+            <p>
+              {survivor.sex === 1
+                ? "Male"
+                : survivor.sex === 2
+                ? "Female"
+                : "Not disclosed"}
+            </p>
           </Card>
         ))
       ) : (
-        <p>No Professionals available.</p>
+        <p>No Survivors available.</p>
       )}
     </div>
   );
 };
 
-export default ProfessionalContacts;
+export default SurvivorContacts;

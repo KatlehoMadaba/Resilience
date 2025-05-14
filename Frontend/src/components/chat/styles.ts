@@ -18,7 +18,7 @@ export const ChatContainer = styled.div`
   flex-direction: column;
   gap: 12px;
   min-height: 70vh;
-
+  
   @media (min-width: 768px) {
     max-width: 30%;
   }
@@ -38,12 +38,11 @@ export const MessagesContainer = styled.div`
 `;
 
 export const MessageBubble = styled.div<{ $isOwn: boolean }>`
-  background-color: ${({ $isOwn }) => ($isOwn ? "#A5D5E8" : "#F0F2F5")};
+  background-color: ${({ $isOwn }) => ($isOwn ? "#F0F2F5" : "#A5D5E8")};
   border-radius: 12px;
   padding: 10px;
   margin: 8px 0;
   max-width: 80%;
-  align-self: ${({ $isOwn }) => ($isOwn ? "flex-end" : "flex-start")};
   word-break: break-word;
 `;
 
