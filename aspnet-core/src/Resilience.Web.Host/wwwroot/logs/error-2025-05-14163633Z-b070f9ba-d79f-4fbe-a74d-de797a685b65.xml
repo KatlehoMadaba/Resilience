@@ -1,0 +1,168 @@
+﻿<error errorId="b070f9ba-d79f-4fbe-a74d-de797a685b65" application="Resilience.Web.Host" host="LAPTOP-IU87V3ER" type="HTTP" message="NotFound" detail="# caller: @C:\Sources\ElmahCore\ElmahCore\ElmahCore\Internal$\CallerInfo.cs:9&#xD;&#xA;ElmahCore.HttpException: NotFound" user="Katleho123@gmail.com" time="2025-05-14T16:36:33.0403422Z" statusCode="404">
+  <serverVariables>
+    <item name="HttpVersion">
+      <value string="2.0" />
+    </item>
+    <item name="Scheme">
+      <value string="https" />
+    </item>
+    <item name="Method">
+      <value string="POST" />
+    </item>
+    <item name="PathBase">
+      <value string="" />
+    </item>
+    <item name="Path">
+      <value string="/api/generateReport" />
+    </item>
+    <item name="QueryString">
+      <value string="" />
+    </item>
+    <item name="RawTarget">
+      <value string="/api/generateReport" />
+    </item>
+    <item name="HasResponseStarted">
+      <value string="False" />
+    </item>
+    <item name="RemotePort">
+      <value string="0" />
+    </item>
+    <item name="LocalPort">
+      <value string="0" />
+    </item>
+    <item name="TraceIdentifier">
+      <value string="4000004f-0009-fe00-b63f-84710c7967bb" />
+    </item>
+    <item name="Protocol">
+      <value string="Tls13" />
+    </item>
+    <item name="SniHostName">
+      <value string="" />
+    </item>
+    <item name="CipherAlgorithm">
+      <value string="Aes256" />
+    </item>
+    <item name="CipherStrength">
+      <value string="256" />
+    </item>
+    <item name="HashAlgorithm">
+      <value string="Sha384" />
+    </item>
+    <item name="HashStrength">
+      <value string="0" />
+    </item>
+    <item name="KeyExchangeAlgorithm">
+      <value string="None" />
+    </item>
+    <item name="KeyExchangeStrength">
+      <value string="255" />
+    </item>
+    <item name="Header_Accept">
+      <value string="application/json, text/plain, */*" />
+    </item>
+    <item name="Header_Accept-Encoding">
+      <value string="gzip, deflate, br, zstd" />
+    </item>
+    <item name="Header_Accept-Language">
+      <value string="en-GB,en;q=0.9,en-US;q=0.8" />
+    </item>
+    <item name="Header_Authorization">
+      <value string="Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjQiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiS2F0bGVobzEyM0BnbWFpbC5jb20iLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJLYXRsZWhvMTIzQGdtYWlsLmNvbSIsIkFzcE5ldC5JZGVudGl0eS5TZWN1cml0eVN0YW1wIjoiSFU3V1NKRkhBV1NLUEFTMzZIRlRaWVhMS01LSFVMMkoiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJpbW1lZGlhdGVzdXJ2aXZvciIsImh0dHA6Ly93d3cuYXNwbmV0Ym9pbGVycGxhdGUuY29tL2lkZW50aXR5L2NsYWltcy90ZW5hbnRJZCI6IjEiLCJzdWIiOiI0IiwianRpIjoiMTY2NzgyZjItNzc3Zi00ZGY4LTk0NDktYWFjMTg2NjM2ODhlIiwiaWF0IjoxNzQ3MjQwNTM5LCJuYmYiOjE3NDcyNDA1MzksImV4cCI6MTc0NzMyNjkzOSwiaXNzIjoiUmVzaWxpZW5jZSIsImF1ZCI6IlJlc2lsaWVuY2UifQ.XIU-9hd6ZkpD1pff71R3wvYDrog98OuORYkRkLgiUXA" />
+    </item>
+    <item name="Header_Connection">
+      <value string="close" />
+    </item>
+    <item name="Header_Content-Length">
+      <value string="1377" />
+    </item>
+    <item name="Header_Content-Type">
+      <value string="application/json;charset=UTF-8" />
+    </item>
+    <item name="Header_Host">
+      <value string="localhost:44311" />
+    </item>
+    <item name="Header_Referer">
+      <value string="http://localhost:3000/" />
+    </item>
+    <item name="Header_User-Agent">
+      <value string="Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Mobile/15E148 Safari/604.1 Edg/136.0.0.0" />
+    </item>
+    <item name="Header_origin">
+      <value string="http://localhost:3000" />
+    </item>
+    <item name="Header_sec-fetch-site">
+      <value string="cross-site" />
+    </item>
+    <item name="Header_sec-fetch-mode">
+      <value string="cors" />
+    </item>
+    <item name="Header_sec-fetch-dest">
+      <value string="empty" />
+    </item>
+    <item name="Header_priority">
+      <value string="u=1, i" />
+    </item>
+    <item name="ResponseHeaders_X-Content-Type-Options">
+      <value string="nosniff" />
+    </item>
+    <item name="ResponseHeaders_X-XSS-Protection">
+      <value string="1; mode=block" />
+    </item>
+    <item name="ResponseHeaders_X-Frame-Options">
+      <value string="SAMEORIGIN" />
+    </item>
+    <item name="MaxRequestBodySize">
+      <value string="30000000" />
+    </item>
+    <item name="StatusCode">
+      <value string="404" />
+    </item>
+    <item name="RequestInfo_2">
+      <value string="System.ReadOnlyMemory&lt;Byte&gt;[28]" />
+    </item>
+    <item name="RequestInfo_5">
+      <value string="System.ReadOnlyMemory&lt;Byte&gt;[248]" />
+    </item>
+    <item name="RequestInfo_7">
+      <value string="System.ReadOnlyMemory&lt;Byte&gt;[56]" />
+    </item>
+    <item name="RequestInfo_11">
+      <value string="System.ReadOnlyMemory&lt;Byte&gt;[152]" />
+    </item>
+    <item name="RequestInfo_9">
+      <value string="System.ReadOnlyMemory&lt;Byte&gt;[136]" />
+    </item>
+    <item name="RequestInfo_6">
+      <value string="System.ReadOnlyMemory&lt;Byte&gt;[88]" />
+    </item>
+    <item name="Items_Items___RequestUnhandled">
+      <value string="True" />
+    </item>
+    <item name="Connection_Id">
+      <value string="18302628925093707854" />
+    </item>
+    <item name="Connection_RemoteIpAddress">
+      <value string="::1" />
+    </item>
+    <item name="Connection_RemotePort">
+      <value string="49339" />
+    </item>
+    <item name="Connection_LocalIpAddress">
+      <value string="::1" />
+    </item>
+    <item name="Connection_LocalPort">
+      <value string="44311" />
+    </item>
+    <item name="HttpStatusCode">
+      <value string="404" />
+    </item>
+  </serverVariables>
+  <form>
+    <item name="$request-body">
+      <value string="{&quot;personId&quot;:&quot;0196cf43-115d-731a-8875-2a6367aede2f&quot;,&quot;fullName&quot;:&quot;Emma Johnson&quot;,&quot;idNumber&quot;:&quot;9876543210&quot;,&quot;dateOfBirth&quot;:&quot;1990-05-12T00:00:00.000Z&quot;,&quot;address&quot;:&quot;123 Elm Street, Cityville, Country&quot;,&quot;phoneNumber&quot;:&quot;+27 111 222 3333&quot;,&quot;occupation&quot;:&quot;Journalist&quot;,&quot;incidentDateTime&quot;:&quot;2025-05-13T22:10:00.000Z&quot;,&quot;location&quot;:&quot;Central Park, Cityville&quot;,&quot;aloneOrWithSomeone&quot;:false,&quot;leadingEventsDescription&quot;:&quot;Walking home when an unknown individual approached aggressively&quot;,&quot;isSuspectKnown&quot;:true,&quot;suspectName&quot;:&quot;Michael Doe&quot;,&quot;suspectDescription&quot;:&quot;Tall, muscular, short brown hair, wearing dark jeans and a gray hoodie&quot;,&quot;weaponOrThreats&quot;:&quot;Threatened verbally, no visible weapon&quot;,&quot;assaultDescription&quot;:&quot;Pushed against a fence and forcefully restrained&quot;,&quot;injuries&quot;:true,&quot;wordsSpokenBySuspect&quot;:&quot;Stay quiet and don’t move&quot;,&quot;actionsTaken&quot;:&quot;Shouted for help, security intervened&quot;,&quot;changedClothesOrShowered&quot;:false,&quot;clothesKept&quot;:true,&quot;witnessPresent&quot;:true,&quot;witnessDetails&quot;:&quot;Security guard witnessed the incident and intervened&quot;,&quot;cctvAvailable&quot;:true,&quot;isOtherEvidence&quot;:true,&quot;otherEvidenceDescription&quot;:&quot;CCTV footage from a nearby storefront&quot;,&quot;receivedMedicalAttention&quot;:true,&quot;willingForensicExam&quot;:true,&quot;feelsSafe&quot;:false,&quot;wantsCounsellor&quot;:true,&quot;prefersFemaleOfficer&quot;:true,&quot;reportStatus&quot;:1,&quot;encryptedContent&quot;:&quot;none&quot;,&quot;isSharedWithAuthorities&quot;:true,&quot;sharedDate&quot;:&quot;2025-05-12T00:00:00.000Z&quot;,&quot;fileReference&quot;:&quot;date_time&quot;}" />
+    </item>
+  </form>
+  <messageLog>
+    <message level="Information" time-stamp="2025-05-14T16:36:33.0387524Z" message="CORS policy execution successful." />
+  </messageLog>
+</error>
