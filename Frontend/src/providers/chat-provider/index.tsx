@@ -13,7 +13,7 @@ import {
   getMessagesWithPersonSuccess,
   getMessagesWithPersonError,
 } from "./actions";
-import { getAxiosInstace } from "@/utils/axiosInstance";
+import { getAxiosInstance } from "@/utils/axiosInstance";
 import { ChatMessageReducer } from "./reducer";
 import { ISendMessage } from "@/providers/chat-provider/models";
 
@@ -23,7 +23,7 @@ export const ChatMessageProvider = ({
   children: React.ReactNode;
 }) => {
   const [state, dispatch] = useReducer(ChatMessageReducer, INITIAL_STATE);
-  const instance = getAxiosInstace();
+  const instance = getAxiosInstance();
 
   const sendMessage = async (sendMessage: ISendMessage) => {
     dispatch(sendMessagePending());

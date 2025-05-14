@@ -25,7 +25,7 @@ import {
   getCurrentProfessionalSuccess,
   getCurrentProfessionalError,
 } from "./actions";
-import { getAxiosInstace } from "@/utils/axiosInstance";
+import { getAxiosInstance } from "@/utils/axiosInstance";
 import {
   IProfessional,
   IProfessionalRegister,
@@ -38,7 +38,7 @@ export const ProfessionalProvider = ({
   children: React.ReactNode;
 }) => {
   const [state, dispatch] = useReducer(ProfessionalReducer, INITIAL_STATE);
-  const instance = getAxiosInstace();
+  const instance = getAxiosInstance();
 
   const createProfessional = async (Professional: IProfessionalRegister) => {
     dispatch(createProfessionalPending());

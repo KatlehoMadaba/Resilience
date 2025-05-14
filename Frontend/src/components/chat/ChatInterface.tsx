@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Avatar,Input, List, Spin, Typography } from "antd";
+import { Avatar, Input, List, Spin, Typography, Button } from "antd";
 import { ISendMessage } from "@/providers/chat-provider/models";
 import {
   useChatMessageActions,
@@ -9,20 +9,19 @@ import {
 } from "@/providers/chat-provider";
 import * as S from "./styles";
 
-
-const { Paragraph, Text} = Typography;
+const { Paragraph, Text } = Typography;
 
 interface ChatInterfaceProps {
   personId: string;
   personName?: string;
 }
+
 const ChatInterface: React.FC<ChatInterfaceProps> = ({
   personId,
   personName,
 }) => {
   const { getMessagesWithPerson, sendMessage } = useChatMessageActions();
   const { ChatMessages, isPending } = useChatMessageState();
-
   const [messageInput, setMessageInput] = useState("");
 
   useEffect(() => {
@@ -52,54 +51,58 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({
     <S.ChatWrapper>
       <S.ChatContainer>
         <S.Header>
-          <Avatar size={40} style={{ backgroundColor: "#9E9AC8" }}>
-            {getInitial()}
-          </Avatar>
-          <Text strong style={{ marginLeft: 10 }}>
+          <Avatar>{getInitial()}</Avatar>
+          <Text style={{ marginLeft: "10px" }}>
             Chatting with {personName || "Unknown"}
           </Text>
         </S.Header>
-
         <S.MessagesContainer>
           {isPending ? (
-            <Spin tip="Loading messages..." />
+            <Spin />
           ) : ChatMessages.length === 0 ? (
-            <Text type="secondary">
-              No messages yet. Start the conversation.
-            </Text>
+            <Text>No messages yet. Start the conversation.</Text>
           ) : (
             <List
               dataSource={ChatMessages}
               renderItem={(msg) => {
+                // This determines if the message is sent by the current user
+                // If receiverPersonId is not the current personId, it's our own message
                 const isOwn = msg.receiverPersonId !== personId;
+                // Inverting the normal behavior - showing sent messages on left, received on right
                 return (
-                  <S.MessageBubble key={msg.sentAt} $isOwn={isOwn}>
-                    <Paragraph>{msg.content}</Paragraph>
-                    <Text type="secondary" style={{ fontSize: 10 }}>
-                      {new Date(msg.sentAt).toLocaleString()}
-                    </Text>
-                  </S.MessageBubble>
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: isOwn ? "flex-start" : "flex-end",
+                    }}
+                  >
+                    <S.MessageBubble $isOwn={!isOwn}>
+                      <Paragraph>{msg.content}</Paragraph>
+                      <Text type="secondary" style={{ fontSize: "0.8rem" }}>
+                        {new Date(msg.sentAt).toLocaleString()}
+                      </Text>
+                    </S.MessageBubble>
+                  </div>
                 );
               }}
             />
           )}
         </S.MessagesContainer>
-
-        <Input.TextArea
-          rows={2}
-          placeholder="Type your message..."
-          value={messageInput}
-          onChange={(e) => setMessageInput(e.target.value)}
-        />
-        <S.SendButton
-          type="primary"
-          onClick={handleSendMessage}
-          disabled={!messageInput.trim()}
-        >
-          Send
-        </S.SendButton>
+        <div style={{ display: "flex", marginTop: "1rem" }}>
+          <Input
+            placeholder="Type a message..."
+            value={messageInput}
+            onChange={(e) => setMessageInput(e.target.value)}
+            onPressEnter={handleSendMessage}
+            style={{ flexGrow: 1, marginRight: "8px" }}
+          />
+          <Button type="primary" onClick={handleSendMessage}>
+            Send
+          </Button>
+        </div>
       </S.ChatContainer>
     </S.ChatWrapper>
   );
 };
+
 export default ChatInterface;

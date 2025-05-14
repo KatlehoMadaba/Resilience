@@ -1,12 +1,16 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Layout, Card, Typography, Spin } from "antd";
-import styles from "./SexualAssaultReportForm.module.css";
+import { Spin, Button, Card, Typography } from "antd";
 import { useUserActions, useUserState } from "@/providers/users-providers";
-import { useSurvivorActions } from "@/providers/survivors-provider";
-//import SexualAssaultReportForm from "@/components/report/SexualAssaultReportForm";
+import {
+  useSurvivorActions,
+  useSurvivorState,
+} from "@/providers/survivors-provider";
+import { useSexualAssaultReportActions } from "@/providers/report-provider";
+import { ISexualAssaultReport } from "@/providers/report-provider/models";
+import SexualAssaultReportForm from "@/components/report/SexualAssaultReportForm";
+import { Container } from "@/components/report/styles";
 
-const { Content } = Layout;
 const { Title, Text } = Typography;
 
 const ReportPage = () => {
@@ -15,9 +19,11 @@ const ReportPage = () => {
   const { getCurrentSurvivor } = useSurvivorActions();
   const { isPending, isError } = useUserState();
 
+  const { currentSurvivor } = useSurvivorState();
+  const { createSexualAssaultReport } = useSexualAssaultReportActions();
 
   useEffect(() => {
-    fetchSurvivorOnReload();
+    if (!currentSurvivor) fetchSurvivorOnReload();
   }, []);
 
   useEffect(() => {
@@ -26,8 +32,6 @@ const ReportPage = () => {
   }, [isPending, isError]);
 
   const fetchSurvivorOnReload = async () => {
-    const token = sessionStorage.getItem("jwt");
-    if (!token) return;
     try {
       setLoading(true);
       const user = await getCurrentUser();
@@ -38,20 +42,72 @@ const ReportPage = () => {
       setLoading(false);
     }
   };
+
+  const handleSubmit = (report: ISexualAssaultReport) => {
+    const completeReport = {
+      ...report,
+      personId: currentSurvivor?.id,
+      encryptedContent: "none",
+      reportStatus: 1,
+      fileReference: "date_time",
+      isSharedWithAuthorities: true,
+      sharedDate: new Date().toISOString(),
+    };
+    createSexualAssaultReport(completeReport);
+    console.log("Submitted Report:", completeReport);
+  };
+
+  const handleDownloadPdf = async () => {
+    setLoading(true);
+    try {
+      const res = await fetch("/api/generateReport", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ personId: currentSurvivor?.id }),
+      });
+
+      if (!res.ok) throw new Error(`Status: ${res.status}`);
+
+      const blob = await res.blob();
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", "PoliceReport.pdf");
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+    } catch (err) {
+      console.error("Download failed:", err);
+    }
+    setLoading(false);
+  };
+
   return (
     <Spin spinning={loading}>
-      <Layout>
-        <Content className={styles.content}>
-          {/* <SexualAssaultReportForm onSubmit={handleReportSubmit}/> */}
-          <Card style={{ marginTop: "1rem" }}>
-            <Title level={5}>Your Reports</Title>
-            <Text>
-              This section will display a list of generated or submitted
-              reports.
-            </Text>
-          </Card>
-        </Content>
-      </Layout>
+      <Container>
+        <Title level={2}>File a Sexual Assault Report</Title>
+        <Text type="secondary">
+          Your information is confidential and securely stored.
+        </Text>
+
+        <SexualAssaultReportForm onSubmit={handleSubmit} loading={loading} />
+
+        <Card style={{ marginTop: 32 }}>
+          <Title level={4}>Need a PDF?</Title>
+          <Text>
+            You can generate a downloadable copy of your report to submit to law
+            enforcement or keep for personal records.
+          </Text>
+          <br />
+          <Button
+            type="primary"
+            onClick={handleDownloadPdf}
+            style={{ marginTop: 16 }}
+          >
+            Generate & Download Report PDF
+          </Button>
+        </Card>
+      </Container>
     </Spin>
   );
 };

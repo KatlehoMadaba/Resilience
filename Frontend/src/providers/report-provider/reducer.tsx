@@ -1,25 +1,37 @@
 "use client";
 import { handleActions } from "redux-actions";
-import { ReportActionEnums } from "./actions";
-import { IReportStateContext, INITIAL_STATE } from "./context";
+import { SexualAssaultReportActionEnums } from "./actions";
+import { ISexualAssaultReportStateContext, INITIAL_STATE } from "./context";
 
 // Define the reducer for handling report actions
-export const ReportReducer = handleActions<IReportStateContext, IReportStateContext>(
+export const SexualAssaultReportReducer = handleActions<
+  ISexualAssaultReportStateContext,
+  ISexualAssaultReportStateContext
+>(
   {
-    [ReportActionEnums.createReportPending]: (state, action) => ({
+    [SexualAssaultReportActionEnums.createSexualAssaultReportPending]: (state, action) => ({
       ...state,
       ...action.payload,
     }),
-    [ReportActionEnums.createReportSuccess]: (state, action) => ({
+    [SexualAssaultReportActionEnums.createSexualAssaultReportSuccess]: (state, action) => ({
       ...state,
       ...action.payload,
     }),
-    [ReportActionEnums.createReportError]: (state, action) => ({
+    [SexualAssaultReportActionEnums.createSexualAssaultReportError]: (state, action) => ({
       ...state,
       ...action.payload,
     }),
-    [ReportActionEnums.resetReportState]: () => ({
-      ...INITIAL_STATE,
+    [SexualAssaultReportActionEnums.updateSexualAssaultReportPending]: (state, action) => ({
+      ...state,
+      ...action.payload,
+    }),
+    [SexualAssaultReportActionEnums.updateSexualAssaultReportSuccess]: (state, action) => ({
+      ...state,
+      ...action.payload,
+    }),
+    [SexualAssaultReportActionEnums.updateSexualAssaultReportError]: (state, action) => ({
+      ...state,
+      ...action.payload,
     }),
   },
   INITIAL_STATE

@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Abp.Application.Services;
 using Abp.Domain.Repositories;
-using Microsoft.EntityFrameworkCore;
 using Resilience.Domain.ChatSessions;
 using Resilience.Domain.Persons;
 
@@ -12,14 +10,14 @@ namespace Resilience.Services.ChatSessionServices
 {
     public class ChatAppService : ApplicationService
     {
-        private readonly IRepository<ChatMessage, Guid> _chatRepository;
+        private readonly ChatMessagesManager _chatMessagesManager;
         private readonly IRepository<Person, Guid> _personRepository;
 
         public ChatAppService(
-            IRepository<ChatMessage, Guid> chatRepository,
+            ChatMessagesManager chatMessagesManager,
             IRepository<Person, Guid> personRepository)
         {
-            _chatRepository = chatRepository;
+            _chatMessagesManager = chatMessagesManager;
             _personRepository = personRepository;
         }
 
@@ -35,17 +33,10 @@ namespace Resilience.Services.ChatSessionServices
             if (receiver == null)
                 throw new Abp.UI.UserFriendlyException("Receiver not found.");
 
-            var message = new ChatMessage
-            {
-                SenderPersonId = sender.Id,
-                ReceiverPersonId = receiver.Id,
-                Content = input.Content
-            };
-
-            await _chatRepository.InsertAsync(message);
-            return "message was sent successfullly.";
-            //return ObjectMapper.Map<ChatMessageDto>(message);
+            await _chatMessagesManager.SendMessageAsync(sender.Id, receiver.Id, input.Content);
+            return "Message was sent successfully.";
         }
+
 
         public async Task<List<ChatMessageDto>> GetMessagesWithPersonAsync(Guid personId)
         {
@@ -55,15 +46,29 @@ namespace Resilience.Services.ChatSessionServices
             if (currentPerson == null)
                 throw new Abp.UI.UserFriendlyException("Current person not found.");
 
-            var messages = await _chatRepository
-                .GetAll()
-                .Where(m =>
-                    (m.SenderPersonId == currentPerson.Id && m.ReceiverPersonId == personId) ||
-                    (m.SenderPersonId == personId && m.ReceiverPersonId == currentPerson.Id))
-                .OrderBy(m => m.SentAt)
-                .ToListAsync();
-
+            var messages = await _chatMessagesManager.GetMessagesWithPersonAsync(currentPerson.Id, personId);
             return ObjectMapper.Map<List<ChatMessageDto>>(messages);
+        }
+
+        public async Task<int> GetMessageCountAsync(Guid personId)
+        {
+            var userId = AbpSession.UserId.Value;
+            var currentPerson = await _personRepository.FirstOrDefaultAsync(p => p.UserId == userId);
+
+            if (currentPerson == null)
+                throw new Abp.UI.UserFriendlyException("Current person not found.");
+
+            return await _chatMessagesManager.CountMessagesWithPersonAsync(currentPerson.Id, personId);
+        }
+        public async Task<int> GetUniqueContactsCountAsync(Guid personId)
+        {       
+            var userId = AbpSession.UserId.Value;
+            var currentPerson = await _personRepository.FirstOrDefaultAsync(p => p.UserId == userId);
+
+            if (currentPerson == null)
+                throw new Abp.UI.UserFriendlyException("Current person not found.");
+
+            return await _chatMessagesManager.CountUniqueContactsAsync(currentPerson.Id);
         }
 
 

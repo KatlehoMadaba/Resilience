@@ -10,7 +10,7 @@ import {
   getMedicalCentresSuccess,
   getMedicalCentresError,
 } from "./actions";
-import { getAxiosInstace } from "@/utils/axiosInstance";
+import { getAxiosInstance } from "@/utils/axiosInstance";
 import { ILocation } from "../../providers/location-provider/models";
 import { MedicalCentreReducer } from "./reducer";
 
@@ -20,7 +20,7 @@ export const MedicalCentreProvider = ({
   children: React.ReactNode;
 }) => {
   const [state, dispatch] = useReducer(MedicalCentreReducer, INITIAL_STATE);
-  const instance = getAxiosInstace();
+  const instance = getAxiosInstance();
   const getMedicalCentres = async (Location: ILocation): Promise<void> => {
     dispatch(getMedicalCentresPending());
 

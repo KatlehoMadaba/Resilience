@@ -13,7 +13,7 @@ import {
   getJournalEntriesByPersonIdSuccess,
   getJournalEntriesByPersonIdError,
 } from "./actions";
-import { getAxiosInstace } from "@/utils/axiosInstance";
+import { getAxiosInstance } from "@/utils/axiosInstance";
 import { IJournalEntry } from "../../providers/journal-provider/models";
 import { JournalEntryReducer } from "./reducer";
 
@@ -23,7 +23,7 @@ export const JournalEntryProvider = ({
   children: React.ReactNode;
 }) => {
   const [state, dispatch] = useReducer(JournalEntryReducer, INITIAL_STATE);
-  const instance = getAxiosInstace();
+  const instance = getAxiosInstance();
 
   const createJournalEntry = async (JournalEntry: IJournalEntry) => {
     dispatch(createJournalEntryPending());

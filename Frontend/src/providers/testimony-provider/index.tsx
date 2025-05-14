@@ -13,7 +13,7 @@ import {
   getTestimoniesSuccess,
   getTestimoniesError,
 } from "./actions";
-import { getAxiosInstace } from "@/utils/axiosInstance";
+import { getAxiosInstance } from "@/utils/axiosInstance";
 import { ITestimony } from "../../providers/testimony-provider/models";
 import { TestimonyReducer } from "./reducer";
 
@@ -23,7 +23,7 @@ export const TestimonyProvider = ({
   children: React.ReactNode;
 }) => {
   const [state, dispatch] = useReducer(TestimonyReducer, INITIAL_STATE);
-  const instance = getAxiosInstace();
+  const instance = getAxiosInstance();
 
   const createTestimony = async (Testimony: ITestimony) => {
     dispatch(createTestimonyPending());
