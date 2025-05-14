@@ -1,290 +1,222 @@
+"use client";
 import React, { useState } from "react";
 import {
   Form,
   Input,
   Button,
-  Checkbox,
-  Radio,
   DatePicker,
+  Switch,
+  Steps,
   Row,
   Col,
-  Typography,
-  Divider,
+  Card,
+  Space,
 } from "antd";
-import { useForm } from "antd/lib/form/Form";
-import { CheckboxChangeEvent } from "antd/es/checkbox";
-import { useSexualAssaultReportState } from "@/providers/report-provider/state";
-import { useSexualAssaultReportActions } from "@/providers/report-provider/actions";
 import { ISexualAssaultReport } from "@/providers/report-provider/models";
-const { TextArea } = Input;
-const { Title, Paragraph } = Typography;
-interface SexualAssaultReportFormProps {
-  onSubmit: (values) => void;
+import { Container, SectionTitle } from "./styles";
+const { Step } = Steps;
+
+interface Props {
+  onSubmit: (report: ISexualAssaultReport) => void;
+  loading?: boolean;
 }
 
-const SexualAssaultReportForm: React.FC<SexualAssaultReportFormProps> = ({
-  onSubmit,
-}) => {
-  const [form] = useForm();
-  const [isSuspectKnown, setIsSuspectKnown] = useState<boolean>(false);
+const SexualAssaultReportForm: React.FC<Props> = ({ onSubmit, loading }) => {
+  const [currentStep, setCurrentStep] = useState(0);
+  const [form] = Form.useForm();
 
-  const onSuspectKnownChange = (e: CheckboxChangeEvent) => {
-    setIsSuspectKnown(e.target.checked);
-  };
-  const sexualAssaultReport: ISexualAssaultReport = {
-    id: "0196cef8-9668-7874-a510-1306988417de",
-    fullName: "Emma Johnson",
-    idNumber: "9876543210",
-    dateOfBirth: new Date("1990-05-12T00:00:00Z"),
-    address: "123 Elm Street, Cityville, Country",
-    phoneNumber: "+27 111 222 3333",
-    occupation: "Journalist",
-    incidentDateTime: new Date("2025-05-13T22:10:00Z"),
-    location: "Central Park, Cityville",
-    aloneOrWithSomeone: false,
-    leadingEventsDescription:
-      "Walking home when an unknown individual approached aggressively",
-    isSuspectKnown: true,
-    suspectName: "Michael Doe",
-    suspectDescription:
-      "Tall, muscular, short brown hair, wearing dark jeans and a gray hoodie",
-    weaponOrThreats: "Threatened verbally, no visible weapon",
-    assaultDescription: "Pushed against a fence and forcefully restrained",
-    injuries: true,
-    wordsSpokenBySuspect: "Stay quiet and don’t move",
-    actionsTaken: "Shouted for help, security intervened",
-    changedClothesOrShowered: false,
-    clothesKept: true,
-    witnessPresent: true,
-    witnessDetails: "Security guard witnessed the incident and intervened",
-    cctvAvailable: true,
-    isOtherEvidence: true,
-    otherEvidenceDescription: "CCTV footage from a nearby storefront",
-    receivedMedicalAttention: true,
-    willingForensicExam: true,
-    feelsSafe: false,
-    wantsCounsellor: true,
-    prefersFemaleOfficer: true,
-    reportStatus?: 1;
-    encryptedContent?: string;
-  isSharedWithAuthorities?: boolean;
-  sharedDate?: string;
-  fileReference?: string;
+  const next = () => setCurrentStep(currentStep + 1);
+  const prev = () => setCurrentStep(currentStep - 1);
+
+  const handleFinish = (values) => {
+    const formattedValues: ISexualAssaultReport = {
+      ...values,
+      dateOfBirth: values.dateOfBirth?.toISOString(),
+      incidentDateTime: values.incidentDateTime?.toISOString(),
+    };
+    onSubmit(formattedValues);
   };
 
-  // const handleFormSubmit = (sexualAssaultReport: ISexualAssaultReport) => {
-  //   onSubmit(sexualAssaultReport);
-  // };
-  const oncclikReport = () => {
-    createSexualAssaultReport(sexualAssaultReport);
-  };
+  const steps = [
+    {
+      title: "Victim Info",
+      content: (
+        <>
+          <Row gutter={16}>
+            <Col xs={24} md={12}>
+              <Form.Item
+                name="fullName"
+                label="Full Name"
+                rules={[{ required: true }]}
+              >
+                <Input placeholder="Enter full name" />
+              </Form.Item>
+            </Col>
+            <Col xs={24} md={12}>
+              <Form.Item name="idNumber" label="ID Number">
+                <Input placeholder="Enter ID number" />
+              </Form.Item>
+            </Col>
+            <Col xs={24} md={12}>
+              <Form.Item name="dateOfBirth" label="Date of Birth">
+                <DatePicker style={{ width: "100%" }} />
+              </Form.Item>
+            </Col>
+            <Col xs={24} md={12}>
+              <Form.Item name="occupation" label="Occupation">
+                <Input />
+              </Form.Item>
+            </Col>
+            <Col xs={24}>
+              <Form.Item name="address" label="Address">
+                <Input.TextArea rows={2} />
+              </Form.Item>
+            </Col>
+            <Col xs={24}>
+              <Form.Item name="phoneNumber" label="Phone Number">
+                <Input />
+              </Form.Item>
+            </Col>
+          </Row>
+        </>
+      ),
+    },
+    {
+      title: "Incident & Suspect",
+      content: (
+        <>
+          <Row gutter={16}>
+            <Col xs={24} md={12}>
+              <Form.Item
+                name="incidentDateTime"
+                label="Date & Time of Incident"
+              >
+                <DatePicker showTime style={{ width: "100%" }} />
+              </Form.Item>
+            </Col>
+            <Col xs={24} md={12}>
+              <Form.Item name="location" label="Location of Incident">
+                <Input />
+              </Form.Item>
+            </Col>
+            <Col xs={24}>
+              <Form.Item
+                name="leadingEventsDescription"
+                label="Events Leading to Incident"
+              >
+                <Input.TextArea rows={3} />
+              </Form.Item>
+            </Col>
+            <Col xs={24} md={12}>
+              <Form.Item
+                name="isSuspectKnown"
+                label="Do you know the suspect?"
+                valuePropName="checked"
+              >
+                <Switch />
+              </Form.Item>
+            </Col>
+            <Col xs={24} md={12}>
+              <Form.Item name="suspectName" label="Suspect Name">
+                <Input />
+              </Form.Item>
+            </Col>
+            <Col xs={24}>
+              <Form.Item name="suspectDescription" label="Suspect Description">
+                <Input.TextArea rows={2} />
+              </Form.Item>
+            </Col>
+          </Row>
+        </>
+      ),
+    },
+    {
+      title: "Evidence & Support",
+      content: (
+        <>
+          <Row gutter={16}>
+            <Col xs={24}>
+              <Form.Item
+                name="assaultDescription"
+                label="Description of Assault"
+              >
+                <Input.TextArea rows={3} />
+              </Form.Item>
+            </Col>
+            <Col xs={24}>
+              <Form.Item
+                name="actionsTaken"
+                label="Actions Taken After Incident"
+              >
+                <Input.TextArea rows={2} />
+              </Form.Item>
+            </Col>
+            <Col xs={24} md={8}>
+              <Form.Item
+                name="injuries"
+                label="Were there injuries?"
+                valuePropName="checked"
+              >
+                <Switch />
+              </Form.Item>
+            </Col>
+            <Col xs={24} md={8}>
+              <Form.Item
+                name="receivedMedicalAttention"
+                label="Received Medical Attention?"
+                valuePropName="checked"
+              >
+                <Switch />
+              </Form.Item>
+            </Col>
+            <Col xs={24} md={8}>
+              <Form.Item
+                name="wantsCounsellor"
+                label="Would like a counsellor?"
+                valuePropName="checked"
+              >
+                <Switch />
+              </Form.Item>
+            </Col>
+          </Row>
+        </>
+      ),
+    },
+  ];
+
   return (
-    <>
-      <Button onClick={oncclikReport}>Button</Button>;
-    </>
-    // <div style={{ maxWidth: 850, margin: "0 auto", padding: "24px" }}>
-    //   <Title level={2} style={{ textAlign: "center" }}>
-    //     Let me guide you through your report
-    //   </Title>
-    //   <Paragraph
-    //     style={{ textAlign: "center", maxWidth: 600, margin: "0 auto 24px" }}
-    //   >
-    //     Please complete this form to the best of your ability. Your responses
-    //     will help ensure the right support and care.
-    //   </Paragraph>
+    <Container>
+      <SectionTitle level={3}>Sexual Assault Report Form</SectionTitle>
+      <Steps current={currentStep} size="small" responsive>
+        {steps.map((step, index) => (
+          <Step key={index} title={step.title} />
+        ))}
+      </Steps>
 
-    //   <Form
-    //     form={form}
-    //     layout="vertical"
-    //     onFinish={handleFormSubmit}
-    //     initialValues={{ aloneOrWithSomeone: "Alone" }}
-    //   >
-    //     {/* Victim Details */}
-    //     <Divider orientation="left">Victim Information</Divider>
-    //     <Row gutter={16}>
-    //       <Col span={12}>
-    //         <Form.Item
-    //           name="fullName"
-    //           label="Full Name"
-    //           rules={[
-    //             { required: true, message: "Please enter your full name" },
-    //           ]}
-    //         >
-    //           <Input placeholder="Jane Doe" />
-    //         </Form.Item>
-    //       </Col>
-    //       <Col span={12}>
-    //         <Form.Item
-    //           name="idNumber"
-    //           label="Identification Number"
-    //           rules={[
-    //             { required: true, message: "Please enter your ID number" },
-    //           ]}
-    //         >
-    //           <Input placeholder="e.g., 1234567890123" />
-    //         </Form.Item>
-    //       </Col>
-    //     </Row>
+      <Card style={{ marginTop: 24 }}>
+        <Form form={form} layout="vertical" onFinish={handleFinish}>
+          {steps[currentStep].content}
 
-    //     <Row gutter={16}>
-    //       <Col span={12}>
-    //         <Form.Item name="dob" label="Date of Birth">
-    //           <DatePicker style={{ width: "100%" }} placeholder="Select date" />
-    //         </Form.Item>
-    //       </Col>
-    //       <Col span={12}>
-    //         <Form.Item name="address" label="Home Address">
-    //           <Input placeholder="123 Main Street, City" />
-    //         </Form.Item>
-    //       </Col>
-    //     </Row>
-
-    //     <Row gutter={16}>
-    //       <Col span={12}>
-    //         <Form.Item name="phoneNumber" label="Phone Number">
-    //           <Input placeholder="e.g., 071 234 5678" />
-    //         </Form.Item>
-    //       </Col>
-    //       <Col span={12}>
-    //         <Form.Item name="occupation" label="Occupation">
-    //           <Input placeholder="e.g., Student, Teacher" />
-    //         </Form.Item>
-    //       </Col>
-    //     </Row>
-
-    //     {/* Incident Details */}
-    //     <Divider orientation="left">Incident Details</Divider>
-    //     <Row gutter={16}>
-    //       <Col span={12}>
-    //         <Form.Item
-    //           name="incidentDateTime"
-    //           label="Date and Time of Incident"
-    //         >
-    //           <DatePicker
-    //             showTime
-    //             style={{ width: "100%" }}
-    //             placeholder="Select date and time"
-    //           />
-    //         </Form.Item>
-    //       </Col>
-    //       <Col span={12}>
-    //         <Form.Item name="location" label="Location of Incident">
-    //           <Input placeholder="e.g., Home, Street, Public Area" />
-    //         </Form.Item>
-    //       </Col>
-    //     </Row>
-
-    //     <Form.Item
-    //       name="aloneOrWithSomeone"
-    //       label="Were you alone or with someone?"
-    //     >
-    //       <Radio.Group>
-    //         <Radio value="Alone">Alone</Radio>
-    //         <Radio value="With Someone">With Someone</Radio>
-    //       </Radio.Group>
-    //     </Form.Item>
-
-    //     <Form.Item
-    //       name="leadingEvents"
-    //       label="Events Leading Up to the Incident"
-    //     >
-    //       <TextArea
-    //         placeholder="Briefly describe what happened before the incident..."
-    //         autoSize={{ minRows: 3 }}
-    //       />
-    //     </Form.Item>
-
-    //     {/* Suspect Details */}
-    //     <Divider orientation="left">Suspect Information</Divider>
-    //     <Form.Item name="isSuspectKnown" valuePropName="checked">
-    //       <Checkbox onChange={onSuspectKnownChange}>
-    //         I know the identity of the suspect
-    //       </Checkbox>
-    //     </Form.Item>
-
-    //     {isSuspectKnown && (
-    //       <>
-    //         <Row gutter={16}>
-    //           <Col span={12}>
-    //             <Form.Item name="suspectName" label="Suspect's Name">
-    //               <Input placeholder="e.g., John Doe" />
-    //             </Form.Item>
-    //           </Col>
-    //           <Col span={12}>
-    //             <Form.Item
-    //               name="suspectDescription"
-    //               label="Suspect's Description"
-    //             >
-    //               <TextArea
-    //                 placeholder="e.g., Male, approx. 6ft, wearing dark clothes"
-    //                 autoSize={{ minRows: 2 }}
-    //               />
-    //             </Form.Item>
-    //           </Col>
-    //         </Row>
-    //         <Form.Item
-    //           name="weaponOrThreats"
-    //           label="Were any weapons or threats used?"
-    //         >
-    //           <Input placeholder="e.g., Knife, verbal threats" />
-    //         </Form.Item>
-    //       </>
-    //     )}
-
-    //     {/* Assault Details */}
-    //     <Divider orientation="left">Assault Description</Divider>
-    //     <Form.Item
-    //       name="assaultDescription"
-    //       label="Describe the Assault"
-    //       rules={[{ required: true, message: "Please describe the assault" }]}
-    //     >
-    //       <TextArea
-    //         placeholder="Include as many details as you feel comfortable sharing."
-    //         autoSize={{ minRows: 4 }}
-    //       />
-    //     </Form.Item>
-
-    //     <Form.Item name="injuries" valuePropName="checked">
-    //       <Checkbox>I sustained physical injuries during the incident</Checkbox>
-    //     </Form.Item>
-
-    //     <Form.Item
-    //       name="wordsSpokenBySuspect"
-    //       label="Words Spoken by the Suspect"
-    //     >
-    //       <Input placeholder="e.g., 'Don’t tell anyone'" />
-    //     </Form.Item>
-
-    //     {/* Post-Incident Actions */}
-    //     <Divider orientation="left">After the Incident</Divider>
-    //     <Form.Item
-    //       name="actionsTaken"
-    //       label="What actions did you take after the incident?"
-    //     >
-    //       <TextArea
-    //         placeholder="e.g., Reported to police, told a friend..."
-    //         autoSize={{ minRows: 3 }}
-    //       />
-    //     </Form.Item>
-
-    //     <Form.Item name="changedClothes" valuePropName="checked">
-    //       <Checkbox>I changed clothes or showered after the incident</Checkbox>
-    //     </Form.Item>
-
-    //     <Form.Item name="clothesKept" valuePropName="checked">
-    //       <Checkbox>
-    //         I kept the clothes I was wearing as potential evidence
-    //       </Checkbox>
-    //     </Form.Item>
-
-    //     {/* Submit */}
-    //     <Form.Item>
-    //       <Button type="primary" htmlType="submit" style={{ width: "100%" }}>
-    //         Submit Report
-    //       </Button>
-    //     </Form.Item>
-    //   </Form>
-    // </div>
+          <Space style={{ marginTop: 24 }}>
+            {currentStep > 0 && (
+              <Button onClick={prev} disabled={loading}>
+                Back
+              </Button>
+            )}
+            {currentStep < steps.length - 1 && (
+              <Button type="primary" onClick={next} disabled={loading}>
+                Next
+              </Button>
+            )}
+            {currentStep === steps.length - 1 && (
+              <Button type="primary" htmlType="submit" loading={loading}>
+                Submit Report
+              </Button>
+            )}
+          </Space>
+        </Form>
+      </Card>
+    </Container>
   );
 };
 

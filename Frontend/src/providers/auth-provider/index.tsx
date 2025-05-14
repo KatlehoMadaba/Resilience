@@ -21,11 +21,11 @@ import {
   signUpSurvivorPending,
   signUpSurvivorError,
 } from "./actions";
-import { getAxiosInstace } from "@/utils/axiosInstance";
+import { getAxiosInstance } from "@/utils/axiosInstance";
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [state, dispatch] = useReducer(AuthReducer, INITIAL_STATE);
-  const instance = getAxiosInstace();
+  const instance = getAxiosInstance();
   const signUp = async (Auth: IAuth): Promise<void> => {
     dispatch(signUpPending());
     const endpoint =
