@@ -32,16 +32,17 @@ const SurvivorContacts: React.FC<Props> = ({ onSelect }) => {
             hoverable
             style={{ marginBottom: 8 }}
           >
-            <h4>{survivor?.displayName|| "Unnamed Survivor"}</h4>
+            <h4>{survivor?.displayName || "Unnamed Survivor"}</h4>
             <p>
-              {survivor?.displayName || `${survivor?.name} ${survivor?.surname}`}
+              {survivor?.displayName ||
+                `${survivor?.name} ${survivor?.surname}`}
             </p>
             <p>
-              {survivor.sex === 1
+              {survivor.sex === 1  
                 ? "Male"
                 : survivor.sex === 2
                 ? "Female"
-                : "Other"}
+                : "Not disclosed"}
             </p>
           </Card>
         ))
