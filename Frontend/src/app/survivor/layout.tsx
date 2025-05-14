@@ -105,7 +105,7 @@ const SurvivorLayout = ({ children }) => {
         <Content className={styles.content}>{children}</Content>
       </Layout>
       <div className="md:hidden">
-        <Phoenix agentId="bVFnERsV0nyoI4qa0YPm" className="w-full h-96" />
+        <Phoenix/>
       </div>
     </Layout>
   );
