@@ -26,8 +26,9 @@ export const SexualAssaultReportProvider = ({ children }: { children: React.Reac
     const endpoint = `/api/services/app/SexualAssaultReport/Create`;
     await instance
       .post(endpoint, SexualAssaultReport)
-      .then((response) => {
-        dispatch(createSexualAssaultReportSuccess(response?.data));
+      .then(() => {
+        dispatch(createSexualAssaultReportSuccess());
+        console.log("its a success..")
       })
       .catch((error) => {
         console.error("Error creating report entry:", error);

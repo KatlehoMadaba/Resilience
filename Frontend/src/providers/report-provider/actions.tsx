@@ -20,13 +20,11 @@ export const createSexualAssaultReportPending = createAction<ISexualAssaultRepor
 );
 
 export const createSexualAssaultReportSuccess = createAction<
-  ISexualAssaultReportStateContext,
-  ISexualAssaultReport
->(SexualAssaultReportActionEnums.createSexualAssaultReportSuccess, (report: ISexualAssaultReport) => ({
+  ISexualAssaultReportStateContext
+>(SexualAssaultReportActionEnums.createSexualAssaultReportSuccess, () => ({
   isPending: false,
   isSuccess: true,
   isError: false,
-  report,
 }));
 
 export const createSexualAssaultReportError = createAction<ISexualAssaultReportStateContext>(

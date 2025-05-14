@@ -13,7 +13,7 @@ export interface ISexualAssaultReportStateContext {
 // SexualAssaultReport action context interface
 export interface ISexualAssaultReportActionContext {
   createSexualAssaultReport: (report: ISexualAssaultReport) => void;
-  //getSexualAssaultReport: (report: ISexualAssaultReport) => void;
+  //getSexualAssaultReport: (reportId: string) => void;
   //deleteSexualAssaultReportById: (reportId: string) => void;
   updateSexualAssaultReport: (
     SexualAssaultReport: ISexualAssaultReport

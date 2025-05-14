@@ -7,7 +7,7 @@ using Resilience.Services.ReportsServices.Dtos;
 
 namespace Resilience.Services.ReportsServices
 {
-    public class SexualAssaultReportAppService : AsyncCrudAppService<SexualAssaultReport, SexualAssaultReportDto, Guid, PagedAndSortedResultRequestDto, SexualAssualtReportRequest, SexualAssaultReportDto>
+    public class SexualAssaultReportAppService : AsyncCrudAppService<SexualAssaultReport, SexualAssaultReportDto, Guid,SexualAssaultReportDto>
     {
  
        
