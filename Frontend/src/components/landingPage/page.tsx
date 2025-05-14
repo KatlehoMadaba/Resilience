@@ -1,11 +1,11 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { Button, Card, Typography, Space, Row, Col, Divider } from "antd";
 import * as icons from "@ant-design/icons";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./LandingPage.module.css";
-
+import { useRouter } from "next/navigation";
 const { Title, Paragraph, Text } = Typography;
 
 interface SupportResource {
@@ -14,7 +14,13 @@ interface SupportResource {
   icon: React.ReactNode;
 }
 
-export default function LandingPage(): React.ReactElement {
+const LandingPage = () => {
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
+  const onClickLogin = () => {
+    setLoading(true);
+    router.push("/login");
+  };
   const supportResources: Array<SupportResource> = [
     {
       title: "Medical & Legal Support",
@@ -79,7 +85,6 @@ export default function LandingPage(): React.ReactElement {
       <section className={styles.heroSection}>
         <div className={styles.heroContent}>
           <div className={styles.imageWrapper}>
-
             <svg
               viewBox="0 0 300 300"
               xmlns="http://www.w3.org/2000/svg"
@@ -106,15 +111,15 @@ export default function LandingPage(): React.ReactElement {
               resources, and support whenever you need it.
             </Paragraph>
             <Space size="large" className={styles.heroButtons}>
-              <Link href="/login">
-                <Button
-                  type="primary"
-                  size="large"
-                  className={styles.primaryBtn}
-                >
-                  Login
-                </Button>
-              </Link>
+              <Button
+                onClick={onClickLogin}
+                type="primary"
+                size="large"
+                className={styles.primaryBtn}
+                loading={loading}
+              >
+                Login
+              </Button>
               <Link href="/checklist">
                 <Button size="large" className={styles.secondaryBtn}>
                   Continue without Signing up
@@ -260,4 +265,5 @@ export default function LandingPage(): React.ReactElement {
       </footer>
     </div>
   );
-}
+};
+export default LandingPage;
