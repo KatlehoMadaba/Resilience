@@ -3,26 +3,33 @@ import { createContext } from "react";
 import { ISexualAssaultReport } from "./models";
 
 // Context shape interface
-export interface IReportStateContext {
+export interface ISexualAssaultReportStateContext {
   isPending: boolean;
   isSuccess: boolean;
   isError: boolean;
   report?: ISexualAssaultReport;
 }
 
-// Report action context interface
-export interface IReportActionContext {
-  createReport: (report: ISexualAssaultReport) => Promise<void>;
-  resetReportStatus: () => void;
+// SexualAssaultReport action context interface
+export interface ISexualAssaultReportActionContext {
+  createSexualAssaultReport: (report: ISexualAssaultReport) => void;
+  //getSexualAssaultReport: (report: ISexualAssaultReport) => void;
+  //deleteSexualAssaultReportById: (reportId: string) => void;
+  updateSexualAssaultReport: (
+    SexualAssaultReport: ISexualAssaultReport
+  ) => void;
 }
 
 // Initial state with default values
-export const INITIAL_STATE: IReportStateContext = {
+export const INITIAL_STATE: ISexualAssaultReportStateContext = {
   isPending: false,
   isSuccess: false,
   isError: false,
 };
 
 // Create the state context and the action context
-export const ReportStateContext = createContext<IReportStateContext>(INITIAL_STATE);
-export const ReportActionContext = createContext<IReportActionContext | undefined>(undefined);
+export const SexualAssaultReportStateContext =
+  createContext<ISexualAssaultReportStateContext>(INITIAL_STATE);
+export const SexualAssaultReportActionContext = createContext<
+  ISexualAssaultReportActionContext | undefined
+>(undefined);

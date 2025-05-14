@@ -1,7 +1,7 @@
 export interface ISexualAssaultReport {
     id?: string;
   
-    // Report Reference
+    // SexualAssaultReport Reference
     reportId?: string;
     report?: object;
   
