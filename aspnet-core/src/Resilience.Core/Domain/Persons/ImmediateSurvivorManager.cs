@@ -98,7 +98,6 @@ namespace Resilience.Domain.Persons
                         HasReceivedMedicalAttention = hasReceivedMedicalAttention ?? false,
                         HasReportedToAuthorities = hasReportedToAuthorities ?? false,
                         SupportSessions = new List<SupportSession>(),
-                        Reports = new List<Report>(),
                         Stories = new List<Story>(),
                         Petitions = new List<Petition>(),
                         CrowdfundingCampaigns = new List<CrowdfundingCampaign>(),

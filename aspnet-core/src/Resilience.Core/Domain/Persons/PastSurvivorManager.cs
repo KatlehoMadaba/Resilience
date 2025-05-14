@@ -97,7 +97,6 @@ namespace Resilience.Domain.Persons
                         HasDisclosedBefore = hasDisclosedBefore ?? false,
                         TimeElapsedInDays = timeElapsedInDays,
                         SupportSessions = new List<SupportSession>(),
-                        Reports = new List<Report>(),
                         Stories = new List<Story>(),
                         Petitions = new List<Petition>(),
                         CrowdfundingCampaigns = new List<CrowdfundingCampaign>(),

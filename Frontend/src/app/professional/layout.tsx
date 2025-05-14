@@ -3,48 +3,22 @@ import React, { useState } from "react";
 import { Layout, Menu, Button, Popconfirm } from "antd";
 import {
   HomeOutlined,
-  FileOutlined,
-  MedicineBoxOutlined,
-  AlertOutlined,
-  CommentOutlined,
-  UserOutlined,
   LogoutOutlined,
-  BookOutlined,
+  MessageOutlined,
 } from "@ant-design/icons";
 import { useRouter } from "next/navigation";
 import withAuth from "@/hoc/withAuth";
 import { useStyles } from "../style/styles";
-import Phoenix from "@/components/aiagent/Phoenix";
+
 
 const { Sider, Content } = Layout;
 
-const survivorsNavigationItems = [
-  { key: "/survivor", label: "Dashboard", icon: <HomeOutlined /> },
-  {
-    key: "/survivor/journalEntry",
-    label: "Journal Entry",
-    icon: <BookOutlined />,
-  },
-  {
-    key: "/chatSession",
-    label: "Therapy",
-    icon: <UserOutlined />,
-  },
-  { key: "/survivor/report", label: "Report", icon: <FileOutlined /> },
-  {
-    key: "/survivor/medicalCentres",
-    label: "Medical Centres",
-    icon: <MedicineBoxOutlined />,
-  },
-  { key: "/survivor/testimony", label: "Testimony", icon: <CommentOutlined /> },
-  {
-    key: "/survivor/policeStations",
-    label: "Police Stations",
-    icon: <AlertOutlined />,
-  }, // Changed to Alert icon
+const professionalNavigationItems = [
+  { key: "/professional", label: "Dashboard", icon: <HomeOutlined /> },
+  { key: "/chatSession", label: "Chat", icon: <MessageOutlined /> },
 ];
 
-const SurvivorLayout = ({ children }) => {
+const ProfessionalLayout = ({ children }) => {
   const router = useRouter();
   const [collapsed, setCollapsed] = useState(false);
   const { styles } = useStyles();
@@ -72,8 +46,8 @@ const SurvivorLayout = ({ children }) => {
         <Menu
           theme="dark"
           mode="inline"
-          defaultSelectedKeys={["/survivor"]}
-          items={survivorsNavigationItems}
+          defaultSelectedKeys={["/professional"]}
+          items={professionalNavigationItems}
           onClick={({ key }) => router.push(key)}
         />
 
@@ -104,10 +78,7 @@ const SurvivorLayout = ({ children }) => {
       <Layout>
         <Content className={styles.content}>{children}</Content>
       </Layout>
-      <div className="md:hidden">
-        <Phoenix/>
-      </div>
     </Layout>
   );
 };
-export default withAuth(SurvivorLayout);
+export default withAuth(ProfessionalLayout);

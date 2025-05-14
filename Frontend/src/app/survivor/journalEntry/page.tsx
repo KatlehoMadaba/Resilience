@@ -2,24 +2,29 @@
 
 import { Typography, Card, List, Tag } from "antd";
 import {
-  // useJournalEntryActions,
+  useJournalEntryActions,
   useJournalEntryState,
 } from "@/providers/journal-provider";
-// import { useEffect } from "react";
+import { useEffect } from "react";
 import JournalEntryForm from "@/components/journalEntries/JournalEntryForm";
 import styles from "./JournalPage.module.css";
-// import { useUserState } from '../../../providers/users-providers/index';
-
+//import {useSurvivorState,useSurvivorActions} from "@/providers/survivors-provider"
+// import { useUser } from '@/providers/users-providers';
 const { Title, Paragraph, Text } = Typography;
 
 export default function JournalPage() {
   const { journalEntries } = useJournalEntryState();
-  // const { getJournalEntriesByPersonId } = useJournalEntryActions();
-  // const {person}=useUserState()
-
-  // useEffect(() => {
-  //   getJournalEntriesByPersonId(personId)?.();
-  // }, []);
+  const { getJournalEntriesByPersonId } = useJournalEntryActions();
+ // const { Survivor } = useSurvivorState();
+ // const { getCurrentSurvivor } = useSurvivorActions();
+  // const {user}
+  // if (Survivor == null) {
+  //   getCurrentSurvivor();
+  // }
+  
+    useEffect(() => {
+      getJournalEntriesByPersonId("0196c9a3-9c8f-71d4-905d-88c1a72fd629");
+    }, []);
 
   return (
     <div className={styles.container}>
@@ -29,7 +34,6 @@ export default function JournalPage() {
           This is your private space to express yourself. Write freely—every
           thought matters.
         </Paragraph>
-
         <JournalEntryForm />
       </Card>
 
@@ -38,16 +42,16 @@ export default function JournalPage() {
         <List
           dataSource={journalEntries}
           renderItem={(entry) => (
-            <List.Item key={entry.entryDate}>
+            <List.Item key={entry?.entryDate}>
               <Card className={styles.entryCard}>
                 <Text type="secondary">
-                  {new Date(entry.entryDate).toLocaleString()}
+                  {new Date(entry?.entryDate).toLocaleString()}
                 </Text>
                 <Paragraph style={{ marginTop: 8, whiteSpace: "pre-wrap" }}>
-                  {entry.content}
+                  {entry?.content}
                 </Paragraph>
                 <div style={{ marginTop: 8 }}>
-                  {entry.tags?.map((tag) => (
+                  {entry?.tags?.map((tag) => (
                     <Tag key={tag}>{tag}</Tag>
                   ))}
                 </div>

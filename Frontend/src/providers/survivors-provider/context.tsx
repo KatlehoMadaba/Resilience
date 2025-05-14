@@ -14,14 +14,14 @@ export interface ISurvivorStateContext {
 }
 
 // Actions that will be performed on Survivorss
-  export interface ISurvivorActionContext {
-    getSurvivors: () => void;
-    getSurvivor: (id: string) => Promise<ISurvivor>;
-    registerSurvivor: (Survivor: ISurvivorRegisteration) => Promise<void>;
-    updateSurvivor: (SurvivorId: string, SurvivorData: UpdateSurvivorDto) => void;
-    deleteSurvivorbyId: (SurvivorId: string) => void; //letting user delete their own profile
-    getCurrentSurvivor: (userId: number) => Promise<ISurvivor>; // Fixed camelCase name
-  }
+export interface ISurvivorActionContext {
+  getSurvivors: () => void;
+  getSurvivor: (id: string) => Promise<ISurvivor>;
+  registerSurvivor: (Survivor: ISurvivorRegisteration) => Promise<void>;
+  updateSurvivor: (SurvivorId: string, SurvivorData: UpdateSurvivorDto) => void;
+  deleteSurvivorbyId: (SurvivorId: string) => void; //letting user delete their own profile
+  getCurrentSurvivor: (userId: number) => Promise<ISurvivor>; // Fixed camelCase name
+}
 // Initial state with default values
 export const INITIAL_STATE: ISurvivorStateContext = {
   isPending: false,
@@ -34,5 +34,6 @@ export const INITIAL_STATE: ISurvivorStateContext = {
 export const SurvivorStateContext =
   createContext<ISurvivorStateContext>(INITIAL_STATE);
 
-export const SurvivorActionContext =
-  createContext<ISurvivorActionContext>(undefined);
+export const SurvivorActionContext = createContext<
+  ISurvivorActionContext | undefined
+>(undefined);

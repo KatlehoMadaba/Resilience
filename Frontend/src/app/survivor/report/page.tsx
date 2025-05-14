@@ -18,6 +18,7 @@ const ReportPage = () => {
   const { getCurrentUser } = useUserActions();
   const { getCurrentSurvivor } = useSurvivorActions();
   const { isPending, isError } = useUserState();
+
   const { currentSurvivor } = useSurvivorState();
   const { createSexualAssaultReport } = useSexualAssaultReportActions();
 

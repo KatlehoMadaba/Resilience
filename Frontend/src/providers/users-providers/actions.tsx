@@ -96,27 +96,25 @@ export const getCurrentUserError = createAction<IUserStateContext>(
   () => ({ isPending: false, isSuccess: false, isError: true })
 );
 
-
 export const getCurrentPersonIdPending = createAction<IUserStateContext>(
   UserActionEnums.getCurrentPersonIdPending,
   () => ({ isPending: true, isSuccess: false, isError: false })
 );
 
-export const getCurrentPersonIdSuccess = createAction<IUserStateContext,string>(
-  UserActionEnums.getCurrentPersonIdSuccess,
-  (personId:string) => ({
-    isPending: false,
-    isSuccess: true,
-    isError: false,
-    personId:personId
-  })
-);
+export const getCurrentPersonIdSuccess = createAction<
+  IUserStateContext,
+  string
+>(UserActionEnums.getCurrentPersonIdSuccess, (personId: string) => ({
+  isPending: false,
+  isSuccess: true,
+  isError: false,
+  personId: personId,
+}));
 
 export const getCurrentPersonIdError = createAction<IUserStateContext>(
   UserActionEnums.getCurrentPersonIdError,
   () => ({ isPending: false, isSuccess: false, isError: true })
 );
-
 
 // Create User
 export const createUserPending = createAction<IUserStateContext>(

@@ -114,11 +114,11 @@ export const SurvivorProvider = ({
   // Get All Survivors
   const getSurvivors = async () => {
     dispatch(getSurvivorsPending());
-    const endpoint = `/api/services/app/Survivor/GetAll`;
+    const endpoint = `/api/services/app/ImdSurvivor/GetAll`;
     await instance
       .get(endpoint)
       .then((response) => {
-        dispatch(getSurvivorsSuccess(response.data));
+        dispatch(getSurvivorsSuccess(response?.data?.result?.items));
       })
       .catch((error) => {
         console.error(error);
