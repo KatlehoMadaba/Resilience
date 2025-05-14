@@ -1,5 +1,5 @@
 "use client";
-import { getAxiosInstace } from "../../utils/axiosInstance";
+import { getAxiosInstance } from "../../utils/axiosInstance";
 import { IUser } from "./models";
 import { INITIAL_STATE, UserActionContext, UserStateContext } from "./context";
 import { UserReducer } from "./reducer";
@@ -28,7 +28,7 @@ import axios from "axios";
 
 export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const [state, dispatch] = useReducer(UserReducer, INITIAL_STATE);
-  const instance = getAxiosInstace();
+  const instance = getAxiosInstance();
 
   // useEffect(() => {
   //   const load = async () => {
