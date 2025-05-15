@@ -37,7 +37,7 @@ export default function RoleSelection(): React.ReactElement {
       description: "I want to access resources without creating an account.",
       icon: <icons.UserSwitchOutlined className={styles.roleIcon} />,
       color: "#FFB74D",
-      path: "/register/immdetiateSurvivor",
+      path: "/register/anonymousSurvivor",
     },
   ];
 

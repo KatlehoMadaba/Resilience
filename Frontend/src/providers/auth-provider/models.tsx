@@ -74,7 +74,7 @@ export interface IPastSurvivorRegsister {
   emailAddress: string;
   displayName: string;
   useDisplayNameOnly: boolean;
-  sex: number;
+  sex: ReflistSex;
   phoneNumber: string;
   anonymousId?: string;
   isAnonymous?: boolean;
@@ -85,12 +85,15 @@ export interface IPastSurvivorRegsister {
 }
 
 export interface IAnonyomous {
+  emailAddress: string;
+  name: string;
+  password: string;
+  userName: string;
   anonymousId?: string;
   isAnonymous?: boolean;
   incidentDate?: Date;
-  emailAddress: string;
-  password: string;
+  surname: string;
   hasDisclosedBefore: boolean;
-  timeElapsedInDays: number;
-  recoveryPhase: number;
+  hasReportedToAuthorities: boolean;
+  sex: ReflistSex;
 }
