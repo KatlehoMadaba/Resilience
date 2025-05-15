@@ -1,0 +1,71 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Geist&family=Geist+Mono&display=swap');
+
+
+body {
+    font-family: 'Geist', sans-serif;
+}
+
+/* General body styles */
+body {
+    background-color: #f5f5f5;
+    /* Light background color for the app */
+    color: #333340;
+    /* Dark text color */
+    font-family: 'Geist Sans', sans-serif;
+    /* Use the custom font */
+}
+
+/* Cards */
+.ant-card {
+    border-radius: 12px;
+    /* Round the corners of cards */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    /* Add subtle shadow */
+    background: #fff;
+    /* Card background color */
+}
+
+/* Links */
+a {
+    color: #9E9AC8;
+    /* Set custom primary color for links */
+}
+
+a:hover {
+    color: #7B75AA;
+    /* Hover color */
+}
+
+/* Buttons */
+.ant-btn {
+    background-color: #9E9AC8;
+    /* Primary button color */
+    border-radius: 8px;
+    /* Rounded button edges */
+    color: white;
+}
+
+.ant-btn:hover {
+    background-color: #7B75AA;
+    /* Hover state */
+}
+
+/* General Typography */
+.ant-typography {
+    font-family: 'Geist Sans', sans-serif;
+    /* Use custom font for Typography */
+}
+
+.ant-typography.title {
+    color: #333340;
+    /* Set title color */
+}
+
+/* Specific component override examples */
+.ant-card-body {
+    background-color: #FAFAFA;
+    /* Light card body background */
+    color: #333340;
+    /* Text color */
+}
