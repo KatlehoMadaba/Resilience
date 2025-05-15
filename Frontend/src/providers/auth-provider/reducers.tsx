@@ -32,27 +32,15 @@ export const AuthReducer = handleActions<IAuthStateContext, IAuthStateContext>(
       ...state,
       ...action.payload,
     }),
-    [AuthActionEnums.signUpError]: (state, action) => ({
+    [AuthActionEnums.signUpImmediateSurvivorError]: (state, action) => ({
       ...state,
       ...action.payload,
     }),
-    [AuthActionEnums.signUpSuccess]: (state, action) => ({
+    [AuthActionEnums.signUpImmediateSurvivorSuccess]: (state, action) => ({
       ...state,
       ...action.payload,
     }),
-    [AuthActionEnums.signUpPending]: (state, action) => ({
-      ...state,
-      ...action.payload,
-    }),
-    [AuthActionEnums.signUpSurvivorError]: (state, action) => ({
-      ...state,
-      ...action.payload,
-    }),
-    [AuthActionEnums.signUpSurvivorSuccess]: (state, action) => ({
-      ...state,
-      ...action.payload,
-    }),
-    [AuthActionEnums.signUpSurvivorPending]: (state, action) => ({
+    [AuthActionEnums.signUpImmediateSurvivorPending]: (state, action) => ({
       ...state,
       ...action.payload,
     }),
