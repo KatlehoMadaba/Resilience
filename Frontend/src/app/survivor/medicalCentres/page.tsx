@@ -1,11 +1,8 @@
 "use client";
+import NearbyHospitals from "@/components/hospitals/NearbyHospitals";
 import React from "react";
 const MedicalCentres = () => {
-  return (
-    <div>
-      <p>Medical Centres</p>
-    </div>
-  );
+  return <NearbyHospitals />;
 };
 
 export default MedicalCentres;

@@ -1,11 +1,8 @@
+import NearbyHospitals from "@/components/hospitals/NearbyHospitals";
 import React from "react";
 
 const PoliceStation = () => {
-  return (
-    <div>
-      <p>Police Station</p>
-    </div>
-  );
+  return <NearbyHospitals />;
 };
 
 export default PoliceStation;
