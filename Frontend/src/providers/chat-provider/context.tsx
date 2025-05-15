@@ -1,6 +1,6 @@
 "use client";
 import { createContext } from "react";
-import { IChatMessage, ISendMessage } from "./models";
+import { IChatMessage, ISendMessage} from "./models";
 
 // Context shape interface
 export interface IChatMessageStateContext {
@@ -25,7 +25,6 @@ export const INITIAL_STATE: IChatMessageStateContext = {
   isSuccess: false,
   isError: false,
   ChatMessages: [],
-  CountMessages: 0,
 };
 
 // Create the state context and the action context

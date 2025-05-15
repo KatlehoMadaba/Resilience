@@ -58,9 +58,11 @@ export const ChatMessageProvider = ({
       .get(endpoint)
       .then((response) => {
         dispatch(getMessagesWithPersonSuccess(response?.data?.result));
+        console.log("here is the count success:", response?.data?.result);
       })
       .catch((error) => {
         console.error("Error fetching messages for getting chats:", error);
+        console.log("here is the count success:");
         dispatch(getMessagesWithPersonError());
       });
   };

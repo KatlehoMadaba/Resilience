@@ -15,7 +15,7 @@ import {
   useProfessionalState,
   useProfessionalActions,
 } from "@/providers/professionals-provider";
-import { useUserState, useUserActions } from "@/providers/users-providers";
+import { useUserActions } from "@/providers/users-providers";
 import Image from "next/image";
 import { useStyles } from "./styles";
 const { Title, Paragraph } = Typography;
@@ -29,10 +29,16 @@ const ProfessionalDashboard = () => {
   const { getCurrentProfessional } = useProfessionalActions();
   const { currentProfessional } = useProfessionalState();
   const router = useRouter();
-
   useEffect(() => {
     fetchSurvivorOnReload();
   }, []);
+
+  useEffect(() => {
+    if (currentProfessional?.id) {
+      countMessages("0196cb88-bed4-7033-b1fb-bf32225574e5");
+      console.log(currentProfessional.id, "personid dash - after state update");
+    }
+  }, [currentProfessional]);
 
   const fetchSurvivorOnReload = async () => {
     const token = sessionStorage.getItem("jwt");
@@ -43,12 +49,14 @@ const ProfessionalDashboard = () => {
     try {
       setLoading(true);
       const user = await getCurrentUser();
-      await getCurrentProfessional(user.id);
-      console.log("user", user.id, "this", currentProfessional?.name);
+      if (user?.id) {
+        await getCurrentProfessional(user.id);
+      }
     } catch (err) {
       console.error("Error loading the Professional:", err);
     } finally {
       setLoading(false);
+      console.log(currentProfessional?.id, "personid dash");
     }
   };
 
@@ -71,7 +79,7 @@ const ProfessionalDashboard = () => {
               <Col span={12}>
                 <Card className={styles.statCard}>
                   <MessageOutlined className={styles.icon} />
-                  <Title level={3}>{messageCount ?? 0}</Title>
+                  <Title level={3}>{messageCount}</Title>
                   <Paragraph>Messages Sent</Paragraph>
                 </Card>
               </Col>
@@ -109,5 +117,4 @@ const ProfessionalDashboard = () => {
     </div>
   );
 };
-
 export default ProfessionalDashboard;
