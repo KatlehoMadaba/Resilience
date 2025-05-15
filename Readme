@@ -76,7 +76,9 @@ run frontend
 npm run dev
 Open the browser and navigate to the link provided in the terminal (usually http://localhost:3000).
 npm install pdf-lib openai uuid
-
+npm install jspdf jspdf-autotable @ant-design/icons
+# or
+yarn add jspdf jspdf-autotable @ant-design/icons
 
 ```
 

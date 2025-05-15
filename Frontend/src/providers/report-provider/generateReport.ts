@@ -5,8 +5,7 @@ import { PDFDocument, StandardFonts, rgb } from "pdf-lib";
 import { OpenAI } from "openai";
 
 const openai = new OpenAI({
-    // apiKey: process.env.OPENAI_API_KEY, // Must be in .env.local
-    apiKey: "k - proj - 1hK3HZNipmaHMsEnOILOgaHPwJ4Lk_3P3txdExTmT5RNaKqP0TRLU4j24qyNgmH9xEwwO88nFNT3BlbkFJah25ojIcZBSChwAU5fWL- 9w7fPAb8NGEPuLotnK1bxYr_3a9V_vQVzmUgTD - jDZ85j22ED1BQA"
+    apiKey: process.env.OPENAI_API_KEY_2,
 });
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -37,8 +36,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
         const paragraphs = generatedText.split('\n\n');
 
-        let currentPage = pdfDoc.addPage([595, 842]); 
-        const { width, height } = currentPage.getSize(); 
+        let currentPage = pdfDoc.addPage([595, 842]);
+        const { width, height } = currentPage.getSize();
         let y = height - margin;
         let pageNum = 1;
 

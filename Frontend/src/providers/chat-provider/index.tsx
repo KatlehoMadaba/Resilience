@@ -6,7 +6,7 @@ import {
 } from "./context";
 import { useContext, useReducer } from "react";
 import {
-  sendMessagePending,
+  // sendMessagePending,
   sendMessageSuccess,
   sendMessageError,
   getMessagesWithPersonSuccess,
@@ -26,7 +26,7 @@ export const ChatMessageProvider = ({
   const instance = getAxiosInstance();
 
   const sendMessage = async (sendMessage: ISendMessage) => {
-    dispatch(sendMessagePending());
+    // dispatch(sendMessagePending());
     const endpoint = `/api/services/app/Chat/SendMessage`;
     await instance
       .post(endpoint, sendMessage)

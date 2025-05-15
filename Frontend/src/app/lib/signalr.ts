@@ -11,10 +11,11 @@ export interface ChatMessageDto {
 
 let connection: signalR.HubConnection | null = null;
 
+const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
 export const startConnection = async () => {
     if (!connection) {
         connection = new signalR.HubConnectionBuilder()
-            .withUrl("https://localhost:44311/signalr", {
+            .withUrl(`${baseURL}/signalr`, {
                 transport: signalR.HttpTransportType.WebSockets,
                 skipNegotiation: true
             })// Adjusted endpoint

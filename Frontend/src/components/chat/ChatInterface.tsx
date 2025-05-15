@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Avatar, Input, List, Spin, Typography, Button } from "antd";
+import {Input, List, Spin, Typography, Button } from "antd";
 import {
   startConnection,
   onReceiveTaxiUpdate,
@@ -22,7 +22,6 @@ interface ChatInterfaceProps {
 
 const ChatInterface: React.FC<ChatInterfaceProps> = ({
   personId,
-  personName,
 }) => {
   const { getMessagesWithPerson, sendMessage } = useChatMessageActions();
   const { ChatMessages, isPending } = useChatMessageState();
@@ -59,21 +58,9 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({
     sendMessage(message);
     setMessageInput("");
   };
-
-  const getInitial = () => {
-    if (!personName) return "?";
-    return personName.trim().charAt(0).toUpperCase();
-  };
-
   return (
     <S.ChatWrapper>
       <S.ChatContainer>
-        <S.Header>
-          <Avatar>{getInitial()}</Avatar>
-          <Text style={{ marginLeft: "10px" }}>
-            Chatting with {personName || "Unknown"}
-          </Text>
-        </S.Header>
         <S.MessagesContainer>
           {isPending ? (
             <Spin />
