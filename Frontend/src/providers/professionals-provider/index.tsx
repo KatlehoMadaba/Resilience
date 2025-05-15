@@ -113,27 +113,24 @@ export const ProfessionalProvider = ({
         dispatch(getProfessionalError());
       });
   };
-  const getCurrentProfessional = async (): Promise<IProfessional | null> => {
+
+  const getCurrentProfessional = async (userId) => {
     dispatch(getCurrentProfessionalPending());
-    const endpoint = `/api/services/app/Session/GetCurrentLoginInformations`;
-    return instance
+    const endpoint = `/api/services/app/Professional/GetCurrentProfessional?userId=${userId}`;
+    instance
       .get(endpoint)
       .then((response) => {
-        if (response?.data?.result) {
-          dispatch(getCurrentProfessionalSuccess(response?.data?.result?.user));
-          return response?.data?.result?.user;
-        } else {
-          console.warn("No user data found in response");
-          dispatch(getCurrentProfessionalError());
-          return null;
-        }
+        dispatch(getCurrentProfessionalSuccess(response?.data?.result));
+        console.log("professional");
+        console.log(response.data.result);
+        dispatch(getCurrentProfessionalError());
       })
       .catch((error) => {
         console.error("Error fetching current user:", error);
         dispatch(getCurrentProfessionalError());
-        return null;
       });
   };
+
   return (
     <ProfessionalStateContext.Provider value={state}>
       <ProfessionalActionContext.Provider

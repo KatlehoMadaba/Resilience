@@ -94,7 +94,7 @@ export const getCurrentProfessionalSuccess = createAction<
   IProfessional
 >(
   ProfessionalActionEnums.getCurrentProfessionalSuccess,
-  (currentProfessional) => ({
+  (currentProfessional: IProfessional) => ({
     isPending: false,
     isSuccess: true,
     isError: false,
