@@ -56,6 +56,7 @@ const PastSurvivorRegisterForm: React.FC = () => {
       ...values,
       anonymousId: "anonymous_" + Math.random().toString(36).substr(2, 9),
       isAnonymous: true,
+      
     };
 
     try {

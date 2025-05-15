@@ -1,11 +1,11 @@
 "use client";
 //import { getAxiosInstace } from "../../utils/axiosInstance";
 import {
-  IAuth,
   ISignInResponse,
   ISignInRequest,
   IEmergencySignIn,
   ISurvivorRegisteration,
+  IPastSurvivorRegsister,
 } from "./models";
 import { INITIAL_STATE, AuthActionContext, AuthStateContext } from "./context";
 import { AuthReducer } from "./reducers";
@@ -14,64 +14,45 @@ import {
   signInError,
   signInPending,
   signInSuccess,
-  signUpPending,
-  signUpSuccess,
-  signUpError,
-  signUpSurvivorSuccess,
-  signUpSurvivorPending,
-  signUpSurvivorError,
+  signUpPastSurvivorPending,
+  signUpPastSurvivorSuccess,
+  signUpPastSurvivorError,
+  signUpImmediateSurvivorSuccess,
+  signUpImmediateSurvivorPending,
+  signUpImmediateSurvivorError,
 } from "./actions";
 import { getAxiosInstance } from "@/utils/axiosInstance";
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [state, dispatch] = useReducer(AuthReducer, INITIAL_STATE);
   const instance = getAxiosInstance();
-  const signUp = async (Auth: IAuth): Promise<void> => {
-    dispatch(signUpPending());
-    const endpoint =
-      Auth.role === "PASTSURVIVOR"
-        ? `services/app/PastSurvivor/Create`
-        : Auth.role === "GENERALSUPPORTER"
-        ? `services/app/GeneralSupporter/Create`
-        : `services/app/Professional/Create`;
-
-    await instance
-      .post<IAuth>(endpoint, Auth)
-      .then((response) => {
-        dispatch(signUpSuccess(response?.data));
-      })
-      .catch((error) => {
-        dispatch(signUpError());
-        console.error(error);
-      });
-  };
 
   const signUpImmediateSurvivor = async (Survivor: ISurvivorRegisteration) => {
-    dispatch(signUpSurvivorPending());
+    dispatch(signUpImmediateSurvivorPending());
     const endpoint = `/api/services/app/ImdSurvivor/Create`;
     instance
       .post(endpoint, Survivor)
       .then(() => {
-        dispatch(signUpSurvivorSuccess());
+        dispatch(signUpImmediateSurvivorSuccess());
       })
       .catch((error) => {
-        dispatch(signUpSurvivorError());
+        dispatch(signUpImmediateSurvivorError());
         const backendMessage = error.response?.data?.error?.message;
         console.error(error);
         throw new Error(backendMessage);
       });
   };
 
-  const signUpPastSurvivor = async (Survivor: ISurvivorRegisteration) => {
-    dispatch(signUpSurvivorPending());
-    const endpoint = `/api/services/app/ImdSurvivor/Create`;
+  const signUpPastSurvivor = async (Survivor: IPastSurvivorRegsister) => {
+    dispatch(signUpPastSurvivorPending());
+    const endpoint = `/api/services/app/PastSurvivor/Create`;
     await instance
       .post(endpoint, Survivor)
       .then(() => {
-        dispatch(signUpSurvivorSuccess());
+        dispatch(signUpPastSurvivorSuccess());
       })
       .catch((error) => {
-        dispatch(signUpSurvivorError());
+        dispatch(signUpPastSurvivorError());
         console.error(error);
       });
   };
@@ -132,7 +113,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       <AuthActionContext.Provider
         value={{
           signIn,
-          signUp,
           signUpImmediateSurvivor,
           signUpPastSurvivor,
           emergencySignIn,

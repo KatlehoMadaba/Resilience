@@ -22,7 +22,6 @@ export interface IAuthActionContext {
   signIn: (SignInRequest: ISignInRequest) => Promise<ISignInResponse>;
   signUpImmediateSurvivor: (Survivor: ISurvivorRegisteration) => void;
   signUpPastSurvivor: (PastSurvivor: IPastSurvivorRegsister) => void;
-  signUp: (Auth: IAuth) => void;
   emergencySignIn: (emergencySignIn: IEmergencySignIn) => void;
 }
 
