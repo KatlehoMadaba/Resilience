@@ -10,3 +10,6 @@ export interface ISendMessage {
   receiverPersonId: string;
   content: string;
 }
+export interface IGetAllMessagesWithWithPersonId {
+  id: string;
+}

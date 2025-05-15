@@ -9,12 +9,14 @@ export interface IChatMessageStateContext {
   isError: boolean;
   ChatMessage?: IChatMessage;
   ChatMessages?: IChatMessage[];
+  CountMessages?: number;
 }
 
 // ChatMessage action context interface
 export interface IChatMessageActionContext {
   sendMessage: (sendMessage: ISendMessage) => void;
   getMessagesWithPerson: (personId: string) => void;
+  countMessages: (personId: string) => void;
 }
 
 // Initial state with default values
@@ -23,6 +25,7 @@ export const INITIAL_STATE: IChatMessageStateContext = {
   isSuccess: false,
   isError: false,
   ChatMessages: [],
+  CountMessages: 0,
 };
 
 // Create the state context and the action context

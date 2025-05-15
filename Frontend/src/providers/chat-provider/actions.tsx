@@ -11,6 +11,9 @@ export enum ChatMessageActionEnums {
   getMessagesWithPersonPending = "GET_ChatMessages_PENDING",
   getMessagesWithPersonSuccess = "GET_ChatMessages_SUCCESS",
   getMessagesWithPersonError = "GET_ChatMessages_ERROR",
+  countMessagesPending = "COUNT_Messages_PENDING",
+  countMessagesError = "COUNT_Messages_ERROR",
+  countMessagesSuccess = "COUNT_Messages_SUCCESS",
 }
 
 // CREATE ChatMessage ACTIONS
@@ -57,3 +60,18 @@ export const getMessagesWithPersonError =
     ChatMessageActionEnums.sendMessageError,
     () => ({ isPending: false, isSuccess: false, isError: true })
   );
+
+export const countMessagesPending = createAction<IChatMessageStateContext>(
+  ChatMessageActionEnums.sendMessagePending,
+  () => ({ isPending: true, isSuccess: false, isError: false })
+);
+
+export const countMessagesSuccess = createAction<
+  IChatMessageStateContext,
+  number
+>(ChatMessageActionEnums.countMessagesSuccess, (CountMessages: number) => ({
+  isPending: false,
+  isSuccess: true,
+  isError: false,
+  CountMessages,
+}));

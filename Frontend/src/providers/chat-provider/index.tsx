@@ -51,10 +51,24 @@ export const ChatMessageProvider = ({
         dispatch(getMessagesWithPersonError());
       });
   };
+  const countMessages = async (personId: string) => {
+    dispatch(getMessagesWithPersonPending());
+    const endpoint = `/api/services/app/Chat/GetMessageCount?personId=${personId}`;
+    await instance
+      .get(endpoint)
+      .then((response) => {
+        dispatch(getMessagesWithPersonSuccess(response?.data?.result));
+      })
+      .catch((error) => {
+        console.error("Error fetching messages for getting chats:", error);
+        dispatch(getMessagesWithPersonError());
+      });
+  };
+
   return (
     <ChatMessageStateContext.Provider value={state}>
       <ChatMessageActionContext.Provider
-        value={{ sendMessage, getMessagesWithPerson }}
+        value={{ sendMessage, getMessagesWithPerson, countMessages }}
       >
         {children}
       </ChatMessageActionContext.Provider>
