@@ -5,6 +5,8 @@ using Abp.Application.Services;
 using Abp.Domain.Repositories;
 using Resilience.Domain.ChatSessions;
 using Resilience.Domain.Persons;
+using Microsoft.AspNetCore.SignalR;
+
 
 namespace Resilience.Services.ChatSessionServices
 {
