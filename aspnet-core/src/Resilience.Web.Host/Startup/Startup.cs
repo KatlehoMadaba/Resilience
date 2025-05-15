@@ -3,20 +3,25 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using Abp.AspNetCore;
-using Abp.AspNetCore.Mvc.Antiforgery;
 using Abp.AspNetCore.SignalR.Hubs;
+using Abp.AspNetCore.Mvc.Antiforgery;
 using Abp.Castle.Logging.Log4Net;
 using Castle.Facilities.Logging;
 using ElmahCore.Mvc;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Resilience.Configuration;
+using Resilience.Domain.ChatSessions;
 using Resilience.Identity;
+using Resilience.Web;
+
+
 
 namespace Resilience.Web.Host.Startup
 {
@@ -53,10 +58,11 @@ namespace Resilience.Web.Host.Startup
 
             services.AddSignalR();
             services.AddHttpClient();
+            services.ConfigureSignalR();
+			//services.AddSingleton<IUserIdProvider, AbpUserIdProvider>();
 
-
-            // Configure CORS for angular2 UI
-            services.AddCors(
+			// Configure CORS for angular2 UI
+			services.AddCors(
                 options => options.AddPolicy(
                     _defaultCorsPolicyName,
                     builder => builder
@@ -107,10 +113,18 @@ namespace Resilience.Web.Host.Startup
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapHub<AbpCommonHub>("/signalr");
-                endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
+				//Mapp chat hub
+
+
+				//endpoints.MapHub<AbpCommonHub>("/signalr");
+				endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapControllerRoute("defaultWithArea", "{area}/{controller=Home}/{action=Index}/{id?}");
-            });
+             
+
+			
+
+
+			});
 
             // Enable middleware to serve generated Swagger as a JSON endpoint
             app.UseSwagger(c => { c.RouteTemplate = "swagger/{documentName}/swagger.json"; });
@@ -124,6 +138,7 @@ namespace Resilience.Web.Host.Startup
                     .GetManifestResourceStream("Resilience.Web.Host.wwwroot.swagger.ui.index.html");
                 options.DisplayRequestDuration(); // Controls the display of the request duration (in milliseconds) for "Try it out" requests.
             }); // URL: /swagger
+            //app.UseSignalR();   
         }
 
         private void ConfigureSwagger(IServiceCollection services)
