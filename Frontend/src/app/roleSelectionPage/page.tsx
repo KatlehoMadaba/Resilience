@@ -25,14 +25,6 @@ export default function RoleSelection(): React.ReactElement {
       path: "/register/pastSurvivor",
     },
     {
-      title: "Professional",
-      description:
-        "I'm a healthcare or legal professional looking to support survivors.",
-      icon: <icons.SafetyCertificateOutlined className={styles.roleIcon} />,
-      color: "#87D068",
-      path: "/register/professional",
-    },
-    {
       title: "Anonymous Access",
       description: "I want to access resources without creating an account.",
       icon: <icons.UserSwitchOutlined className={styles.roleIcon} />,
