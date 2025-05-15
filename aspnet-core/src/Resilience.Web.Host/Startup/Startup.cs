@@ -3,7 +3,6 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using Abp.AspNetCore;
-using Abp.AspNetCore.SignalR.Hubs;
 using Abp.AspNetCore.Mvc.Antiforgery;
 using Abp.Castle.Logging.Log4Net;
 using Castle.Facilities.Logging;
@@ -18,6 +17,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Resilience.Configuration;
 using Resilience.Domain.ChatSessions;
+using Resilience.Hubs;
 using Resilience.Identity;
 using Resilience.Web;
 
@@ -113,16 +113,10 @@ namespace Resilience.Web.Host.Startup
 
             app.UseEndpoints(endpoints =>
             {
-				//Mapp chat hub
-
-
-				//endpoints.MapHub<AbpCommonHub>("/signalr");
-				endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
+                //Mapp chat hub
+                endpoints.MapHub<ChatHub>("/signalr");
+                endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapControllerRoute("defaultWithArea", "{area}/{controller=Home}/{action=Index}/{id?}");
-             
-
-			
-
 
 			});
 

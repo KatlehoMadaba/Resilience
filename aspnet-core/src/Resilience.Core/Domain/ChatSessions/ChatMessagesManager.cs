@@ -4,16 +4,20 @@ using System.Linq;
 using System.Threading.Tasks;
 using Abp.Domain.Repositories;
 using Abp.Domain.Services;
+using Abp.Events.Bus;
+using Resilience.Domain.ChatSessions.Events;
 
 namespace Resilience.Domain.ChatSessions
 {
     public class ChatMessagesManager : DomainService
     {
         private readonly IRepository<ChatMessage, Guid> _chatMessagesRepository;
+        public IEventBus EventBus { get; set; }
 
         public ChatMessagesManager(IRepository<ChatMessage, Guid> chatMessagesRepository)
         {
             _chatMessagesRepository = chatMessagesRepository;
+            EventBus = NullEventBus.Instance;
         }
 
         public async Task<ChatMessage> SendMessageAsync(Guid senderId, Guid receiverId, string content)
@@ -26,6 +30,10 @@ namespace Resilience.Domain.ChatSessions
             };
 
             await _chatMessagesRepository.InsertAsync(message);
+            //declaring the event
+            var messageEvent = new ChatUpdateEvent(message);
+            //trigger event
+            await EventBus.TriggerAsync(messageEvent);
             return message;
         }
 

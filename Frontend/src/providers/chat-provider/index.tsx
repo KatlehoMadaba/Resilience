@@ -15,7 +15,8 @@ import {
 } from "./actions";
 import { getAxiosInstance } from "@/utils/axiosInstance";
 import { ChatMessageReducer } from "./reducer";
-import { ISendMessage } from "@/providers/chat-provider/models";
+import { IChatMessage, ISendMessage } from "@/providers/chat-provider/models";
+import { addMessageSuccess } from "./actions";
 
 export const ChatMessageProvider = ({
   children,
@@ -38,6 +39,11 @@ export const ChatMessageProvider = ({
         dispatch(sendMessageError());
       });
   };
+
+  const addMessage = async (message: IChatMessage) => {
+    dispatch(addMessageSuccess(message));
+  };
+
   const getMessagesWithPerson = async (personId: string) => {
     dispatch(getMessagesWithPersonPending());
     const endpoint = `/api/services/app/Chat/GetMessagesWithPerson?personId=${personId}`;
@@ -54,7 +60,7 @@ export const ChatMessageProvider = ({
   return (
     <ChatMessageStateContext.Provider value={state}>
       <ChatMessageActionContext.Provider
-        value={{ sendMessage, getMessagesWithPerson }}
+        value={{ sendMessage, getMessagesWithPerson, addMessage }}
       >
         {children}
       </ChatMessageActionContext.Provider>

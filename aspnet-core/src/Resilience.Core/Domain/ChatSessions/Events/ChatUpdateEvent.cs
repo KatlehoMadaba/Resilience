@@ -2,10 +2,11 @@
 
 namespace Resilience.Domain.ChatSessions.Events
 {
-    public class ChatUpdateEvent:EntityEventData<ChatMessage>   
+    public class ChatUpdateEvent : EntityEventData<ChatMessage>   
     {
-        public ChatUpdateEvent(ChatMessage  chatMessage):base(chatMessage)
+        public ChatUpdateEvent(ChatMessage chatMessage) : base(chatMessage)
         {
+
         }
     }
 }
