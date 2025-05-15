@@ -1,6 +1,5 @@
 import { ReflistRecoveryPhase } from "@/enums/ReflistRecoveryPhase";
 import { ReflistSex } from "@/enums/ReflistSex";
-
 export interface IAuth {
   id?: string;
   userName?: string;
@@ -80,6 +79,17 @@ export interface IPastSurvivorRegsister {
   anonymousId?: string;
   isAnonymous?: boolean;
   incidentDate?: Date;
+  hasDisclosedBefore: boolean;
+  timeElapsedInDays: number;
+  recoveryPhase: number;
+}
+
+export interface IAnonyomous {
+  anonymousId?: string;
+  isAnonymous?: boolean;
+  incidentDate?: Date;
+  emailAddress: string;
+  password: string;
   hasDisclosedBefore: boolean;
   timeElapsedInDays: number;
   recoveryPhase: number;

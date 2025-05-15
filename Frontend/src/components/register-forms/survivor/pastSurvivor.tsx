@@ -40,7 +40,7 @@ const PastSurvivorRegisterForm: React.FC = () => {
     if (signupAttempted) {
       if (isSuccess) {
         showSuccessToast();
-        router.push("/login");
+        router.push("/login"); // Redirect to login page after success
         setSignupAttempted(false);
         setLoading(false);
       } else if (isError) {
@@ -55,8 +55,7 @@ const PastSurvivorRegisterForm: React.FC = () => {
     const formValues = {
       ...values,
       anonymousId: "anonymous_" + Math.random().toString(36).substr(2, 9),
-      isAnonymous: true,
-      
+      isAnonymous: true, // Assuming anonymous signup
     };
 
     try {

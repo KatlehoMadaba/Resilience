@@ -21,7 +21,7 @@ export default function RoleSelection(): React.ReactElement {
       title: "Past Survivor",
       description: "I'm on my healing journey and looking for ongoing support.",
       icon: <icons.UserOutlined className={styles.roleIcon} />,
-      color: "#9E9AC8", // Light purple
+      color: "#9E9AC8",
       path: "/register/pastSurvivor",
     },
     {
@@ -29,15 +29,15 @@ export default function RoleSelection(): React.ReactElement {
       description:
         "I'm a healthcare or legal professional looking to support survivors.",
       icon: <icons.SafetyCertificateOutlined className={styles.roleIcon} />,
-      color: "#87D068", // Light green
+      color: "#87D068",
       path: "/register/professional",
     },
     {
       title: "Anonymous Access",
       description: "I want to access resources without creating an account.",
       icon: <icons.UserSwitchOutlined className={styles.roleIcon} />,
-      color: "#FFB74D", // Light orange
-      path: "/register/anonymous",
+      color: "#FFB74D",
+      path: "/register/immdetiateSurvivor",
     },
   ];
 
