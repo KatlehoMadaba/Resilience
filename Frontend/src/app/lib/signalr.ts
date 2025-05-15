@@ -2,7 +2,6 @@
 import { IChatMessage } from "@/providers/chat-provider/models";
 import * as signalR from "@microsoft/signalr";
 
-// Define the shape of your message if known
 export interface ChatMessageDto {
     message: string;
     sender: string;
@@ -18,7 +17,7 @@ export const startConnection = async () => {
             .withUrl(`${baseURL}/signalr`, {
                 transport: signalR.HttpTransportType.WebSockets,
                 skipNegotiation: true
-            })// Adjusted endpoint
+            })
             .withAutomaticReconnect()
             .build();
     }
