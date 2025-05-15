@@ -15,6 +15,7 @@ export interface IChatMessageStateContext {
 export interface IChatMessageActionContext {
   sendMessage: (sendMessage: ISendMessage) => void;
   getMessagesWithPerson: (personId: string) => void;
+  addMessage: (message: IChatMessage) => void;
 }
 
 // Initial state with default values

@@ -2,6 +2,10 @@
 
 import { useEffect, useState } from "react";
 import { Avatar, Input, List, Spin, Typography, Button } from "antd";
+import {
+  startConnection,
+  onReceiveTaxiUpdate,
+} from "../../../src/app/lib/signalr";
 import { ISendMessage } from "@/providers/chat-provider/models";
 import {
   useChatMessageActions,
@@ -20,7 +24,8 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({
   personId,
   personName,
 }) => {
-  const { getMessagesWithPerson, sendMessage } = useChatMessageActions();
+  const { getMessagesWithPerson, sendMessage, addMessage } =
+    useChatMessageActions();
   const { ChatMessages, isPending } = useChatMessageState();
   const [messageInput, setMessageInput] = useState("");
 
@@ -28,6 +33,28 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({
     if (personId) {
       getMessagesWithPerson(personId);
     }
+
+    // Initialize SignalR connection
+    const initSignalR = async () => {
+      await startConnection();
+
+      // Set up listener for incoming messages
+      onReceiveTaxiUpdate((msg) => {
+        console.log("Received SignalR message:", msg);
+
+        // If the message is relevant to the currently open chat, add it
+        if (msg.senderPersonId === personId) {
+          addMessage({
+            content: msg.content,
+            sentAt: msg.sentAt ?? new Date().toISOString(),
+            receiverPersonId: "YOU", // or your current user's ID
+            senderPersonId: msg.senderPersonId,
+          });
+        }
+      });
+    };
+
+    initSignalR();
   }, [personId]);
 
   const handleSendMessage = () => {

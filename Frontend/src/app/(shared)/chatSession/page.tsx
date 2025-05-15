@@ -26,7 +26,7 @@ const ChatSession = () => {
 
   const token =
     typeof window !== "undefined" ? sessionStorage.getItem("jwt") : null;
-
+  
   useEffect(() => {
     const fetchUserRole = async () => {
       try {
