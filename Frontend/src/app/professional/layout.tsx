@@ -1,14 +1,19 @@
 "use client";
 import React, { useState } from "react";
 import { Layout, Menu, Button, Popconfirm } from "antd";
-import { LogoutOutlined, MessageOutlined } from "@ant-design/icons";
+import {
+  HomeOutlined,
+  LogoutOutlined,
+  MessageOutlined,
+} from "@ant-design/icons";
 import { useRouter } from "next/navigation";
 import withAuth from "@/hoc/withAuth";
 import { useStyles } from "../style/styles";
 
 const { Sider, Content } = Layout;
 
-const professionalNavigationItems = [ 
+const professionalNavigationItems = [
+  { key: "/professional", label: "Dashboard", icon: <HomeOutlined /> },
   { key: "/chatSession", label: "Chat", icon: <MessageOutlined /> },
 ];
 
