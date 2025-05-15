@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useEffect } from "react";
 import {
   useSurvivorActions,
@@ -7,16 +6,11 @@ import {
 } from "@/providers/survivors-provider";
 import { Spin, Card } from "antd";
 
-interface SurvivorContactProps {
-  onSelect: (person: {
-    id: string;
-    displayName?: string;
-    name?: string;
-    surname?: string;
-  }) => void;
+interface Props {
+  onSelect: (id: string) => void;
 }
 
-const SurvivorContacts: React.FC<SurvivorContactProps> = ({ onSelect }) => {
+const SurvivorContacts: React.FC<Props> = ({ onSelect }) => {
   const { getSurvivors } = useSurvivorActions();
   const { Survivors, isPending } = useSurvivorState();
 
@@ -30,24 +24,19 @@ const SurvivorContacts: React.FC<SurvivorContactProps> = ({ onSelect }) => {
     <div>
       <h3>Select a Survivor</h3>
       {isPending && <Spin />}
-      {Survivors?.length > 0 ? (
+      {Survivors && Survivors.length > 0 ? (
         Survivors.map((survivor) => (
           <Card
             key={survivor.id}
-            onClick={() =>
-              onSelect({
-                id: survivor.id,
-                displayName: survivor.displayName,
-                name: survivor.name,
-                surname: survivor.surname,
-              })
-            }
+            onClick={() => onSelect(survivor.id)}
             hoverable
             style={{ marginBottom: 8 }}
           >
-            <h4>
-              {survivor.displayName || `${survivor.name} ${survivor.surname}`}
-            </h4>
+            <h4>{survivor?.displayName || "Unnamed Survivor"}</h4>
+            <p>
+              {survivor?.displayName ||
+                `${survivor?.name} ${survivor?.surname}`}
+            </p>
             <p>
               {survivor.sex === 1
                 ? "Male"
