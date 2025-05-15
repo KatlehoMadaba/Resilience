@@ -39,8 +39,6 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({
 
       // Set up listener for incoming messages
       onReceiveTaxiUpdate((msg) => {
-        console.log("Received SignalR message:", msg);
-
         // If the message is relevant to the currently open chat, add it
         if (msg.senderPersonId === personId) {
           getMessagesWithPerson(personId);
@@ -50,8 +48,6 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({
 
     initSignalR();
   }, [personId]);
-
-  console.log("Chat Messages", ChatMessages);
   const handleSendMessage = () => {
     if (!messageInput.trim()) return;
 

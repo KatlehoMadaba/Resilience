@@ -14,9 +14,7 @@ const JournalEntriesList: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const { Survivor } = useSurvivorState();
   const { getJournalEntriesByPersonId } = useJournalEntryActions();
-  const { journalEntries } = useJournalEntryState();
-  
-  debugger
+  const { journalEntries } = useJournalEntryState(); 
   const fetchEntries = async () => {
     if (journalEntries == null || length == 0) {
     }

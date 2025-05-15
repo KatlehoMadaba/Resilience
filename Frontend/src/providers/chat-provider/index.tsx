@@ -40,7 +40,7 @@ export const ChatMessageProvider = ({
   };
 
   const addMessage = async (message: IChatMessage) => {
-    debugger;
+
     dispatch(addMessageSuccess(message));
   };
 

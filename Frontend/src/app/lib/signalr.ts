@@ -25,7 +25,6 @@ export const startConnection = async () => {
     if (connection.state === signalR.HubConnectionState.Disconnected) {
         try {
             await connection.start();
-            console.log("SignalR connected.");
         } catch (error) {
             console.error("SignalR connection failed:", error);
         }

@@ -81,7 +81,6 @@ const ReportPage = () => {
 
   const oncclikReport = () => {
     createSexualAssaultReport(sexualAssaultReport);
-    console.log("from values", sexualAssaultReport);
   };
 
   const handleDownloadPdf = async () => {
