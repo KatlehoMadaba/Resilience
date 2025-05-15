@@ -37,7 +37,6 @@ export const SexualAssaultReportProvider = ({
       .post(endpoint, SexualAssaultReport)
       .then(() => {
         dispatch(createSexualAssaultReportSuccess());
-        console.log("its a success..");
       })
       .catch((error) => {
         console.error("Error creating report entry:", error);

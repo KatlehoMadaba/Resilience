@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Avatar, Input, List, Spin, Typography, Button } from "antd";
+import {Input, List, Spin, Typography, Button } from "antd";
 import {
   startConnection,
   onReceiveTaxiUpdate,
@@ -22,10 +22,8 @@ interface ChatInterfaceProps {
 
 const ChatInterface: React.FC<ChatInterfaceProps> = ({
   personId,
-  personName,
 }) => {
-  const { getMessagesWithPerson, sendMessage, addMessage } =
-    useChatMessageActions();
+  const { getMessagesWithPerson, sendMessage } = useChatMessageActions();
   const { ChatMessages, isPending } = useChatMessageState();
   const [messageInput, setMessageInput] = useState("");
 
@@ -40,23 +38,15 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({
 
       // Set up listener for incoming messages
       onReceiveTaxiUpdate((msg) => {
-        console.log("Received SignalR message:", msg);
-
         // If the message is relevant to the currently open chat, add it
         if (msg.senderPersonId === personId) {
-          addMessage({
-            content: msg.content,
-            sentAt: msg.sentAt ?? new Date().toISOString(),
-            receiverPersonId: "YOU", // or your current user's ID
-            senderPersonId: msg.senderPersonId,
-          });
+          getMessagesWithPerson(personId);
         }
       });
     };
 
     initSignalR();
   }, [personId]);
-
   const handleSendMessage = () => {
     if (!messageInput.trim()) return;
 
@@ -68,21 +58,9 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({
     sendMessage(message);
     setMessageInput("");
   };
-
-  const getInitial = () => {
-    if (!personName) return "?";
-    return personName.trim().charAt(0).toUpperCase();
-  };
-
   return (
     <S.ChatWrapper>
       <S.ChatContainer>
-        <S.Header>
-          <Avatar>{getInitial()}</Avatar>
-          <Text style={{ marginLeft: "10px" }}>
-            Chatting with {personName || "Unknown"}
-          </Text>
-        </S.Header>
         <S.MessagesContainer>
           {isPending ? (
             <Spin />

@@ -6,10 +6,9 @@ import {
 } from "./context";
 import { useContext, useReducer } from "react";
 import {
-  sendMessagePending,
+  // sendMessagePending,
   sendMessageSuccess,
   sendMessageError,
-  getMessagesWithPersonPending,
   getMessagesWithPersonSuccess,
   getMessagesWithPersonError,
 } from "./actions";
@@ -27,7 +26,7 @@ export const ChatMessageProvider = ({
   const instance = getAxiosInstance();
 
   const sendMessage = async (sendMessage: ISendMessage) => {
-    dispatch(sendMessagePending());
+    // dispatch(sendMessagePending());
     const endpoint = `/api/services/app/Chat/SendMessage`;
     await instance
       .post(endpoint, sendMessage)
@@ -41,11 +40,11 @@ export const ChatMessageProvider = ({
   };
 
   const addMessage = async (message: IChatMessage) => {
+
     dispatch(addMessageSuccess(message));
   };
 
   const getMessagesWithPerson = async (personId: string) => {
-    dispatch(getMessagesWithPersonPending());
     const endpoint = `/api/services/app/Chat/GetMessagesWithPerson?personId=${personId}`;
     await instance
       .get(endpoint)

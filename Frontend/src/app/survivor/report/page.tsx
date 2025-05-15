@@ -54,7 +54,6 @@ const ReportPage = () => {
       sharedDate: new Date().toISOString(),
     };
     createSexualAssaultReport(completeReport);
-    console.log("Submitted Report:", completeReport);
   };
 
   const handleDownloadPdf = async () => {

@@ -11,9 +11,7 @@ export default function HomePage() {
   useEffect(() => {
     const init = async () => {
       await startConnection();
-
       onReceiveTaxiUpdate((chatDto) => {
-        console.log("Taxi Update Received:", chatDto);
         setMessages((prev) => [...prev, chatDto]);
       });
     };
