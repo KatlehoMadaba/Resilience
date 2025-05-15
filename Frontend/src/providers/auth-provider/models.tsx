@@ -77,9 +77,9 @@ export interface IPastSurvivorRegsister {
   useDisplayNameOnly: boolean;
   sex: number;
   phoneNumber: string;
-  anonymousId: string;
-  isAnonymous: boolean;
-  incidentDate: Date;
+  anonymousId?: string;
+  isAnonymous?: boolean;
+  incidentDate?: Date;
   hasDisclosedBefore: boolean;
   timeElapsedInDays: number;
   recoveryPhase: number;
