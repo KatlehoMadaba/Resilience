@@ -88,12 +88,8 @@ npm install pdf-lib openai uuid
 npm install react-icons
 npm install antd npm install redux-actions npm install @ant-design/icons npm install axios npm install @reduxjs/toolkit react-redux npm install --save-dev @types/react-redux npm install react-toastify npm install --save-dev @types/moment npm install dayjs npm install jwt-decode npm install @react-google-maps/api npm install face-api.js npm install @google/generative-ai npm install lodash.debounc
 
-## Usage
+## Domain Model 
+https://lucid.app/lucidchart/7338e109-1ffd-4efc-b03e-3e10fbf9dd87/edit?invitationId=inv_2a78c6a9-779f-43f8-8ef5-42e0b02ee025
 
-```
-
-```
-
-## Contributing
-
-## License
+## WireFrames
+https://www.figma.com/design/zVLHbj6eqCrTpsQWGdQw98/Untitled?m=auto&t=D5A2T1kNtFhr73B1-6
