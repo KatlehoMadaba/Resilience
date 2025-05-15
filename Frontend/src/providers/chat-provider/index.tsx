@@ -9,7 +9,6 @@ import {
   sendMessagePending,
   sendMessageSuccess,
   sendMessageError,
-  getMessagesWithPersonPending,
   getMessagesWithPersonSuccess,
   getMessagesWithPersonError,
 } from "./actions";
@@ -41,11 +40,11 @@ export const ChatMessageProvider = ({
   };
 
   const addMessage = async (message: IChatMessage) => {
+    debugger;
     dispatch(addMessageSuccess(message));
   };
 
   const getMessagesWithPerson = async (personId: string) => {
-    dispatch(getMessagesWithPersonPending());
     const endpoint = `/api/services/app/Chat/GetMessagesWithPerson?personId=${personId}`;
     await instance
       .get(endpoint)

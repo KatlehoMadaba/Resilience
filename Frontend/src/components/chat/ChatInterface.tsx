@@ -24,8 +24,7 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({
   personId,
   personName,
 }) => {
-  const { getMessagesWithPerson, sendMessage, addMessage } =
-    useChatMessageActions();
+  const { getMessagesWithPerson, sendMessage } = useChatMessageActions();
   const { ChatMessages, isPending } = useChatMessageState();
   const [messageInput, setMessageInput] = useState("");
 
@@ -44,12 +43,7 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({
 
         // If the message is relevant to the currently open chat, add it
         if (msg.senderPersonId === personId) {
-          addMessage({
-            content: msg.content,
-            sentAt: msg.sentAt ?? new Date().toISOString(),
-            receiverPersonId: "YOU", // or your current user's ID
-            senderPersonId: msg.senderPersonId,
-          });
+          getMessagesWithPerson(personId);
         }
       });
     };
@@ -57,6 +51,7 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({
     initSignalR();
   }, [personId]);
 
+  console.log("Chat Messages", ChatMessages);
   const handleSendMessage = () => {
     if (!messageInput.trim()) return;
 

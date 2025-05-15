@@ -67,9 +67,10 @@ export const addMessagePending = createAction<IChatMessageStateContext>(
   () => ({ isPending: true, isSuccess: false, isError: false })
 );
 
+debugger;
 export const addMessageSuccess = createAction<
   IChatMessageStateContext,
-  ISendMessage
+  IChatMessage
 >(ChatMessageActionEnums.sendMessageSuccess, (message: IChatMessage) => ({
   isPending: false,
   isSuccess: true,
