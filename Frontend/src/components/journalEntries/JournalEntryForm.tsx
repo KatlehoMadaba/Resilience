@@ -14,7 +14,7 @@ const JournalEntryForm = () => {
   const { createJournalEntry } = useJournalEntryActions();
   const [privateEntry, setPrivateEntry] = useState(true);
   const [loading, setLoading] = useState(false);
-
+  const { getJournalEntriesByPersonId } = useJournalEntryActions();
   const handleSubmit = async (values: { title: string; entry: string }) => {
     if (!currentSurvivor?.id) {
       message.error("Missing survivor ID");
@@ -34,6 +34,7 @@ const JournalEntryForm = () => {
       await createJournalEntry(newEntry);
       message.success("Journal entry saved 💜");
       form.resetFields();
+      getJournalEntriesByPersonId(currentSurvivor.id);
     } catch {
       message.error("Failed to save entry");
     } finally {

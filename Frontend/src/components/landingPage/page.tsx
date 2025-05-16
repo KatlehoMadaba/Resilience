@@ -168,7 +168,7 @@ const LandingPage = () => {
                 Whether its your first step or the next one on your path, we are
                 honored to provide resources that respect your pace and privacy.
               </Paragraph>
-              <Link href="/resources">
+              <Link href="/checklist">
                 <Button
                   type="primary"
                   size="large"
@@ -233,11 +233,6 @@ const LandingPage = () => {
             is here for you whenever you are ready.
           </Paragraph>
           <Space size="large" className={styles.ctaButtons}>
-            <Link href="/login">
-              <Button type="primary" size="large" className={styles.primaryBtn}>
-                Create Account
-              </Button>
-            </Link>
             <Link href="/checklist">
               <Button size="large" className={styles.secondaryBtn}>
                 Access Resources Now
@@ -246,7 +241,6 @@ const LandingPage = () => {
           </Space>
         </div>
       </section>
-
       {/* Footer with safety exit */}
       <footer className={styles.footer}>
         <div className={styles.footerContent}>

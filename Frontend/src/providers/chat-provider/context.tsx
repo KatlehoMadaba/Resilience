@@ -7,7 +7,7 @@ export interface IChatMessageStateContext {
   isPending: boolean;
   isSuccess: boolean;
   isError: boolean;
-  ChatMessage?: IChatMessage;
+  //ChatMessage?: IChatMessage;
   ChatMessages?: IChatMessage[];
   CountMessages?: number;
 }
@@ -17,6 +17,7 @@ export interface IChatMessageActionContext {
   sendMessage: (sendMessage: ISendMessage) => void;
   getMessagesWithPerson: (personId: string) => void;
   countMessages: (personId: string) => void;
+  addMessage: (message: IChatMessage) => void;
 }
 
 // Initial state with default values

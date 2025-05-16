@@ -1,30 +1,62 @@
 "use client";
 
-import { Typography, Card, List, Tag } from "antd";
+import { Typography, Card, List, Tag, Spin } from "antd";
 import {
   useJournalEntryActions,
   useJournalEntryState,
 } from "@/providers/journal-provider";
-import { useEffect } from "react";
+import { useEffect,useState } from "react";
 import JournalEntryForm from "@/components/journalEntries/JournalEntryForm";
 import styles from "./JournalPage.module.css";
-//import {useSurvivorState,useSurvivorActions} from "@/providers/survivors-provider"
-// import { useUser } from '@/providers/users-providers';
+import { useUserActions} from "@/providers/users-providers";
+import {
+  useSurvivorActions,
+  useSurvivorState,
+} from "@/providers/survivors-provider";
+import router from "next/router";
+
 const { Title, Paragraph, Text } = Typography;
 
 export default function JournalPage() {
-  const { journalEntries } = useJournalEntryState();
+  const { journalEntries, isPending, isSuccess } = useJournalEntryState();
   const { getJournalEntriesByPersonId } = useJournalEntryActions();
- // const { Survivor } = useSurvivorState();
- // const { getCurrentSurvivor } = useSurvivorActions();
-  // const {user}
-  // if (Survivor == null) {
-  //   getCurrentSurvivor();
-  // }
-  
-    useEffect(() => {
-      getJournalEntriesByPersonId("0196c9a3-9c8f-71d4-905d-88c1a72fd629");
-    }, []);
+  const { currentSurvivor } = useSurvivorState();
+  const { getCurrentSurvivor } = useSurvivorActions();
+  const { getCurrentUser } = useUserActions();
+  const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    fetchSurvivorOnReload();
+  }, []);
+
+  const fetchSurvivorOnReload = async () => {
+    const token = sessionStorage.getItem("jwt");
+    if (!token) {
+      router.push("/login");
+      return;
+    }
+    try {
+      const user = await getCurrentUser();
+      await getCurrentSurvivor(user?.id);
+    } catch (err) {
+      console.error("Error loading the Survivor:", err);
+    } finally {
+      console.error();
+    }
+  };
+
+  useEffect(() => {
+    if (currentSurvivor != null) {
+      try {
+        if (isPending) setLoading(true);
+        getJournalEntriesByPersonId(currentSurvivor?.id);
+        if (isSuccess) setLoading(false);
+      } catch {
+        console.error();
+      } finally {
+        setLoading(false);
+      }
+    }
+  }, [currentSurvivor, isPending, isSuccess]);
 
   return (
     <div className={styles.container}>
@@ -39,26 +71,28 @@ export default function JournalPage() {
 
       <div className={styles.entryList}>
         <Title level={3}>Your Past Entries</Title>
-        <List
-          dataSource={journalEntries}
-          renderItem={(entry) => (
-            <List.Item key={entry?.entryDate}>
-              <Card className={styles.entryCard}>
-                <Text type="secondary">
-                  {new Date(entry?.entryDate).toLocaleString()}
-                </Text>
-                <Paragraph style={{ marginTop: 8, whiteSpace: "pre-wrap" }}>
-                  {entry?.content}
-                </Paragraph>
-                <div style={{ marginTop: 8 }}>
-                  {entry?.tags?.map((tag) => (
-                    <Tag key={tag}>{tag}</Tag>
-                  ))}
-                </div>
-              </Card>
-            </List.Item>
-          )}
-        />
+        <Spin spinning={loading}>
+          <List
+            dataSource={journalEntries}
+            renderItem={(entry) => (
+              <List.Item key={entry?.entryDate}>
+                <Card className={styles.entryCard}>
+                  <Text type="secondary">
+                    {new Date(entry?.entryDate).toLocaleString()}
+                  </Text>
+                  <Paragraph style={{ marginTop: 8, whiteSpace: "pre-wrap" }}>
+                    {entry?.content}
+                  </Paragraph>
+                  <div style={{ marginTop: 8 }}>
+                    {entry?.tags?.map((tag) => (
+                      <Tag key={tag}>{tag}</Tag>
+                    ))}
+                  </div>
+                </Card>
+              </List.Item>
+            )}
+          />
+        </Spin>
       </div>
     </div>
   );

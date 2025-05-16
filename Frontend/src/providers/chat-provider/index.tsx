@@ -6,16 +6,16 @@ import {
 } from "./context";
 import { useContext, useReducer } from "react";
 import {
-  sendMessagePending,
+  // sendMessagePending,
   sendMessageSuccess,
   sendMessageError,
-  getMessagesWithPersonPending,
   getMessagesWithPersonSuccess,
   getMessagesWithPersonError,
 } from "./actions";
 import { getAxiosInstance } from "@/utils/axiosInstance";
 import { ChatMessageReducer } from "./reducer";
-import { ISendMessage } from "@/providers/chat-provider/models";
+import { IChatMessage, ISendMessage } from "@/providers/chat-provider/models";
+import { addMessageSuccess } from "./actions";
 
 export const ChatMessageProvider = ({
   children,
@@ -26,7 +26,7 @@ export const ChatMessageProvider = ({
   const instance = getAxiosInstance();
 
   const sendMessage = async (sendMessage: ISendMessage) => {
-    dispatch(sendMessagePending());
+    // dispatch(sendMessagePending());
     const endpoint = `/api/services/app/Chat/SendMessage`;
     await instance
       .post(endpoint, sendMessage)
@@ -38,8 +38,13 @@ export const ChatMessageProvider = ({
         dispatch(sendMessageError());
       });
   };
+
+  const addMessage = async (message: IChatMessage) => {
+
+    dispatch(addMessageSuccess(message));
+  };
+
   const getMessagesWithPerson = async (personId: string) => {
-    dispatch(getMessagesWithPersonPending());
     const endpoint = `/api/services/app/Chat/GetMessagesWithPerson?personId=${personId}`;
     await instance
       .get(endpoint)
@@ -52,7 +57,7 @@ export const ChatMessageProvider = ({
       });
   };
   const countMessages = async (personId: string) => {
-    dispatch(getMessagesWithPersonPending());
+    //dispatch(getMessagesWithPersonPending());
     const endpoint = `/api/services/app/Chat/GetMessageCount?personId=${personId}`;
     await instance
       .get(endpoint)
@@ -68,7 +73,7 @@ export const ChatMessageProvider = ({
   return (
     <ChatMessageStateContext.Provider value={state}>
       <ChatMessageActionContext.Provider
-        value={{ sendMessage, getMessagesWithPerson, countMessages }}
+        value={{ sendMessage, getMessagesWithPerson, countMessages, addMessage }}
       >
         {children}
       </ChatMessageActionContext.Provider>

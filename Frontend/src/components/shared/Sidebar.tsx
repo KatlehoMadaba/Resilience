@@ -11,17 +11,7 @@ import {
   GlobalOutlined, 
   LogoutOutlined 
 } from '@ant-design/icons';
-
-
 import styles from './sidebar.module.css';
-
-// const routeMap = {
-//   dashboard: "/dashboard",
-//   report: "/report",
-//   therapist: "/hospitals",
-//   hospital: "/hospitals",
-//   post: "/createPost",
-// };
 const Sidebar = ({ 
   width = 200,
   onMenuItemClick,

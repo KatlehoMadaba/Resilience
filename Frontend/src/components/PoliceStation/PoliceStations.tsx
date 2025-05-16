@@ -17,18 +17,18 @@ import {
   usePoliceStationState,
   usePoliceStationActions,
 } from "@/providers/police-provider";
-import { usePoliceStyles } from "./styles"; 
+import { usePoliceStyles } from "./styles";
 
 const { Title, Link, Paragraph } = Typography;
 
-const Nearbypolice = () => {
+const NearByPoliceStations = () => {
   const router = useRouter();
   const { getLocation } = useLocationActions();
   const { location, isSuccess, isError } = useLocationState();
   const { getPoliceStations } = usePoliceStationActions();
   const { PoliceStations, isPending: isPolicePending } =
     usePoliceStationState();
-  const { styles } = usePoliceStyles(); 
+  const { styles } = usePoliceStyles();
 
   useEffect(() => {
     getLocation().catch(console.error);
@@ -124,4 +124,4 @@ const Nearbypolice = () => {
   );
 };
 
-export default Nearbypolice;
+export default NearByPoliceStations;
