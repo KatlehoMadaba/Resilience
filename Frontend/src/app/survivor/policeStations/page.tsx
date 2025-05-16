@@ -1,11 +1,14 @@
+"use client";
+import NearByPoliceStations from "@/components/PoliceStation/PoliceStations";
+
 import React from "react";
 
-const PoliceStation = () => {
+const PoliceStations = () => {
   return (
-    <div>
-      <p>Police Station</p>
-    </div>
+    <>
+      <NearByPoliceStations />
+    </>
   );
 };
 
-export default PoliceStation;
+export default PoliceStations;
