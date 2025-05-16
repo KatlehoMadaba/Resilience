@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import {Input, List, Spin, Typography, Button } from "antd";
+import { Input, List, Spin, Typography, Button } from "antd";
 import {
   startConnection,
   onReceiveTaxiUpdate,
@@ -20,9 +20,7 @@ interface ChatInterfaceProps {
   personName?: string;
 }
 
-const ChatInterface: React.FC<ChatInterfaceProps> = ({
-  personId,
-}) => {
+const ChatInterface: React.FC<ChatInterfaceProps> = ({ personId }) => {
   const { getMessagesWithPerson, sendMessage } = useChatMessageActions();
   const { ChatMessages, isPending } = useChatMessageState();
   const [messageInput, setMessageInput] = useState("");
@@ -44,18 +42,17 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({
         }
       });
     };
-
     initSignalR();
   }, [personId]);
   const handleSendMessage = () => {
     if (!messageInput.trim()) return;
-
     const message: ISendMessage = {
       receiverPersonId: personId,
       content: messageInput.trim(),
     };
 
     sendMessage(message);
+    getMessagesWithPerson(personId);
     setMessageInput("");
   };
   return (

@@ -1,49 +1,48 @@
-
 import { createStyles } from "antd-style";
 
 const colors = {
-    primary: "#9E9AC8", 
+  primary: "#9E9AC8",
 };
 
-export const usePoliceStyles = createStyles(({ css, token }) => {
-    token.colorPrimary = colors.primary;
+export const useHospitalStyles = createStyles(({ css, token }) => {
+  token.colorPrimary = colors.primary;
 
-    return {
-        page: css`
+  return {
+    page: css`
       padding: 2rem;
       min-height: 100vh;
       display: flex;
       justify-content: center; /* Center horizontally */
-      align-items: center;     /* Center vertically */
+      align-items: center; /* Center vertically */
       background-color: ${token.colorBgLayout};
       flex-direction: column;
-      text-align: center;      /* Center text */
+      text-align: center; /* Center text */
     `,
-        title: css`
+    title: css`
       color: ${token.colorPrimary};
       font-size: 2.7rem;
       font-weight: 800;
       margin-bottom: 2rem;
     `,
-        subtitle: css`
+    subtitle: css`
       font-size: 1.2rem;
       color: ${token.colorTextSecondary};
       max-width: 650px;
       margin: 0 auto;
       line-height: 1.6;
     `,
-        spinnerWrapper: css`
+    spinnerWrapper: css`
       display: flex;
       justify-content: center;
       margin: 2rem 0;
     `,
-        error: css`
+    error: css`
       color: ${token.colorError};
       font-size: 1rem;
       margin: 1rem 0;
       text-align: center;
     `,
-        card: css`
+    card: css`
       border-radius: 12px;
       padding: 1.5rem;
       background-color: ${token.colorBgContainer};
@@ -57,22 +56,22 @@ export const usePoliceStyles = createStyles(({ css, token }) => {
         border-color: ${token.colorPrimary}; /* Darker on hover */
       }
     `,
-        cardTitle: css`
+    cardTitle: css`
       color: ${token.colorPrimary};
       font-size: 1.4rem;
       font-weight: 700;
       margin-bottom: 1rem;
     `,
-        info: css`
+    info: css`
       font-size: 1.15rem;
       margin: 0.6rem 0;
     `,
-        icon: css`
+    icon: css`
       font-size: 1.8rem;
       margin-right: 12px;
       color: ${token.colorPrimary};
     `,
-        locationBox: css`
+    locationBox: css`
       border-radius: 12px;
       padding: 2rem;
       text-align: center;
@@ -85,14 +84,14 @@ export const usePoliceStyles = createStyles(({ css, token }) => {
       background-color: ${token.colorInfo};
       color: ${token.colorText};
     `,
-        locationIcon: css`
+    locationIcon: css`
       font-size: 3.2rem;
     `,
-        supportiveMessage: css`
+    supportiveMessage: css`
       font-size: 1.15rem;
       text-align: center;
     `,
-        nextButton: css`
+    nextButton: css`
       border-radius: 8px;
       padding: 0 2rem;
       height: 42px;
@@ -105,5 +104,5 @@ export const usePoliceStyles = createStyles(({ css, token }) => {
         background-color: ${token.colorPrimary}dd;
       }
     `,
-    };
+  };
 });
