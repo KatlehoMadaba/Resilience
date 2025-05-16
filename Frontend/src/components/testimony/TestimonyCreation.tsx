@@ -10,7 +10,7 @@ import { ITestimony } from "@/providers/testimony-provider/models";
 
 const TestimonyForm = () => {
   const { currentSurvivor } = useSurvivorState();
-  const { createTestimony } = useTestimonyActions();
+  const { createTestimony} = useTestimonyActions();
   const { isSuccess, isPending, isError } = useTestimonyState();
   const [loading, setLoading] = useState(false);
 
@@ -34,7 +34,6 @@ const TestimonyForm = () => {
       if (isPending) {
         setLoading(true);
       }
-
       createTestimony(Testimony);
     } catch (error) {
       console.error("Error submitting Testimony entry:", error);
@@ -50,3 +49,5 @@ const TestimonyForm = () => {
 };
 
 export default TestimonyForm;
+
+

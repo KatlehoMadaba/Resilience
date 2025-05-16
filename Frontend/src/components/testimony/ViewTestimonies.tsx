@@ -8,8 +8,7 @@ import {
 const ViewTestimonies = () => {
   const { testimonies } = useTestimonyState();
   const { getAllTestimonies } = useTestimonyActions();
-
-  // Ensure testimonies are fetched once when the component mounts
+  
   useEffect(() => {
     if (!testimonies || testimonies.length === 0) {
       getAllTestimonies();

@@ -57,7 +57,7 @@ export const ChatMessageProvider = ({
       });
   };
   const countMessages = async (personId: string) => {
-    dispatch(getMessagesWithPersonPending());
+    //dispatch(getMessagesWithPersonPending());
     const endpoint = `/api/services/app/Chat/GetMessageCount?personId=${personId}`;
     await instance
       .get(endpoint)
