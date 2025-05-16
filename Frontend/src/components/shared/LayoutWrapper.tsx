@@ -8,12 +8,9 @@ const SurvivorLayout = dynamic(() => import("@/app/survivor/layout"), {
   loading: () => <div>Loading...</div>,
 });
 
-const ProfessionalLayout = dynamic(
-  () => import("@/app/survivor/professional/layout"),
-  {
-    loading: () => <div>Loading...</div>,
-  }
-);
+const ProfessionalLayout = dynamic(() => import("@/app/professional/layout"), {
+  loading: () => <div>Loading...</div>,
+});
 
 const LayoutWrapper = ({ children }) => {
   const [userRole, setUserRole] = useState("");

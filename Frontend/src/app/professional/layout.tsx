@@ -8,7 +8,7 @@ import {
 } from "@ant-design/icons";
 import { useRouter } from "next/navigation";
 import withAuth from "@/hoc/withAuth";
-import { useStyles } from "../../style/styles";
+import { useStyles } from "../style/styles";
 
 const { Sider, Content } = Layout;
 
