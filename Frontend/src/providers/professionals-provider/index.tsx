@@ -113,14 +113,16 @@ export const ProfessionalProvider = ({
         dispatch(getProfessionalError());
       });
   };
-  const getCurrentProfessional = async (): Promise<IProfessional | null> => {
+  const getCurrentProfessional = async (
+    userId: number
+  ): Promise<IProfessional | null> => {
     dispatch(getCurrentProfessionalPending());
-    const endpoint = `/api/services/app/Session/GetCurrentLoginInformations`;
+    const endpoint = `/api/services/app/Professional/GetCurrentProfessional?userId=${userId}`;
     return instance
       .get(endpoint)
       .then((response) => {
         if (response?.data?.result) {
-          dispatch(getCurrentProfessionalSuccess(response?.data?.result?.user));
+          dispatch(getCurrentProfessionalSuccess(response?.data?.result));
           return response?.data?.result?.user;
         } else {
           console.warn("No user data found in response");

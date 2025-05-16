@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Layout, Menu, Button, Popconfirm } from "antd";
 import {
   HomeOutlined,
@@ -15,7 +15,11 @@ import { useRouter } from "next/navigation";
 import withAuth from "@/hoc/withAuth";
 import { useStyles } from "../style/styles";
 import Phoenix from "@/components/aiagent/Phoenix";
-
+import { useUserActions } from "@/providers/users-providers";
+import {
+  useSurvivorActions,
+  useSurvivorState,
+} from "@/providers/survivors-provider";
 const { Sider, Content } = Layout;
 
 const survivorsNavigationItems = [
@@ -47,12 +51,31 @@ const survivorsNavigationItems = [
 const SurvivorLayout = ({ children }) => {
   const router = useRouter();
   const [collapsed, setCollapsed] = useState(false);
+
+  const { getCurrentUser } = useUserActions();
+  const { getCurrentSurvivor } = useSurvivorActions();
+  const { currentSurvivor } = useSurvivorState();
+
+  useEffect(() => {
+    fetchSurvivorOnReload();
+  }, []);
+  const fetchSurvivorOnReload = async () => {
+    try {
+      const user = await getCurrentUser();
+      await getCurrentSurvivor(user.id);
+    } catch (err) {
+      console.error("Error loading the Survivor:", err);
+    }
+  };
   const { styles } = useStyles();
-  const userName = "John Doe";
+
+  const userName = currentSurvivor?.name || "";
   const userInitials = userName
-    .split(" ")
-    .map((word) => word[0])
-    .join("");
+    ? userName
+        .split(" ")
+        .map((word) => word[0])
+        .join("")
+    : "JD";
   const handleLogout = () => {
     sessionStorage.removeItem("jwt");
     router.push("/login");
@@ -105,7 +128,7 @@ const SurvivorLayout = ({ children }) => {
         <Content className={styles.content}>{children}</Content>
       </Layout>
       <div className="md:hidden">
-        <Phoenix/>
+        <Phoenix />
       </div>
     </Layout>
   );
