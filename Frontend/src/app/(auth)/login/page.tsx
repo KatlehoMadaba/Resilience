@@ -33,7 +33,7 @@ const LoginPage = () => {
       if (role === "generalsupporter") {
         router.push("/supporter");
       } else if (role === "professional") {
-        router.push("/chatSession");
+        router.push("/professional");
       } else if (role === "pastsurvivor") {
         router.push("/survivor");
       } else if (role === "immediatesurvivor") {
