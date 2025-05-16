@@ -7,7 +7,7 @@ export interface IChatMessageStateContext {
   isPending: boolean;
   isSuccess: boolean;
   isError: boolean;
-  ChatMessage?: IChatMessage;
+  //ChatMessage?: IChatMessage;
   ChatMessages?: IChatMessage[];
   CountMessages?: number;
 }

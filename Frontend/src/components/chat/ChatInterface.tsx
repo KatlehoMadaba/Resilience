@@ -1,7 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Avatar, Input, List, Spin, Typography, Button } from "antd";
+import {Input, List, Spin, Typography, Button } from "antd";
+import {
+  startConnection,
+  onReceiveTaxiUpdate,
+} from "../../../src/app/lib/signalr";
 import { ISendMessage } from "@/providers/chat-provider/models";
 import {
   useChatMessageActions,
@@ -18,7 +22,6 @@ interface ChatInterfaceProps {
 
 const ChatInterface: React.FC<ChatInterfaceProps> = ({
   personId,
-  personName,
 }) => {
   const { getMessagesWithPerson, sendMessage } = useChatMessageActions();
   const { ChatMessages, isPending } = useChatMessageState();
@@ -28,8 +31,22 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({
     if (personId) {
       getMessagesWithPerson(personId);
     }
-  }, [personId]);
 
+    // Initialize SignalR connection
+    const initSignalR = async () => {
+      await startConnection();
+
+      // Set up listener for incoming messages
+      onReceiveTaxiUpdate((msg) => {
+        // If the message is relevant to the currently open chat, add it
+        if (msg.senderPersonId === personId) {
+          getMessagesWithPerson(personId);
+        }
+      });
+    };
+
+    initSignalR();
+  }, [personId]);
   const handleSendMessage = () => {
     if (!messageInput.trim()) return;
 
@@ -41,21 +58,9 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({
     sendMessage(message);
     setMessageInput("");
   };
-
-  const getInitial = () => {
-    if (!personName) return "?";
-    return personName.trim().charAt(0).toUpperCase();
-  };
-
   return (
     <S.ChatWrapper>
       <S.ChatContainer>
-        <S.Header>
-          <Avatar>{getInitial()}</Avatar>
-          <Text style={{ marginLeft: "10px" }}>
-            Chatting with {personName || "Unknown"}
-          </Text>
-        </S.Header>
         <S.MessagesContainer>
           {isPending ? (
             <Spin />

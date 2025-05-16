@@ -17,6 +17,19 @@ export const ChatMessageReducer = handleActions<IChatMessageStateContext>(
       ...state,
       ...action.payload,
     }),
+
+    [ChatMessageActionEnums.addMessagePending]: (state, action) => ({
+      ...state,
+      ...action.payload,
+    }),
+    [ChatMessageActionEnums.addMessageSuccess]: (state, action) => ({
+      ...state,
+      ...action.payload,
+    }),
+    [ChatMessageActionEnums.addMessageError]: (state, action) => ({
+      ...state,
+      ...action.payload,
+    }),
     [ChatMessageActionEnums.getMessagesWithPersonPending]: (state, action) => ({
       ...state,
       ...action.payload,
