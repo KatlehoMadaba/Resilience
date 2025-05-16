@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Layout, Menu, Button, Popconfirm } from "antd";
 import {
   HomeOutlined,
@@ -9,7 +9,11 @@ import {
 import { useRouter } from "next/navigation";
 import withAuth from "@/hoc/withAuth";
 import { useStyles } from "../style/styles";
-
+import { useUserActions} from "@/providers/users-providers";
+import {
+  useProfessionalActions,
+  useProfessionalState,
+} from "@/providers/professionals-provider";
 const { Sider, Content } = Layout;
 
 const professionalNavigationItems = [
@@ -20,12 +24,30 @@ const professionalNavigationItems = [
 const ProfessionalLayout = ({ children }) => {
   const router = useRouter();
   const [collapsed, setCollapsed] = useState(false);
+ const { getCurrentUser } = useUserActions();
+  const { getCurrentProfessional } = useProfessionalActions();
+  const { currentProfessional } = useProfessionalState();
+
+  useEffect(() => {
+      fetchSurvivorOnReload();
+  }, []);
+    const fetchSurvivorOnReload = async () => {
+      try {
+        const user = await getCurrentUser();
+        await getCurrentProfessional(user.id);
+      } catch (err) {
+        console.error("Error loading the Survivor:", err);
+      }
+    };
   const { styles } = useStyles();
-  const userName = "John Doe";
+
+  const userName = currentProfessional?.name||"";
   const userInitials = userName
+    ?userName
     .split(" ")
     .map((word) => word[0])
-    .join("");
+    .join("")
+      :"JD"
   const handleLogout = () => {
     sessionStorage.removeItem("jwt");
     router.push("/login");
