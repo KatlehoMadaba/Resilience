@@ -14,8 +14,8 @@ import {
 } from "./actions";
 import { getAxiosInstance } from "@/utils/axiosInstance";
 import { ChatMessageReducer } from "./reducer";
-import { IChatMessage, ISendMessage } from "@/providers/chat-provider/models";
-import { addMessageSuccess } from "./actions";
+import { ISendMessage } from "./models";
+
 
 export const ChatMessageProvider = ({
   children,
@@ -39,10 +39,10 @@ export const ChatMessageProvider = ({
       });
   };
 
-  const addMessage = async (message: IChatMessage) => {
+  // const addMessage = async (message: IChatMessage) => {
 
-    dispatch(addMessageSuccess(message));
-  };
+  //   dispatch(addMessageSuccess(message));
+  // };
 
   const getMessagesWithPerson = async (personId: string) => {
     const endpoint = `/api/services/app/Chat/GetMessagesWithPerson?personId=${personId}`;
@@ -57,7 +57,7 @@ export const ChatMessageProvider = ({
       });
   };
   const countMessages = async (personId: string) => {
-    dispatch(getMessagesWithPersonPending());
+    // dispatch(getMessagesWithPersonPending());
     const endpoint = `/api/services/app/Chat/GetMessageCount?personId=${personId}`;
     await instance
       .get(endpoint)
