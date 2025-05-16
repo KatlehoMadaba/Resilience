@@ -105,4 +105,42 @@
   .buttonLink span {
     display: none;
   }
+
+
+  .headerRight button {
+    padding: 0 8px;
+    height: 28px;
+    font-size: 12px;
+    min-width: 32px;
+  }
+
+  .sosButton {
+    padding: 0 8px;
+    height: 28px;
+    font-size: 12px;
+  }
+
+
+  .headerRight .ant-space {
+    gap: 8px !important;
+  }
+
+  .headerLogo {
+    height: 32px;
+    width: 32px;
+  }
+
+  .header {
+    height: 56px;
+    padding: 0 0.5rem;
+  }
+
+  .logoContainer {
+    height: 56px;
+  }
+
+
+  .logoText {
+    font-size: 16px;
+  }
 }
