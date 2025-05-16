@@ -40,7 +40,7 @@ const NearbyMedicalCenters = () => {
   }, [location, isSuccess]);
 
   const handleNextClick = () => {
-    router.push("/policeStations");
+    router.push("/Police");
   };
   return (
     <div className={styles.page}>
