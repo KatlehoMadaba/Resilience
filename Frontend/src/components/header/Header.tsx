@@ -2,7 +2,6 @@
 import React, { useState } from "react";
 import { Layout, Button, Space, Typography } from "antd";
 import Link from "next/link";
-import { LoginOutlined } from "@ant-design/icons";
 import styles from "./Header.module.css";
 import SupportModal from "../supportModal/SupportModal";
 
@@ -59,16 +58,6 @@ const ResilienceHeader: React.FC = () => {
               className={styles.sosButton}
             >
               Emergency SOS
-            </Button>
-            <Button type="primary" size="middle" icon={<LoginOutlined />}>
-              <Link href="/login" className={styles.buttonLink}>
-                Login
-              </Link>
-            </Button>
-            <Button className={styles.signupButton} size="middle">
-              <Link href="/roleSelectionPage" className={styles.buttonLink}>
-                Sign Up
-              </Link>
             </Button>
           </Space>
         </div>
