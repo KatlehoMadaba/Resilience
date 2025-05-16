@@ -14,8 +14,8 @@ import {
 } from "./actions";
 import { getAxiosInstance } from "@/utils/axiosInstance";
 import { ChatMessageReducer } from "./reducer";
-import { IChatMessage, ISendMessage } from "@/providers/chat-provider/models";
-import { addMessageSuccess } from "./actions";
+import { ISendMessage } from "./models";
+
 
 export const ChatMessageProvider = ({
   children,
@@ -39,10 +39,10 @@ export const ChatMessageProvider = ({
       });
   };
 
-  const addMessage = async (message: IChatMessage) => {
+  // const addMessage = async (message: IChatMessage) => {
 
-    dispatch(addMessageSuccess(message));
-  };
+  //   dispatch(addMessageSuccess(message));
+  // };
 
   const getMessagesWithPerson = async (personId: string) => {
     const endpoint = `/api/services/app/Chat/GetMessagesWithPerson?personId=${personId}`;
@@ -56,10 +56,26 @@ export const ChatMessageProvider = ({
         dispatch(getMessagesWithPersonError());
       });
   };
+  const countMessages = async (personId: string) => {
+    // dispatch(getMessagesWithPersonPending());
+    const endpoint = `/api/services/app/Chat/GetMessageCount?personId=${personId}`;
+    await instance
+      .get(endpoint)
+      .then((response) => {
+        dispatch(getMessagesWithPersonSuccess(response?.data?.result));
+        console.log("here is the count success:", response?.data?.result);
+      })
+      .catch((error) => {
+        console.error("Error fetching messages for getting chats:", error);
+        console.log("here is the count success:");
+        dispatch(getMessagesWithPersonError());
+      });
+  };
+
   return (
     <ChatMessageStateContext.Provider value={state}>
       <ChatMessageActionContext.Provider
-        value={{ sendMessage, getMessagesWithPerson, addMessage }}
+        value={{ sendMessage, getMessagesWithPerson, countMessages }}
       >
         {children}
       </ChatMessageActionContext.Provider>

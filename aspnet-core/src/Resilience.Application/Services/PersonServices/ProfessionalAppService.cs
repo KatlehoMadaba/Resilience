@@ -56,7 +56,7 @@ namespace Resilience.Services.PersonServices
             return Professional;
         }
 
-        public async Task<ProfessionalResponseDto> GetCurrentSurvivorAsync(long userId)
+        public async Task<ProfessionalResponseDto> GetCurrentProfessionalAsync(long userId)
         {
             var Professional = await _ProfessionalManager.GetProfessionalByUserIdAsync(userId);
             return _mapper.Map<Professional, ProfessionalResponseDto>(Professional);

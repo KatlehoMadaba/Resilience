@@ -1,6 +1,6 @@
 "use client";
 import { createContext } from "react";
-import { IChatMessage, ISendMessage } from "./models";
+import { IChatMessage, ISendMessage} from "./models";
 
 // Context shape interface
 export interface IChatMessageStateContext {
@@ -9,13 +9,14 @@ export interface IChatMessageStateContext {
   isError: boolean;
   //ChatMessage?: IChatMessage;
   ChatMessages?: IChatMessage[];
+  CountMessages?: number;
 }
 
 // ChatMessage action context interface
 export interface IChatMessageActionContext {
   sendMessage: (sendMessage: ISendMessage) => void;
   getMessagesWithPerson: (personId: string) => void;
-  addMessage: (message: IChatMessage) => void;
+  countMessages: (personId: string) => void;
 }
 
 // Initial state with default values

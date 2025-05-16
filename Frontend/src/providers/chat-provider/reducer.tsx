@@ -2,7 +2,6 @@
 import { handleActions } from "redux-actions";
 import { ChatMessageActionEnums } from "./actions";
 import { IChatMessageStateContext, INITIAL_STATE } from "./context";
-
 // Define the reducer for handling ChatMessage actions
 export const ChatMessageReducer = handleActions<IChatMessageStateContext>(
   {
@@ -40,6 +39,18 @@ export const ChatMessageReducer = handleActions<IChatMessageStateContext>(
       ...action.payload,
     }),
     [ChatMessageActionEnums.getMessagesWithPersonError]: (state, action) => ({
+      ...state,
+      ...action.payload,
+    }),
+    [ChatMessageActionEnums.countMessagesPending]: (state, action) => ({
+      ...state,
+      ...action.payload,
+    }),
+    [ChatMessageActionEnums.countMessagesSuccess]: (state, action) => ({
+      ...state,
+      ...action.payload,
+    }),
+    [ChatMessageActionEnums.countMessagesError]: (state, action) => ({
       ...state,
       ...action.payload,
     }),

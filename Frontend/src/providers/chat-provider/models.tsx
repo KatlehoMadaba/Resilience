@@ -1,3 +1,5 @@
+
+
 export interface IChatMessage {
   id?: string;
   senderPersonId: string;
@@ -10,3 +12,9 @@ export interface ISendMessage {
   receiverPersonId: string;
   content: string;
 }
+export interface IGetAllMessagesWithWithPersonId {
+  id: string;
+}
+// export interface IMessageCount{
+//   result:number
+// }
