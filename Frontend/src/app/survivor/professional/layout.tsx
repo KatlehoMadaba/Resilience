@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Layout, Menu, Button, Popconfirm } from "antd";
 import {
   HomeOutlined,
@@ -8,7 +8,8 @@ import {
 } from "@ant-design/icons";
 import { useRouter } from "next/navigation";
 import withAuth from "@/hoc/withAuth";
-import { useStyles } from "../../style/styles";
+import { useStyles } from "../style/styles";
+import {useUserActions, useUserState} from "@/providers/users-providers/index"
 
 const { Sider, Content } = Layout;
 
@@ -18,10 +19,13 @@ const professionalNavigationItems = [
 ];
 
 const ProfessionalLayout = ({ children }) => {
+  const { getCurrentUser } = useUserActions();
+  const { currentUser } = useUserState();
   const router = useRouter();
+  const [user, setUser] = useState(null);
   const [collapsed, setCollapsed] = useState(false);
   const { styles } = useStyles();
-  const userName = "John Doe";
+  const userName = user ? currentUser?.name: ""
   const userInitials = userName
     .split(" ")
     .map((word) => word[0])
@@ -30,6 +34,24 @@ const ProfessionalLayout = ({ children }) => {
     sessionStorage.removeItem("jwt");
     router.push("/login");
   };
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const token = sessionStorage.getItem("jwt");
+        if (token) {
+          const userData = await getCurrentUser();
+          setUser(userData);
+        }
+      } catch (error) {
+        console.error("Error fetching user:", error);
+      } finally {
+      }
+    };
+
+    fetchUser();
+  }, []);
+  
 
   return (
     <Layout className={styles.layoutContainer}>

@@ -15,7 +15,7 @@ export interface IProfessionalStateContext {
 
 // Professional action context interface
 export interface IProfessionalActionContext {
-  getCurrentProfessional: () => Promise<IProfessional>;
+  getCurrentProfessional: (userId: number) => void;
   getProfessionals: () => void; // Fetch all Professionals
   getProfessional: (id: string) => void; // Fetch a single Professional
   createProfessional: (Professional: IProfessionalRegister) => void; // Create a new Professional
