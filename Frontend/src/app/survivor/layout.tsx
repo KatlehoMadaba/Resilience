@@ -105,7 +105,7 @@ const SurvivorLayout = ({ children }) => {
         <Content className={styles.content}>{children}</Content>
       </Layout>
       <div className="md:hidden">
-        <Phoenix/>
+        <Phoenix />
       </div>
     </Layout>
   );
